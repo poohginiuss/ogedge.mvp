@@ -138,15 +138,17 @@ export function ServicesConfig() {
 
   const divisionLabel = divisions[selectedDivision];
 
-  const [countdown, setCountdown] = useState(() => {
-    const now = new Date();
-    const endOfWeek = new Date(now);
-    endOfWeek.setDate(now.getDate() + (7 - now.getDay()));
-    endOfWeek.setHours(23, 59, 59, 0);
-    return Math.max(0, Math.floor((endOfWeek.getTime() - now.getTime()) / 1000));
-  });
+  const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
+    const calcRemaining = () => {
+      const now = new Date();
+      const endOfWeek = new Date(now);
+      endOfWeek.setDate(now.getDate() + (7 - now.getDay()));
+      endOfWeek.setHours(23, 59, 59, 0);
+      return Math.max(0, Math.floor((endOfWeek.getTime() - now.getTime()) / 1000));
+    };
+    setCountdown(calcRemaining());
     const id = setInterval(() => setCountdown((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(id);
   }, []);
