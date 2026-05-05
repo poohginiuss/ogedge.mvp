@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
+import { GameSelector } from "@/components/layout/GameSelector";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -22,6 +23,7 @@ const rightNav: NavLink[] = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [gameMenuOpen, setGameMenuOpen] = useState(false);
 
   return (
     <header
@@ -32,6 +34,10 @@ export function Header() {
         <div className="flex items-center gap-6 lg:gap-8">
           <button
             type="button"
+            onClick={() => {
+              setGameMenuOpen(true);
+              setMobileMenuOpen(false);
+            }}
             className="inline-flex items-center justify-center rounded-2xl border-2 border-brand-light px-4 py-3 text-xs font-bold uppercase tracking-[0.32px] text-white transition-colors hover:bg-brand-light/10 lg:px-8 lg:py-6 lg:text-base"
             style={{ boxShadow: "0 4px 44px rgba(255,92,0,0.20)" }}
           >
@@ -108,6 +114,8 @@ export function Header() {
           </button>
         </div>
       </div>
+
+      <GameSelector isOpen={gameMenuOpen} onClose={() => setGameMenuOpen(false)} />
 
       {/* Mobile menu drawer */}
       {mobileMenuOpen && (
