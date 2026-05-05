@@ -1,7 +1,7 @@
 "use client";
 
+import { ArrowRightIcon, ChevronDownIcon, ChevronUpIcon } from "@/components/icons";
 import { useState } from "react";
-import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 
 type Tab = {
   id: string;
@@ -31,8 +31,7 @@ const questions: Question[] = [
       "Yes, we offer duo queue options where you can play alongside your booster. This way, you can learn from their gameplay while ranking up together.",
   },
   {
-    question:
-      "How much do I have to wait for my order to start after buying?",
+    question: "How much do I have to wait for my order to start after buying?",
     answer:
       "Most orders start within 2 hours of purchase. Priority orders begin even faster, often within 30 minutes.",
   },
@@ -47,8 +46,7 @@ const questions: Question[] = [
       "After purchasing, you will be redirected to your personal dashboard where you can track real-time progress, chat with your booster, and view order updates.",
   },
   {
-    question:
-      "Can I choose a specific booster and the roles or heroes which I want him to play?",
+    question: "Can I choose a specific booster and the roles or heroes which I want him to play?",
     answer:
       "Absolutely. You can specify preferred roles, agents, and even request a specific booster from our roster if they are available.",
   },
@@ -59,9 +57,9 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="w-full bg-bg-page">
+    <section className="w-full bg-dark-main">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]">
-        <h2 className="text-center font-lexend text-3xl md:text-4xl font-bold text-white">
+        <h2 className="text-center font-heading text-3xl md:text-4xl font-bold text-white">
           Frequently Asked Questions
         </h2>
 
@@ -73,7 +71,7 @@ export function Faq() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`font-urbanist text-base lg:text-xl uppercase tracking-[0.4px] transition-all ${
+                className={`font-body text-base lg:text-xl uppercase tracking-[0.4px] transition-all ${
                   active
                     ? "rounded-3xl px-6 py-4 lg:px-8 lg:py-6 font-bold text-white"
                     : "px-2 py-2 font-semibold text-white/70 hover:text-white"
@@ -114,18 +112,18 @@ export function Faq() {
                   onClick={() => setOpenIndex(isOpen ? -1 : i)}
                   aria-expanded={isOpen}
                 >
-                  <span className="font-urbanist text-base lg:text-xl font-medium leading-7 text-white pr-4">
+                  <span className="font-body text-base lg:text-xl font-medium leading-7 text-white pr-4">
                     {q.question}
                   </span>
                   {isOpen ? (
-                    <ChevronUp size={22} className="shrink-0 text-white/70" />
+                    <ChevronUpIcon size={22} className="shrink-0 text-white/70" />
                   ) : (
-                    <ChevronDown size={22} className="shrink-0 text-white/70" />
+                    <ChevronDownIcon size={22} className="shrink-0 text-white/70" />
                   )}
                 </button>
                 {isOpen && (
                   <div className="px-6 pb-5 lg:px-8 lg:pb-6">
-                    <p className="font-urbanist text-sm lg:text-base leading-6 text-white/90">
+                    <p className="font-body text-sm lg:text-base leading-6 text-white/90">
                       {q.answer}
                     </p>
                   </div>
@@ -138,10 +136,10 @@ export function Faq() {
         <div className="mt-10 flex justify-center">
           <button
             type="button"
-            className="inline-flex items-center gap-2 font-urbanist text-base font-bold uppercase tracking-[0.32px] text-white hover:text-brand-light transition-colors"
+            className="inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white hover:text-brand-light transition-colors"
           >
             Explore all questions
-            <ArrowRight size={18} />
+            <ArrowRightIcon size={18} />
           </button>
         </div>
       </div>

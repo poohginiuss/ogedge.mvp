@@ -25,7 +25,7 @@ export function Button({
   const textSize = isLarge ? "text-xl tracking-[0.4px]" : "text-base tracking-[0.32px]";
 
   const base =
-    "inline-flex items-center justify-center rounded-3xl font-urbanist font-bold uppercase transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-light/60 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center rounded-3xl font-body font-bold uppercase transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-light/60 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const padding = variant === "link" ? "" : "px-8 py-6";
 
@@ -41,8 +41,7 @@ export function Button({
       };
       break;
     case "secondary":
-      variantClasses =
-        "text-white border-2 border-[#ff975d] backdrop-blur-[3px]";
+      variantClasses = "text-white border-2 border-[#ff975d] backdrop-blur-[3px]";
       variantStyle = {
         background: "rgba(23,25,31,0.5)",
         boxShadow: "0 4px 22px rgba(255,92,0,0.2)",
@@ -65,11 +64,7 @@ export function Button({
       {...rest}
     >
       <span className="leading-6">{children}</span>
-      {icon && (
-        <span className="ml-2 flex items-center justify-center">
-          {icon}
-        </span>
-      )}
+      {icon && <span className="ml-2 flex items-center justify-center">{icon}</span>}
     </button>
   );
 }

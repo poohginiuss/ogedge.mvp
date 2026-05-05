@@ -45,18 +45,17 @@ const features: Feature[] = [
 
 export function WhyChooseUs() {
   return (
-    <section id="about" className="w-full bg-bg-page">
+    <section id="about" className="w-full bg-dark-main">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]">
         <div className="flex flex-col gap-8">
           <div>
-            <h2 className="font-lexend text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-              Why Choose <span className="text-brand">OGEdge</span>
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+              Why Choose <span className="text-brand-main">OGEdge</span>
             </h2>
-            <p className="mt-4 font-urbanist text-base md:text-lg lg:text-xl text-white/90 leading-7 lg:leading-8">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            <p className="mt-4 font-body text-base md:text-lg lg:text-xl text-white/90 leading-7 lg:leading-8">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>
           </div>
 
@@ -73,16 +72,11 @@ export function WhyChooseUs() {
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={f.icon}
-                  alt=""
-                  loading="lazy"
-                  className="h-6 w-6"
-                />
-                <h3 className="font-urbanist text-lg lg:text-xl font-bold text-brand">
+                <img src={f.icon} alt="" loading="lazy" className="h-6 w-6" />
+                <h3 className="font-body text-lg lg:text-xl font-bold text-brand-main">
                   {f.title}
                 </h3>
-                <p className="font-urbanist text-sm md:text-base text-white/80 leading-6">
+                <p className="font-body text-sm md:text-base text-white/80 leading-6">
                   {f.description}
                 </p>
               </div>

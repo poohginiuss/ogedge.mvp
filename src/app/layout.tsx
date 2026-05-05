@@ -28,13 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${lexend.variable} ${urbanist.variable} h-full antialiased`}
-    >
-      <body className="min-h-full font-urbanist bg-bg-page text-white">
-        {children}
-      </body>
+    <html lang="en" className={`${lexend.variable} ${urbanist.variable} h-full antialiased`}>
+      <body className="min-h-full font-body bg-dark-main text-white">{children}</body>
     </html>
   );
 }

@@ -97,15 +97,13 @@ export function Reviews() {
 
   const scrollByCard = (dir: 1 | -1) => {
     if (!scrollRef.current) return;
-    const card = scrollRef.current.querySelector(
-      "[data-review-card]",
-    ) as HTMLElement | null;
+    const card = scrollRef.current.querySelector("[data-review-card]") as HTMLElement | null;
     const step = card ? card.offsetWidth + 24 : 446;
     scrollRef.current.scrollBy({ left: dir * step, behavior: "smooth" });
   };
 
   return (
-    <section className="relative w-full bg-bg-page overflow-hidden">
+    <section className="relative w-full bg-dark-main overflow-hidden">
       <div className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]">
         {/* Desktop layout: image left, text right */}
         <div className="hidden lg:grid grid-cols-[525px_1fr] gap-10 items-center">
@@ -127,7 +125,7 @@ export function Reviews() {
           </div>
 
           <div className="flex flex-col gap-8">
-            <h2 className="font-lexend text-4xl font-bold text-white">
+            <h2 className="font-heading text-4xl font-bold text-white">
               What our players are saying
             </h2>
 
@@ -141,25 +139,18 @@ export function Reviews() {
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/icons/reviews/star.svg"
-                alt=""
-                loading="lazy"
-                className="h-7 w-7"
-              />
+              <img src="/images/icons/reviews/star.svg" alt="" loading="lazy" className="h-7 w-7" />
               <span
-                className="font-urbanist text-xl font-bold text-brand-light"
+                className="font-body text-xl font-bold text-brand-light"
                 style={{ textShadow: "0 0 12px rgba(255,151,93,0.6)" }}
               >
                 4.9 Star Rating
               </span>
-              <span className="font-urbanist text-lg text-white">
-                10k Reviews
-              </span>
+              <span className="font-body text-lg text-white">10k Reviews</span>
               <span className="text-white/50">|</span>
               <button
                 type="button"
-                className="inline-flex items-center gap-2 font-urbanist text-lg font-bold uppercase tracking-[0.4px] text-white"
+                className="inline-flex items-center gap-2 font-body text-lg font-bold uppercase tracking-[0.4px] text-white"
               >
                 See all
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -176,7 +167,7 @@ export function Reviews() {
 
         {/* Mobile layout: title → rating → image with overlapping cards */}
         <div className="flex flex-col items-center lg:hidden">
-          <h2 className="font-lexend text-2xl md:text-3xl font-bold text-white text-center">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-white text-center">
             What our players are saying
           </h2>
 
@@ -190,25 +181,18 @@ export function Reviews() {
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/icons/reviews/star.svg"
-              alt=""
-              loading="lazy"
-              className="h-6 w-6"
-            />
+            <img src="/images/icons/reviews/star.svg" alt="" loading="lazy" className="h-6 w-6" />
             <span
-              className="font-urbanist text-base font-bold text-brand-light"
+              className="font-body text-base font-bold text-brand-light"
               style={{ textShadow: "0 0 12px rgba(255,151,93,0.6)" }}
             >
               4.9 Star Rating
             </span>
-            <span className="font-urbanist text-sm text-white">
-              10k Reviews
-            </span>
+            <span className="font-body text-sm text-white">10k Reviews</span>
             <span className="text-white/50">|</span>
             <button
               type="button"
-              className="inline-flex items-center gap-2 font-urbanist text-sm font-bold uppercase tracking-[0.4px] text-white"
+              className="inline-flex items-center gap-2 font-body text-sm font-bold uppercase tracking-[0.4px] text-white"
             >
               See all
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -278,10 +262,9 @@ export function Reviews() {
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-full font-urbanist text-xs font-bold text-white"
+                    className="flex h-8 w-8 items-center justify-center rounded-full font-body text-xs font-bold text-white"
                     style={{
-                      background:
-                        "linear-gradient(135deg, #ff5c00 0%, #a32d05 100%)",
+                      background: "linear-gradient(135deg, #ff5c00 0%, #a32d05 100%)",
                     }}
                   >
                     {review.name
@@ -291,21 +274,19 @@ export function Reviews() {
                       .slice(0, 2)}
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-urbanist text-base font-medium text-white">
+                    <span className="font-body text-base font-medium text-white">
                       {review.name}
                     </span>
-                    <span className="font-urbanist text-sm text-brand-light">
-                      {review.rankPath}
-                    </span>
+                    <span className="font-body text-sm text-brand-light">{review.rankPath}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    {Array.from({ length: 5 }).map((_, idx) => (
+                    {["s1", "s2", "s3", "s4", "s5"].map((id) => (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        key={idx}
+                        key={id}
                         src="/images/icons/reviews/star.svg"
                         alt=""
                         loading="lazy"
@@ -313,31 +294,27 @@ export function Reviews() {
                       />
                     ))}
                   </div>
-                  <span className="font-urbanist text-sm text-text-muted">
-                    {review.date}
-                  </span>
+                  <span className="font-body text-sm text-text-secondary">{review.date}</span>
                 </div>
 
-                <p className="font-urbanist text-base text-white leading-6">
-                  {review.comment}
-                </p>
+                <p className="font-body text-base text-white leading-6">{review.comment}</p>
 
-                <p className="font-urbanist text-sm">
+                <p className="font-body text-sm">
                   <span className="text-white/70">Purchased: </span>
                   <span className="text-white">{review.game}</span>
                 </p>
 
                 <div className="flex flex-wrap items-center gap-2">
                   <span
-                    className="rounded-full px-3 py-1 font-urbanist text-xs font-medium"
+                    className="rounded-full px-3 py-1 font-body text-xs font-medium"
                     style={{
                       background: "rgba(26,173,25,0.2)",
-                      color: "var(--success)",
+                      color: "var(--success-main)",
                     }}
                   >
                     Verified Purchase
                   </span>
-                  <span className="rounded-full bg-white/10 px-3 py-1 font-urbanist text-xs font-medium text-white">
+                  <span className="rounded-full bg-white/10 px-3 py-1 font-body text-xs font-medium text-white">
                     {review.category}
                   </span>
                 </div>

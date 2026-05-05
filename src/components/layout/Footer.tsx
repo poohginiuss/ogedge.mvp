@@ -46,11 +46,7 @@ const columns: Column[] = [
   },
   {
     title: "Blog",
-    links: [
-      "How we keep your account safe",
-      "EA Backup codes",
-      "Playing with us",
-    ],
+    links: ["How we keep your account safe", "EA Backup codes", "Playing with us"],
   },
 ];
 
@@ -68,14 +64,7 @@ const payments = [
   "wechatpay",
 ];
 
-const socials = [
-  "facebook",
-  "twitter",
-  "instagram",
-  "discord",
-  "skype",
-  "whatsapp",
-];
+const socials = ["facebook", "twitter", "instagram", "discord", "skype", "whatsapp"];
 
 export function Footer() {
   return (
@@ -85,7 +74,7 @@ export function Footer() {
           {columns.map((col) => (
             <div key={col.title} className="flex flex-col gap-2">
               <h3
-                className="font-urbanist text-base font-bold uppercase"
+                className="font-body text-base font-bold uppercase"
                 style={{ color: "var(--brand-deep)" }}
               >
                 {col.title}
@@ -95,7 +84,7 @@ export function Footer() {
                   <li key={link}>
                     <Link
                       href="#"
-                      className="font-urbanist text-sm leading-[25px] text-white/90 transition-colors hover:text-brand-light"
+                      className="font-body text-sm leading-[25px] text-white/90 transition-colors hover:text-brand-light"
                     >
                       {link}
                     </Link>
@@ -109,7 +98,7 @@ export function Footer() {
         <div className="mt-10 h-px w-full bg-[#333]" />
 
         <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_auto_1fr]">
-          <div className="flex flex-col gap-1 font-urbanist text-[13px] leading-[22px] text-text-faint">
+          <div className="flex flex-col gap-1 font-body text-[13px] leading-[22px] text-text-muted">
             <p>OGEdge © 2006-2026 All Rights Reserved</p>
             <p>All trademarks and logos belong to their respective owners.</p>
             <p>OGEdge is not endorsed by or affiliated with any game publisher.</p>

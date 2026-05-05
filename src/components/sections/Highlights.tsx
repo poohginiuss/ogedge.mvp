@@ -36,12 +36,11 @@ export function Highlights() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slide = slides[currentSlide];
 
-  const goPrev = () =>
-    setCurrentSlide((s) => (s - 1 + slides.length) % slides.length);
+  const goPrev = () => setCurrentSlide((s) => (s - 1 + slides.length) % slides.length);
   const goNext = () => setCurrentSlide((s) => (s + 1) % slides.length);
 
   return (
-    <section className="relative w-full bg-bg-page overflow-hidden">
+    <section className="relative w-full bg-dark-main overflow-hidden">
       <div
         className="absolute -left-28 top-[280px] h-64 w-64 rounded-full pointer-events-none"
         style={{
@@ -96,31 +95,28 @@ export function Highlights() {
       <div className="mx-auto w-full max-w-[1280px] px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="flex flex-col gap-6">
-            <span className="font-lexend text-4xl font-bold text-[#232330]">
-              {slide.number}
-            </span>
-            <h2 className="font-lexend text-3xl md:text-4xl font-bold text-white leading-tight">
-              We provide{" "}
-              <span className="text-brand-light">{slide.title[0]}</span>,{" "}
+            <span className="font-heading text-4xl font-bold text-[#232330]">{slide.number}</span>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white leading-tight">
+              We provide <span className="text-brand-light">{slide.title[0]}</span>,{" "}
               <span className="text-brand-light">{slide.title[1]}</span>
               <br className="hidden md:block" /> and{" "}
               <span className="text-brand-light">{slide.title[2]}</span>
             </h2>
-            <p className="max-w-[400px] font-urbanist text-base lg:text-lg leading-7 text-white/90">
+            <p className="max-w-[400px] font-body text-base lg:text-lg leading-7 text-white/90">
               {slide.body}
             </p>
 
             <div className="flex items-center gap-2 mt-4">
-              {slides.map((_, i) => {
+              {slides.map((s, i) => {
                 const active = i === currentSlide;
                 return (
                   <button
-                    key={i}
+                    key={s.number}
                     type="button"
                     aria-label={`Go to slide ${i + 1}`}
                     onClick={() => setCurrentSlide(i)}
                     className={`h-2 rounded-full transition-all ${
-                      active ? "w-20 bg-brand-light" : "w-5 bg-bg-surface-2"
+                      active ? "w-20 bg-brand-light" : "w-5 bg-dark-border"
                     }`}
                   />
                 );

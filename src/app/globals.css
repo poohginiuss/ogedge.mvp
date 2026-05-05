@@ -1,51 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  --bg-page: #111111;
-  --bg-header: #232330;
-  --bg-surface-1: #17191f;
-  --bg-surface-2: #383852;
-  --border-subtle: #383852;
-  --border-muted: #6d6d96;
-  --border-light: #7e7eb8;
+  --dark-main: #111111;
+  --dark-surface: #232330;
+  --dark-deep: #17191f;
+  --dark-border: #383852;
+  --dark-muted: #6d6d96;
+  --dark-light: #7e7eb8;
 
-  --brand: #ff5c00;
+  --brand-main: #ff5c00;
   --brand-light: #ff975d;
   --brand-deep: #fa4609;
-  --brand-dark: #a32d05;
+  --brand-ember: #a32d05;
 
-  --success: #1aad19;
-  --text-muted: #aaaaaa;
-  --text-faint: #999999;
+  --success-main: #1aad19;
+  --text-secondary: #aaaaaa;
+  --text-muted: #999999;
 
-  --background: var(--bg-page);
+  --background: var(--dark-main);
   --foreground: #ffffff;
 }
 
 @theme inline {
-  --color-background: var(--bg-page);
+  --color-background: var(--dark-main);
   --color-foreground: #ffffff;
 
-  --color-bg-page: var(--bg-page);
-  --color-bg-header: var(--bg-header);
-  --color-bg-surface-1: var(--bg-surface-1);
-  --color-bg-surface-2: var(--bg-surface-2);
+  --color-dark-main: var(--dark-main);
+  --color-dark-surface: var(--dark-surface);
+  --color-dark-deep: var(--dark-deep);
+  --color-dark-border: var(--dark-border);
+  --color-dark-muted: var(--dark-muted);
+  --color-dark-light: var(--dark-light);
 
-  --color-border-subtle: var(--border-subtle);
-  --color-border-muted: var(--border-muted);
-  --color-border-light: var(--border-light);
-
-  --color-brand: var(--brand);
+  --color-brand-main: var(--brand-main);
   --color-brand-light: var(--brand-light);
   --color-brand-deep: var(--brand-deep);
-  --color-brand-dark: var(--brand-dark);
+  --color-brand-ember: var(--brand-ember);
 
-  --color-success: var(--success);
+  --color-success-main: var(--success-main);
+  --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
-  --color-text-faint: var(--text-faint);
 
-  --font-lexend: var(--font-lexend);
-  --font-urbanist: var(--font-urbanist);
+  --font-heading: var(--font-lexend), "Inter", sans-serif;
+  --font-body: var(--font-urbanist), "Inter", sans-serif;
 }
 
 * {
@@ -54,7 +51,7 @@
 
 html,
 body {
-  background: var(--bg-page);
+  background: var(--dark-main);
   color: #ffffff;
 }
 
@@ -65,7 +62,7 @@ body {
 }
 
 ::selection {
-  background: var(--brand);
+  background: var(--brand-main);
   color: #ffffff;
 }
 
@@ -75,20 +72,19 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-page);
+  background: var(--dark-main);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-surface-2);
+  background: var(--dark-border);
   border-radius: 8px;
-  border: 3px solid var(--bg-page);
+  border: 3px solid var(--dark-main);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--border-muted);
+  background: var(--dark-muted);
 }
 
 * {
-  scrollbar-color: var(--bg-surface-2) var(--bg-page);
+  scrollbar-color: var(--dark-border) var(--dark-main);
 }
-

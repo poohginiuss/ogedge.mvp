@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import { Slider } from "@/components/ui/Slider";
-import { Toggle } from "@/components/ui/Toggle";
+import { Button } from "@/components/ui/Button";
 import { Dropdown } from "@/components/ui/Dropdown";
 import { PlatformSelector } from "@/components/ui/PlatformSelector";
-import { Button } from "@/components/ui/Button";
+import { Slider } from "@/components/ui/Slider";
+import { Toggle } from "@/components/ui/Toggle";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 type RankKey =
   | "iron"
@@ -131,10 +131,7 @@ export function ServicesConfig() {
     Object.fromEntries(extraOptions.map((o) => [o.id, !!o.defaultOn])),
   );
 
-  const rankLabel = useMemo(
-    () => ranks.find((r) => r.key === selectedRank)?.label ?? "Bronze",
-    [selectedRank],
-  );
+  const rankLabel = ranks.find((r) => r.key === selectedRank)?.label ?? "Bronze";
 
   const divisionLabel = divisions[selectedDivision];
 
@@ -148,8 +145,9 @@ export function ServicesConfig() {
       endOfWeek.setHours(23, 59, 59, 0);
       return Math.max(0, Math.floor((endOfWeek.getTime() - now.getTime()) / 1000));
     };
-    setCountdown(calcRemaining());
-    const id = setInterval(() => setCountdown((s) => Math.max(0, s - 1)), 1000);
+    const id = setInterval(() => {
+      setCountdown(calcRemaining());
+    }, 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -187,17 +185,12 @@ export function ServicesConfig() {
                 className="h-[18px] w-[18px]"
               />
             </button>
-            <h3 className="font-lexend text-2xl font-bold leading-9 text-white">
+            <h3 className="font-heading text-2xl font-bold leading-9 text-white">
               Season 2026: Act 1
             </h3>
-            <p className="mt-2 font-urbanist text-sm uppercase text-white">
-              6 days left
-            </p>
-            <div className="mt-4 h-1 w-full rounded-full bg-bg-surface-2">
-              <div
-                className="h-1 rounded-full bg-brand"
-                style={{ width: "88%" }}
-              />
+            <p className="mt-2 font-body text-sm uppercase text-white">6 days left</p>
+            <div className="mt-4 h-1 w-full rounded-full bg-dark-border">
+              <div className="h-1 rounded-full bg-brand-main" style={{ width: "88%" }} />
             </div>
           </div>
 
@@ -222,29 +215,27 @@ export function ServicesConfig() {
             <div className="relative z-10 p-5 pl-[140px] md:p-8 md:pl-[280px]">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-6">
                 <div className="flex flex-col gap-1 md:gap-0 md:max-w-[500px]">
-                  <p className="font-urbanist text-[10px] md:text-xs uppercase text-white md:hidden">
+                  <p className="font-body text-[10px] md:text-xs uppercase text-white md:hidden">
                     Event ends in
                   </p>
                   <p
-                    className="font-lexend text-2xl md:hidden font-bold text-brand leading-tight"
+                    className="font-heading text-2xl md:hidden font-bold text-brand-main leading-tight"
                     style={{ textShadow: "0 0 24px rgba(255,92,0,0.7)" }}
                   >
                     {timerStr}
                   </p>
-                  <h3 className="font-lexend text-base md:text-3xl font-bold leading-tight text-white">
+                  <h3 className="font-heading text-base md:text-3xl font-bold leading-tight text-white">
                     Valorant Weekly Event
                   </h3>
-                  <p className="font-urbanist text-xs md:text-base text-white/90 md:mt-3 leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem
-                    ipsum dolor sit amet, consectetur adipiscing elit
+                  <p className="font-body text-xs md:text-base text-white/90 md:mt-3 leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit
+                    amet, consectetur adipiscing elit
                   </p>
                 </div>
                 <div className="hidden md:block text-right shrink-0">
-                  <p className="font-urbanist text-xs uppercase text-white">
-                    Event ends in
-                  </p>
+                  <p className="font-body text-xs uppercase text-white">Event ends in</p>
                   <p
-                    className="font-lexend text-5xl font-bold text-brand"
+                    className="font-heading text-5xl font-bold text-brand-main"
                     style={{ textShadow: "0 0 24px rgba(255,92,0,0.7)" }}
                   >
                     {timerStr}
@@ -262,18 +253,12 @@ export function ServicesConfig() {
               key={label}
               className="inline-flex shrink-0 items-center gap-2 rounded-3xl px-4 h-10"
               style={{
-                background:
-                  "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+                background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={icon}
-                alt=""
-                loading="lazy"
-                className="h-4 w-4"
-              />
-              <span className="font-urbanist text-sm font-medium text-white whitespace-nowrap">
+              <img src={icon} alt="" loading="lazy" className="h-4 w-4" />
+              <span className="font-body text-sm font-medium text-white whitespace-nowrap">
                 {label}
               </span>
             </div>
@@ -284,9 +269,7 @@ export function ServicesConfig() {
         <div className="mt-6">
           {/* Mobile dropdown */}
           <div className="md:hidden">
-            <p className="font-lexend text-lg font-bold text-white mb-2">
-              Service Selection
-            </p>
+            <p className="font-heading text-lg font-bold text-white mb-2">Service Selection</p>
             <Dropdown
               label=""
               value={categories.find((c) => c.id === category)?.label ?? ""}
@@ -311,24 +294,15 @@ export function ServicesConfig() {
                   }`}
                   style={{
                     background: "rgba(0,0,0,0.2)",
-                    border: active
-                      ? "2px solid #ff975d"
-                      : "1px solid #383852",
-                    ...(active
-                      ? { boxShadow: "0 4px 44px rgba(255,92,0,0.25)" }
-                      : {}),
+                    border: active ? "2px solid #ff975d" : "1px solid #383852",
+                    ...(active ? { boxShadow: "0 4px 44px rgba(255,92,0,0.25)" } : {}),
                   }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={icon}
-                    alt=""
-                    loading="lazy"
-                    className="h-[18px] w-[18px]"
-                  />
+                  <img src={icon} alt="" loading="lazy" className="h-[18px] w-[18px]" />
                   <span
-                    className={`font-urbanist text-base font-medium ${
-                      active ? "text-brand" : "text-white"
+                    className={`font-body text-base font-medium ${
+                      active ? "text-brand-main" : "text-white"
                     }`}
                   >
                     {label}
@@ -355,10 +329,8 @@ export function ServicesConfig() {
               {/* Current Rank */}
               <div className="flex flex-col gap-4">
                 <div>
-                  <h3 className="font-urbanist text-2xl font-semibold text-white">
-                    Current Rank
-                  </h3>
-                  <p className="font-urbanist text-base font-semibold text-white/50">
+                  <h3 className="font-body text-2xl font-semibold text-white">Current Rank</h3>
+                  <p className="font-body text-base font-semibold text-white/50">
                     Select your current rank
                   </p>
                 </div>
@@ -372,12 +344,8 @@ export function ServicesConfig() {
                         onClick={() => setSelectedRank(rank.key)}
                         className="group flex h-[76px] flex-col items-center justify-center rounded-2xl p-2 transition-all"
                         style={{
-                          background: active
-                            ? "rgba(255,92,0,0.15)"
-                            : "rgba(0,0,0,0.2)",
-                          border: active
-                            ? "2px solid #ff975d"
-                            : "1px solid #383852",
+                          background: active ? "rgba(255,92,0,0.15)" : "rgba(0,0,0,0.2)",
+                          border: active ? "2px solid #ff975d" : "1px solid #383852",
                           ...(active
                             ? {
                                 boxShadow: "0 0 24px rgba(255,92,0,0.35)",
@@ -395,7 +363,7 @@ export function ServicesConfig() {
                             filter: `drop-shadow(0 0 10px ${rank.glow})`,
                           }}
                         />
-                        <span className="mt-1 font-urbanist text-[10px] text-white/80">
+                        <span className="mt-1 font-body text-[10px] text-white/80">
                           {rank.label}
                         </span>
                       </button>
@@ -423,7 +391,7 @@ export function ServicesConfig() {
                         }}
                       >
                         <span
-                          className={`font-urbanist text-base font-medium leading-6 ${
+                          className={`font-body text-base font-medium leading-6 ${
                             active ? "text-[#ff5c00]" : "text-white"
                           }`}
                         >
@@ -446,24 +414,16 @@ export function ServicesConfig() {
               {/* Number of Wins */}
               <div className="flex flex-col gap-2">
                 <div>
-                  <h3 className="font-urbanist text-2xl font-semibold text-white">
-                    Number of Wins
-                  </h3>
-                  <p className="font-urbanist text-base font-semibold text-white/50">
+                  <h3 className="font-body text-2xl font-semibold text-white">Number of Wins</h3>
+                  <p className="font-body text-base font-semibold text-white/50">
                     Select desired number of wins
                   </p>
                 </div>
                 <div className="flex items-center gap-8 mt-2">
                   <div className="flex flex-1 items-center gap-4">
-                    <span className="font-urbanist text-xl font-medium text-white">1</span>
-                    <Slider
-                      min={1}
-                      max={5}
-                      value={wins}
-                      onChange={setWins}
-                      className="flex-1"
-                    />
-                    <span className="font-urbanist text-xl font-medium text-white">5</span>
+                    <span className="font-body text-xl font-medium text-white">1</span>
+                    <Slider min={1} max={5} value={wins} onChange={setWins} className="flex-1" />
+                    <span className="font-body text-xl font-medium text-white">5</span>
                   </div>
                   <div
                     className="flex h-11 w-[75px] shrink-0 items-center justify-center rounded-2xl"
@@ -474,7 +434,7 @@ export function ServicesConfig() {
                       boxShadow: "0 4px 7px rgba(255,92,0,0.3)",
                     }}
                   >
-                    <span className="font-lexend text-[30px] font-bold leading-[38px] text-brand-light">
+                    <span className="font-heading text-[30px] font-bold leading-[38px] text-brand-light">
                       {wins}
                     </span>
                   </div>
@@ -484,10 +444,8 @@ export function ServicesConfig() {
               {/* Game Configuration */}
               <div className="flex flex-col gap-4">
                 <div>
-                  <h3 className="font-urbanist text-2xl font-medium text-white">
-                    Game Configuration
-                  </h3>
-                  <p className="font-urbanist text-base font-medium text-white/50">
+                  <h3 className="font-body text-2xl font-medium text-white">Game Configuration</h3>
+                  <p className="font-body text-base font-medium text-white/50">
                     Enter game details
                   </p>
                 </div>
@@ -508,8 +466,8 @@ export function ServicesConfig() {
                 </div>
 
                 <div>
-                  <p className="font-urbanist text-base font-medium text-white">
-                    Platform <span className="text-brand">*</span>
+                  <p className="font-body text-base font-medium text-white">
+                    Platform <span className="text-brand-main">*</span>
                   </p>
                   <PlatformSelector
                     options={platformOptions}
@@ -521,7 +479,7 @@ export function ServicesConfig() {
 
                 <div
                   className="flex items-start gap-3 rounded-2xl p-4"
-                  style={{ background: "var(--bg-surface-1)" }}
+                  style={{ background: "var(--dark-deep)" }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -531,13 +489,12 @@ export function ServicesConfig() {
                     className="mt-0.5 h-5 w-5 shrink-0"
                   />
                   <div>
-                    <p className="font-urbanist text-base font-medium text-white">
+                    <p className="font-body text-base font-medium text-white">
                       We guarantee 5/4 wins in your placements
                     </p>
-                    <p className="mt-1 font-urbanist text-sm text-white/90">
-                      If the booster loses more than 1 game, we will refund the
-                      cost of the additional games until you reach the
-                      guaranteed wins.
+                    <p className="mt-1 font-body text-sm text-white/90">
+                      If the booster loses more than 1 game, we will refund the cost of the
+                      additional games until you reach the guaranteed wins.
                     </p>
                   </div>
                 </div>
@@ -570,17 +527,13 @@ export function ServicesConfig() {
           >
             <div className="flex items-start justify-between">
               <div>
-                <p className="font-urbanist text-sm text-white/80">
-                  Order Summary
-                </p>
-                <h3 className="font-urbanist text-2xl font-semibold text-white">
-                  Boost Per Win
-                </h3>
+                <p className="font-body text-sm text-white/80">Order Summary</p>
+                <h3 className="font-body text-2xl font-semibold text-white">Boost Per Win</h3>
               </div>
               <div className="text-right">
                 <div className="flex items-center justify-end gap-2">
                   <span
-                    className="font-urbanist text-lg font-bold text-brand-light"
+                    className="font-body text-lg font-bold text-brand-light"
                     style={{ textShadow: "0 0 12px rgba(255,151,93,0.6)" }}
                   >
                     ~1day, 12h
@@ -593,32 +546,30 @@ export function ServicesConfig() {
                     className="h-4 w-4 opacity-70"
                   />
                 </div>
-                <p className="mt-1 font-urbanist text-sm text-white/80">
-                  <span className="font-bold text-white">2h</span> until start
-                  time
+                <p className="mt-1 font-body text-sm text-white/80">
+                  <span className="font-bold text-white">2h</span> until start time
                 </p>
               </div>
             </div>
 
             <div className="mt-4 flex flex-col gap-1">
-              {summaryRows(rankLabel, divisionLabel, wins, server, queue, platformOptions.find(p => p.id === platform)?.label ?? platform).map((row, i) => (
+              {summaryRows(
+                rankLabel,
+                divisionLabel,
+                wins,
+                server,
+                queue,
+                platformOptions.find((p) => p.id === platform)?.label ?? platform,
+              ).map((row, i) => (
                 <div
                   key={row.label}
                   className={`flex items-center justify-between px-4 py-3 ${
                     i % 2 === 0 ? "rounded-xl" : ""
                   }`}
-                  style={
-                    i % 2 === 0
-                      ? { background: "rgba(0,0,0,0.2)" }
-                      : undefined
-                  }
+                  style={i % 2 === 0 ? { background: "rgba(0,0,0,0.2)" } : undefined}
                 >
-                  <span className="font-urbanist text-sm text-white/80">
-                    {row.label}
-                  </span>
-                  <span className="font-urbanist text-base font-semibold text-white">
-                    {row.value}
-                  </span>
+                  <span className="font-body text-sm text-white/80">{row.label}</span>
+                  <span className="font-body text-base font-semibold text-white">{row.value}</span>
                 </div>
               ))}
             </div>
@@ -636,16 +587,15 @@ export function ServicesConfig() {
                 <input
                   type="text"
                   defaultValue="SALE5"
-                  className="flex-1 bg-transparent font-urbanist text-sm text-white outline-none"
+                  className="flex-1 bg-transparent font-body text-sm text-white outline-none"
                   aria-label="Coupon code"
                 />
               </div>
               <button
                 type="button"
-                className="rounded-2xl px-4 h-12 font-urbanist text-sm font-bold uppercase text-white"
+                className="rounded-2xl px-4 h-12 font-body text-sm font-bold uppercase text-white"
                 style={{
-                  background:
-                    "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+                  background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
                   border: "1px solid #383852",
                 }}
               >
@@ -672,9 +622,7 @@ export function ServicesConfig() {
 
             <div className="my-4 h-px w-full bg-border-subtle" />
 
-            <p className="font-urbanist text-base font-medium text-white">
-              Extra Options
-            </p>
+            <p className="font-body text-base font-medium text-white">Extra Options</p>
             <div className="mt-2 flex flex-col gap-2">
               {extraOptions.map((opt, i) => {
                 const on = !!extras[opt.id];
@@ -683,8 +631,7 @@ export function ServicesConfig() {
                     key={opt.id}
                     className="flex items-center justify-between rounded-2xl px-4 py-3"
                     style={{
-                      background:
-                        i % 2 === 0 ? "rgba(0,0,0,0.2)" : "transparent",
+                      background: i % 2 === 0 ? "rgba(0,0,0,0.2)" : "transparent",
                       border: "1px solid #383852",
                     }}
                   >
@@ -700,7 +647,7 @@ export function ServicesConfig() {
                         label={opt.label}
                       />
                       <span
-                        className={`font-urbanist text-sm font-medium ${
+                        className={`font-body text-sm font-medium ${
                           on ? "text-brand-light" : "text-white"
                         }`}
                       >
@@ -708,10 +655,8 @@ export function ServicesConfig() {
                       </span>
                     </div>
                     <span
-                      className={`font-urbanist text-sm font-semibold ${
-                        opt.cost === "FREE"
-                          ? "text-brand-light"
-                          : "text-white/80"
+                      className={`font-body text-sm font-semibold ${
+                        opt.cost === "FREE" ? "text-brand-light" : "text-white/80"
                       }`}
                     >
                       {opt.cost}
@@ -725,8 +670,8 @@ export function ServicesConfig() {
 
             <div className="flex flex-col gap-2">
               <div
-                className="rounded-2xl px-4 py-3 text-center font-urbanist text-sm"
-                style={{ background: "var(--bg-surface-2)" }}
+                className="rounded-2xl px-4 py-3 text-center font-body text-sm"
+                style={{ background: "var(--dark-border)" }}
               >
                 <span
                   className="font-semibold text-brand-light"
@@ -737,10 +682,10 @@ export function ServicesConfig() {
                 <span className="text-white/80"> to your order</span>
               </div>
               <div
-                className="rounded-2xl px-4 py-3 text-center font-urbanist text-base font-semibold"
+                className="rounded-2xl px-4 py-3 text-center font-body text-base font-semibold"
                 style={{
                   background: "rgba(26,173,25,0.2)",
-                  color: "var(--success)",
+                  color: "var(--success-main)",
                 }}
               >
                 Maximum discount reached!
@@ -754,16 +699,10 @@ export function ServicesConfig() {
                   className={`flex items-center justify-between px-4 py-3 ${
                     i % 2 === 0 ? "rounded-xl" : ""
                   }`}
-                  style={
-                    i % 2 === 0
-                      ? { background: "rgba(0,0,0,0.2)" }
-                      : undefined
-                  }
+                  style={i % 2 === 0 ? { background: "rgba(0,0,0,0.2)" } : undefined}
                 >
-                  <span className="font-urbanist text-sm text-white/80">
-                    {row.label}
-                  </span>
-                  <span className="font-urbanist text-base font-semibold text-brand-light">
+                  <span className="font-body text-sm text-white/80">{row.label}</span>
+                  <span className="font-body text-base font-semibold text-brand-light">
                     {row.value}
                   </span>
                 </div>
@@ -771,18 +710,10 @@ export function ServicesConfig() {
             </div>
 
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-              <Button
-                variant="secondary"
-                size="small"
-                className="h-14 w-full"
-              >
+              <Button variant="secondary" size="small" className="h-14 w-full">
                 Add to cart
               </Button>
-              <Button
-                variant="primary"
-                size="small"
-                className="h-14 w-full"
-              >
+              <Button variant="primary" size="small" className="h-14 w-full">
                 Buy Now (€327.00)
               </Button>
             </div>
@@ -800,16 +731,11 @@ export function ServicesConfig() {
                   className="h-4 w-4"
                 />
               </div>
-              <p className="font-urbanist text-xs text-white/80">
-                Secured and trusted checkout with:
-              </p>
+              <p className="font-body text-xs text-white/80">Secured and trusted checkout with:</p>
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-2">
               {summaryPayments.map((p) => (
-                <div
-                  key={p}
-                  className="flex h-5 w-8 items-center justify-center"
-                >
+                <div key={p} className="flex h-5 w-8 items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={`/images/icons/services/pay-${p}.svg`}
@@ -844,9 +770,7 @@ function CollapsibleList({ title, items }: { title: string; items: string[] }) {
         className="flex w-full items-center justify-between px-5 py-4 text-left"
         aria-expanded={open}
       >
-        <span className="font-urbanist text-base font-medium text-white">
-          {title}
-        </span>
+        <span className="font-body text-base font-medium text-white">{title}</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/icons/services/arrow-up.svg"
@@ -865,7 +789,7 @@ function CollapsibleList({ title, items }: { title: string; items: string[] }) {
                 loading="lazy"
                 className="mt-0.5 h-[18px] w-[18px] shrink-0"
               />
-              <span className="font-urbanist text-sm text-white/90">{item}</span>
+              <span className="font-body text-sm text-white/90">{item}</span>
             </li>
           ))}
         </ul>
@@ -877,9 +801,7 @@ function CollapsibleList({ title, items }: { title: string; items: string[] }) {
 function BulletList({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="flex flex-col gap-2">
-      <h4 className="font-urbanist text-base font-medium text-white">
-        {title}
-      </h4>
+      <h4 className="font-body text-base font-medium text-white">{title}</h4>
       <ul className="flex flex-col gap-2">
         {items.map((item) => (
           <li key={item} className="flex items-start gap-2">
@@ -890,7 +812,7 @@ function BulletList({ title, items }: { title: string; items: string[] }) {
               loading="lazy"
               className="mt-0.5 h-[18px] w-[18px] shrink-0"
             />
-            <span className="font-urbanist text-sm text-white/90">{item}</span>
+            <span className="font-body text-sm text-white/90">{item}</span>
           </li>
         ))}
       </ul>

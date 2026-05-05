@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, useEffect, type MouseEvent, type TouchEvent } from "react";
+import { type MouseEvent, type TouchEvent, useEffect, useRef, useState } from "react";
 
 type SliderProps = {
   min: number;
@@ -11,35 +11,22 @@ type SliderProps = {
   className?: string;
 };
 
-export function Slider({
-  min,
-  max,
-  value,
-  onChange,
-  step = 1,
-  className = "",
-}: SliderProps) {
+export function Slider({ min, max, value, onChange, step = 1, className = "" }: SliderProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const percent = ((value - min) / (max - min)) * 100;
 
-  const clampToStep = useCallback(
-    (raw: number) => {
-      const clamped = Math.min(max, Math.max(min, raw));
-      return Math.round((clamped - min) / step) * step + min;
-    },
-    [min, max, step],
-  );
+  const clampToStep = (raw: number) => {
+    const clamped = Math.min(max, Math.max(min, raw));
+    return Math.round((clamped - min) / step) * step + min;
+  };
 
-  const valueFromX = useCallback(
-    (clientX: number) => {
-      const rect = trackRef.current?.getBoundingClientRect();
-      if (!rect) return value;
-      const ratio = (clientX - rect.left) / rect.width;
-      return clampToStep(min + ratio * (max - min));
-    },
-    [min, max, value, clampToStep],
-  );
+  const valueFromX = (clientX: number) => {
+    const rect = trackRef.current?.getBoundingClientRect();
+    if (!rect) return value;
+    const ratio = (clientX - rect.left) / rect.width;
+    return clampToStep(min + ratio * (max - min));
+  };
 
   const handlePointerDown = (clientX: number) => {
     setDragging(true);
@@ -63,7 +50,7 @@ export function Slider({
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onUp);
     };
-  }, [dragging, onChange, valueFromX]);
+  });
 
   return (
     <div
@@ -89,13 +76,11 @@ export function Slider({
       }}
       style={{ cursor: dragging ? "grabbing" : "pointer" }}
     >
-      {/* Grey background track */}
       <div
         aria-hidden
         className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded-[20px]"
         style={{ background: "#383852" }}
       />
-      {/* Orange filled track */}
       <div
         aria-hidden
         className="absolute left-0 top-1/2 -translate-y-1/2 h-1 rounded-[20px]"
@@ -105,7 +90,6 @@ export function Slider({
           boxShadow: "0 0 8px rgba(255,92,0,0.2), 0 0 10px rgba(255,92,0,0.4)",
         }}
       />
-      {/* Thumb handle */}
       <div
         aria-hidden
         className="absolute top-1/2 flex items-center justify-center"

@@ -1,9 +1,9 @@
 "use client";
 
+import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
 
 type NavLink = {
   label: string;
@@ -25,7 +25,7 @@ export function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full bg-bg-header/80 backdrop-blur-md"
+      className="sticky top-0 z-50 w-full bg-dark-surface/80 backdrop-blur-md"
       style={{ backdropFilter: "blur(12px)" }}
     >
       <div className="relative mx-auto flex w-full max-w-[1920px] items-center justify-between px-6 py-5 lg:px-20 lg:py-4">
@@ -37,7 +37,7 @@ export function Header() {
           >
             <span className="hidden sm:inline">Select your game</span>
             <span className="sm:hidden">Games</span>
-            <ChevronDown size={18} className="ml-2" />
+            <ChevronDownIcon size={18} className="ml-2" />
           </button>
           <nav className="hidden items-center gap-8 lg:flex">
             {leftNav.map((item) => (
@@ -52,10 +52,7 @@ export function Header() {
           </nav>
         </div>
 
-        <Link
-          href="/"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        >
+        <Link href="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <Image
             src="/images/logos/logo-white.png"
             alt="OGEdge"
@@ -81,7 +78,7 @@ export function Header() {
 
           <button
             type="button"
-            className="hidden items-center gap-2 rounded-2xl border border-border-subtle px-4 py-3 lg:inline-flex"
+            className="hidden items-center gap-2 rounded-2xl border border-dark-border px-4 py-3 lg:inline-flex"
             aria-label="Language"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -91,7 +88,7 @@ export function Header() {
               loading="lazy"
               className="h-5 w-5 rounded-full object-cover"
             />
-            <ChevronDown size={16} className="text-white" />
+            <ChevronDownIcon size={16} className="text-white" />
           </button>
 
           <Link
@@ -103,11 +100,11 @@ export function Header() {
 
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-xl border border-border-subtle p-2 text-white lg:hidden"
+            className="inline-flex items-center justify-center rounded-xl border border-dark-border p-2 text-white lg:hidden"
             aria-label="Menu"
             onClick={() => setMobileMenuOpen((v) => !v)}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
           </button>
         </div>
       </div>
@@ -115,10 +112,9 @@ export function Header() {
       {/* Mobile menu drawer */}
       {mobileMenuOpen && (
         <div
-          className="lg:hidden border-t border-border-subtle"
+          className="lg:hidden border-t border-dark-border"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(23,25,31,0.98) 100%)",
+            background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(23,25,31,0.98) 100%)",
             backdropFilter: "blur(16px)",
           }}
         >
@@ -128,7 +124,7 @@ export function Header() {
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center rounded-2xl px-4 py-3 font-urbanist text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:bg-white/5 hover:text-brand-light"
+                className="flex items-center rounded-2xl px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:bg-white/5 hover:text-brand-light"
               >
                 {item.label}
               </Link>
@@ -136,12 +132,12 @@ export function Header() {
             <Link
               href="#login"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center rounded-2xl px-4 py-3 font-urbanist text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:bg-white/5 hover:text-brand-light"
+              className="flex items-center rounded-2xl px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:bg-white/5 hover:text-brand-light"
             >
               Login
             </Link>
           </nav>
-          <div className="flex items-center gap-3 border-t border-border-subtle px-6 py-4">
+          <div className="flex items-center gap-3 border-t border-dark-border px-6 py-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/icons/flag-us.svg"
@@ -149,7 +145,7 @@ export function Header() {
               loading="lazy"
               className="h-5 w-5 rounded-full object-cover"
             />
-            <span className="font-urbanist text-sm text-white/80">English (US)</span>
+            <span className="font-body text-sm text-white/80">English (US)</span>
           </div>
         </div>
       )}

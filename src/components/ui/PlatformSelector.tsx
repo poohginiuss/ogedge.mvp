@@ -45,10 +45,17 @@ export function PlatformSelector({
               src={opt.icon}
               alt=""
               className="h-4 w-4"
-              style={active ? { filter: "brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1847%) hue-rotate(5deg) brightness(101%) contrast(106%)" } : undefined}
+              style={
+                active
+                  ? {
+                      filter:
+                        "brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1847%) hue-rotate(5deg) brightness(101%) contrast(106%)",
+                    }
+                  : undefined
+              }
             />
             <span
-              className={`font-urbanist text-base font-medium leading-6 ${
+              className={`font-body text-base font-medium leading-6 ${
                 active ? "text-[#ff5c00]" : "text-white"
               }`}
             >

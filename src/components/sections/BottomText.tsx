@@ -17,7 +17,7 @@ const blocks = [
 
 export function BottomText() {
   return (
-    <section className="w-full bg-bg-page">
+    <section className="w-full bg-dark-main">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]">
         <div className="flex flex-col gap-12 lg:gap-[48px]">
           {blocks.map((block) => (
@@ -38,14 +38,14 @@ export function BottomText() {
               </div>
 
               <div
-                className={`relative z-10 flex flex-col justify-center rounded-3xl bg-bg-page px-6 py-8 md:px-10 md:py-10 lg:px-16 lg:py-12 ${
+                className={`relative z-10 flex flex-col justify-center rounded-3xl bg-dark-main px-6 py-8 md:px-10 md:py-10 lg:px-16 lg:py-12 ${
                   block.imageLeft ? "lg:-ml-16" : "lg:-mr-16"
                 } lg:my-12`}
               >
-                <h3 className="font-lexend text-2xl md:text-[30px] font-bold leading-tight text-white">
+                <h3 className="font-heading text-2xl md:text-[30px] font-bold leading-tight text-white">
                   {block.title}
                 </h3>
-                <p className="mt-4 font-urbanist text-sm md:text-base leading-6 text-white/90">
+                <p className="mt-4 font-body text-sm md:text-base leading-6 text-white/90">
                   {block.body}
                 </p>
               </div>
