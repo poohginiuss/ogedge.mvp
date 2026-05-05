@@ -17,9 +17,9 @@ const urbanist = Urbanist({
 });
 
 export const metadata: Metadata = {
-  title: "OGEdge — Valorant Boosting",
+  title: "OGEdge — Your Competitive Edge, Delivered",
   description:
-    "Fast, easy and secure Valorant boosting service by OGEdge. Rank boost, placements, wins, and more.",
+    "Two decades of dominance. Providing elite coaching, boosting, and leveling since 2006. Trusted by 10k+ players worldwide.",
 };
 
 export default function RootLayout({
