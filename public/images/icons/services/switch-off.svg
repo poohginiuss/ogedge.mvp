@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="switch">
+<rect id="form" x="0.5" y="0.5" width="27" height="15" rx="7.5" stroke="var(--stroke-0, #383852)"/>
+<circle id="switch_2" cx="8" cy="8" r="6" fill="var(--fill-0, #484873)"/>
+</g>
+</svg>
