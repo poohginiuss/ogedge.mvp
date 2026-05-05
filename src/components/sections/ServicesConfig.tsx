@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Slider } from "@/components/ui/Slider";
 import { Toggle } from "@/components/ui/Toggle";
 import { Dropdown } from "@/components/ui/Dropdown";
@@ -138,6 +138,25 @@ export function ServicesConfig() {
 
   const divisionLabel = divisions[selectedDivision];
 
+  const [countdown, setCountdown] = useState(() => {
+    const now = new Date();
+    const endOfWeek = new Date(now);
+    endOfWeek.setDate(now.getDate() + (7 - now.getDay()));
+    endOfWeek.setHours(23, 59, 59, 0);
+    return Math.max(0, Math.floor((endOfWeek.getTime() - now.getTime()) / 1000));
+  });
+
+  useEffect(() => {
+    const id = setInterval(() => setCountdown((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const days = Math.floor(countdown / 86400);
+  const hrs = Math.floor((countdown % 86400) / 3600);
+  const mins = Math.floor((countdown % 3600) / 60);
+  const secs = countdown % 60;
+  const timerStr = `${String(days).padStart(2, "0")}:${String(hrs).padStart(2, "0")}:${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+
   return (
     <section className="relative -mt-[60px] md:-mt-[80px] lg:-mt-[80px] z-20">
       <div className="mx-auto w-full max-w-[1410px] px-4 md:px-6">
@@ -208,7 +227,7 @@ export function ServicesConfig() {
                     className="font-lexend text-2xl md:hidden font-bold text-brand leading-tight"
                     style={{ textShadow: "0 0 24px rgba(255,92,0,0.7)" }}
                   >
-                    00:12:45:32
+                    {timerStr}
                   </p>
                   <h3 className="font-lexend text-base md:text-3xl font-bold leading-tight text-white">
                     Valorant Weekly Event
@@ -226,7 +245,7 @@ export function ServicesConfig() {
                     className="font-lexend text-5xl font-bold text-brand"
                     style={{ textShadow: "0 0 24px rgba(255,92,0,0.7)" }}
                   >
-                    00:12:45:32
+                    {timerStr}
                   </p>
                 </div>
               </div>

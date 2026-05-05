@@ -240,7 +240,7 @@ export function Reviews() {
           </div>
         </div>
 
-        <div className="-mt-28 lg:-mt-32 grid grid-cols-1 lg:grid-cols-[64px_1fr_64px] gap-4 lg:gap-8 items-center relative z-10">
+        <div className="-mt-28 lg:-mt-60 grid grid-cols-1 lg:grid-cols-[64px_1fr_64px] gap-4 lg:gap-8 items-center relative z-10">
           <button
             type="button"
             aria-label="Previous reviews"

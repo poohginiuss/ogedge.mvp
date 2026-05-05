@@ -63,16 +63,7 @@ export function OrderProcess() {
           <div className="flex flex-col gap-8">
             {steps.map((step) => (
               <div key={step.title} className="flex items-start gap-6 lg:gap-10">
-                <div
-                  className="flex h-12 w-12 lg:h-[50px] lg:w-[50px] shrink-0 items-center justify-center"
-                  // style={{
-                  //   background: "rgba(255,92,0,0.18)",
-                  //   border: "2px solid rgba(255,151,93,0.6)",
-                  //   borderRadius: "16px",
-                  //   boxShadow:
-                  //     "0 0 24px rgba(255,92,0,0.4), inset 0 0 12px rgba(255,151,93,0.15)",
-                  // }}
-                >
+                <div className="flex h-12 w-12 lg:h-[50px] lg:w-[50px] shrink-0 items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={step.icon}
