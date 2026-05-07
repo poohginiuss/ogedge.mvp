@@ -87,7 +87,7 @@ export function ContactMethods() {
             <img
               src="/images/icons/contact/discord.svg"
               alt=""
-              className="h-6 w-6"
+              className="h-5 w-6"
               loading="lazy"
             />
           </a>

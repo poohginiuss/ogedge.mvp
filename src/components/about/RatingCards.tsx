@@ -1,9 +1,14 @@
+import Link from "next/link";
+
 export function RatingCards() {
   return (
     <div className="flex flex-col gap-4">
-      {/* OGEdge rating: 4.94 | 1328 */}
+      {/* Mobile: 4.94|1328 first, then Rated+Top side by side */}
+      {/* Desktop: Rated Excellent, Top Rated, then 4.94|1328 stacked */}
+
+      {/* OGEdge rating — shown first on mobile, last on desktop */}
       <div
-        className="relative flex items-center justify-center gap-6 overflow-hidden rounded-3xl px-6 py-6"
+        className="relative flex items-center justify-center gap-6 overflow-hidden rounded-3xl px-6 py-6 lg:order-3"
         style={{ background: "rgba(35,35,48,0.5)", backdropFilter: "blur(5px)" }}
       >
         <div className="flex flex-col items-start gap-px">
@@ -35,8 +40,8 @@ export function RatingCards() {
         />
       </div>
 
-      {/* Rated Excellent + Top Rated side by side */}
-      <div className="grid grid-cols-2 gap-4">
+      {/* Rated Excellent + Top Rated: side by side on mobile, stacked on desktop */}
+      <div className="grid grid-cols-2 gap-4 lg:order-1 lg:grid-cols-1">
         <div
           className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl p-6"
           style={{ background: "rgba(35,35,48,0.5)", backdropFilter: "blur(5px)" }}
@@ -81,9 +86,9 @@ export function RatingCards() {
       </div>
 
       {/* See All Reviews link */}
-      <button
-        type="button"
-        className="mt-4 inline-flex items-center justify-center gap-2 self-center font-body text-base font-bold uppercase tracking-[0.32px] text-white hover:text-brand-light"
+      <Link
+        href="/reviews"
+        className="mt-4 inline-flex items-center justify-center gap-2 self-center font-body text-base font-bold uppercase tracking-[0.32px] text-white hover:text-brand-light lg:order-4"
       >
         See All Reviews
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,7 +98,7 @@ export function RatingCards() {
           className="h-6 w-6 rotate-90"
           loading="lazy"
         />
-      </button>
+      </Link>
     </div>
   );
 }
