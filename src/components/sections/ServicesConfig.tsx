@@ -710,10 +710,10 @@ export function ServicesConfig() {
             </div>
 
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-              <Button variant="secondary" size="small" className="h-14 w-full">
+              <Button variant="secondary" size="sm" className="h-14 w-full">
                 Add to cart
               </Button>
-              <Button variant="primary" size="small" className="h-14 w-full">
+              <Button variant="primary" size="sm" className="h-14 w-full">
                 Buy Now (€327.00)
               </Button>
             </div>

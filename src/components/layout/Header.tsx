@@ -2,6 +2,7 @@
 
 import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
 import { GameSelector } from "@/components/layout/GameSelector";
+import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -12,10 +13,10 @@ type NavLink = {
 };
 
 const aboutUsLinks: NavLink[] = [
-  { label: "About Us", href: "#about" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Safety", href: "#safety" },
+  { label: "About Us", href: "/about-us" },
+  { label: "FAQ", href: "/about-us#faq" },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Safety", href: "/about-us#safety" },
 ];
 
 const rightNav: NavLink[] = [
@@ -160,22 +161,21 @@ export function Header() {
       <div className="relative mx-auto flex w-full max-w-[1920px] items-center justify-between px-6 py-4 lg:px-20 lg:py-5">
         {/* Left side */}
         <div className="flex items-center gap-5 lg:gap-12">
-          <button
-            type="button"
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={() => {
               setGameMenuOpen(true);
               setMobileMenuOpen(false);
             }}
-            className="inline-flex items-center justify-center rounded-2xl border-2 border-brand-light px-4 py-2.5 text-xs font-bold uppercase tracking-[0.32px] text-white transition-colors hover:bg-brand-light/10 lg:px-6 lg:py-4 lg:text-base"
-            style={{ boxShadow: "0 4px 44px rgba(255,92,0,0.20)" }}
           >
             <span className="hidden sm:inline">Select your game</span>
             <span className="sm:hidden">Games</span>
-          </button>
+          </Button>
           <nav className="hidden items-center gap-12 lg:flex">
             <AboutUsDropdown />
             <Link
-              href="#reviews"
+              href="/reviews"
               className="text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light"
             >
               Reviews
@@ -229,16 +229,11 @@ export function Header() {
           </Link>
 
           {/* Login button */}
-          <Link
-            href="#login"
-            className="hidden items-center justify-center rounded-2xl border-2 border-brand-light px-6 py-4 text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-90 lg:inline-flex"
-            style={{
-              background: "linear-gradient(to right, #ff5c00, #a32d05)",
-              boxShadow: "0 4px 32px rgba(255,92,0,0.4)",
-            }}
-          >
-            Login
-          </Link>
+          <div className="hidden lg:block">
+            <Button href="#login" variant="primary" size="sm">
+              Login
+            </Button>
+          </div>
 
           {/* Mobile hamburger */}
           <button
@@ -274,17 +269,9 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="#login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 flex items-center justify-center rounded-2xl border-2 border-brand-light px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white"
-              style={{
-                background: "linear-gradient(to right, #ff5c00, #a32d05)",
-                boxShadow: "0 4px 32px rgba(255,92,0,0.4)",
-              }}
-            >
+            <Button href="#login" variant="primary" size="sm" className="mt-2 w-full">
               Login
-            </Link>
+            </Button>
           </nav>
           <div className="flex items-center gap-3 border-t border-dark-border px-6 py-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
