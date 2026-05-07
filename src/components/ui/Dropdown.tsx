@@ -71,7 +71,6 @@ export function Dropdown({ label, value, options, onChange, className = "" }: Dr
               className="flex h-[53px] w-full items-center px-4 text-left transition-colors"
               style={{
                 background: hoveredIndex === i ? "rgba(0,0,0,0.2)" : "transparent",
-                boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
               }}
             >
               <span className="font-body text-base font-medium text-white leading-6">{opt}</span>
