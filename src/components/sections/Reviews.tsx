@@ -118,8 +118,9 @@ export function Reviews() {
             <Image
               src="/images/characters/reviewer.png"
               alt="Reviewer"
-              width={525}
-              height={504}
+              width={610}
+              height={810}
+              quality={100}
               className="relative h-auto w-full max-w-[525px] object-contain"
             />
           </div>
@@ -217,8 +218,9 @@ export function Reviews() {
             <Image
               src="/images/characters/reviewer.png"
               alt="Reviewer"
-              width={525}
-              height={504}
+              width={610}
+              height={810}
+              quality={100}
               className="relative h-auto w-[320px] object-contain"
             />
           </div>
