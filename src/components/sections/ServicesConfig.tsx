@@ -210,6 +210,7 @@ export function ServicesConfig() {
               alt="Weekly event"
               width={259}
               height={262}
+              unoptimized
               className="absolute bottom-0 left-0 h-full w-auto object-contain md:-top-[60px] md:left-2 md:bottom-auto md:h-[262px] pointer-events-none select-none z-0"
             />
             <div className="relative z-10 p-5 pl-[140px] md:p-8 md:pl-[280px]">
@@ -358,6 +359,7 @@ export function ServicesConfig() {
                           alt={rank.label}
                           width={48}
                           height={48}
+                          unoptimized
                           className="h-10 w-10 object-contain"
                           style={{
                             filter: `drop-shadow(0 0 10px ${rank.glow})`,

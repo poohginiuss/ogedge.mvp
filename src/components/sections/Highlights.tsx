@@ -120,6 +120,7 @@ export function Highlights() {
               alt=""
               width={900}
               height={571}
+              unoptimized
               sizes="100vw"
               className="h-auto w-full object-contain"
             />
@@ -178,6 +179,7 @@ export function Highlights() {
               alt=""
               width={900}
               height={571}
+              unoptimized
               sizes="50vw"
               className="h-auto w-full object-contain"
             />

@@ -170,6 +170,7 @@ export function Footer() {
               alt="OGEdge"
               width={180}
               height={58}
+              unoptimized
               className="h-[58px] w-auto"
             />
             <div className="flex items-center gap-2">

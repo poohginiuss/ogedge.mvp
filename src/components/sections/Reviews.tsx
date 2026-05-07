@@ -121,11 +121,12 @@ export function Reviews() {
               width={610}
               height={810}
               quality={100}
+              unoptimized
               className="relative h-auto w-full max-w-[525px] object-contain"
             />
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="-mt-40 flex flex-col gap-8">
             <h2 className="font-heading text-4xl font-bold text-white">
               What our players are saying
             </h2>
@@ -211,7 +212,7 @@ export function Reviews() {
             <div
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[200px] w-[200px] rounded-full pointer-events-none"
               style={{
-                background: "rgba(255,92,0,0.5)",
+                background: "rgba(255, 81, 0, 0.99)",
                 filter: "blur(107px)",
               }}
             />
@@ -221,12 +222,13 @@ export function Reviews() {
               width={610}
               height={810}
               quality={100}
+              unoptimized
               className="relative h-auto w-[320px] object-contain"
             />
           </div>
         </div>
 
-        <div className="-mt-28 lg:-mt-60 grid grid-cols-1 lg:grid-cols-[64px_1fr_64px] gap-4 lg:gap-8 items-center relative z-10">
+        <div className="-mt-38 lg:-mt-60 grid grid-cols-1 lg:grid-cols-[64px_1fr_64px] gap-4 lg:gap-8 items-center relative z-10">
           <button
             type="button"
             aria-label="Previous reviews"

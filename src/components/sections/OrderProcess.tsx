@@ -37,6 +37,7 @@ export function OrderProcess() {
         src="/images/order-process-bg.png"
         alt=""
         fill
+        unoptimized
         sizes="100vw"
         className="object-cover"
       />

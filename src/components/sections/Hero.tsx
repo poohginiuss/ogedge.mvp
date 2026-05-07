@@ -8,6 +8,7 @@ export function Hero() {
           src="/images/hero-valorant-bg.png"
           alt="Valorant Boosting"
           fill
+          unoptimized
           priority
           sizes="100vw"
           className="object-cover"

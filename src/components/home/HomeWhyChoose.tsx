@@ -53,26 +53,29 @@ export function HomeWhyChoose() {
       <div className="flex flex-col items-center lg:hidden">
         <div className="relative h-[420px] w-full overflow-hidden">
           <div
-            className="absolute right-[10%] top-1/3 h-[200px] w-[150px] -translate-y-1/2 rounded-full"
-            style={{ background: "#ff5c00", filter: "blur(80px)" }}
+            className="absolute right-[25%] top-1/3 h-[200px] w-[150px] translate-y-1/9 rounded-full"
+            style={{ background: "#ff5c00", filter: "blur(90px)", opacity: 1 }}
           />
           <Image
             src="/images/home/why-choose/character.png"
             alt="OGEdge character"
-            width={790}
-            height={621}
+            width={2400}
+            height={1808}
+            quality={100}
             sizes="(max-width: 1024px) 100vw, 0vw"
-            className="absolute inset-0 h-full w-full object-cover object-top"
+            unoptimized
+            className="absolute inset-x-0 top-2 h-[95%] w-full object-contain object-top"
           />
           <div
-            className="pointer-events-none absolute bottom-0 left-0 h-[50%] w-full"
+            className="pointer-events-none absolute bottom-0 left-0 h-[40%] w-full"
             style={{
-              background: "linear-gradient(to top, var(--dark-main) 0%, transparent 100%)",
+              background:
+                "linear-gradient(to top, var(--dark-main) 0%, var(--dark-main) 36%, rgba(17,17,17,0.96) 56%, rgba(17,17,17,0.72) 74%, rgba(17,17,17,0.3) 88%, transparent 100%)",
             }}
           />
         </div>
 
-        <div className="-mt-10 relative z-10 flex flex-col items-center px-6 pb-16">
+        <div className="-mt-20 relative z-10 flex flex-col items-center px-6 pb-16">
           <h2 className="text-center font-heading text-2xl font-bold text-white md:text-3xl">
             <span className="text-brand-main">Why</span> Customers Choose{" "}
             <span className="text-brand-main">OGEdge</span>
@@ -125,18 +128,18 @@ export function HomeWhyChoose() {
           </div>
         </div>
 
-        <div className="relative flex w-[45%] items-end justify-end self-center">
+        <div className="relative flex w-[50%] min-h-[600px] items-end justify-end self-stretch overflow-visible">
           <div
-            className="absolute right-[10%] top-1/2 h-[300px] w-[200px] -translate-y-1/2 rounded-full"
-            style={{ background: "#ff5c00", filter: "blur(100px)", opacity: 0.4 }}
+            className="absolute right-[20%] top-1/2 h-[400px] w-[280px] -translate-y-1/2 rounded-full"
+            style={{ background: "#ff5c00", filter: "blur(100px)", opacity: 0.9 }}
           />
           <Image
             src="/images/home/why-choose/character.png"
             alt="OGEdge character"
-            width={790}
-            height={621}
-            sizes="45vw"
-            className="relative h-auto w-full max-w-[650px] object-contain"
+            width={2400}
+            height={1808}
+            unoptimized
+            className="relative translate-x-28 h-[600px] w-auto max-w-none object-contain"
           />
           <div
             className="pointer-events-none absolute -bottom-[70px] left-0 h-[172px] w-full"

@@ -60,6 +60,7 @@ export function Articles() {
               src={featuredArticle.image}
               alt={featuredArticle.title}
               fill
+              unoptimized
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
@@ -107,6 +108,7 @@ export function Articles() {
                   src={article.image}
                   alt={article.title}
                   fill
+                  unoptimized
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                   className="object-cover"
                 />

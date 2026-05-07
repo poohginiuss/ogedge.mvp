@@ -190,6 +190,7 @@ export function Header() {
             alt="OGEdge"
             width={188}
             height={58}
+            unoptimized
             priority
             className="h-9 w-auto md:h-10 lg:h-[50px]"
           />
