@@ -151,9 +151,9 @@ const gameColumns: GameFooterColumn[] = [
 ];
 
 const legalLinks = [
-  { label: "Terms", href: "#terms" },
+  { label: "Terms", href: "/terms" },
   { label: "Refund Policy", href: "#refund" },
-  { label: "Privacy", href: "#privacy" },
+  { label: "Privacy", href: "/privacy" },
   { label: "Cookie Policy", href: "#cookies" },
 ];
 
