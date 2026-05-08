@@ -61,7 +61,6 @@ export function HomeWhyChoose() {
             alt="OGEdge character"
             width={2400}
             height={1808}
-            quality={100}
             sizes="(max-width: 1024px) 100vw, 0vw"
             unoptimized
             className="absolute inset-x-0 top-2 h-[95%] w-full object-contain object-top"

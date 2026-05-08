@@ -33,7 +33,6 @@ export function BottomText() {
                   alt={block.title}
                   width={575}
                   height={500}
-                  quality={100}
                   unoptimized
                   className="h-[300px] md:h-[400px] lg:h-[500px] w-full object-cover rounded-3xl"
                 />

@@ -5,6 +5,7 @@ import { GameSelector } from "@/components/layout/GameSelector";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 type NavLink = {
@@ -14,19 +15,23 @@ type NavLink = {
 
 const aboutUsLinks: NavLink[] = [
   { label: "About Us", href: "/about-us" },
-  { label: "FAQ", href: "/about-us#faq" },
+  { label: "FAQ", href: "/faq" },
   { label: "Reviews", href: "/reviews" },
-  { label: "Safety", href: "/about-us#safety" },
+  { label: "Safety", href: "/safety" },
 ];
 
 const rightNav: NavLink[] = [
-  { label: "Blog", href: "#blog" },
+  { label: "Blog", href: "/blog" },
   { label: "Support", href: "#support" },
 ];
 
 function AboutUsDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  const activeLink = aboutUsLinks.find((link) => pathname === link.href);
+  const displayLabel = activeLink ? activeLink.label : "About Us";
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -45,7 +50,7 @@ function AboutUsDropdown() {
         onClick={() => setOpen((v) => !v)}
         className="inline-flex items-center gap-2 text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light"
       >
-        About Us
+        {displayLabel}
         <ChevronDownIcon
           size={13}
           className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}

@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRightIcon, ChevronDownIcon, ChevronUpIcon } from "@/components/icons";
+import Link from "next/link";
 import { useState } from "react";
 
 type Tab = {
@@ -134,13 +135,13 @@ export function Faq() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <button
-            type="button"
+          <Link
+            href="/faq"
             className="inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white hover:text-brand-light transition-colors"
           >
             Explore all questions
             <ArrowRightIcon size={18} />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

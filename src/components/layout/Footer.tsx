@@ -14,7 +14,7 @@ const footerColumns: FooterColumn[] = [
       { label: "Services", href: "#services" },
       { label: "Reviews", href: "#reviews" },
       { label: "FAQ", href: "#faq" },
-      { label: "Blog", href: "#blog" },
+      { label: "Blog", href: "/blog" },
       { label: "About Us", href: "#about" },
       { label: "Safety", href: "#safety" },
       { label: "Jobs", href: "#jobs" },

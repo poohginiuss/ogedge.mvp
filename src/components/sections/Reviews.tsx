@@ -120,7 +120,6 @@ export function Reviews() {
               alt="Reviewer"
               width={610}
               height={810}
-              quality={100}
               unoptimized
               className="relative h-auto w-full max-w-[525px] object-contain"
             />
@@ -221,7 +220,6 @@ export function Reviews() {
               alt="Reviewer"
               width={610}
               height={810}
-              quality={100}
               unoptimized
               className="relative h-auto w-[320px] object-contain"
             />
