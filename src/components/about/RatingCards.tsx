@@ -42,47 +42,53 @@ export function RatingCards() {
 
       {/* Rated Excellent + Top Rated: side by side on mobile, stacked on desktop */}
       <div className="grid grid-cols-2 gap-4 lg:order-1 lg:grid-cols-1">
-        <div
-          className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl p-6"
+        <a
+          href="https://www.trustpilot.com/review/ogedge.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-transparent p-6 transition-all duration-200 hover:border-[#48a589] hover:shadow-[0_0_16px_rgba(72,165,137,0.35)]"
           style={{ background: "rgba(35,35,48,0.5)", backdropFilter: "blur(5px)" }}
         >
-          <span className="font-body text-lg font-medium leading-7 text-white lg:text-2xl lg:leading-8">
+          <span className="font-body text-lg font-medium leading-7 text-white transition-colors group-hover:text-[#48a589] lg:text-2xl lg:leading-8">
             Rated Excellent
           </span>
           <div className="flex items-center gap-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/reviews/star.svg" alt="" className="h-[14px] w-[15px]" />
+            <img src="/images/icons/reviews/star-green.svg" alt="" className="h-[14px] w-[15px]" />
             <span className="font-body text-sm font-bold text-[#48a589]">4.9 Star Rating</span>
           </div>
           <div
-            className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full"
+            className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full transition-opacity group-hover:opacity-100"
             style={{
               background: "radial-gradient(circle, rgba(72,165,137,0.5) 0%, transparent 70%)",
               filter: "blur(15px)",
             }}
           />
-        </div>
+        </a>
 
-        <div
-          className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl p-6"
+        <a
+          href="https://www.reviews.io/company-reviews/store/ogedge"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-transparent p-6 transition-all duration-200 hover:border-[#f5e583] hover:shadow-[0_0_16px_rgba(245,229,131,0.35)]"
           style={{ background: "rgba(35,35,48,0.5)", backdropFilter: "blur(5px)" }}
         >
-          <span className="font-body text-lg font-medium leading-7 text-white lg:text-2xl lg:leading-8">
+          <span className="font-body text-lg font-medium leading-7 text-white transition-colors group-hover:text-[#f5e583] lg:text-2xl lg:leading-8">
             Top Rated
           </span>
           <div className="flex items-center gap-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/reviews/star.svg" alt="" className="h-[14px] w-[15px]" />
+            <img src="/images/icons/reviews/star-yellow.svg" alt="" className="h-[14px] w-[15px]" />
             <span className="font-body text-sm font-bold text-[#f5e583]">4.9 Star Rating</span>
           </div>
           <div
-            className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full"
+            className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full transition-opacity group-hover:opacity-100"
             style={{
               background: "radial-gradient(circle, rgba(245,229,131,0.5) 0%, transparent 70%)",
               filter: "blur(15px)",
             }}
           />
-        </div>
+        </a>
       </div>
 
       {/* See All Reviews link */}

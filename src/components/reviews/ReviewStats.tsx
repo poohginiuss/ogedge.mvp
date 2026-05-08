@@ -81,20 +81,37 @@ function RatingBadge({
   title,
   starColor,
   glowColor,
+  href,
 }: {
   title: string;
   starColor: string;
   glowColor: string;
+  href: string;
 }) {
   return (
-    <div
-      className="relative flex flex-1 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl p-6"
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative flex flex-1 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-transparent p-6 transition-all duration-200"
       style={{
         background: "rgba(35,35,48,0.5)",
         backdropFilter: "blur(5px)",
+        ["--badge-color" as string]: starColor,
+        ["--badge-glow" as string]: glowColor,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = starColor;
+        e.currentTarget.style.boxShadow = `0 0 16px ${glowColor}`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "transparent";
+        e.currentTarget.style.boxShadow = "none";
       }}
     >
-      <span className="font-body text-2xl font-medium leading-8 text-white">{title}</span>
+      <span className="font-body text-2xl font-medium leading-8 text-white transition-colors">
+        {title}
+      </span>
       <div className="flex items-center gap-1">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/icons/reviews/star.svg" alt="" className="h-[20px] w-[20px]" />
@@ -102,15 +119,14 @@ function RatingBadge({
           4.9 Star Rating
         </span>
       </div>
-      {/* Sunshine glow from bottom-right */}
       <div
-        className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full"
+        className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full transition-opacity group-hover:opacity-100"
         style={{
           background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
           filter: "blur(15px)",
         }}
       />
-    </div>
+    </a>
   );
 }
 
@@ -187,8 +203,14 @@ export function ReviewStats() {
               title="Rated Excellent"
               starColor="#48a589"
               glowColor="rgba(72,165,137,0.5)"
+              href="https://www.trustpilot.com/review/ogedge.com"
             />
-            <RatingBadge title="Top Rated" starColor="#f5e583" glowColor="rgba(245,229,131,0.5)" />
+            <RatingBadge
+              title="Top Rated"
+              starColor="#f5e583"
+              glowColor="rgba(245,229,131,0.5)"
+              href="https://www.reviews.io/company-reviews/store/ogedge"
+            />
           </div>
         </div>
 
@@ -215,8 +237,14 @@ export function ReviewStats() {
               title="Rated Excellent"
               starColor="#48a589"
               glowColor="rgba(72,165,137,0.5)"
+              href="https://www.trustpilot.com/review/ogedge.com"
             />
-            <RatingBadge title="Top Rated" starColor="#f5e583" glowColor="rgba(245,229,131,0.5)" />
+            <RatingBadge
+              title="Top Rated"
+              starColor="#f5e583"
+              glowColor="rgba(245,229,131,0.5)"
+              href="https://www.reviews.io/company-reviews/store/ogedge"
+            />
           </div>
 
           <div className="flex flex-col gap-3">

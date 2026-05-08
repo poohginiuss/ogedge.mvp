@@ -31,10 +31,10 @@ export function HomeHero() {
           Two decades of dominance. Providing elite coaching, boosting, and leveling since 2006
         </p>
 
-        <div className="mt-4 flex items-center gap-2">
+        <div className="mt-1 flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/home/star.svg" alt="" className="h-4 w-4" loading="eager" />
-          <span className="font-body text-lg font-bold text-brand-light md:text-xl">
+          <img src="/images/home/star.svg" alt="" className="h-9 w-9 -mr-1" loading="eager" />
+          <span className="font-body text-lg font-bold text-brand-light md:text-xl mr-2.5">
             4.9 Star Rating
           </span>
           <span className="font-body text-lg font-medium text-white md:text-xl">10k Reviews</span>
