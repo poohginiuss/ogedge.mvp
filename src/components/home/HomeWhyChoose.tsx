@@ -127,7 +127,7 @@ export function HomeWhyChoose() {
           </div>
         </div>
 
-        <div className="relative flex w-[50%] min-h-[600px] items-end justify-end self-stretch overflow-visible">
+        <div className="relative flex w-[50%] min-h-[550px] items-end justify-end self-stretch overflow-visible">
           <div
             className="absolute right-[20%] top-1/2 h-[400px] w-[280px] -translate-y-1/2 rounded-full"
             style={{ background: "#ff5c00", filter: "blur(100px)", opacity: 0.9 }}
@@ -138,7 +138,7 @@ export function HomeWhyChoose() {
             width={2400}
             height={1808}
             unoptimized
-            className="relative translate-x-28 h-[600px] w-auto max-w-none object-contain"
+            className="relative translate-x-28 h-[550px] w-auto max-w-none object-contain"
           />
           <div
             className="pointer-events-none absolute -bottom-[70px] left-0 h-[172px] w-full"
