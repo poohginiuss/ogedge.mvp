@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { ButtonHTMLAttributes, CSSProperties, FocusEvent, MouseEvent, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "link";
-type ButtonSize = "lg" | "sm";
+type ButtonSize = "lg" | "sm" | "xs";
 
 type ButtonBaseProps = {
   variant?: ButtonVariant;
@@ -29,6 +29,7 @@ export type ButtonProps = AsButtonProps | AsLinkProps;
 const sizeText: Record<ButtonSize, string> = {
   lg: "text-xl tracking-[0.4px]",
   sm: "text-base tracking-[0.32px] leading-6",
+  xs: "text-sm tracking-[0.28px] leading-5",
 };
 
 function getVariantClasses(variant: ButtonVariant) {
@@ -92,7 +93,7 @@ export function Button(props: ButtonProps) {
   const base =
     "inline-flex items-center justify-center rounded-3xl font-body font-bold uppercase transition-all duration-200 focus:outline-none";
 
-  const padding = variant === "link" ? "" : "px-8 py-6";
+  const padding = variant === "link" ? "" : size === "xs" ? "px-6 py-4" : "px-8 py-6";
   const variantCls = getVariantClasses(variant);
 
   const combinedClassName = `${base} ${padding} ${sizeText[size]} ${variantCls} ${className}`;

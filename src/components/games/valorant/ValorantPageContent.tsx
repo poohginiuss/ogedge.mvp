@@ -5,14 +5,15 @@ import { Hero } from "@/components/sections/Hero";
 import { Highlights } from "@/components/sections/Highlights";
 import { OrderProcess } from "@/components/sections/OrderProcess";
 import { Reviews } from "@/components/sections/Reviews";
-import { ServicesConfig } from "@/components/sections/ServicesConfig";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
+
+import { ValorantConfigurator } from "./ValorantConfigurator";
 
 export function ValorantPageContent() {
   return (
     <div className="bg-dark-main">
       <Hero />
-      <ServicesConfig />
+      <ValorantConfigurator />
       <WhyChooseUs />
       <Reviews />
       <OrderProcess />
