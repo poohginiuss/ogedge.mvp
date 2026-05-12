@@ -3,28 +3,24 @@
 import { Dropdown } from "@/components/ui/Dropdown";
 import { PlatformSelector } from "@/components/ui/PlatformSelector";
 
-import {
-  type RankBoostKey,
-  platformOptions,
-  queueOptions,
-  rankBoostBenefits,
-  rankBoostDivisions,
-  rankBoostRanks,
-  rankBoostRequirements,
-  serverOptions,
-} from "@/components/games/valorant/valorantData";
-
 import { BulletList } from "../shared/BulletList";
 import { CollapsibleList } from "../shared/CollapsibleList";
 import { RankButton } from "../shared/RankButton";
 
-type RankBoostingStandardProps = {
-  currentRank: RankBoostKey;
-  setCurrentRank: (rank: RankBoostKey) => void;
+export type RankBoostRank = {
+  key: string;
+  label: string;
+  glow: string;
+  color?: string;
+};
+
+export type RankBoostingStandardProps = {
+  currentRank: string;
+  setCurrentRank: (rank: string) => void;
   currentDivision: number;
   setCurrentDivision: (idx: number) => void;
-  desiredRank: RankBoostKey;
-  setDesiredRank: (rank: RankBoostKey) => void;
+  desiredRank: string;
+  setDesiredRank: (rank: string) => void;
   desiredLP: number;
   setDesiredLP: (lp: number) => void;
   server: string;
@@ -33,6 +29,13 @@ type RankBoostingStandardProps = {
   setQueue: (q: string) => void;
   platform: string;
   setPlatform: (p: string) => void;
+  ranks: RankBoostRank[];
+  divisions: string[];
+  serverOptions: string[];
+  queueOptions: string[];
+  platformOptions: { id: string; label: string; icon: string }[];
+  requirements: string[];
+  benefits: string[];
 };
 
 const SELECTED_BG =
@@ -43,17 +46,19 @@ const LP_MAX = 500;
 const LP_STEP = 100;
 
 function RankGrid({
+  ranks,
   selected,
   onSelect,
   minIndex = 0,
 }: {
-  selected: RankBoostKey;
-  onSelect: (key: RankBoostKey) => void;
+  ranks: RankBoostRank[];
+  selected: string;
+  onSelect: (key: string) => void;
   minIndex?: number;
 }) {
   return (
     <div className="grid grid-cols-4 gap-2">
-      {rankBoostRanks.map((rank, idx) => (
+      {ranks.map((rank, idx) => (
         <RankButton
           key={rank.key}
           label={rank.label}
@@ -84,23 +89,30 @@ export function RankBoostingStandard({
   setQueue,
   platform,
   setPlatform,
+  ranks,
+  divisions,
+  serverOptions,
+  queueOptions,
+  platformOptions,
+  requirements,
+  benefits,
 }: RankBoostingStandardProps) {
-  const currentRankIdx = rankBoostRanks.findIndex((r) => r.key === currentRank);
-  const desiredRankIdx = rankBoostRanks.findIndex((r) => r.key === desiredRank);
-  const currentRankData = rankBoostRanks[currentRankIdx];
-  const desiredRankData = rankBoostRanks[desiredRankIdx];
+  const currentRankIdx = ranks.findIndex((r) => r.key === currentRank);
+  const desiredRankIdx = ranks.findIndex((r) => r.key === desiredRank);
+  const currentRankData = ranks[currentRankIdx];
+  const desiredRankData = ranks[desiredRankIdx];
 
-  const currentLabel = `${currentRankData?.label ?? ""} ${rankBoostDivisions[currentDivision]}`;
+  const currentLabel = `${currentRankData?.label ?? ""} ${divisions[currentDivision]}`;
   const desiredLabel = `${desiredRankData?.label ?? ""} ${desiredLP} LP`;
 
-  const minDesiredIdx = Math.min(currentRankIdx + 1, rankBoostRanks.length - 1);
+  const minDesiredIdx = Math.min(currentRankIdx + 1, ranks.length - 1);
 
-  const handleSetCurrentRank = (key: RankBoostKey) => {
+  const handleSetCurrentRank = (key: string) => {
     setCurrentRank(key);
-    const newIdx = rankBoostRanks.findIndex((r) => r.key === key);
-    const minIdx = Math.min(newIdx + 1, rankBoostRanks.length - 1);
+    const newIdx = ranks.findIndex((r) => r.key === key);
+    const minIdx = Math.min(newIdx + 1, ranks.length - 1);
     if (desiredRankIdx <= newIdx) {
-      setDesiredRank(rankBoostRanks[minIdx].key);
+      setDesiredRank(ranks[minIdx].key);
     }
   };
 
@@ -130,11 +142,10 @@ export function RankBoostingStandard({
             </div>
 
             <div className="flex flex-col gap-4">
-              <RankGrid selected={currentRank} onSelect={handleSetCurrentRank} />
+              <RankGrid ranks={ranks} selected={currentRank} onSelect={handleSetCurrentRank} />
 
-              {/* Division selector */}
               <div className="grid grid-cols-4 gap-2">
-                {rankBoostDivisions.map((div, i) => {
+                {divisions.map((div, i) => {
                   const active = currentDivision === i;
                   return (
                     <button
@@ -180,7 +191,12 @@ export function RankBoostingStandard({
             </div>
 
             <div className="flex flex-col gap-4">
-              <RankGrid selected={desiredRank} onSelect={setDesiredRank} minIndex={minDesiredIdx} />
+              <RankGrid
+                ranks={ranks}
+                selected={desiredRank}
+                onSelect={setDesiredRank}
+                minIndex={minDesiredIdx}
+              />
 
               {/* LP stepper */}
               <div className="flex items-center gap-2">
@@ -260,12 +276,12 @@ export function RankBoostingStandard({
 
         {/* Requirements & Benefits */}
         <div className="hidden grid-cols-2 gap-6 md:grid">
-          <BulletList title="Requirements" items={rankBoostRequirements} />
-          <BulletList title="What Do I Get" items={rankBoostBenefits} />
+          <BulletList title="Requirements" items={requirements} />
+          <BulletList title="What Do I Get" items={benefits} />
         </div>
         <div className="flex flex-col gap-3 md:hidden">
-          <CollapsibleList title="Requirements" items={rankBoostRequirements} />
-          <CollapsibleList title="What Do I Get" items={rankBoostBenefits} />
+          <CollapsibleList title="Requirements" items={requirements} />
+          <CollapsibleList title="What Do I Get" items={benefits} />
         </div>
       </div>
     </div>

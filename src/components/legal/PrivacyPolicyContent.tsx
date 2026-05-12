@@ -59,9 +59,7 @@ const sections: Section[] = [
   },
   {
     heading: "Contact Us",
-    paragraphs: [
-      "If you have any questions about this Privacy Policy, please contact us.",
-    ],
+    paragraphs: ["If you have any questions about this Privacy Policy, please contact us."],
   },
 ];
 

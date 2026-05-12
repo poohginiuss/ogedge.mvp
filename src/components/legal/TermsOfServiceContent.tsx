@@ -55,9 +55,7 @@ const sections: Section[] = [
   },
   {
     heading: "Contact Us",
-    paragraphs: [
-      "If you have any questions about these Terms of Service, please contact us.",
-    ],
+    paragraphs: ["If you have any questions about these Terms of Service, please contact us."],
   },
 ];
 

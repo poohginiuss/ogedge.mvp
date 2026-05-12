@@ -9,9 +9,19 @@ import { type BlogArticle, blogAuthor, getMostPopularBlogArticles } from "./blog
 
 function MostPopularCard({ article }: { article: BlogArticle }) {
   return (
-    <Link href={`/blog/${article.slug}`} className="flex flex-col gap-4 rounded-3xl p-4 transition-colors hover:bg-white/[0.02]">
+    <Link
+      href={`/blog/${article.slug}`}
+      className="flex flex-col gap-4 rounded-3xl p-4 transition-colors hover:bg-white/[0.02]"
+    >
       <div className="relative h-[175px] overflow-hidden rounded-3xl">
-        <Image src={article.image} alt={article.title} fill unoptimized sizes="315px" className="object-cover" />
+        <Image
+          src={article.image}
+          alt={article.title}
+          fill
+          unoptimized
+          sizes="315px"
+          className="object-cover"
+        />
       </div>
       <h3 className="font-body text-base font-medium leading-6 text-white">{article.title}</h3>
     </Link>
@@ -41,7 +51,9 @@ function AuthorCard() {
           <h2 className="font-body text-lg font-medium leading-7 md:text-xl md:leading-[30px]">
             {blogAuthor.ctaTitle}
           </h2>
-          <p className="font-body text-xs leading-[18px] md:text-base md:leading-6">{blogAuthor.ctaBody}</p>
+          <p className="font-body text-xs leading-[18px] md:text-base md:leading-6">
+            {blogAuthor.ctaBody}
+          </p>
         </div>
 
         <Button href="/valorant" variant="secondary" size="sm" className="w-full justify-center">
@@ -59,7 +71,11 @@ export function BlogPostPageContent({ article }: { article: BlogArticle }) {
     <>
       <Header />
       <main className="bg-dark-main">
-        <PageHero title={article.title} subtitle={article.category} backgroundImage="/images/blog/blog-hero.png" />
+        <PageHero
+          title={article.title}
+          subtitle={article.category}
+          backgroundImage="/images/blog/blog-hero.png"
+        />
 
         <section className="w-full bg-dark-main">
           <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-10 px-6 py-12 md:px-12 lg:flex-row lg:items-start lg:justify-between lg:px-0 lg:py-16">
@@ -76,7 +92,9 @@ export function BlogPostPageContent({ article }: { article: BlogArticle }) {
               </div>
 
               <div className="flex flex-col gap-6 text-white md:gap-8">
-                <p className="font-body text-sm leading-5 md:text-base md:leading-6">{article.body.intro}</p>
+                <p className="font-body text-sm leading-5 md:text-base md:leading-6">
+                  {article.body.intro}
+                </p>
 
                 <div className="rounded-2xl bg-[rgba(56,56,82,0.5)] p-4">
                   <div className="flex items-start gap-3">
@@ -99,7 +117,9 @@ export function BlogPostPageContent({ article }: { article: BlogArticle }) {
                   {article.body.bullets.map((bullet) => (
                     <li key={bullet} className="flex items-center gap-4">
                       <span className="h-[9px] w-[9px] shrink-0 rounded-full bg-[#fa4609]" />
-                      <span className="font-body text-sm leading-5 md:text-base md:leading-6">{bullet}</span>
+                      <span className="font-body text-sm leading-5 md:text-base md:leading-6">
+                        {bullet}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -116,7 +136,9 @@ export function BlogPostPageContent({ article }: { article: BlogArticle }) {
               </div>
 
               <div className="flex flex-col gap-6 lg:hidden">
-                <h2 className="font-body text-2xl font-medium leading-8 text-white">Most Popular</h2>
+                <h2 className="font-body text-2xl font-medium leading-8 text-white">
+                  Most Popular
+                </h2>
                 <div className="flex flex-col gap-1">
                   {mostPopularArticles.map((popularArticle) => (
                     <MostPopularCard key={popularArticle.slug} article={popularArticle} />
@@ -129,7 +151,9 @@ export function BlogPostPageContent({ article }: { article: BlogArticle }) {
               <AuthorCard />
 
               <div className="flex flex-col gap-6">
-                <h2 className="font-body text-2xl font-medium leading-8 text-white">Most Popular</h2>
+                <h2 className="font-body text-2xl font-medium leading-8 text-white">
+                  Most Popular
+                </h2>
                 <div className="flex flex-col gap-1">
                   {mostPopularArticles.map((popularArticle) => (
                     <MostPopularCard key={popularArticle.slug} article={popularArticle} />

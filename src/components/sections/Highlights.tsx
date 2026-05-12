@@ -231,7 +231,9 @@ export function Highlights() {
       <div className="mx-auto w-full max-w-[1280px] px-6 py-14 md:px-12 lg:px-20 lg:py-20">
         {/* Mobile layout — fixed height container with dots pinned at bottom */}
         <div className="relative flex h-[660px] flex-col sm:h-[730px] lg:hidden">
-          <div className={`flex flex-1 flex-col gap-6 overflow-hidden pb-8 transition-all duration-300 ease-in-out ${animClass}`}>
+          <div
+            className={`flex flex-1 flex-col gap-6 overflow-hidden pb-8 transition-all duration-300 ease-in-out ${animClass}`}
+          >
             <span className="font-heading text-3xl font-bold text-brand-light">{slide.number}</span>
             <h2 className="font-heading text-2xl font-bold leading-tight text-white">
               {slide.title}
@@ -260,16 +262,24 @@ export function Highlights() {
         {/* Desktop layout — fixed height with dots pinned at bottom-left */}
         <div className="relative hidden h-[560px] lg:grid lg:grid-cols-2 lg:gap-16">
           <div className="flex h-full flex-col">
-            <div className={`flex h-full flex-col justify-center gap-6 pb-12 transition-all duration-300 ease-in-out ${animClass}`}>
-              <span className="font-heading text-4xl font-bold text-brand-light">{slide.number}</span>
+            <div
+              className={`flex h-full flex-col justify-center gap-6 pb-12 transition-all duration-300 ease-in-out ${animClass}`}
+            >
+              <span className="font-heading text-4xl font-bold text-brand-light">
+                {slide.number}
+              </span>
               <h2 className="font-heading text-4xl font-bold leading-tight text-white">
                 {slide.title}
               </h2>
-              <p className="max-w-[400px] font-body text-lg leading-7 text-white/90">{slide.body}</p>
+              <p className="max-w-[400px] font-body text-lg leading-7 text-white/90">
+                {slide.body}
+              </p>
             </div>
           </div>
 
-          <div className={`flex items-center justify-center transition-all duration-300 ease-in-out ${animClass}`}>
+          <div
+            className={`flex items-center justify-center transition-all duration-300 ease-in-out ${animClass}`}
+          >
             <Image
               src={slide.image}
               alt=""

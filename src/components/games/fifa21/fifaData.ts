@@ -1,5 +1,5 @@
-import type { CategoryOption } from "@/components/configurator/CategoryTabs";
-import type { ExtraOption } from "@/components/configurator/OrderSummary";
+import type { CategoryOption } from "@/components/calculator/shared/CategoryTabs";
+import type { ExtraOption } from "@/components/calculator/shared/OrderSummary";
 import type { DropdownOption } from "@/components/ui/Dropdown";
 
 export const fifaRankCategories: DropdownOption[] = [

@@ -4,24 +4,20 @@ import { Dropdown } from "@/components/ui/Dropdown";
 import { PlatformSelector } from "@/components/ui/PlatformSelector";
 import { Slider } from "@/components/ui/Slider";
 
-import {
-  type RankKey,
-  benefits,
-  divisions,
-  platformOptions,
-  queueOptions,
-  ranks,
-  requirements,
-  serverOptions,
-} from "@/components/games/valorant/valorantData";
+import { BulletList } from "../shared/BulletList";
+import { CollapsibleList } from "../shared/CollapsibleList";
+import { RankButton } from "../shared/RankButton";
 
-import { BulletList } from "./shared/BulletList";
-import { CollapsibleList } from "./shared/CollapsibleList";
-import { RankButton } from "./shared/RankButton";
+export type BoostPerWinRank = {
+  key: string;
+  label: string;
+  glow: string;
+  color?: string;
+};
 
-type BoostPerWinCalculatorProps = {
-  selectedRank: RankKey;
-  setSelectedRank: (rank: RankKey) => void;
+export type BoostPerWinCalculatorProps = {
+  selectedRank: string;
+  setSelectedRank: (rank: string) => void;
   selectedDivision: number;
   setSelectedDivision: (idx: number) => void;
   wins: number;
@@ -32,6 +28,13 @@ type BoostPerWinCalculatorProps = {
   setQueue: (q: string) => void;
   platform: string;
   setPlatform: (p: string) => void;
+  ranks: BoostPerWinRank[];
+  divisions: string[];
+  serverOptions: string[];
+  queueOptions: string[];
+  platformOptions: { id: string; label: string; icon: string }[];
+  requirements: string[];
+  benefits: string[];
 };
 
 export function BoostPerWinCalculator({
@@ -47,6 +50,13 @@ export function BoostPerWinCalculator({
   setQueue,
   platform,
   setPlatform,
+  ranks,
+  divisions,
+  serverOptions,
+  queueOptions,
+  platformOptions,
+  requirements,
+  benefits,
 }: BoostPerWinCalculatorProps) {
   const rankData = ranks.find((r) => r.key === selectedRank);
   const subtitle = `${rankData?.label ?? ""} ${divisions[selectedDivision]}`;

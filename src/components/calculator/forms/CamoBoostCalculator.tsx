@@ -1,27 +1,21 @@
 "use client";
 
-import { BulletList } from "@/components/calculator/shared/BulletList";
-import { CollapsibleList } from "@/components/calculator/shared/CollapsibleList";
-import {
-  benefits,
-  camoTierOptions,
-  gameModes,
-  platformOptions,
-  requirementTexts,
-  requirements,
-  seasonalBundles,
-  singularityItems,
-  weaponTypes,
-  weaponsByType,
-} from "@/components/games/cod-mw/codMwData";
 import { PlatformSelector } from "@/components/ui/PlatformSelector";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { BulletList } from "../shared/BulletList";
+import { CamoScrollPanel } from "../shared/CamoScrollPanel";
+import { CollapsibleList } from "../shared/CollapsibleList";
 
 export type CodWeaponSelection = {
   id: string;
   name: string;
   price: number;
 };
+
+export type CamoTierOption = { id: string; label: string };
+export type WeaponTypeOption = { id: string; label: string };
+export type CodWeapon = { id: string; name: string; price: number };
+export type SingularityItem = { id: string; name: string; description: string; price: number };
+export type SeasonalBundle = { id: string; name: string; price: number; image: string };
 
 export type CamoBoostCalculatorProps = {
   gameMode: string;
@@ -42,6 +36,16 @@ export type CamoBoostCalculatorProps = {
   setSelectedBundle: (id: string | null) => void;
   platform: string;
   setPlatform: (p: string) => void;
+  gameModes: readonly string[];
+  camoTierOptions: CamoTierOption[];
+  weaponTypes: WeaponTypeOption[];
+  weaponsByType: Record<string, CodWeapon[]>;
+  requirementTexts: Record<string, string>;
+  singularityItems: SingularityItem[];
+  seasonalBundles: SeasonalBundle[];
+  platformOptions: { id: string; label: string; icon: string }[];
+  requirements: string[];
+  benefits: string[];
 };
 
 const CALC_CARD_BORDER = "2px solid #6d6d96";
@@ -72,8 +76,8 @@ function allBaseId(typeId: string): string {
   return `all-base-${typeId}`;
 }
 
-function sumWeapons(typeId: string): number {
-  const list = weaponsByType[typeId] ?? [];
+function sumWeapons(wbt: Record<string, CodWeapon[]>, typeId: string): number {
+  const list = wbt[typeId] ?? [];
   return list.reduce((s, w) => s + w.price, 0);
 }
 
@@ -92,78 +96,6 @@ function CircleCheckbox({ checked }: { checked: boolean }) {
         />
       )}
     </span>
-  );
-}
-
-function getScrollThumbState(scroller: HTMLDivElement) {
-  const { clientHeight, scrollHeight, scrollTop } = scroller;
-  const visible = scrollHeight > clientHeight + 1;
-  if (!visible) {
-    return { height: 0, top: 0, visible: false };
-  }
-
-  const trackHeight = Math.max(clientHeight - 32, 0);
-  const height = Math.max((clientHeight / scrollHeight) * trackHeight, 36);
-  const maxTop = Math.max(trackHeight - height, 0);
-  const top = (scrollTop / (scrollHeight - clientHeight)) * maxTop;
-
-  return { height, top, visible: true };
-}
-
-function CamoScrollPanel({ children }: { children: ReactNode }) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [thumb, setThumb] = useState({ height: 0, top: 0, visible: false });
-
-  const handleScroll = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    setThumb(getScrollThumbState(scroller));
-  };
-
-  useEffect(() => {
-    const scroller = scrollerRef.current;
-    const content = contentRef.current;
-    if (!scroller) return;
-
-    const update = () => setThumb(getScrollThumbState(scroller));
-    update();
-
-    const observer = new ResizeObserver(update);
-    observer.observe(scroller);
-    if (content) observer.observe(content);
-
-    window.addEventListener("resize", update);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
-  return (
-    <div className="relative h-full">
-      <div
-        ref={scrollerRef}
-        onScroll={handleScroll}
-        className="camo-native-scrollbar h-full overflow-y-auto overflow-x-hidden pr-5"
-      >
-        <div ref={contentRef} className="flex flex-col">
-          {children}
-        </div>
-      </div>
-      {thumb.visible && (
-        <div
-          className="pointer-events-none absolute bottom-4 right-1.5 top-4 w-1 rounded-full"
-          style={{ background: "rgba(56,56,82,0.5)" }}
-        >
-          <div
-            className="absolute left-0 w-full rounded-full bg-[#fa4609]"
-            style={{ height: thumb.height, transform: `translateY(${thumb.top}px)` }}
-          />
-        </div>
-      )}
-    </div>
   );
 }
 
@@ -186,6 +118,16 @@ export function CamoBoostCalculator({
   setSelectedBundle,
   platform,
   setPlatform,
+  gameModes,
+  camoTierOptions,
+  weaponTypes,
+  weaponsByType,
+  requirementTexts,
+  singularityItems,
+  seasonalBundles,
+  platformOptions,
+  requirements,
+  benefits,
 }: CamoBoostCalculatorProps) {
   const weaponTierIds = ["shattered-gold", "arclight", "tempest"];
   const isWeaponTier = weaponTierIds.includes(camoTier);
@@ -337,7 +279,7 @@ export function CamoBoostCalculator({
                     const baseOn = !!allBaseSelected[type.id];
                     const baseRowId = allBaseId(type.id);
                     const baseRowSel = selectedWeapons.some((w) => w.id === baseRowId);
-                    const agg = sumWeapons(type.id);
+                    const agg = sumWeapons(weaponsByType, type.id);
 
                     return (
                       <div key={type.id} className="flex flex-col">

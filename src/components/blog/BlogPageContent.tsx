@@ -77,17 +77,23 @@ function FilterChip({
   const accentMap = {
     orange: {
       badge: active ? "bg-brand-main text-white" : "bg-[#383852] text-white",
-      border: active ? "border-[#ff975d] shadow-[0_4px_14px_rgba(255,92,0,0.3)]" : "border-[#383852]",
+      border: active
+        ? "border-[#ff975d] shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
+        : "border-[#383852]",
       text: active ? "text-brand-main" : "text-white",
     },
     slate: {
       badge: active ? "bg-brand-main text-white" : "bg-[#383852] text-white",
-      border: active ? "border-[#ff975d] shadow-[0_4px_14px_rgba(255,92,0,0.3)]" : "border-[#383852]",
+      border: active
+        ? "border-[#ff975d] shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
+        : "border-[#383852]",
       text: active ? "text-brand-main" : "text-white",
     },
     green: {
       badge: active ? "bg-brand-main text-white" : "bg-[#383852] text-white",
-      border: active ? "border-[#ff975d] shadow-[0_4px_14px_rgba(255,92,0,0.3)]" : "border-[#383852]",
+      border: active
+        ? "border-[#ff975d] shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
+        : "border-[#383852]",
       text: active ? "text-brand-main" : "text-white",
     },
   } as const;
@@ -103,7 +109,9 @@ function FilterChip({
     >
       <FilterIcon label={label} />
       <span className={`font-body text-sm font-medium md:text-base ${styles.text}`}>{label}</span>
-      <span className={`rounded-md px-1 py-0.5 font-body text-xs font-medium ${styles.badge}`}>{count}</span>
+      <span className={`rounded-md px-1 py-0.5 font-body text-xs font-medium ${styles.badge}`}>
+        {count}
+      </span>
     </button>
   );
 }
@@ -141,7 +149,10 @@ function ReadMoreLink({
 function FeaturedBlogCard({ article }: { article: BlogArticle }) {
   return (
     <article className="group flex flex-col gap-6 rounded-3xl p-0">
-      <Link href={`/blog/${article.slug}`} className="relative aspect-[430/240] overflow-hidden rounded-3xl">
+      <Link
+        href={`/blog/${article.slug}`}
+        className="relative aspect-[430/240] overflow-hidden rounded-3xl"
+      >
         <Image
           src={article.image}
           alt={article.title}
@@ -168,7 +179,9 @@ function FeaturedBlogCard({ article }: { article: BlogArticle }) {
             {article.category}
           </span>
         </div>
-        <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">{article.excerpt}</p>
+        <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">
+          {article.excerpt}
+        </p>
         <ReadMoreLink href={`/blog/${article.slug}`} />
       </div>
     </article>
@@ -177,9 +190,7 @@ function FeaturedBlogCard({ article }: { article: BlogArticle }) {
 
 function BlogListCard({ article }: { article: BlogArticle }) {
   return (
-    <article
-      className="group relative overflow-hidden rounded-3xl border border-[#383852] bg-transparent p-6 transition-all hover:bg-[linear-gradient(104deg,#383852_0.33%,#232330_50.72%,#17191f_101.1%)]"
-    >
+    <article className="group relative overflow-hidden rounded-3xl border border-[#383852] bg-transparent p-6 transition-all hover:bg-[linear-gradient(104deg,#383852_0.33%,#232330_50.72%,#17191f_101.1%)]">
       <div className="flex flex-col gap-6 lg:flex-row">
         <Link
           href={`/blog/${article.slug}`}
@@ -208,7 +219,9 @@ function BlogListCard({ article }: { article: BlogArticle }) {
           >
             {article.title}
           </Link>
-          <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">{article.excerpt}</p>
+          <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">
+            {article.excerpt}
+          </p>
           <ReadMoreLink href={`/blog/${article.slug}`} highlighted />
         </div>
       </div>
@@ -218,9 +231,19 @@ function BlogListCard({ article }: { article: BlogArticle }) {
 
 function MostPopularCard({ article }: { article: BlogArticle }) {
   return (
-    <Link href={`/blog/${article.slug}`} className="flex flex-col gap-4 rounded-3xl p-4 transition-colors hover:bg-white/[0.02]">
+    <Link
+      href={`/blog/${article.slug}`}
+      className="flex flex-col gap-4 rounded-3xl p-4 transition-colors hover:bg-white/[0.02]"
+    >
       <div className="relative h-[175px] overflow-hidden rounded-3xl">
-        <Image src={article.image} alt={article.title} fill unoptimized sizes="315px" className="object-cover" />
+        <Image
+          src={article.image}
+          alt={article.title}
+          fill
+          unoptimized
+          sizes="315px"
+          className="object-cover"
+        />
       </div>
       <h3 className="font-body text-base font-medium leading-6 text-white">{article.title}</h3>
     </Link>
@@ -260,7 +283,11 @@ export function BlogPageContent() {
     <>
       <Header />
       <main className="bg-dark-main">
-        <PageHero title="Blog" subtitle="Featured News" backgroundImage="/images/blog/blog-hero.png" />
+        <PageHero
+          title="Blog"
+          subtitle="Featured News"
+          backgroundImage="/images/blog/blog-hero.png"
+        />
 
         <section className="w-full bg-dark-main">
           <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-8 px-6 py-12 md:px-12 lg:px-0 lg:py-16">
@@ -297,7 +324,9 @@ export function BlogPageContent() {
               <div className="flex items-end justify-between gap-4 lg:hidden">
                 <div>
                   <p className="font-body text-sm leading-5 text-white/80">Showing Reviews for</p>
-                  <p className="font-body text-xl font-medium leading-[30px] text-[#ff975d]">All Games</p>
+                  <p className="font-body text-xl font-medium leading-[30px] text-[#ff975d]">
+                    All Games
+                  </p>
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <p className="font-body text-sm leading-5 text-white/80">Sort By</p>
@@ -367,7 +396,9 @@ export function BlogPageContent() {
                 </div>
 
                 <div className="flex flex-col gap-6 lg:hidden">
-                  <h2 className="font-body text-2xl font-medium leading-8 text-white">Most Popular</h2>
+                  <h2 className="font-body text-2xl font-medium leading-8 text-white">
+                    Most Popular
+                  </h2>
                   <div className="flex flex-col gap-1">
                     {mostPopularArticles.map((article) => (
                       <MostPopularCard key={article.slug} article={article} />
@@ -401,7 +432,9 @@ export function BlogPageContent() {
                 </div>
 
                 <div className="flex flex-col gap-6">
-                  <h2 className="font-body text-2xl font-medium leading-8 text-white">Most Popular</h2>
+                  <h2 className="font-body text-2xl font-medium leading-8 text-white">
+                    Most Popular
+                  </h2>
                   <div className="flex flex-col gap-1">
                     {mostPopularArticles.map((article) => (
                       <MostPopularCard key={article.slug} article={article} />
