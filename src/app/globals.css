@@ -88,3 +88,71 @@ body {
 * {
   scrollbar-color: var(--dark-border) var(--dark-main);
 }
+
+.camo-scrollbar {
+  scrollbar-color: var(--brand-deep) rgba(56, 56, 82, 0.5);
+  scrollbar-width: thin;
+}
+
+.camo-scrollbar::-webkit-scrollbar {
+  width: 4px !important;
+  height: 4px !important;
+}
+
+.camo-scrollbar::-webkit-scrollbar-track {
+  background: rgba(56, 56, 82, 0.5) !important;
+  border: 0 !important;
+  border-radius: 9999px !important;
+  margin: 16px 0 !important;
+}
+
+.camo-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--brand-deep) !important;
+  border: 0 !important;
+  border-radius: 9999px !important;
+}
+
+.camo-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-main);
+}
+
+.camo-scrollbar::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
+}
+
+.camo-scrollbar::-webkit-scrollbar-button:single-button,
+.camo-scrollbar::-webkit-scrollbar-button:vertical:decrement,
+.camo-scrollbar::-webkit-scrollbar-button:vertical:increment,
+.camo-scrollbar::-webkit-scrollbar-button:horizontal:decrement,
+.camo-scrollbar::-webkit-scrollbar-button:horizontal:increment {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
+}
+
+.camo-scrollbar::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+.camo-native-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.camo-native-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.camo-native-scrollbar::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}

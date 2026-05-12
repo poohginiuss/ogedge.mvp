@@ -1,11 +1,8 @@
 "use client";
 
-import { BulletList } from "@/components/games/shared/BulletList";
-import { CollapsibleList } from "@/components/games/shared/CollapsibleList";
 import { Dropdown } from "@/components/ui/Dropdown";
 import { PlatformSelector } from "@/components/ui/PlatformSelector";
 import { Slider } from "@/components/ui/Slider";
-import Image from "next/image";
 
 import {
   type RankKey,
@@ -16,9 +13,13 @@ import {
   ranks,
   requirements,
   serverOptions,
-} from "./valorantData";
+} from "@/components/games/valorant/valorantData";
 
-type ValorantCalculatorProps = {
+import { BulletList } from "./shared/BulletList";
+import { CollapsibleList } from "./shared/CollapsibleList";
+import { RankButton } from "./shared/RankButton";
+
+type BoostPerWinCalculatorProps = {
   selectedRank: RankKey;
   setSelectedRank: (rank: RankKey) => void;
   selectedDivision: number;
@@ -33,7 +34,7 @@ type ValorantCalculatorProps = {
   setPlatform: (p: string) => void;
 };
 
-export function ValorantCalculator({
+export function BoostPerWinCalculator({
   selectedRank,
   setSelectedRank,
   selectedDivision,
@@ -46,7 +47,11 @@ export function ValorantCalculator({
   setQueue,
   platform,
   setPlatform,
-}: ValorantCalculatorProps) {
+}: BoostPerWinCalculatorProps) {
+  const rankData = ranks.find((r) => r.key === selectedRank);
+  const subtitle = `${rankData?.label ?? ""} ${divisions[selectedDivision]}`;
+  const subtitleColor = rankData?.color ?? "#fff";
+
   return (
     <div
       className="rounded-3xl p-6 md:p-10 lg:p-[60px_50px]"
@@ -61,39 +66,22 @@ export function ValorantCalculator({
         {/* Current Rank */}
         <div className="flex flex-col gap-4">
           <div>
-            <h3 className="font-body text-2xl font-semibold text-white">Current Rank</h3>
-            <p className="font-body text-base font-semibold text-white/50">
-              Select your current rank
+            <h3 className="font-body text-2xl font-medium text-white">Current Rank</h3>
+            <p className="font-body text-base font-medium" style={{ color: subtitleColor }}>
+              {subtitle}
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-9">
-            {ranks.map((rank) => {
-              const active = selectedRank === rank.key;
-              return (
-                <button
-                  key={rank.key}
-                  type="button"
-                  onClick={() => setSelectedRank(rank.key)}
-                  className="group flex h-[76px] flex-col items-center justify-center rounded-2xl p-2 transition-all"
-                  style={{
-                    background: active ? "rgba(255,92,0,0.15)" : "rgba(0,0,0,0.2)",
-                    border: active ? "2px solid #ff975d" : "1px solid #383852",
-                    ...(active ? { boxShadow: "0 0 24px rgba(255,92,0,0.35)" } : {}),
-                  }}
-                >
-                  <Image
-                    src={`/images/ranks/${rank.key}.png`}
-                    alt={rank.label}
-                    width={48}
-                    height={48}
-                    unoptimized
-                    className="h-10 w-10 object-contain"
-                    style={{ filter: `drop-shadow(0 0 10px ${rank.glow})` }}
-                  />
-                  <span className="mt-1 font-body text-[10px] text-white/80">{rank.label}</span>
-                </button>
-              );
-            })}
+          <div className="grid grid-cols-5 gap-2 lg:grid-cols-9">
+            {ranks.map((rank) => (
+              <RankButton
+                key={rank.key}
+                label={rank.label}
+                imageSrc={`/images/ranks/${rank.key}.png`}
+                glow={rank.glow}
+                active={selectedRank === rank.key}
+                onClick={() => setSelectedRank(rank.key)}
+              />
+            ))}
           </div>
           <div className="grid grid-cols-3 gap-2">
             {divisions.map((div, i) => {
@@ -103,13 +91,12 @@ export function ValorantCalculator({
                   key={div}
                   type="button"
                   onClick={() => setSelectedDivision(i)}
-                  className="relative flex h-[50px] items-center justify-center gap-[10px] rounded-2xl px-4 transition-all"
+                  className="relative flex h-14 items-center justify-center gap-[10px] rounded-2xl px-4 transition-all"
                   style={{
                     border: active ? "1px solid #ff975d" : "1px solid #383852",
-                    backgroundImage: active
+                    background: active
                       ? "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(90deg, #383852 0%, #383852 100%)"
-                      : "none",
-                    background: active ? undefined : "rgba(0,0,0,0.2)",
+                      : "rgba(0,0,0,0.2)",
                     boxShadow: active
                       ? "0 4px 8px rgba(0,0,0,0.15), 0 4px 7px rgba(255,92,0,0.3)"
                       : "0 4px 8px rgba(0,0,0,0.15)",
@@ -139,22 +126,22 @@ export function ValorantCalculator({
         {/* Number of Wins */}
         <div className="flex flex-col gap-2">
           <div>
-            <h3 className="font-body text-2xl font-semibold text-white">Number of Wins</h3>
-            <p className="font-body text-base font-semibold text-white/50">
-              Select desired number of wins
+            <h3 className="font-body text-2xl font-medium text-white">Number of Wins</h3>
+            <p className="font-body text-base font-medium text-white/50">
+              Select the number of desired wins
             </p>
           </div>
           <div className="mt-2 flex items-center gap-8">
             <div className="flex flex-1 items-center gap-4">
-              <span className="font-body text-xl font-medium text-white">1</span>
+              <span className="font-body text-xl font-semibold text-white">1</span>
               <Slider min={1} max={5} value={wins} onChange={setWins} className="flex-1" />
-              <span className="font-body text-xl font-medium text-white">5</span>
+              <span className="font-body text-xl font-semibold text-white">5</span>
             </div>
             <div
               className="flex h-11 w-[75px] shrink-0 items-center justify-center rounded-2xl"
               style={{
                 border: "1px solid #ff975d",
-                backgroundImage:
+                background:
                   "linear-gradient(145deg, rgba(255,92,0,0.2) 4%, rgba(204,74,0,0.02) 52%, rgba(255,92,0,0.2) 100%), linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(90deg, #383852 0%, #383852 100%)",
                 boxShadow: "0 4px 7px rgba(255,92,0,0.3)",
               }}
