@@ -1,4 +1,5 @@
 import type { SelectableCard } from "@/components/calculator/forms/CardSelectorCalculator";
+import type { MmrQuickSelect } from "@/components/calculator/forms/MmrBoostCalculator";
 import type { CategoryOption } from "@/components/calculator/shared/CategoryTabs";
 import type { CurrencyCardData } from "@/components/calculator/shared/CurrencyCard";
 import type { ExtraOption } from "@/components/calculator/shared/OrderSummary";
@@ -88,6 +89,8 @@ export const categories: CategoryOption[] = [
   { id: "win", icon: "/images/icons/services/crown.svg", label: "Boost per Win" },
   { id: "currency", icon: "/images/icons/services/cash.svg", label: "Currency" },
   { id: "camo", icon: "/images/icons/services/safety-outlined.svg", label: "Camo Boost" },
+  { id: "mmr", icon: "/images/icons/services/tap.svg", label: "MMR Boost" },
+  { id: "leveling", icon: "/images/icons/services/rocket.svg", label: "Leveling" },
 ];
 
 export const platformOptions = [
@@ -248,6 +251,62 @@ export const currencyRequirements = [
 ];
 
 export const currencyBenefits = [
+  "3 Placement Wins on your account.",
+  "Progression towards your final placement division.",
+  "A detailed match history with performance overview.",
+  "Optional match replays upon request.",
+];
+
+/* ── MMR Boost data ──────────────────────────────────────────── */
+
+export const MMR_MIN = 0;
+export const MMR_MAX = 6500;
+export const MMR_STEP = 100;
+export const MMR_PRICE_PER_POINT = 0.03;
+
+export const mmrQuickSelects: MmrQuickSelect[] = [
+  { id: "1-2k", label: "1k → 2k", current: 1000, desired: 2000 },
+  { id: "2-3k", label: "2k → 3k", current: 2000, desired: 3000 },
+  { id: "3-4k", label: "3k → 4k", current: 3000, desired: 4000 },
+  { id: "4-5k", label: "4k → 5k", current: 4000, desired: 5000 },
+  { id: "5-6.5k", label: "5k → 6.5k", current: 5000, desired: 6500 },
+];
+
+export const mmrRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const mmrBenefits = [
+  "3 Placement Wins on your account.",
+  "Progression towards your final placement division.",
+  "A detailed match history with performance overview.",
+  "Optional match replays upon request.",
+];
+
+export function formatMmrShort(n: number): string {
+  if (n < 1000) return String(n);
+  const k = n / 1000;
+  return k % 1 === 0 ? `${k}k` : `${k.toFixed(1)}k`;
+}
+
+/* ── Leveling Boost data ─────────────────────────────────────── */
+
+export const LEVELING_MIN = 1;
+export const LEVELING_MAX = 100;
+export const LEVELING_STEP = 1;
+export const LEVELING_PRICE_PER_LEVEL = 1;
+
+export const levelingRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const levelingBenefits = [
   "3 Placement Wins on your account.",
   "Progression towards your final placement division.",
   "A detailed match history with performance overview.",

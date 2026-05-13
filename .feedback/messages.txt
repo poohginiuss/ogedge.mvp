@@ -1,0 +1,369 @@
+﻿==== #1  ts=1778272940.257119  user=U0B2NPDF4N6  files=| ====
+Hello
+
+==== #2  ts=1778272943.044949  user=U0AR258S60G  files=| ====
+Yeah
+
+==== #3  ts=1778272971.980129  user=U0AR258S60G  files=| ====
+<@U0B2NPDF4N6> please post here with image, then i can reply with thread
+
+==== #4  ts=1778273011.857119  user=U0B2NPDF4N6  files=F0B3H319LRE|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3H319LRE/image.png ====
+image is a little bigge than design, can ingore - just trying to  figure if its my setup or not
+
+The icon is cut in half
+
+BLOG page
+
+==== #5  ts=1778273056.098969  user=U0B2NPDF4N6  files=| ====
+Text for read more should be white and become light orange when hovered
+
+==== #6  ts=1778273126.891689  user=U0B2NPDF4N6  files=F0B2LNS2G22|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2LNS2G22/image.png ====
+Blog posts - This one is badly designed, it needs a go back to main page button somewhere, i forgot to add this in design
+
+Also this highliter is too orange, too bright
+
+==== #7  ts=1778273181.619979  user=U0B2NPDF4N6  files=F0B2SD93X52|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2SD93X52/image.png ====
+Maybe can add here a button - this is figma for comparasion
+
+==== #8  ts=1778273289.952289  user=U0B2NPDF4N6  files=| ====
+About us- I think this looks better now than originally
+
+Just the review section and the FAQ need same fixes as homepage - available for all pages using these sections
+
+==== #9  ts=1778273557.781469  user=U0B2NPDF4N6  files=F0B2SE0RTM2|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2SE0RTM2/image.png ====
+Safety page- hero too bright, not as in figma - probably missing mask
+
+Review buttons bugged, stars missing and too littile
+
+Review buttons - trustpilot green box should have  green star, the <http://reviews.io|reviews.io>  yellow like in figma.
+
+The page also has 2 duplicate buttons- see all reviews , it should only have the 1 at the bottom
+
+==== #10  ts=1778273810.046829  user=U0B2NPDF4N6  files=| ====
+FAQ Page- fav icons missing from question categories- review buttons same issues as safety page
+Hero image - same issue as safety page
+
+==== #11  ts=1778273847.000449  user=U0B2NPDF4N6  files=F0B2LQXULQN|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2LQXULQN/image.png ====
+Header-
+Logo too small, not same as figma size
+
+==== #12  ts=1778273869.064309  user=U0B2NPDF4N6  files=F0B2SFFQ3CL|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2SFFQ3CL/image.png ====
+
+
+==== #13  ts=1778274006.107199  user=U0B2NPDF4N6  files=| ====
+Terms of service and privacy policy- same issue as safety page - reviews buttons broken
+
+==== #14  ts=1778274273.469629  user=U0B2NPDF4N6  files=| ====
+OneGame- valorant -
+The event - small box on the left is different size, color background as well as for the promotion- big box
+For the promotion - the image will be changed based on game, based on promotion
+
+Whats missing- when hovering the buttons above the services- fav icons -ssl secure, 24/7 supp etc all should have tooltip
+
+The event should also have a tooltip - small box
+
+Event- small box on left
+
+Promotion- big box on right with timer countdown
+
+==== #15  ts=1778274280.286119  user=U0B2NPDF4N6  files=F0B2NUH4D7U|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2NUH4D7U/image.png ====
+
+
+==== #16  ts=1778274296.173869  user=U0B2NPDF4N6  files=F0B2KH3N077|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2KH3N077/image.png ====
+Figma
+
+==== #17  ts=1778274358.019749  user=U0B2NPDF4N6  files=F0B27F84AQ7|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B27F84AQ7/image.png ====
+Order summary- should look like in figma
+
+==== #18  ts=1778274426.711759  user=U0B2NPDF4N6  files=F0B27FEKS6T|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B27FEKS6T/image.png ====
+Bottom section of calculator (left side)
+
+Should look like the picture from figma
+
+==== #19  ts=1778274505.488609  user=U0B2NPDF4N6  files=F0B2LTA7JDU|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2LTA7JDU/image.png ====
+Order process section has different colors - picture from figma
+Also different scaling, its not full
+
+==== #20  ts=1778274522.780639  user=U0B2NPDF4N6  files=F0B2SHRBTUL|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2SHRBTUL/image.png ====
+webapp photo
+
+==== #21  ts=1778274546.871829  user=U0B2NPDF4N6  files=F0B3H87GMFS|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3H87GMFS/image.png ====
+Why choose us- missing updated design ( my bad)
+
+==== #22  ts=1778274617.060329  user=U0B2NPDF4N6  files=| ====
+Reviews- FAQ- Gradient issue needs fixing as well on this page
+
+==== #23  ts=1778274642.922099  user=U0B2NPDF4N6  files=F0B27G55DSB|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B27G55DSB/image.png ====
+
+
+==== #24  ts=1778305582.152799  user=U0B2NPDF4N6  files=F0B2984842K|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2984842K/image.png ====
+designer says here - download images as svg not use png.
+
+Otherwise its too pixelated
+
+==== #25  ts=1778306309.851529  user=U0B2NPDF4N6  files=| ====
+This is the highlight section
+
+==== #26  ts=1778307846.356089  user=U0B2NPDF4N6  files=F0B2MD34TN1|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2MD34TN1/screenshot_20260509-092154.png ;; F0B2UD0FH5J|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2UD0FH5J/screenshot_20260509-092208.png ====
+Homepage mobile version -
+Header seems wrong, especially buttons.
+
+Images pixelated -hero image
+
+==== #27  ts=1778307947.970439  user=U0B2NPDF4N6  files=F0B2NNT9L8N|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2NNT9L8N/screenshot_20260509-092505.png ====
+Transitions should be smooth, without horizontal lines, unless designed as such
+
+==== #28  ts=1778308297.184489  user=U0B2NPDF4N6  files=F0B2UDJ7A92|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2UDJ7A92/screenshot_20260509-092909.png ;; F0B3K3XMR8Q|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3K3XMR8Q/screenshot_20260509-092905.png ====
+Review section looks good - just the textbox is too enlarged, on 2 rows instead of 1.
+
+Also the orange effect is not only in the writing, makes it look cheap- 4.9 star rating
+
+==== #29  ts=1778308522.266419  user=U0B2NPDF4N6  files=F0B29BVPZD5|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B29BVPZD5/screenshot_20260509-093249.png ====
+Icons seem flat, bad quality maybe because they were stretched
+
+==== #30  ts=1778308560.169379  user=U0B2NPDF4N6  files=| ====
+Carousel looks good - just pixelated images
+
+==== #31  ts=1778308617.362559  user=U0B2NPDF4N6  files=| ====
+Faq looka good - just that it will have more questions, so we will use the faq  system from faq page - multiple threads
+
+==== #32  ts=1778308656.636799  user=U0B2NPDF4N6  files=| ====
+Header mobile issue- can't click and change currency
+
+==== #33  ts=1778308805.798729  user=U0B2NPDF4N6  files=F0B2MEA0KN1|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2MEA0KN1/37838.png ;; F0B2UE7BEF6|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2UE7BEF6/37837.png ====
+Navigation Mobile Games-
+
+How it should look vs what it looks, very different
+
+==== #34  ts=1778308939.893189  user=U0B2NPDF4N6  files=F0B2QRT8LPL|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2QRT8LPL/37839.png ====
+Menu Navigation - can the about us have sub categorizes or it's better to keep it this way? The problems is that there will be a high amount of pages of not put in sub category 
+About us-
+Safety
+Jobs
+Etc
+
+==== #35  ts=1778332645.269869  user=U0B2NPDF4N6  files=F0B2RPM30DQ|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2RPM30DQ/37846.png ====
+Mobile - reviews 
+Icon is placed incorrectly 
+
+Stars are too small, should be 2, 3x bigger
+
+==== #36  ts=1778332854.291369  user=U0B2NPDF4N6  files=| ====
+About us- same issue as pc version 
+
+Mobile specific issue:
+Sections are wrongly arranged, bad order
+
+==== #37  ts=1778332971.100579  user=U0B2NPDF4N6  files=| ====
+Safety Mobile - same issue as PC version.
+
+Faq, review links bugged
+
+==== #38  ts=1778334013.992729  user=U0B2NPDF4N6  files=F0B3L42CHU0|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3L42CHU0/37847.png ====
+FAQ Mobile -
+Same problems as above 
+
+Threads not as in design, they are horizontal
+
+==== #39  ts=1778334110.524849  user=U0B2NPDF4N6  files=| ====
+Privacy, terms mobile - same repeating issues 
+
+Hero pixelated, review's buttons and stars bugged
+
+==== #40  ts=1778334398.052469  user=U0B2NPDF4N6  files=| ====
+Blog page mobile - icon split in half, same as pc
+Sort by button different than design - could also work this way, just need it smaller 
+Categories at top are 2 on top of 2, they should be like in the design or all 4 in a row
+
+==== #41  ts=1778334423.845619  user=U0B2NPDF4N6  files=| ====
+Read more buttons should be all light orange
+
+==== #42  ts=1778334486.186899  user=U0B2NPDF4N6  files=| ====
+Blog post Mobile -
+Looks good, just needs a button to go back to blog
+
+==== #43  ts=1778334557.181069  user=U0B2NPDF4N6  files=F0B2TNBRT7T|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2TNBRT7T/37848.png ====
+Footer mobile is arranged like this right now, it should be like in figma
+
+==== #44  ts=1778335233.772819  user=U0B2NPDF4N6  files=| ====
+For privacy, cookies, refunds and terms and conditions 
+I will add the text in the next few days, it's not ready yet, hope it's not a problem
+
+==== #45  ts=1778335528.049449  user=U0B2NPDF4N6  files=F0B2VF76JFN|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2VF76JFN/37849.png ====
+Onegame mobile - same issue with promotion box 
+
+When clicking event box and icons - ssl secure etc, the pop up or tooltip should show
+
+==== #46  ts=1778335655.447959  user=U0B2NPDF4N6  files=F0B2TPNT5C1|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2TPNT5C1/37850.png ====
+Calculator looka fine, just the slider not.
+
+Should look like this
+
+==== #47  ts=1778335729.834979  user=U0B2NPDF4N6  files=| ====
+Requirements and what do i get boxes- what if the text is longer, will the size adjust?
+
+==== #48  ts=1778335928.576449  user=U0B2NPDF4N6  files=| ====
+Order summary pc and mobile should have a tooltip for the estimated time - there is component created 
+Also missing tooltip for extra options 
+Spacing is quite large, try to make everything tighter like figma
+
+==== #49  ts=1778336094.517059  user=U0B2NPDF4N6  files=F0B2AE0REH5|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2AE0REH5/37851.png ;; F0B2NG28N69|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2NG28N69/37852.png ====
+Order process should look like the photo on mobile 
+
+Game informat - missing the box around the image and text
+
+==== #50  ts=1778336385.406239  user=U0B2NPDF4N6  files=| ====
+The services page, is where all the services are.
+
+This is the hub with all services for that game
+
+The one game page also has all services, you just press through the tabs
+
+==== #51  ts=1778346765.344769  user=U0AR258S60G  files=| ====
+ok, will fix today
+
+==== #52  ts=1778592151.160029  user=U0B2NPDF4N6  files=F0B445B3M08|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B445B3M08/image.png ;; F0B44694AD6|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B44694AD6/image.png ====
+Feedback- Ranked Calculator PC
+
+The textbox shopuld have the ability to add the current lp by writing it.
+The increments will be decided in backend, usually +20 each
+
+The desired rank is working fine, the current rank should be all divisions and sub divisions, except master, grandmaster, challenger
+
+You cannot select a sub division higher than the current one as starting- Example- Cant select starting Silver 3 and desired Silver 4 (negative)
+
+The server- queue should also be required- cannot pass to buy until selected
+
+Also- in backend I can add a disclaimer on all products - would this affect your work? All calculators will have disclaimers on and off
+
+==== #53  ts=1778592254.874549  user=U0B2NPDF4N6  files=F0B36G8J4VB|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B36G8J4VB/image.png ====
+All the icons should start here -  as in the figma design, even if no promotion or event
+
+Applies to all calculators
+
+==== #54  ts=1778592561.916329  user=U0B2NPDF4N6  files=F0B2UEPV33R|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B2UEPV33R/image.png ;; F0B36HK9BV3|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B36HK9BV3/image.png ====
+For the dropdown rank calculator PC Version-
+
+I see you can rank backwards, this should not be possible - in our backend system its not possible
+
+The server- queue should also be required- cannot pass to buy until selected
+
+The ranks image current to desired should point to desired- attached photo
+
+Can next to the image also be the rank written? or need ask designer for future edit
+
+==== #55  ts=1778592665.724669  user=U0B2NPDF4N6  files=F0B448FBTLG|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B448FBTLG/image.png ====
+Order summary- all
+
+Please use the following color scheme:
+
+Free- Green
+
+Discounts orange
+
+Extra money - white
+
+==== #56  ts=1778593360.622489  user=U0B2NPDF4N6  files=F0B3BTAS0N5|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3BTAS0N5/image.png ====
+Sub selector calculator- shattered gold- PC
+If you select Assault rifles in the left panel, it will only populate the assault rifles in the right panel- if you select assault rifles + shotguns it will populate both lists in the right panel
+If you select something in the right panel- the checkpoint is clicked
+If you select some weapons in the right panel in that category- example select left panel assault rifles- select assault rifle in right panel - the green checkmark is started
+When changing tabs from shattered gold to temptest or any other, all selections are disabled, the same if you change from zombies to multiplayer or any other main tab (first tab mode category)
+
+Message me about this, if any issue
+
+==== #57  ts=1778593404.068619  user=U0B2NPDF4N6  files=| ====
+Subselectr - Singularity - PC
+
+What happens if I add more than 1 item, would this look good still?
+
+==== #58  ts=1778593539.234959  user=U0B2NPDF4N6  files=F0B44C9R800|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B44C9R800/image.png ====
+Subselecter - Seasonal Bundles- PC
+
+Looks good as well, just the image for the bundles is looking bad.
+
+Please consider all images of weapons, characters will be changed for each game, each service and each sub service
+
+==== #59  ts=1778596171.147629  user=U0B2NPDF4N6  files=| ====
+Rank boosting lol - mobile 
+
+Looks good,  only same feedback like PC
+
+==== #60  ts=1778596404.883339  user=U0B2NPDF4N6  files=F0B375YK74M|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B375YK74M/37978.png ====
+Boost per win mobile - slider gets too close to the numbers,  getting on top Of them
+
+==== #61  ts=1778596505.986649  user=U0B2NPDF4N6  files=| ====
+Also please consider -
+
+Not sure how important is this but:
+
+All calculators are to be reused, for all possible types of games.
+
+Some are with division and sub division, some are with points, some with image's or just without.
+
+Everything is flexible
+
+==== #62  ts=1778596584.737219  user=U0B2NPDF4N6  files=| ====
+Fifa calculator drop-down Mobile 
+- same feedback as PC
+
+==== #63  ts=1778596941.746289  user=U0B2NPDF4N6  files=| ====
+Subselector calculator mobile -
+
+Looks good, same feedback as pc version.
+
+My question is, will i be able to add images to all products? Similar to the bundle and shattered gold button?
+
+My idea was to add images to all products, but I didn't add a mockup to each button and product.
+
+For example - singularity button, singularity product and main buttons
+
+==== #64  ts=1778653119.779969  user=U0B2NPDF4N6  files=F0B3J90G30R|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3J90G30R/image.png ;; F0B3L2L0HM2|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3L2L0HM2/image.png ;; F0B3D2ZQ8DB|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3D2ZQ8DB/image.png ====
+CARDS Calculator Feedback- PC
+
+Imagine all buttons as configurable, the cards button will have the right part configurable with images that have no background or background.
+
+The same applies to subselector calculator: cards
+
+Also the subselector calculator singularity - basically this are just bigger cards, with a different image configuration similar to this button of shattered gold.
+
+==== #65  ts=1778653165.528349  user=U0B2NPDF4N6  files=| ====
+And all categories can have from 1 items like singularity to 10-12 items per service
+
+==== #66  ts=1778653357.200389  user=U0B2NPDF4N6  files=F0B3A3W1Q9Z|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3A3W1Q9Z/image.png ;; F0B311F5555|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B311F5555/image.png ;; F0B3D3L9PUM|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3D3L9PUM/image.png ====
+For example, all these buttons are configurable with images:
+Just making sure
+
+==== #67  ts=1778653561.935059  user=U0B2NPDF4N6  files=F0B3JALJWNM|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3JALJWNM/image.png ====
+The images here need to fit right into the button:  edge to edge for the half right
+
+==== #68  ts=1778653887.526949  user=U0B2NPDF4N6  files=F0B3A5CJJF5|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3A5CJJF5/image.png ====
+The currency calculator with images is missing the border for the last option:
+
+Other feedback: The slider should move for other amounts also, for example the customer can order only 250k, the amount will adjust as he moves the slider
+
+==== #69  ts=1778654142.938539  user=U0B2NPDF4N6  files=F0B313RREDV|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B313RREDV/image.png ====
+The same for the other currency calculator, this will have an image in designed spot
+
+==== #70  ts=1778654448.015469  user=U0B2NPDF4N6  files=F0B4ARXDGPJ|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B4ARXDGPJ/image.png ;; F0B3EFVQJ1L|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3EFVQJ1L/image.png ====
+Customer dashboard- all good, just wrong icons used and wrong placement "
+
+Buttons not working though and page is static
+
+When clicking the tabs, customer will change beween the vies,  full button orange
+
+==== #71  ts=1778654477.322119  user=U0B2NPDF4N6  files=| ====
+Over the time, we can add more tiers to seasonal rewards, to loyalty program as well
+
+==== #72  ts=1778654563.593129  user=U0B2NPDF4N6  files=| ====
+The same for booster dashboard- static no working buttons
+
+Only his reviews will show in review section, scrolling down to latest reviews he received
+
+==== #73  ts=1778673973.609589  user=U0B2NPDF4N6  files=F0B4D2DUY5N|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B4D2DUY5N/image.png ====
+Booster dashboard- review star too small across the board
+
+==== #74  ts=1778675479.598059  user=U0B2NPDF4N6  files=F0B3FH22VD3|https://files.slack.com/files-pri/T0AQLPKPC9X-F0B3FH22VD3/image.png ====
+For FAQ section- ideally when there are more than 3-4 cateogories, we use this section type:
+on both types we should be able to add icons
+

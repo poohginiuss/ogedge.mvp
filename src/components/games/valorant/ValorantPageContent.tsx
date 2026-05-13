@@ -4,6 +4,8 @@ import { CalculatorPageShell } from "@/components/calculator/CalculatorPageShell
 import { BoostPerWinCalculator } from "@/components/calculator/forms/BoostPerWinCalculator";
 import { CardSelectorCalculator } from "@/components/calculator/forms/CardSelectorCalculator";
 import { CurrencyCalculator } from "@/components/calculator/forms/CurrencyCalculator";
+import { LevelingBoostCalculator } from "@/components/calculator/forms/LevelingBoostCalculator";
+import { MmrBoostCalculator } from "@/components/calculator/forms/MmrBoostCalculator";
 import { RankBoostingStandard } from "@/components/calculator/forms/RankBoostingStandard";
 import { OrderSummary } from "@/components/calculator/shared/OrderSummary";
 import { SeasonBanner } from "@/components/calculator/shared/SeasonBanner";
@@ -19,6 +21,14 @@ import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { useState } from "react";
 
 import {
+  LEVELING_MAX,
+  LEVELING_MIN,
+  LEVELING_PRICE_PER_LEVEL,
+  LEVELING_STEP,
+  MMR_MAX,
+  MMR_MIN,
+  MMR_PRICE_PER_POINT,
+  MMR_STEP,
   type RankBoostKey,
   type RankKey,
   benefits,
@@ -31,6 +41,12 @@ import {
   currencyRequirements,
   divisions,
   extraOptions,
+  formatMmrShort,
+  levelingBenefits,
+  levelingRequirements,
+  mmrBenefits,
+  mmrQuickSelects,
+  mmrRequirements,
   platformOptions,
   queueOptions,
   rankBoostBenefits,
@@ -60,6 +76,14 @@ export function ValorantPageContent() {
   /* ── Currency state ── */
   const [selectedCurrencyIndex, setSelectedCurrencyIndex] = useState(0);
 
+  /* ── MMR Boost state ── */
+  const [currentMmr, setCurrentMmr] = useState<number>(1000);
+  const [desiredMmr, setDesiredMmr] = useState<number>(2000);
+
+  /* ── Leveling Boost state ── */
+  const [currentLevel, setCurrentLevel] = useState<number>(8);
+  const [desiredLevel, setDesiredLevel] = useState<number>(34);
+
   /* ── Shared state ── */
   const [category, setCategory] = useState<string>("rank");
   const [platform, setPlatform] = useState<string>("PC");
@@ -70,6 +94,8 @@ export function ValorantPageContent() {
   const isCurrency = category === "currency";
   const isCamo = category === "camo";
   const isRankBoost = category === "rank";
+  const isMmr = category === "mmr";
+  const isLeveling = category === "leveling";
 
   const onToggleCard = (id: string) => {
     setSelectedCardIds((prev) =>
@@ -128,6 +154,35 @@ export function ValorantPageContent() {
       { label: "Queue", value: queue },
       { label: "Platform", value: platformLabel },
     ];
+  } else if (isMmr) {
+    summaryTitle = "MMR Boost";
+    const delta = Math.max(0, desiredMmr - currentMmr);
+    totalAmount = `$${(delta * MMR_PRICE_PER_POINT).toFixed(2)}`;
+    summaryRows = [
+      {
+        label: "Current MMR",
+        value: currentMmr > 0 ? formatMmrShort(currentMmr) : "—",
+      },
+      {
+        label: "Desired MMR",
+        value: desiredMmr > 0 ? formatMmrShort(desiredMmr) : "—",
+      },
+      {
+        label: "MMR Gain",
+        value: delta > 0 ? `+${formatMmrShort(delta)}` : "—",
+      },
+      { label: "Platform", value: platformLabel },
+    ];
+  } else if (isLeveling) {
+    summaryTitle = "Leveling";
+    const delta = Math.max(0, desiredLevel - currentLevel);
+    totalAmount = `$${(delta * LEVELING_PRICE_PER_LEVEL).toFixed(2)}`;
+    summaryRows = [
+      { label: "Current Level", value: String(currentLevel) },
+      { label: "Desired Level", value: String(desiredLevel) },
+      { label: "Levels Gained", value: delta > 0 ? `+${delta}` : "—" },
+      { label: "Platform", value: platformLabel },
+    ];
   } else {
     summaryRows = [
       {
@@ -159,7 +214,42 @@ export function ValorantPageContent() {
   );
 
   let form: React.ReactNode;
-  if (isCurrency) {
+  if (isLeveling) {
+    form = (
+      <LevelingBoostCalculator
+        currentLevel={currentLevel}
+        setCurrentLevel={setCurrentLevel}
+        desiredLevel={desiredLevel}
+        setDesiredLevel={setDesiredLevel}
+        platform={platform}
+        setPlatform={setPlatform}
+        platformOptions={platformOptions}
+        requirements={levelingRequirements}
+        benefits={levelingBenefits}
+        min={LEVELING_MIN}
+        max={LEVELING_MAX}
+        step={LEVELING_STEP}
+      />
+    );
+  } else if (isMmr) {
+    form = (
+      <MmrBoostCalculator
+        currentMmr={currentMmr}
+        setCurrentMmr={setCurrentMmr}
+        desiredMmr={desiredMmr}
+        setDesiredMmr={setDesiredMmr}
+        platform={platform}
+        setPlatform={setPlatform}
+        platformOptions={platformOptions}
+        quickSelects={mmrQuickSelects}
+        requirements={mmrRequirements}
+        benefits={mmrBenefits}
+        min={MMR_MIN}
+        max={MMR_MAX}
+        step={MMR_STEP}
+      />
+    );
+  } else if (isCurrency) {
     form = (
       <CurrencyCalculator
         title="Currency"

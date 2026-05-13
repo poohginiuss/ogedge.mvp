@@ -6,9 +6,22 @@ export type NavItem = {
 };
 
 export const sidebarNavItems: NavItem[] = [
-  { id: "dashboard", label: "Dashboard", icon: "/images/dashboard/icons/nav-dashboard.svg", active: true },
-  { id: "active-orders", label: "Active Orders", icon: "/images/dashboard/icons/nav-active-orders.svg" },
-  { id: "completed-orders", label: "Completed Orders", icon: "/images/dashboard/icons/nav-completed-orders.svg" },
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    icon: "/images/dashboard/icons/nav-dashboard.svg",
+    active: true,
+  },
+  {
+    id: "active-orders",
+    label: "Active Orders",
+    icon: "/images/dashboard/icons/nav-active-orders.svg",
+  },
+  {
+    id: "completed-orders",
+    label: "Completed Orders",
+    icon: "/images/dashboard/icons/nav-completed-orders.svg",
+  },
   { id: "support", label: "Customer Support", icon: "/images/dashboard/icons/nav-support.svg" },
 ];
 
@@ -36,7 +49,11 @@ export const orderStatusMap: Record<OrderStatus, OrderStatusConfig> = {
   "awaiting-booster": { label: "Awaiting Booster", bg: "#c2272d", textColor: "#fff" },
   "in-progress": { label: "In Progress", bg: "#4285f4", textColor: "#fff" },
   "booster-back-soon": { label: "Booster will be back soon", bg: "#ffb000", textColor: "#000" },
-  "booster-back-timed": { label: "Booster will be back in 2 hours", bg: "#ffb000", textColor: "#000" },
+  "booster-back-timed": {
+    label: "Booster will be back in 2 hours",
+    bg: "#ffb000",
+    textColor: "#000",
+  },
   "review-order": { label: "Review Order", bg: "#6d1ed4", textColor: "#fff" },
   "confirm-delivery": { label: "Confirm Delivery", bg: "#34a853", textColor: "#fff" },
   "new-review": { label: "New Review", bg: "#ffb000", textColor: "#17191f" },
@@ -52,12 +69,43 @@ export type Order = {
 };
 
 export const sampleOrders: Order[] = [
-  { id: "1", orderId: "#ORD-123456", title: "Game - Service", statuses: ["unpaid"], hasNotification: true },
-  { id: "2", orderId: "#ORD-123456", title: "Dota2 - MMR Calculator", statuses: ["provide-credentials", "awaiting-booster"] },
-  { id: "3", orderId: "#ORD-123456", title: "League of Legends - Rank Boost", statuses: ["in-progress"] },
-  { id: "4", orderId: "#ORD-123456", title: "League of Legends - Rank Boost", statuses: ["booster-back-timed"] },
-  { id: "5", orderId: "#ORD-123456", title: "League of Legends - Rank Boost", statuses: ["booster-back-soon"] },
-  { id: "6", orderId: "#ORD-123456", title: "League of Legends - Rank Boost", statuses: ["review-order", "confirm-delivery"] },
+  {
+    id: "1",
+    orderId: "#ORD-123456",
+    title: "Game - Service",
+    statuses: ["unpaid"],
+    hasNotification: true,
+  },
+  {
+    id: "2",
+    orderId: "#ORD-123456",
+    title: "Dota2 - MMR Calculator",
+    statuses: ["provide-credentials", "awaiting-booster"],
+  },
+  {
+    id: "3",
+    orderId: "#ORD-123456",
+    title: "League of Legends - Rank Boost",
+    statuses: ["in-progress"],
+  },
+  {
+    id: "4",
+    orderId: "#ORD-123456",
+    title: "League of Legends - Rank Boost",
+    statuses: ["booster-back-timed"],
+  },
+  {
+    id: "5",
+    orderId: "#ORD-123456",
+    title: "League of Legends - Rank Boost",
+    statuses: ["booster-back-soon"],
+  },
+  {
+    id: "6",
+    orderId: "#ORD-123456",
+    title: "League of Legends - Rank Boost",
+    statuses: ["review-order", "confirm-delivery"],
+  },
 ];
 
 export type LoyaltyTier = {
@@ -71,10 +119,39 @@ export type LoyaltyTier = {
 };
 
 export const loyaltyTiers: LoyaltyTier[] = [
-  { tier: 1, name: "Novice", color: "#ff5c00", bgColor: "rgba(255,92,0,0.2)", icon: "/images/dashboard/icons/medal-star-orange.svg", discount: "5%", current: true },
-  { tier: 2, name: "Advanced", color: "#4285f4", bgColor: "rgba(66,133,244,0.2)", icon: "/images/dashboard/icons/stars-fill-blue.svg", discount: "7%" },
-  { tier: 3, name: "Veteran", color: "#ffb000", bgColor: "rgba(255,176,0,0.2)", icon: "/images/dashboard/icons/medal-star-gold.svg", discount: "10%" },
-  { tier: 4, name: "Ultimate", color: "#1aad19", bgColor: "rgba(26,173,25,0.2)", icon: "/images/dashboard/icons/medal-star-blue.svg", discount: "15%" },
+  {
+    tier: 1,
+    name: "Novice",
+    color: "#ff5c00",
+    bgColor: "rgba(255,92,0,0.2)",
+    icon: "/images/dashboard/icons/medal-star-orange.svg",
+    discount: "5%",
+    current: true,
+  },
+  {
+    tier: 2,
+    name: "Advanced",
+    color: "#4285f4",
+    bgColor: "rgba(66,133,244,0.2)",
+    icon: "/images/dashboard/icons/stars-fill-blue.svg",
+    discount: "7%",
+  },
+  {
+    tier: 3,
+    name: "Veteran",
+    color: "#ffb000",
+    bgColor: "rgba(255,176,0,0.2)",
+    icon: "/images/dashboard/icons/medal-star-gold.svg",
+    discount: "10%",
+  },
+  {
+    tier: 4,
+    name: "Ultimate",
+    color: "#1aad19",
+    bgColor: "rgba(26,173,25,0.2)",
+    icon: "/images/dashboard/icons/medal-star-blue.svg",
+    discount: "15%",
+  },
 ];
 
 export type SeasonalTier = {
@@ -87,9 +164,30 @@ export type SeasonalTier = {
 };
 
 export const seasonalTiers: SeasonalTier[] = [
-  { tier: 1, rewardAmount: "$5", spendTarget: "$50", currentSpent: "$50", progress: 100, status: "claimed" },
-  { tier: 2, rewardAmount: "$10", spendTarget: "$100", currentSpent: "$50", progress: 50, status: "active" },
-  { tier: 3, rewardAmount: "$10", spendTarget: "$150", currentSpent: "$50", progress: 25, status: "active" },
+  {
+    tier: 1,
+    rewardAmount: "$5",
+    spendTarget: "$50",
+    currentSpent: "$50",
+    progress: 100,
+    status: "claimed",
+  },
+  {
+    tier: 2,
+    rewardAmount: "$10",
+    spendTarget: "$100",
+    currentSpent: "$50",
+    progress: 50,
+    status: "active",
+  },
+  {
+    tier: 3,
+    rewardAmount: "$10",
+    spendTarget: "$150",
+    currentSpent: "$50",
+    progress: 25,
+    status: "active",
+  },
 ];
 
 export const userProfile = {
