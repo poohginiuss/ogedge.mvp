@@ -4,6 +4,7 @@ import { PlatformSelector } from "@/components/ui/PlatformSelector";
 import { BulletList } from "../shared/BulletList";
 import { CamoScrollPanel } from "../shared/CamoScrollPanel";
 import { CollapsibleList } from "../shared/CollapsibleList";
+import { SelectableCardButton } from "../shared/SelectableCardButton";
 
 export type CodWeaponSelection = {
   id: string;
@@ -395,43 +396,15 @@ export function CamoBoostCalculator({
         {/* Seasonal bundles */}
         {camoTier === "seasonal-bundles" && (
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            {seasonalBundles.map((b) => {
-              const active = selectedBundle === b.id;
-              return (
-                <button
-                  key={b.id}
-                  type="button"
-                  onClick={() => setSelectedBundle(active ? null : b.id)}
-                  className="relative h-[80px] overflow-visible rounded-2xl pr-[100px] text-left transition-all"
-                  style={{
-                    background: "#132934",
-                    border: active ? "1px solid #ffa384" : "1px solid #383852",
-                    boxShadow: active ? "0 4px 22px rgba(255,163,132,0.45)" : undefined,
-                  }}
-                >
-                  {active && (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src="/images/icons/services/platform-check.svg"
-                      alt=""
-                      className="absolute right-3 top-3 z-10 h-4 w-4"
-                    />
-                  )}
-                  <div className="relative z-[1] flex h-full flex-col justify-center pl-4">
-                    <span className="font-bold text-white">{b.name}</span>
-                    <span className="mt-1 text-base font-semibold text-[#ff975d]">
-                      ${b.price.toFixed(2)}
-                    </span>
-                  </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={b.image}
-                    alt=""
-                    className="pointer-events-none absolute -top-3 bottom-[-12px] right-0 z-0 h-[calc(100%+24px)] w-auto max-w-[140px] object-contain object-right"
-                  />
-                </button>
-              );
-            })}
+            {seasonalBundles.map((b) => (
+              <SelectableCardButton
+                key={b.id}
+                card={b}
+                selected={selectedBundle === b.id}
+                locked={false}
+                onClick={() => setSelectedBundle(selectedBundle === b.id ? null : b.id)}
+              />
+            ))}
           </div>
         )}
 

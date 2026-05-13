@@ -1,3 +1,4 @@
+import type { CurrencyTier } from "@/components/calculator/forms/CurrencySliderCalculator";
 import type { CategoryOption } from "@/components/calculator/shared/CategoryTabs";
 import type { ExtraOption } from "@/components/calculator/shared/OrderSummary";
 import type { DropdownOption } from "@/components/ui/Dropdown";
@@ -25,7 +26,7 @@ export const fifaCategories: CategoryOption[] = [
   { id: "rank", icon: "/images/icons/services/safety-outlined.svg", label: "Rank Boost" },
   { id: "placement", icon: "/images/icons/services/rocket.svg", label: "Placement Boost" },
   { id: "win", icon: "/images/icons/services/crown.svg", label: "Boost per Win" },
-  { id: "coins", icon: "/images/icons/services/order-light.svg", label: "Coins Boost" },
+  { id: "coins", icon: "/images/icons/services/cash.svg", label: "Coins Boost" },
 ];
 
 export const platformOptions = [
@@ -57,4 +58,71 @@ export const extraOptions: ExtraOption[] = [
   { id: "streaming", label: "Streaming", cost: "+25% cost" },
   { id: "priority", label: "Priority", cost: "+20% cost", defaultOn: true },
   { id: "rush", label: "Rush Completion", cost: "+25% cost" },
+];
+
+/* ── Coins Boost (Currency Slider) data ──────────────────────── */
+
+export const coinsTiers: CurrencyTier[] = [
+  {
+    id: "100k",
+    amountLabel: "100K",
+    quickLabel: "Base",
+    tierName: "Standard",
+    price: 1.0,
+    discountLabel: "Base",
+  },
+  {
+    id: "500k",
+    amountLabel: "500K",
+    quickLabel: "Popular",
+    tierName: "Regular",
+    discount: 5,
+    price: 4.75,
+    discountLabel: "-5%",
+    savingsAmount: "$25",
+  },
+  {
+    id: "1m",
+    amountLabel: "1M",
+    quickLabel: "-10% OFF",
+    tierName: "Bulk",
+    discount: 10,
+    price: 9.0,
+    discountLabel: "-10%",
+    savingsAmount: "$50",
+  },
+  {
+    id: "1.5m",
+    amountLabel: "1.5M",
+    quickLabel: "-15% OFF",
+    tierName: "Premium",
+    discount: 15,
+    price: 12.75,
+    discountLabel: "-15%",
+    savingsAmount: "$75",
+  },
+  {
+    id: "2m",
+    amountLabel: "2M",
+    quickLabel: "-20% OFF",
+    tierName: "VIP",
+    discount: 20,
+    price: 16.0,
+    discountLabel: "-20%",
+    savingsAmount: "$100",
+  },
+];
+
+export const coinsRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const coinsBenefits = [
+  "3 Placement Wins on your account.",
+  "Progression towards your final placement division.",
+  "A detailed match history with performance overview.",
+  "Optional match replays upon request.",
 ];

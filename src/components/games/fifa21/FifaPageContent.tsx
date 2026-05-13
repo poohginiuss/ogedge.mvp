@@ -1,6 +1,7 @@
 "use client";
 
 import { CalculatorPageShell } from "@/components/calculator/CalculatorPageShell";
+import { CurrencySliderCalculator } from "@/components/calculator/forms/CurrencySliderCalculator";
 import { RankBoostingImage } from "@/components/calculator/forms/RankBoostingImage";
 import { OrderSummary } from "@/components/calculator/shared/OrderSummary";
 import { Articles } from "@/components/sections/Articles";
@@ -15,6 +16,9 @@ import { useState } from "react";
 
 import {
   benefits,
+  coinsBenefits,
+  coinsRequirements,
+  coinsTiers,
   extraOptions,
   fifaCategories,
   fifaDivisions,
@@ -33,72 +37,116 @@ function getLabel(options: (string | { value: string; label: string })[], value:
 export function FifaPageContent() {
   const [category, setCategory] = useState("rank");
 
+  /* ── Rank Boost state ── */
   const [currentCategory, setCurrentCategory] = useState("fut-champions");
   const [currentDivision, setCurrentDivision] = useState("1");
   const [desiredCategory, setDesiredCategory] = useState("fut-champions");
   const [desiredDivision, setDesiredDivision] = useState("5");
 
+  /* ── Coins Boost state ── */
+  const [selectedCoinsIndex, setSelectedCoinsIndex] = useState(0);
+
+  /* ── Shared state ── */
   const [platform, setPlatform] = useState("PlayStation");
   const [server, setServer] = useState("Europe");
   const [queue, setQueue] = useState("FUT Champions");
 
   const platformLabel = platformOptions.find((p) => p.id === platform)?.label ?? platform;
+  const isCoins = category === "coins";
 
-  const summaryRows = [
-    {
-      label: "Current Rank",
-      value: `${getLabel(fifaRankCategories, currentCategory)} ${currentDivision}`,
-    },
-    {
-      label: "Desired Rank",
-      value: `${getLabel(fifaRankCategories, desiredCategory)} ${desiredDivision}`,
-    },
-    { label: "Server", value: server },
-    { label: "Queue", value: queue },
-    { label: "Platform", value: platformLabel },
-  ];
+  /* ── Summary rows ── */
+  let summaryTitle = "Rank Boost";
+  let summaryRows: { label: string; value: string }[];
+  let totalAmount = "€249.00";
+
+  if (isCoins) {
+    summaryTitle = "Coins Boost";
+    const tier = coinsTiers[selectedCoinsIndex];
+    if (tier) {
+      totalAmount = `$${tier.price.toFixed(2)}`;
+      summaryRows = [
+        { label: "Pack", value: `${tier.amountLabel} — ${tier.tierName}` },
+        { label: "Discount", value: tier.discount != null ? `${tier.discount}% OFF` : "—" },
+        { label: "Platform", value: platformLabel },
+      ];
+    } else {
+      summaryRows = [{ label: "Pack", value: "—" }];
+    }
+  } else {
+    summaryRows = [
+      {
+        label: "Current Rank",
+        value: `${getLabel(fifaRankCategories, currentCategory)} ${currentDivision}`,
+      },
+      {
+        label: "Desired Rank",
+        value: `${getLabel(fifaRankCategories, desiredCategory)} ${desiredDivision}`,
+      },
+      { label: "Server", value: server },
+      { label: "Queue", value: queue },
+      { label: "Platform", value: platformLabel },
+    ];
+  }
 
   const finalRows = [
     { label: "Discount", value: "-15%" },
     { label: "Promo Code", value: "-5%" },
-    { label: "Total Amount", value: "€249.00" },
+    { label: "Total Amount", value: totalAmount },
   ];
 
-  const form = (
-    <RankBoostingImage
-      currentCategory={currentCategory}
-      setCurrentCategory={setCurrentCategory}
-      currentDivision={currentDivision}
-      setCurrentDivision={setCurrentDivision}
-      desiredCategory={desiredCategory}
-      setDesiredCategory={setDesiredCategory}
-      desiredDivision={desiredDivision}
-      setDesiredDivision={setDesiredDivision}
-      categoryOptions={fifaRankCategories}
-      divisionOptions={fifaDivisions}
-      serverOptions={serverOptions}
-      queueOptions={queueOptions}
-      server={server}
-      setServer={setServer}
-      queue={queue}
-      setQueue={setQueue}
-      platform={platform}
-      setPlatform={setPlatform}
-      platformOptions={platformOptions}
-      requirements={requirements}
-      benefits={benefits}
-    />
-  );
+  let form: React.ReactNode;
+  if (isCoins) {
+    form = (
+      <CurrencySliderCalculator
+        title="Currency"
+        subtitle="Select your desired currency"
+        tiers={coinsTiers}
+        selectedIndex={selectedCoinsIndex}
+        onSelectTier={setSelectedCoinsIndex}
+        platformOptions={platformOptions}
+        platform={platform}
+        setPlatform={setPlatform}
+        requirements={coinsRequirements}
+        benefits={coinsBenefits}
+      />
+    );
+  } else {
+    form = (
+      <RankBoostingImage
+        currentCategory={currentCategory}
+        setCurrentCategory={setCurrentCategory}
+        currentDivision={currentDivision}
+        setCurrentDivision={setCurrentDivision}
+        desiredCategory={desiredCategory}
+        setDesiredCategory={setDesiredCategory}
+        desiredDivision={desiredDivision}
+        setDesiredDivision={setDesiredDivision}
+        categoryOptions={fifaRankCategories}
+        divisionOptions={fifaDivisions}
+        serverOptions={serverOptions}
+        queueOptions={queueOptions}
+        server={server}
+        setServer={setServer}
+        queue={queue}
+        setQueue={setQueue}
+        platform={platform}
+        setPlatform={setPlatform}
+        platformOptions={platformOptions}
+        requirements={requirements}
+        benefits={benefits}
+      />
+    );
+  }
 
   const summary = (
     <OrderSummary
-      title="Rank Boost"
+      title={summaryTitle}
       estimatedTime="~2 days, 6h"
       startInLabel="4h"
       rows={summaryRows}
       extras={extraOptions}
       finalRows={finalRows}
-      totalAmount="€249.00"
+      totalAmount={totalAmount}
       discountMessage="15% discount applied to your order"
       maxDiscountReached
       defaultCoupon="SALE5"

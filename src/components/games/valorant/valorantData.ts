@@ -1,4 +1,6 @@
+import type { SelectableCard } from "@/components/calculator/forms/CardSelectorCalculator";
 import type { CategoryOption } from "@/components/calculator/shared/CategoryTabs";
+import type { CurrencyCardData } from "@/components/calculator/shared/CurrencyCard";
 import type { ExtraOption } from "@/components/calculator/shared/OrderSummary";
 
 export type RankKey =
@@ -84,7 +86,8 @@ export const categories: CategoryOption[] = [
   { id: "rank", icon: "/images/icons/services/safety-outlined.svg", label: "Rank Boost" },
   { id: "placement", icon: "/images/icons/services/rocket.svg", label: "Placement Boost" },
   { id: "win", icon: "/images/icons/services/crown.svg", label: "Boost per Win" },
-  { id: "unrated", icon: "/images/icons/services/order-light.svg", label: "Unrated Matches" },
+  { id: "currency", icon: "/images/icons/services/cash.svg", label: "Currency" },
+  { id: "camo", icon: "/images/icons/services/safety-outlined.svg", label: "Camo Boost" },
 ];
 
 export const platformOptions = [
@@ -116,4 +119,137 @@ export const benefits = [
   "Account safety & privacy",
   "Real-time order tracking",
   "24/7 customer support",
+];
+
+/* ── Camo Boost (Card Selector) data ─────────────────────────── */
+
+export const camoCards: SelectableCard[] = [
+  {
+    id: "leviathan",
+    name: "Leviathan",
+    description: "Base camo - all standard challenges",
+    price: 12.99,
+    image: "/images/camo-boost/weapon-bg.png",
+    locks: ["leviathan-platinum-2"],
+  },
+  {
+    id: "leviathan-gold",
+    name: "Leviathan Gold",
+    description: "Gold tier - 100 headshots required",
+    price: 24.99,
+    image: "/images/camo-boost/weapon-bg.png",
+  },
+  {
+    id: "leviathan-platinum",
+    name: "Leviathan Platinum",
+    description: "Platinum — Gold on all in category",
+    price: 39.99,
+  },
+  {
+    id: "leviathan-diamond",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+    image: "/images/camo-boost/weapon-bg.png",
+    locks: ["leviathan-diamond-2"],
+  },
+  {
+    id: "leviathan-diamond-2",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+    image: "/images/camo-boost/weapon-bg.png",
+    locks: ["leviathan-diamond"],
+  },
+  {
+    id: "leviathan-platinum-2",
+    name: "Leviathan Platinum",
+    description: "Platinum — Gold on all in category",
+    price: 39.99,
+    image: "/images/camo-boost/weapon-bg.png",
+    locks: ["leviathan"],
+  },
+];
+
+export const camoRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const camoBenefits = [
+  "3 Placement Wins on your account.",
+  "Progression towards your final placement division.",
+  "A detailed match history with performance overview.",
+  "Optional match replays upon request.",
+];
+
+/* ── Currency Calculator data ────────────────────────────────── */
+
+export const currencyPacks: CurrencyCardData[] = [
+  {
+    id: "100k",
+    amount: 100_000,
+    amountLabel: "100K",
+    packName: "Standard Pack",
+    price: 1.0,
+    discountLabel: "Base",
+    image: "/images/currency/coins-1.png",
+  },
+  {
+    id: "500k",
+    amount: 500_000,
+    amountLabel: "500K",
+    packName: "Value Pack",
+    price: 4.75,
+    discount: 5,
+    discountLabel: "-5%",
+    image: "/images/currency/coins-2.png",
+  },
+  {
+    id: "1m",
+    amount: 1_000_000,
+    amountLabel: "1M",
+    packName: "Premium Pack",
+    price: 9.0,
+    discount: 10,
+    discountLabel: "-10%",
+    image: "/images/currency/coins-3.png",
+  },
+  {
+    id: "1.5m",
+    amount: 1_500_000,
+    amountLabel: "1.5M",
+    packName: "Elite Pack",
+    price: 12.75,
+    discount: 15,
+    discountLabel: "-15%",
+    image: "/images/currency/coins-4.png",
+  },
+  {
+    id: "2m",
+    amount: 2_000_000,
+    amountLabel: "2M",
+    packName: "VIP Pack",
+    price: 16.0,
+    discount: 20,
+    discountLabel: "-20%",
+    image: "/images/currency/coins-5.png",
+    isVip: true,
+  },
+];
+
+export const currencyRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const currencyBenefits = [
+  "3 Placement Wins on your account.",
+  "Progression towards your final placement division.",
+  "A detailed match history with performance overview.",
+  "Optional match replays upon request.",
 ];

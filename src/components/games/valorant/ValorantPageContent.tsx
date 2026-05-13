@@ -2,6 +2,8 @@
 
 import { CalculatorPageShell } from "@/components/calculator/CalculatorPageShell";
 import { BoostPerWinCalculator } from "@/components/calculator/forms/BoostPerWinCalculator";
+import { CardSelectorCalculator } from "@/components/calculator/forms/CardSelectorCalculator";
+import { CurrencyCalculator } from "@/components/calculator/forms/CurrencyCalculator";
 import { RankBoostingStandard } from "@/components/calculator/forms/RankBoostingStandard";
 import { OrderSummary } from "@/components/calculator/shared/OrderSummary";
 import { SeasonBanner } from "@/components/calculator/shared/SeasonBanner";
@@ -20,7 +22,13 @@ import {
   type RankBoostKey,
   type RankKey,
   benefits,
+  camoBenefits,
+  camoCards,
+  camoRequirements,
   categories,
+  currencyBenefits,
+  currencyPacks,
+  currencyRequirements,
   divisions,
   extraOptions,
   platformOptions,
@@ -46,6 +54,12 @@ export function ValorantPageContent() {
   const [desiredRank, setDesiredRank] = useState<RankBoostKey>("grandmaster");
   const [desiredLP, setDesiredLP] = useState<number>(100);
 
+  /* ── Camo Boost state ── */
+  const [selectedCardIds, setSelectedCardIds] = useState<string[]>([]);
+
+  /* ── Currency state ── */
+  const [selectedCurrencyIndex, setSelectedCurrencyIndex] = useState(0);
+
   /* ── Shared state ── */
   const [category, setCategory] = useState<string>("rank");
   const [platform, setPlatform] = useState<string>("PC");
@@ -53,37 +67,84 @@ export function ValorantPageContent() {
   const [queue, setQueue] = useState("Competitive");
 
   const platformLabel = platformOptions.find((p) => p.id === platform)?.label ?? platform;
+  const isCurrency = category === "currency";
+  const isCamo = category === "camo";
   const isRankBoost = category === "rank";
 
-  const summaryRows = isRankBoost
-    ? [
-        {
-          label: "Current Rank",
-          value: `${rankBoostRanks.find((r) => r.key === currentRank)?.label ?? ""} ${rankBoostDivisions[currentDivision]}`,
-        },
-        {
-          label: "Desired Rank",
-          value: `${rankBoostRanks.find((r) => r.key === desiredRank)?.label ?? ""} ${desiredLP} LP`,
-        },
-        { label: "Server", value: server },
-        { label: "Queue", value: queue },
-        { label: "Platform", value: platformLabel },
-      ]
-    : [
-        {
-          label: "Current Rank",
-          value: `${ranks.find((r) => r.key === selectedRank)?.label ?? "Bronze"} ${divisions[selectedDivision]}`,
-        },
-        { label: "Number of Wins", value: String(wins) },
-        { label: "Server", value: server },
-        { label: "Queue", value: queue },
+  const onToggleCard = (id: string) => {
+    setSelectedCardIds((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
+    );
+  };
+
+  /* ── Summary rows ── */
+  let summaryTitle = "Boost Per Win";
+  let summaryRows: { label: string; value: string }[];
+  let totalAmount = "€327.00";
+
+  if (isCurrency) {
+    summaryTitle = "Currency";
+    const pack = currencyPacks[selectedCurrencyIndex];
+    if (pack) {
+      totalAmount = `$${pack.price.toFixed(2)}`;
+      summaryRows = [
+        { label: "Pack", value: `${pack.amountLabel} — ${pack.packName}` },
+        { label: "Discount", value: pack.discount != null ? `${pack.discount}% OFF` : "—" },
         { label: "Platform", value: platformLabel },
       ];
+    } else {
+      summaryRows = [{ label: "Pack", value: "—" }];
+    }
+  } else if (isCamo) {
+    summaryTitle = "Camo Boost";
+    const selectedCards = camoCards.filter((c) => selectedCardIds.includes(c.id));
+    const subtotal = selectedCards.reduce((sum, c) => sum + c.price, 0);
+    totalAmount = `$${subtotal.toFixed(2)}`;
+
+    summaryRows = [];
+    if (selectedCards.length === 0) {
+      summaryRows.push({ label: "Selected", value: "—" });
+    } else {
+      const preview = selectedCards
+        .slice(0, 3)
+        .map((c) => c.name)
+        .join(", ");
+      const suffix = selectedCards.length > 3 ? ` +${selectedCards.length - 3} more` : "";
+      summaryRows.push({ label: "Selected", value: `${preview}${suffix}` });
+    }
+    summaryRows.push({ label: "Platform", value: platformLabel });
+  } else if (isRankBoost) {
+    summaryTitle = "Rank Boost";
+    summaryRows = [
+      {
+        label: "Current Rank",
+        value: `${rankBoostRanks.find((r) => r.key === currentRank)?.label ?? ""} ${rankBoostDivisions[currentDivision]}`,
+      },
+      {
+        label: "Desired Rank",
+        value: `${rankBoostRanks.find((r) => r.key === desiredRank)?.label ?? ""} ${desiredLP} LP`,
+      },
+      { label: "Server", value: server },
+      { label: "Queue", value: queue },
+      { label: "Platform", value: platformLabel },
+    ];
+  } else {
+    summaryRows = [
+      {
+        label: "Current Rank",
+        value: `${ranks.find((r) => r.key === selectedRank)?.label ?? "Bronze"} ${divisions[selectedDivision]}`,
+      },
+      { label: "Number of Wins", value: String(wins) },
+      { label: "Server", value: server },
+      { label: "Queue", value: queue },
+      { label: "Platform", value: platformLabel },
+    ];
+  }
 
   const finalRows = [
     { label: "Discount", value: "-15%" },
     { label: "Promo Code", value: "-5%" },
-    { label: "Total Amount", value: "€327.00" },
+    { label: "Total Amount", value: totalAmount },
   ];
 
   const topBanner = (
@@ -97,63 +158,98 @@ export function ValorantPageContent() {
     </div>
   );
 
-  const form = isRankBoost ? (
-    <RankBoostingStandard
-      currentRank={currentRank}
-      setCurrentRank={(r) => setCurrentRank(r as RankBoostKey)}
-      currentDivision={currentDivision}
-      setCurrentDivision={setCurrentDivision}
-      desiredRank={desiredRank}
-      setDesiredRank={(r) => setDesiredRank(r as RankBoostKey)}
-      desiredLP={desiredLP}
-      setDesiredLP={setDesiredLP}
-      server={server}
-      setServer={setServer}
-      queue={queue}
-      setQueue={setQueue}
-      platform={platform}
-      setPlatform={setPlatform}
-      ranks={rankBoostRanks}
-      divisions={[...rankBoostDivisions]}
-      serverOptions={serverOptions}
-      queueOptions={queueOptions}
-      platformOptions={platformOptions}
-      requirements={rankBoostRequirements}
-      benefits={rankBoostBenefits}
-    />
-  ) : (
-    <BoostPerWinCalculator
-      selectedRank={selectedRank}
-      setSelectedRank={(r) => setSelectedRank(r as RankKey)}
-      selectedDivision={selectedDivision}
-      setSelectedDivision={setSelectedDivision}
-      wins={wins}
-      setWins={setWins}
-      server={server}
-      setServer={setServer}
-      queue={queue}
-      setQueue={setQueue}
-      platform={platform}
-      setPlatform={setPlatform}
-      ranks={ranks}
-      divisions={[...divisions]}
-      serverOptions={serverOptions}
-      queueOptions={queueOptions}
-      platformOptions={platformOptions}
-      requirements={requirements}
-      benefits={benefits}
-    />
-  );
+  let form: React.ReactNode;
+  if (isCurrency) {
+    form = (
+      <CurrencyCalculator
+        title="Currency"
+        subtitle="Select your desired currency"
+        packs={currencyPacks}
+        selectedIndex={selectedCurrencyIndex}
+        onSelectPack={setSelectedCurrencyIndex}
+        platformOptions={platformOptions}
+        platform={platform}
+        setPlatform={setPlatform}
+        requirements={currencyRequirements}
+        benefits={currencyBenefits}
+      />
+    );
+  } else if (isCamo) {
+    form = (
+      <CardSelectorCalculator
+        title="Weapon Camo Variants"
+        subtitle="Click cards to select"
+        cards={camoCards}
+        selectedCardIds={selectedCardIds}
+        onToggleCard={onToggleCard}
+        platformOptions={platformOptions}
+        platform={platform}
+        setPlatform={setPlatform}
+        requirements={camoRequirements}
+        benefits={camoBenefits}
+      />
+    );
+  } else if (isRankBoost) {
+    form = (
+      <RankBoostingStandard
+        currentRank={currentRank}
+        setCurrentRank={(r) => setCurrentRank(r as RankBoostKey)}
+        currentDivision={currentDivision}
+        setCurrentDivision={setCurrentDivision}
+        desiredRank={desiredRank}
+        setDesiredRank={(r) => setDesiredRank(r as RankBoostKey)}
+        desiredLP={desiredLP}
+        setDesiredLP={setDesiredLP}
+        server={server}
+        setServer={setServer}
+        queue={queue}
+        setQueue={setQueue}
+        platform={platform}
+        setPlatform={setPlatform}
+        ranks={rankBoostRanks}
+        divisions={[...rankBoostDivisions]}
+        serverOptions={serverOptions}
+        queueOptions={queueOptions}
+        platformOptions={platformOptions}
+        requirements={rankBoostRequirements}
+        benefits={rankBoostBenefits}
+      />
+    );
+  } else {
+    form = (
+      <BoostPerWinCalculator
+        selectedRank={selectedRank}
+        setSelectedRank={(r) => setSelectedRank(r as RankKey)}
+        selectedDivision={selectedDivision}
+        setSelectedDivision={setSelectedDivision}
+        wins={wins}
+        setWins={setWins}
+        server={server}
+        setServer={setServer}
+        queue={queue}
+        setQueue={setQueue}
+        platform={platform}
+        setPlatform={setPlatform}
+        ranks={ranks}
+        divisions={[...divisions]}
+        serverOptions={serverOptions}
+        queueOptions={queueOptions}
+        platformOptions={platformOptions}
+        requirements={requirements}
+        benefits={benefits}
+      />
+    );
+  }
 
   const summary = (
     <OrderSummary
-      title={isRankBoost ? "Rank Boost" : "Boost Per Win"}
+      title={summaryTitle}
       estimatedTime="~1day, 12h"
       startInLabel="2h"
       rows={summaryRows}
       extras={extraOptions}
       finalRows={finalRows}
-      totalAmount="€327.00"
+      totalAmount={totalAmount}
       discountMessage="15% discount applied to your order"
       maxDiscountReached
       defaultCoupon="SALE5"
