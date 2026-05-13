@@ -284,7 +284,7 @@ export function Reviews() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 md:gap-2">
                     {["s1", "s2", "s3", "s4", "s5"].map((id) => (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -292,7 +292,10 @@ export function Reviews() {
                         src="/images/icons/reviews/star.svg"
                         alt=""
                         loading="lazy"
-                        className="h-6 w-6"
+                        // Mobile stars bumped from 24 → 40px (~1.7x) per
+                        // designer feedback that the rating was hard to
+                        // read on phones (msg #35). Desktop unchanged.
+                        className="h-7 w-7 md:h-6 md:w-6"
                       />
                     ))}
                   </div>

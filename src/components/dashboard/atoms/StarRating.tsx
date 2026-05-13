@@ -1,3 +1,5 @@
+type StarRatingSize = "sm" | "md" | "lg";
+
 type StarRatingProps = {
   rating: number | string;
   /** Optional trailing review count line, e.g. "10k Reviews". */
@@ -6,7 +8,15 @@ type StarRatingProps = {
   layout?: "col" | "row";
   /** Tailwind size class for the score text. Default "text-xl". */
   scoreClassName?: string;
+  /** Star icon size. Defaults to "lg" (~28px) for better visibility on dashboards. */
+  size?: StarRatingSize;
   className?: string;
+};
+
+const STAR_SIZE_CLASSES: Record<StarRatingSize, string> = {
+  sm: "h-3.5 w-[15px]",
+  md: "h-5 w-[22px]",
+  lg: "h-7 w-[30px]",
 };
 
 export function StarRating({
@@ -14,18 +24,19 @@ export function StarRating({
   reviewCount,
   layout = "col",
   scoreClassName = "text-xl",
+  size = "lg",
   className = "",
 }: StarRatingProps) {
   const wrapper =
     layout === "col" ? "flex flex-col items-center gap-0.5" : "flex items-center gap-2";
   return (
     <div className={`${wrapper} ${className}`}>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/dashboard/icons/star-rating.svg"
           alt=""
-          className="h-3.5 w-[15px] shrink-0"
+          className={`${STAR_SIZE_CLASSES[size]} shrink-0`}
         />
         <span
           className={`font-body font-bold ${scoreClassName}`}

@@ -8,6 +8,13 @@ const TIER_CHIP_COLOR = "#ff5c00";
 const WALLET_CHIP_BG = "rgba(52,168,83,0.2)";
 const WALLET_CHIP_COLOR = "#34a853";
 
+type DashboardProfileCardProps = {
+  /** Called when the user taps the "New Order" CTA. */
+  onNewOrder?: () => void;
+  /** Called when the user taps the "Customer Support" CTA. */
+  onSupport?: () => void;
+};
+
 function ProfileBadges(): ReactNode {
   return (
     <div className="flex items-center gap-2">
@@ -31,7 +38,7 @@ function ProfileBadges(): ReactNode {
   );
 }
 
-export function DashboardProfileCard() {
+export function DashboardProfileCard({ onNewOrder, onSupport }: DashboardProfileCardProps = {}) {
   return (
     <div
       className="flex flex-col gap-6 overflow-hidden rounded-3xl px-4 py-6 lg:px-8"
@@ -55,11 +62,13 @@ export function DashboardProfileCard() {
             icon="/images/dashboard/icons/pen-new-order.svg"
             title="New Order"
             subtitle="Get Started"
+            onClick={onNewOrder}
           />
           <CtaCard
             icon="/images/dashboard/icons/support-icon.svg"
             title="Customer Support"
             subtitle="Create Ticket"
+            onClick={onSupport}
           />
         </div>
       </div>
@@ -78,8 +87,18 @@ export function DashboardProfileCard() {
         />
 
         <div className="flex items-center gap-2">
-          <CtaCard size="sm" icon="/images/dashboard/icons/pen-new-order.svg" title="New Order" />
-          <CtaCard size="sm" icon="/images/dashboard/icons/support-icon.svg" title="Support" />
+          <CtaCard
+            size="sm"
+            icon="/images/dashboard/icons/pen-new-order.svg"
+            title="New Order"
+            onClick={onNewOrder}
+          />
+          <CtaCard
+            size="sm"
+            icon="/images/dashboard/icons/support-icon.svg"
+            title="Support"
+            onClick={onSupport}
+          />
         </div>
       </div>
     </div>

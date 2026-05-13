@@ -67,13 +67,14 @@ function RankPreview({
         )}
       </div>
 
-      {/* Arrow */}
+      {/* Arrow — source SVG is an up-arrow (`eva:arrow-up-fill`) so we
+          rotate it 90° CW to point at the desired rank (msg #54). */}
       <div className="flex shrink-0 items-center justify-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/icons/services/arrow-right-sm.svg"
           alt=""
-          className="h-5 w-5 opacity-60"
+          className="h-5 w-5 rotate-90 opacity-60"
         />
       </div>
 
@@ -97,6 +98,10 @@ function RankPreview({
       </div>
     </div>
   );
+}
+
+function optionValue(opt: DropdownOption): string {
+  return typeof opt === "string" ? opt : opt.value;
 }
 
 export function RankBoostingImage({
@@ -124,6 +129,64 @@ export function RankBoostingImage({
 }: RankBoostingImageProps) {
   const currentIcon = getIcon(divisionOptions, currentDivision);
   const desiredIcon = getIcon(divisionOptions, desiredDivision);
+
+  // Backend can't process "negative" orders, so prevent the desired rank
+  // from landing at or below the current one (msg #54).
+  const categoryValues = categoryOptions.map(optionValue);
+  const divisionValues = divisionOptions.map(optionValue);
+  const currentCatIdx = categoryValues.indexOf(currentCategory);
+  const currentDivIdx = divisionValues.indexOf(currentDivision);
+
+  const handleSetCurrentCategory = (v: string) => {
+    setCurrentCategory(v);
+    const newCatIdx = categoryValues.indexOf(v);
+    const desiredCatIdx = categoryValues.indexOf(desiredCategory);
+    if (desiredCatIdx < newCatIdx) {
+      setDesiredCategory(categoryValues[Math.min(newCatIdx, categoryValues.length - 1)]);
+    }
+  };
+
+  const handleSetCurrentDivision = (v: string) => {
+    setCurrentDivision(v);
+    const newDivIdx = divisionValues.indexOf(v);
+    const desiredDivIdx = divisionValues.indexOf(desiredDivision);
+    // If same category, desired division must be strictly greater.
+    if (currentCategory === desiredCategory && desiredDivIdx <= newDivIdx) {
+      const next = Math.min(newDivIdx + 1, divisionValues.length - 1);
+      setDesiredDivision(divisionValues[next]);
+    }
+  };
+
+  const handleSetDesiredCategory = (v: string) => {
+    const newCatIdx = categoryValues.indexOf(v);
+    if (newCatIdx < currentCatIdx) {
+      // Reject: clamp to current category instead of going backwards.
+      setDesiredCategory(currentCategory);
+      return;
+    }
+    setDesiredCategory(v);
+    // After raising/lowering category, re-check division ordering.
+    if (v === currentCategory) {
+      const desiredDivIdx = divisionValues.indexOf(desiredDivision);
+      if (desiredDivIdx <= currentDivIdx) {
+        const next = Math.min(currentDivIdx + 1, divisionValues.length - 1);
+        setDesiredDivision(divisionValues[next]);
+      }
+    }
+  };
+
+  const handleSetDesiredDivision = (v: string) => {
+    if (desiredCategory === currentCategory) {
+      const newDivIdx = divisionValues.indexOf(v);
+      if (newDivIdx <= currentDivIdx) {
+        // Reject: keep desired strictly above current within same category.
+        const next = Math.min(currentDivIdx + 1, divisionValues.length - 1);
+        setDesiredDivision(divisionValues[next]);
+        return;
+      }
+    }
+    setDesiredDivision(v);
+  };
 
   return (
     <div
@@ -154,13 +217,13 @@ export function RankBoostingImage({
                   label=""
                   value={currentCategory}
                   options={categoryOptions}
-                  onChange={setCurrentCategory}
+                  onChange={handleSetCurrentCategory}
                 />
                 <Dropdown
                   label=""
                   value={currentDivision}
                   options={divisionOptions}
-                  onChange={setCurrentDivision}
+                  onChange={handleSetCurrentDivision}
                 />
               </div>
             </div>
@@ -180,13 +243,13 @@ export function RankBoostingImage({
                   label=""
                   value={desiredCategory}
                   options={categoryOptions}
-                  onChange={setDesiredCategory}
+                  onChange={handleSetDesiredCategory}
                 />
                 <Dropdown
                   label=""
                   value={desiredDivision}
                   options={divisionOptions}
-                  onChange={setDesiredDivision}
+                  onChange={handleSetDesiredDivision}
                 />
               </div>
             </div>
@@ -208,8 +271,13 @@ export function RankBoostingImage({
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
-            <Dropdown label="Server" value={server} options={serverOptions} onChange={setServer} />
-            <Dropdown label="Queue" value={queue} options={queueOptions} onChange={setQueue} />
+            <Dropdown
+              label="Server *"
+              value={server}
+              options={serverOptions}
+              onChange={setServer}
+            />
+            <Dropdown label="Queue *" value={queue} options={queueOptions} onChange={setQueue} />
           </div>
 
           <div>

@@ -94,9 +94,15 @@ const currencies: Currency[] = [
   { code: "BRL", symbol: "R$", label: "Brazilian Real" },
 ];
 
-function CurrencyDropdown() {
+type CurrencyDropdownProps = {
+  selected: Currency;
+  onSelect: (c: Currency) => void;
+  /** "desktop" = rounded-border pill in header. "mobile" = full-width row inside the drawer. */
+  variant?: "desktop" | "mobile";
+};
+
+function CurrencyDropdown({ selected, onSelect, variant = "desktop" }: CurrencyDropdownProps) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(currencies[0]);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -109,23 +115,49 @@ function CurrencyDropdown() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const isMobile = variant === "mobile";
+  const triggerClass = isMobile
+    ? "flex w-full items-center gap-3 px-6 py-4 text-left"
+    : "inline-flex h-[53px] items-center gap-2 rounded-2xl border border-dark-border px-4";
+  const popoverClass = isMobile
+    ? "absolute bottom-[calc(100%+8px)] left-6 right-6 z-50 overflow-hidden rounded-2xl py-1"
+    : "absolute right-0 top-[calc(100%+8px)] z-50 w-[200px] overflow-hidden rounded-2xl py-1";
+
   return (
-    <div ref={ref} className="relative hidden lg:block">
+    <div ref={ref} className="relative">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex h-[53px] items-center gap-2 rounded-2xl border border-dark-border px-4"
+        className={triggerClass}
+        aria-label="Change currency"
+        aria-expanded={open}
       >
-        <span className="font-body text-base font-normal text-white">{selected.symbol}</span>
-        <span className="font-body text-base font-normal text-white">{selected.code}</span>
-        <ChevronDownIcon
-          size={13}
-          className={`text-white transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-        />
+        {isMobile ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/icons/dollar.svg" alt="" className="h-4 w-[9px]" />
+            <span className="font-body text-sm text-white/80">{selected.code}</span>
+            <ChevronDownIcon
+              size={12}
+              className={`text-white/60 transition-transform duration-200 ${
+                open ? "rotate-180" : ""
+              }`}
+            />
+          </>
+        ) : (
+          <>
+            <span className="font-body text-base font-normal text-white">{selected.symbol}</span>
+            <span className="font-body text-base font-normal text-white">{selected.code}</span>
+            <ChevronDownIcon
+              size={13}
+              className={`text-white transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+            />
+          </>
+        )}
       </button>
       {open && (
         <div
-          className="absolute right-0 top-[calc(100%+8px)] z-50 w-[200px] overflow-hidden rounded-2xl py-1"
+          className={popoverClass}
           style={{
             backgroundImage: "linear-gradient(-54deg, #17191f 0%, #383852 100%)",
             border: "1px solid #383852",
@@ -137,7 +169,7 @@ function CurrencyDropdown() {
               key={c.code}
               type="button"
               onClick={() => {
-                setSelected(c);
+                onSelect(c);
                 setOpen(false);
               }}
               className={`flex h-[44px] w-full items-center gap-3 px-4 text-left transition-colors hover:bg-black/20 ${
@@ -157,6 +189,7 @@ function CurrencyDropdown() {
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
 
   return (
     <header
@@ -215,8 +248,14 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Currency selector */}
-          <CurrencyDropdown />
+          {/* Currency selector (desktop) */}
+          <div className="hidden lg:block">
+            <CurrencyDropdown
+              selected={selectedCurrency}
+              onSelect={setSelectedCurrency}
+              variant="desktop"
+            />
+          </div>
 
           {/* Cart - h-[53px] w-[53px] to match Figma */}
           <Link
@@ -279,11 +318,14 @@ export function Header() {
               Login
             </Button>
           </nav>
-          <div className="flex items-center gap-3 border-t border-dark-border px-6 py-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/dollar.svg" alt="" className="h-4 w-[9px]" />
-            <span className="font-body text-sm text-white/80">USD</span>
-            <ChevronDownIcon size={12} className="text-white/60" />
+          {/* Currency selector (mobile) — sits inside the drawer so users
+              can actually switch currency from a phone (msg #32). */}
+          <div className="border-t border-dark-border">
+            <CurrencyDropdown
+              selected={selectedCurrency}
+              onSelect={setSelectedCurrency}
+              variant="mobile"
+            />
           </div>
         </div>
       )}

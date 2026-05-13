@@ -30,6 +30,11 @@ export function LoyaltyTierList() {
         />
       </div>
 
+      {/* Full tier ladder (Novice → Ultimate). The current tier is
+          highlighted by `TierShellCard`'s `active` prop, which draws the
+          brand-light border; the rest render with a transparent border so
+          the user can see both their current discount and what they're
+          progressing toward. */}
       <div className="flex flex-col gap-1">
         {loyaltyTiers.map((tier) => (
           <TierShellCard
@@ -56,14 +61,19 @@ export function LoyaltyTierList() {
         <p className="font-body text-xs" style={{ color: "rgba(255,255,255,0.8)" }}>
           {"For each $1 spent, you will receive "}
           <span className="inline-flex items-center gap-1 align-middle">
+            {/* Footer uses the same OG coin asset (orange logo) as the
+                header and progress markers — the previous `og-point.png`
+                was a blank/white sprite and the `h-2.5 w-4 object-cover`
+                sizing cropped it further. `object-contain` keeps the
+                logo intact at body-text scale. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/dashboard/icons/og-point.png"
-              alt=""
-              className="inline-block h-2.5 w-4 object-cover"
+              src="/images/dashboard/icons/og-point-coin.png"
+              alt="OG"
+              className="inline-block h-3 w-[18px] shrink-0 object-contain"
             />
             <span
-              className="font-body text-base font-bold text-white"
+              className="font-body text-sm font-bold text-white"
               style={{ textShadow: "0px 0px 14px rgba(255,255,255,0.4)" }}
             >
               1

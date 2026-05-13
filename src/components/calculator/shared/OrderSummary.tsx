@@ -50,6 +50,19 @@ const defaultPayments = [
   "zelle",
 ];
 
+/**
+ * Color a price-row value according to its meaning (Slack msg #55):
+ *   - "FREE"            → success green
+ *   - starts with "-"   → brand orange (discount)
+ *   - everything else   → white (regular extras / surcharges)
+ */
+function valueColorClass(value: string): string {
+  const trimmed = value.trim();
+  if (/free/i.test(trimmed)) return "text-[#1aad19]";
+  if (trimmed.startsWith("-")) return "text-brand-light";
+  return "text-white";
+}
+
 export function OrderSummary({
   eyebrow = "Order Summary",
   title,
@@ -199,11 +212,7 @@ export function OrderSummary({
                       {opt.label}
                     </span>
                   </div>
-                  <span
-                    className={`font-body text-sm font-semibold ${
-                      opt.cost === "FREE" ? "text-brand-light" : "text-white/80"
-                    }`}
-                  >
+                  <span className={`font-body text-sm font-semibold ${valueColorClass(opt.cost)}`}>
                     {opt.cost}
                   </span>
                 </div>
@@ -252,7 +261,12 @@ export function OrderSummary({
             style={{ background: "rgba(0,0,0,0.2)" }}
           >
             <span className="font-body text-sm text-white/80">{row.label}</span>
-            <span className="font-body text-base font-semibold text-brand-light">{row.value}</span>
+            {/* Value color is derived from the value text itself so the
+                FREE / discount / extras palette stays consistent without
+                each caller having to pass a color prop (msg #55). */}
+            <span className={`font-body text-base font-semibold ${valueColorClass(row.value)}`}>
+              {row.value}
+            </span>
           </div>
         ))}
       </div>

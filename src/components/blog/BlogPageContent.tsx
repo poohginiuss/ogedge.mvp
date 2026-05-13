@@ -30,35 +30,62 @@ function getCategoryStyles(category: BlogArticle["category"]) {
 
 type FilterId = "All News" | BlogArticle["category"];
 
-function FilterIcon({ label }: { label: string }) {
+function FilterIcon({ label, active = false }: { label: string; active?: boolean }) {
+  // The blog filter SVGs were exported with a hard-coded white fill, so an
+  // active chip's text would turn brand-orange while the icon stayed white
+  // and looked disconnected. We re-tint via the shared CSS filter token
+  // (defined in `globals.css` as `--icon-tint-brand-light`) so the icon
+  // follows the same active colour without needing to ship coloured asset
+  // variants.
+  const tintStyle = active ? { filter: "var(--icon-tint-brand-light)" } : undefined;
+
   if (label === "All News") {
-    return <img src="/images/blog/icons/all-news.svg" alt="" className="h-5 w-5" loading="lazy" />;
-  }
-
-  if (label === "News") {
-    return <img src="/images/blog/icons/news.svg" alt="" className="h-5 w-5" loading="lazy" />;
-  }
-
-  if (label === "Guides") {
     return (
-      <span className="relative h-5 w-5">
-        <img
-          src="/images/blog/icons/guides-left.svg"
-          alt=""
-          className="absolute left-[1px] top-[1px] h-[18px] w-[9px]"
-          loading="lazy"
-        />
-        <img
-          src="/images/blog/icons/guides-right.svg"
-          alt=""
-          className="absolute left-[8px] top-[5px] h-[14px] w-[10px]"
-          loading="lazy"
-        />
-      </span>
+      <img
+        src="/images/blog/icons/all-news.svg"
+        alt=""
+        className="h-5 w-5"
+        loading="lazy"
+        style={tintStyle}
+      />
     );
   }
 
-  return <img src="/images/blog/icons/support.svg" alt="" className="h-5 w-5" loading="lazy" />;
+  if (label === "News") {
+    return (
+      <img
+        src="/images/blog/icons/news.svg"
+        alt=""
+        className="h-5 w-5"
+        loading="lazy"
+        style={tintStyle}
+      />
+    );
+  }
+
+  if (label === "Guides") {
+    // Unified single icon — previously rendered as two halves which made the
+    // icon visibly "cut" (Slack msg #4).
+    return (
+      <img
+        src="/images/blog/icons/guides.svg"
+        alt=""
+        className="h-5 w-5"
+        loading="lazy"
+        style={tintStyle}
+      />
+    );
+  }
+
+  return (
+    <img
+      src="/images/blog/icons/support.svg"
+      alt=""
+      className="h-5 w-5"
+      loading="lazy"
+      style={tintStyle}
+    />
+  );
 }
 
 function FilterChip({
@@ -107,7 +134,7 @@ function FilterChip({
       onClick={onClick}
       className={`inline-flex h-[50px] items-center gap-2 rounded-2xl border bg-black/20 px-4 shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all hover:border-[#ff975d]/70 hover:bg-[#232330] ${styles.border}`}
     >
-      <FilterIcon label={label} />
+      <FilterIcon label={label} active={active} />
       <span className={`font-body text-sm font-medium md:text-base ${styles.text}`}>{label}</span>
       <span className={`rounded-md px-1 py-0.5 font-body text-xs font-medium ${styles.badge}`}>
         {count}
@@ -116,18 +143,12 @@ function FilterChip({
   );
 }
 
-function ReadMoreLink({
-  href,
-  highlighted = false,
-  asSpan = false,
-}: {
-  href: string;
-  highlighted?: boolean;
-  asSpan?: boolean;
-}) {
-  const className = `inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] ${
-    highlighted ? "text-[#ff975d]" : "text-white"
-  } transition-colors hover:text-brand-light`;
+function ReadMoreLink({ href, asSpan = false }: { href: string; asSpan?: boolean }) {
+  // Always white at rest, light-orange on hover — per designer feedback
+  // (msgs #5 and #41). Previously the listing variant was permanently
+  // orange via `highlighted={true}`, which left no visible hover delta.
+  const className =
+    "inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light";
 
   if (asSpan) {
     return (
@@ -222,7 +243,7 @@ function BlogListCard({ article }: { article: BlogArticle }) {
           <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">
             {article.excerpt}
           </p>
-          <ReadMoreLink href={`/blog/${article.slug}`} highlighted />
+          <ReadMoreLink href={`/blog/${article.slug}`} />
         </div>
       </div>
     </article>

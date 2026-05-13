@@ -120,7 +120,8 @@ export function SafetyPageContent() {
               </div>
 
               <aside className="flex w-full shrink-0 flex-col gap-12 lg:w-[315px]">
-                <RatingCards />
+                {/* Hide the duplicate "See All Reviews" CTA — PlayerReviews already renders one below. */}
+                <RatingCards showSeeAllLink={false} />
                 <PlayerReviews />
               </aside>
             </div>

@@ -141,7 +141,12 @@ export const loyaltyTiers: LoyaltyTier[] = [
     name: "Veteran",
     color: "#ffb000",
     bgColor: "rgba(255,176,0,0.2)",
-    icon: "/images/dashboard/icons/medal-star-gold.svg",
+    // NOTE: the asset filenames are misleading — `medal-star-blue.svg` is
+    // actually filled with the gold #FFB000 tone, and `medal-star-gold.svg`
+    // is filled green. We assign them by *visual* colour so each tier's
+    // medal icon matches its chip background/text colour as shown in the
+    // design (Tier 3 = gold, Tier 4 = green).
+    icon: "/images/dashboard/icons/medal-star-blue.svg",
     discount: "10%",
   },
   {
@@ -149,7 +154,7 @@ export const loyaltyTiers: LoyaltyTier[] = [
     name: "Ultimate",
     color: "#1aad19",
     bgColor: "rgba(26,173,25,0.2)",
-    icon: "/images/dashboard/icons/medal-star-blue.svg",
+    icon: "/images/dashboard/icons/medal-star-gold.svg",
     discount: "15%",
   },
 ];

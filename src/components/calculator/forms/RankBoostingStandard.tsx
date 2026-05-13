@@ -36,6 +36,12 @@ export type RankBoostingStandardProps = {
   platformOptions: { id: string; label: string; icon: string }[];
   requirements: string[];
   benefits: string[];
+  /**
+   * Number of top ranks to exclude from the *current* rank picker.
+   * E.g. 3 hides Master/Grandmaster/Challenger from "Current Rank" because
+   * orders can't start there (msg #52). Default 0 = all ranks selectable.
+   */
+  currentRankExcludeTop?: number;
 };
 
 const SELECTED_BG =
@@ -50,12 +56,16 @@ function RankGrid({
   selected,
   onSelect,
   minIndex = 0,
+  maxIndex,
 }: {
   ranks: RankBoostRank[];
   selected: string;
   onSelect: (key: string) => void;
   minIndex?: number;
+  /** Inclusive upper bound. Ranks with index > maxIndex are disabled. */
+  maxIndex?: number;
 }) {
+  const upper = maxIndex ?? ranks.length - 1;
   return (
     <div className="grid grid-cols-4 gap-2">
       {ranks.map((rank, idx) => (
@@ -65,7 +75,7 @@ function RankGrid({
           imageSrc={`/images/ranks/emblems/${rank.key}.png`}
           glow={rank.glow}
           active={selected === rank.key}
-          disabled={idx < minIndex}
+          disabled={idx < minIndex || idx > upper}
           onClick={() => onSelect(rank.key)}
           className="h-[76px]"
         />
@@ -96,6 +106,7 @@ export function RankBoostingStandard({
   platformOptions,
   requirements,
   benefits,
+  currentRankExcludeTop = 0,
 }: RankBoostingStandardProps) {
   const currentRankIdx = ranks.findIndex((r) => r.key === currentRank);
   const desiredRankIdx = ranks.findIndex((r) => r.key === desiredRank);
@@ -105,6 +116,7 @@ export function RankBoostingStandard({
   const currentLabel = `${currentRankData?.label ?? ""} ${divisions[currentDivision]}`;
   const desiredLabel = `${desiredRankData?.label ?? ""} ${desiredLP} LP`;
 
+  const currentMaxIdx = Math.max(0, ranks.length - 1 - currentRankExcludeTop);
   const minDesiredIdx = Math.min(currentRankIdx + 1, ranks.length - 1);
 
   const handleSetCurrentRank = (key: string) => {
@@ -114,6 +126,13 @@ export function RankBoostingStandard({
     if (desiredRankIdx <= newIdx) {
       setDesiredRank(ranks[minIdx].key);
     }
+  };
+
+  const handleLpInput = (raw: string) => {
+    // Allow empty -> 0; otherwise parse and clamp to [LP_MIN, LP_MAX].
+    const parsed = raw === "" ? 0 : Number.parseInt(raw, 10);
+    if (Number.isNaN(parsed)) return;
+    setDesiredLP(Math.max(LP_MIN, Math.min(LP_MAX, parsed)));
   };
 
   return (
@@ -142,7 +161,12 @@ export function RankBoostingStandard({
             </div>
 
             <div className="flex flex-col gap-4">
-              <RankGrid ranks={ranks} selected={currentRank} onSelect={handleSetCurrentRank} />
+              <RankGrid
+                ranks={ranks}
+                selected={currentRank}
+                onSelect={handleSetCurrentRank}
+                maxIndex={currentMaxIdx}
+              />
 
               <div className="grid grid-cols-4 gap-2">
                 {divisions.map((div, i) => {
@@ -222,9 +246,19 @@ export function RankBoostingStandard({
                     boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
                   }}
                 >
-                  <span className="font-body text-xl font-bold leading-[30px] text-white">
-                    {desiredLP} LP
-                  </span>
+                  {/* Editable LP input — backend decides step granularity
+                      (typically +20), so we accept any int in [0, 500]. */}
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min={LP_MIN}
+                    max={LP_MAX}
+                    value={desiredLP}
+                    onChange={(e) => handleLpInput(e.target.value)}
+                    aria-label="Desired LP"
+                    className="w-20 bg-transparent text-center font-body text-xl font-bold leading-[30px] text-white outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  />
+                  <span className="font-body text-xl font-bold leading-[30px] text-white">LP</span>
                 </div>
                 <button
                   type="button"
@@ -257,8 +291,13 @@ export function RankBoostingStandard({
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
-            <Dropdown label="Server" value={server} options={serverOptions} onChange={setServer} />
-            <Dropdown label="Queue" value={queue} options={queueOptions} onChange={setQueue} />
+            <Dropdown
+              label="Server *"
+              value={server}
+              options={serverOptions}
+              onChange={setServer}
+            />
+            <Dropdown label="Queue *" value={queue} options={queueOptions} onChange={setQueue} />
           </div>
 
           <div>

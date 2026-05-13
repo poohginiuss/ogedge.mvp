@@ -1,6 +1,15 @@
 import Link from "next/link";
 
-export function RatingCards() {
+type RatingCardsProps = {
+  /**
+   * Whether to show the "See All Reviews" CTA link at the bottom. Defaults to
+   * true. Set to false on pages that already render their own reviews link
+   * elsewhere (e.g. Safety, which renders `PlayerReviews` below).
+   */
+  showSeeAllLink?: boolean;
+};
+
+export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
   return (
     <div className="flex flex-col gap-4">
       {/* Mobile: 4.94|1328 first, then Rated+Top side by side */}
@@ -52,9 +61,9 @@ export function RatingCards() {
           <span className="font-body text-lg font-medium leading-7 text-white transition-colors group-hover:text-[#48a589] lg:text-2xl lg:leading-8">
             Rated Excellent
           </span>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/reviews/star-green.svg" alt="" className="h-[14px] w-[15px]" />
+            <img src="/images/icons/reviews/star-green.svg" alt="" className="h-6 w-6" />
             <span className="font-body text-sm font-bold text-[#48a589]">4.9 Star Rating</span>
           </div>
           <div
@@ -76,9 +85,9 @@ export function RatingCards() {
           <span className="font-body text-lg font-medium leading-7 text-white transition-colors group-hover:text-[#f5e583] lg:text-2xl lg:leading-8">
             Top Rated
           </span>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/reviews/star-yellow.svg" alt="" className="h-[14px] w-[15px]" />
+            <img src="/images/icons/reviews/star-yellow.png" alt="" className="h-6 w-6" />
             <span className="font-body text-sm font-bold text-[#f5e583]">4.9 Star Rating</span>
           </div>
           <div
@@ -92,19 +101,21 @@ export function RatingCards() {
       </div>
 
       {/* See All Reviews link */}
-      <Link
-        href="/reviews"
-        className="mt-4 inline-flex items-center justify-center gap-2 self-center font-body text-base font-bold uppercase tracking-[0.32px] text-white hover:text-brand-light lg:order-4"
-      >
-        See All Reviews
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/icons/reviews/arrow-up-duotone.svg"
-          alt=""
-          className="h-6 w-6 rotate-90"
-          loading="lazy"
-        />
-      </Link>
+      {showSeeAllLink && (
+        <Link
+          href="/reviews"
+          className="mt-4 inline-flex items-center justify-center gap-2 self-center font-body text-base font-bold uppercase tracking-[0.32px] text-white hover:text-brand-light lg:order-4"
+        >
+          See All Reviews
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/icons/reviews/arrow-up-duotone.svg"
+            alt=""
+            className="h-6 w-6 rotate-90"
+            loading="lazy"
+          />
+        </Link>
+      )}
     </div>
   );
 }

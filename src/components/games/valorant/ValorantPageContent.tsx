@@ -303,6 +303,9 @@ export function ValorantPageContent() {
         platformOptions={platformOptions}
         requirements={rankBoostRequirements}
         benefits={rankBoostBenefits}
+        // Hide Master / Grandmaster / Challenger from current-rank picker
+        // per designer feedback (msg #52) — orders can't start there.
+        currentRankExcludeTop={3}
       />
     );
   } else {

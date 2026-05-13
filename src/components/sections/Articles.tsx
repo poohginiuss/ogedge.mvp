@@ -79,7 +79,10 @@ export function Articles() {
                 <p className="font-body text-sm leading-5 text-white">{featuredArticle.body}</p>
               </div>
             </div>
-            <span className="inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white">
+            {/* `group-hover` ties the hover state to the parent <Link>'s
+                .group class so the label highlights when the user hovers
+                anywhere on the card (msgs #5, #41). */}
+            <span className="inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors group-hover:text-brand-light">
               Read More
               <ArrowRightIcon size={18} />
             </span>

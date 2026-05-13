@@ -80,11 +80,20 @@ function StatCard({
 function RatingBadge({
   title,
   starColor,
+  starIcon,
   glowColor,
   href,
 }: {
   title: string;
   starColor: string;
+  /**
+   * Star asset matching the badge's brand. Each external rating provider
+   * (Trustpilot / Reviews.io) has its own coloured star — the orange
+   * default did not match the green / yellow palette of the badges
+   * (designer note: replace orange stars with green/yellow on the
+   * `/reviews` badges).
+   */
+  starIcon: string;
   glowColor: string;
   href: string;
 }) {
@@ -114,7 +123,7 @@ function RatingBadge({
       </span>
       <div className="flex items-center gap-1">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/icons/reviews/star.svg" alt="" className="h-[20px] w-[20px]" />
+        <img src={starIcon} alt="" className="h-[20px] w-[20px]" />
         <span className="font-body text-sm font-bold" style={{ color: starColor }}>
           4.9 Star Rating
         </span>
@@ -202,12 +211,14 @@ export function ReviewStats() {
             <RatingBadge
               title="Rated Excellent"
               starColor="#48a589"
+              starIcon="/images/icons/reviews/star-green.svg"
               glowColor="rgba(72,165,137,0.5)"
               href="https://www.trustpilot.com/review/ogedge.com"
             />
             <RatingBadge
               title="Top Rated"
               starColor="#f5e583"
+              starIcon="/images/icons/reviews/star-yellow.png"
               glowColor="rgba(245,229,131,0.5)"
               href="https://www.reviews.io/company-reviews/store/ogedge"
             />
@@ -236,12 +247,14 @@ export function ReviewStats() {
             <RatingBadge
               title="Rated Excellent"
               starColor="#48a589"
+              starIcon="/images/icons/reviews/star-green.svg"
               glowColor="rgba(72,165,137,0.5)"
               href="https://www.trustpilot.com/review/ogedge.com"
             />
             <RatingBadge
               title="Top Rated"
               starColor="#f5e583"
+              starIcon="/images/icons/reviews/star-yellow.png"
               glowColor="rgba(245,229,131,0.5)"
               href="https://www.reviews.io/company-reviews/store/ogedge"
             />

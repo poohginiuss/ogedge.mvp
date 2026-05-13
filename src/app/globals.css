@@ -19,6 +19,19 @@
 
   --background: var(--dark-main);
   --foreground: #ffffff;
+
+  /*
+   * CSS-filter recipe that tints any flat-fill PNG/SVG towards
+   * `--brand-light` (#ff975d). Generated via
+   * https://codepen.io/sosuke/pen/Pjoqqp. `brightness(0)` first normalises
+   * the source colour to black so any incoming icon (white / grey /
+   * stroked / coloured) ends up the same orange tone. Reusable across
+   * nav, blog filters, etc. so we keep a single source of truth instead
+   * of inlining the filter string in every component.
+   */
+  --icon-tint-brand-light:
+    brightness(0) saturate(100%) invert(72%) sepia(48%) saturate(1196%)
+    hue-rotate(326deg) brightness(101%) contrast(101%);
 }
 
 @theme inline {

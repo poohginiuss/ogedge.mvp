@@ -13,6 +13,7 @@
 /package-lock.json
 /pnpm-lock.yaml
 /bun.lockb
+/.feedback
 
 #old projects
 /old-project

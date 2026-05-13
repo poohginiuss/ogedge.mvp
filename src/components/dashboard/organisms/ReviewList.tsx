@@ -21,11 +21,15 @@ export function ReviewList() {
             </div>
 
             <div className="flex items-center justify-between">
+              {/* Native viewBox is 137.57 × 36.36 (~3.78:1). The previous
+                  `h-4 w-[118px]` forced a 7.4:1 ratio which visibly
+                  squashed the stars (Slack msg #73). Use the matching
+                  height (~31px) to render them upright. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/dashboard/icons/star-rating-frame.svg"
                 alt="5 stars"
-                className="h-4 w-[118px]"
+                className="h-[31px] w-[118px]"
               />
               <span className="font-body text-sm" style={{ color: "#aaa" }}>
                 {review.date}

@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@/components/icons";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { PageHero } from "@/components/sections/PageHero";
@@ -80,6 +81,16 @@ export function BlogPostPageContent({ article }: { article: BlogArticle }) {
         <section className="w-full bg-dark-main">
           <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-10 px-6 py-12 md:px-12 lg:flex-row lg:items-start lg:justify-between lg:px-0 lg:py-16">
             <article className="flex w-full flex-col gap-8 lg:max-w-[850px]">
+              {/* Back-to-blog link — designer flagged the article page as
+                  missing a way to navigate back (Slack msgs #6 and #42). */}
+              <Link
+                href="/blog"
+                className="inline-flex w-fit items-center gap-2 font-body text-sm font-semibold uppercase tracking-[0.32px] text-white/80 transition-colors hover:text-brand-light"
+              >
+                <ArrowRightIcon size={16} className="rotate-180" />
+                Back to Blog
+              </Link>
+
               <div className="relative h-[240px] overflow-hidden rounded-3xl md:h-[474px]">
                 <Image
                   src={article.image}
@@ -96,9 +107,15 @@ export function BlogPostPageContent({ article }: { article: BlogArticle }) {
                   {article.body.intro}
                 </p>
 
+                {/* Info callout — softened from solid `bg-brand-main` to a
+                    translucent tint per designer feedback that the highlight
+                    was "too orange, too bright" (Slack msg #6). */}
                 <div className="rounded-2xl bg-[rgba(56,56,82,0.5)] p-4">
                   <div className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-main text-xs font-bold text-white">
+                    <span
+                      className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                      style={{ background: "rgba(255,92,0,0.2)", color: "#ff975d" }}
+                    >
                       i
                     </span>
                     <p className="font-body text-sm font-medium leading-5 md:text-base md:leading-6">
