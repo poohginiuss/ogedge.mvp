@@ -43,15 +43,21 @@ function StatCard({
   prefix?: string;
   glowColor: string;
 }) {
+  const scrollToReviews = () => {
+    document.getElementById("review-cards")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div
-      className="relative flex flex-1 items-center justify-between overflow-hidden rounded-3xl p-4 md:p-6"
+    <button
+      type="button"
+      onClick={scrollToReviews}
+      className="group relative flex flex-1 items-center justify-between overflow-hidden rounded-3xl border border-transparent p-4 transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.4)] md:p-6"
       style={{
         background: "rgba(35,35,48,0.5)",
         backdropFilter: "blur(5px)",
       }}
     >
-      <div className="relative z-10 flex flex-col gap-px">
+      <div className="relative z-10 flex flex-col gap-px text-left">
         <div className="flex items-center gap-1">
           {prefix && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -70,15 +76,14 @@ function StatCard({
         className="absolute bottom-1 right-2 h-14 w-12 opacity-70 md:static md:bottom-auto md:right-auto md:h-18 md:w-16"
         loading="lazy"
       />
-      {/* Sunshine glow from bottom-right */}
       <div
-        className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full"
+        className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full transition-opacity group-hover:opacity-100"
         style={{
           background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
           filter: "blur(15px)",
         }}
       />
-    </div>
+    </button>
   );
 }
 
@@ -107,7 +112,7 @@ function RatingBadge({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-1 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-transparent p-6 transition-all duration-200"
+      className="group relative flex flex-1 flex-col items-center justify-center gap-1.5 overflow-hidden rounded-3xl border border-transparent p-4 md:gap-2 md:p-6 transition-all duration-200"
       style={{
         background: "rgba(35,35,48,0.5)",
         backdropFilter: "blur(5px)",
@@ -123,13 +128,16 @@ function RatingBadge({
         e.currentTarget.style.boxShadow = "none";
       }}
     >
-      <span className="font-body text-lg font-medium leading-7 text-white transition-colors md:text-2xl md:leading-8">
+      <span className="whitespace-nowrap font-body text-base font-medium leading-6 text-white transition-colors md:text-2xl md:leading-8">
         {title}
       </span>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-0.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={starIcon} alt="" className="-mr-2 h-[25px] w-[25px]" />
-        <span className="font-body text-sm font-bold" style={{ color: starColor }}>
+        <img src={starIcon} alt="" className="-mr-1.5 h-5 w-5 md:-mr-2 md:h-[25px] md:w-[25px]" />
+        <span
+          className="whitespace-nowrap font-body text-xs font-bold md:text-sm"
+          style={{ color: starColor }}
+        >
           4.9 Star Rating
         </span>
       </div>
@@ -144,7 +152,13 @@ function RatingBadge({
   );
 }
 
-export function ReviewStats() {
+export function ReviewStats({
+  activeStarFilter,
+  onStarFilter,
+}: {
+  activeStarFilter: number | null;
+  onStarFilter: (stars: number) => void;
+}) {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
 
   return (
@@ -182,17 +196,25 @@ export function ReviewStats() {
                       : row.stars === 2
                         ? 2.25
                         : 1.75;
+              const isActive = activeStarFilter === row.stars;
               return (
-                <div
+                <button
+                  type="button"
                   key={`dist-${row.stars}`}
-                  className="flex items-center gap-6 rounded p-1 transition-colors"
+                  className="flex items-center gap-6 rounded-lg p-1.5 transition-all"
                   style={{
-                    background: hoveredRow === row.stars ? "#2a2a32" : "transparent",
+                    background: isActive
+                      ? "rgba(255,92,0,0.15)"
+                      : hoveredRow === row.stars
+                        ? "#2a2a32"
+                        : "transparent",
+                    outline: isActive ? "1px solid rgba(255,92,0,0.4)" : "none",
                   }}
+                  onClick={() => onStarFilter(row.stars)}
                   onMouseEnter={() => setHoveredRow(row.stars)}
                   onMouseLeave={() => setHoveredRow(null)}
                 >
-                  <StarIcons count={row.stars} />
+                  <StarIcons count={row.stars} size={20} />
                   <div className="relative h-2 flex-1 rounded-[30px] bg-dark-border">
                     <div
                       className="absolute left-0 top-0 h-2 rounded-[30px]"
@@ -206,7 +228,7 @@ export function ReviewStats() {
                   <span className="w-[80px] text-right font-body text-sm text-white/80">
                     {row.count} reviews
                   </span>
-                </div>
+                </button>
               );
             })}
           </div>
@@ -277,9 +299,19 @@ export function ReviewStats() {
                       : row.stars === 2
                         ? 2.25
                         : 1.75;
+              const isActive = activeStarFilter === row.stars;
               return (
-                <div key={`dist-m-${row.stars}`} className="flex items-center gap-3 p-1">
-                  <StarIcons count={row.stars} size={12} />
+                <button
+                  type="button"
+                  key={`dist-m-${row.stars}`}
+                  className="flex items-center gap-3 rounded-lg p-1 transition-all"
+                  style={{
+                    background: isActive ? "rgba(255,92,0,0.15)" : "transparent",
+                    outline: isActive ? "1px solid rgba(255,92,0,0.4)" : "none",
+                  }}
+                  onClick={() => onStarFilter(row.stars)}
+                >
+                  <StarIcons count={row.stars} size={16} />
                   <div className="relative h-2 flex-1 rounded-[30px] bg-dark-border">
                     <div
                       className="absolute left-0 top-0 h-2 rounded-[30px]"
@@ -293,7 +325,7 @@ export function ReviewStats() {
                   <span className="w-[60px] text-right font-body text-xs text-white/80">
                     {row.count}
                   </span>
-                </div>
+                </button>
               );
             })}
           </div>

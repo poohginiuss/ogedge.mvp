@@ -507,7 +507,7 @@ function ReviewCard({ review }: { review: ReviewData }) {
               key={`${review.id}-${id}`}
               src="/images/icons/reviews/star.svg"
               alt=""
-              className="h-4 w-4"
+              className="h-5 w-5"
             />
           ))}
         </div>
@@ -544,15 +544,18 @@ function ReviewCard({ review }: { review: ReviewData }) {
 
 const sortOptions = ["Highest Rating", "Lowest Rating", "Newest", "Oldest"];
 
-export function ReviewList() {
+export function ReviewList({ starFilter }: { starFilter: number | null }) {
   const [activeFilter, setActiveFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("Highest Rating");
 
-  const filteredReviews =
+  const gameFiltered =
     activeFilter === "all"
       ? allReviews
       : allReviews.filter((r) => r.game === gameFilters.find((f) => f.id === activeFilter)?.label);
+
+  const filteredReviews =
+    starFilter != null ? gameFiltered.filter((r) => r.stars === starFilter) : gameFiltered;
 
   const sortedReviews = [...filteredReviews].sort((a, b) => {
     switch (sortBy) {
@@ -579,7 +582,7 @@ export function ReviewList() {
       : (gameFilters.find((f) => f.id === activeFilter)?.label ?? "All Games");
 
   return (
-    <section className="w-full bg-dark-main">
+    <section id="review-cards" className="w-full bg-dark-main scroll-mt-20">
       <div className="mx-auto w-full max-w-[1280px] px-6 md:px-12 lg:px-0">
         {/* Game filter tabs - horizontal scroll on mobile */}
         <div className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-2 md:-mx-0 md:flex-wrap md:px-0 md:pb-0">
@@ -593,7 +596,7 @@ export function ReviewList() {
                   setActiveFilter(filter.id);
                   setCurrentPage(1);
                 }}
-                className="flex h-[50px] shrink-0 items-center gap-2 rounded-2xl px-4"
+                className="flex h-[40px] shrink-0 items-center gap-1.5 rounded-xl px-3 transition-all duration-200 hover:shadow-[0_0_12px_rgba(255,92,0,0.3)]"
                 style={{
                   background: "rgba(0,0,0,0.2)",
                   border: active ? "1px solid #ff975d" : "1px solid var(--dark-border)",
@@ -603,13 +606,13 @@ export function ReviewList() {
                 }}
               >
                 <span
-                  className="whitespace-nowrap font-body text-base font-medium leading-6"
+                  className="whitespace-nowrap font-body text-sm font-medium leading-5"
                   style={{ color: active ? "var(--brand-main)" : "white" }}
                 >
                   {filter.label}
                 </span>
                 <span
-                  className="rounded-md px-1 py-0.5 font-body text-xs font-medium text-white"
+                  className="rounded-md px-1 py-0.5 font-body text-[11px] font-medium text-white"
                   style={{ background: active ? "var(--brand-main)" : "var(--dark-border)" }}
                 >
                   {filter.count}
