@@ -632,11 +632,11 @@ export function ServiceCardDesktop({
       {/* Emblem with warm glow - positioned behind text */}
       <div className="pointer-events-none absolute -bottom-4 -right-4">
         <div
-          className="absolute inset-0 -translate-x-2 translate-y-2 scale-[1.8] rounded-full"
+          className="absolute inset-0 -translate-x-2 translate-y-2 scale-[2.2] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(255,140,50,0.4) 0%, rgba(255,80,20,0.25) 40%, transparent 70%)",
-            filter: "blur(24px)",
+              "radial-gradient(circle, rgba(255,140,50,0.6) 0%, rgba(255,80,20,0.4) 35%, rgba(255,60,0,0.15) 60%, transparent 80%)",
+            filter: "blur(20px)",
           }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -717,11 +717,11 @@ export function ServiceCardMobile({
         />
         <div className="relative">
           <div
-            className="pointer-events-none absolute inset-0 scale-[1.6] rounded-full"
+            className="pointer-events-none absolute inset-0 scale-[2] rounded-full"
             style={{
               background:
-                "radial-gradient(circle, rgba(255,140,50,0.35) 0%, rgba(255,80,20,0.2) 40%, transparent 70%)",
-              filter: "blur(16px)",
+                "radial-gradient(circle, rgba(255,140,50,0.55) 0%, rgba(255,80,20,0.35) 35%, rgba(255,60,0,0.12) 60%, transparent 80%)",
+              filter: "blur(14px)",
             }}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}

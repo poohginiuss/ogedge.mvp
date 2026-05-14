@@ -7,7 +7,7 @@ import {
   getServicesForGame,
 } from "@/components/ui/ServiceCard";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 type GameCard = {
@@ -141,17 +141,43 @@ type GameSelectorProps = {
 
 export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
+  const [hoveredGame, setHoveredGame] = useState<string | null>(null);
   const [hoveredService, setHoveredService] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    };
+  }, []);
+
+  const handleGameHover = useCallback((slug: string) => {
+    setHoveredGame(slug);
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = setTimeout(() => {
+      setSelectedGame(slug);
+      setHoveredService(null);
+    }, 300);
+  }, []);
+
+  const handleGameHoverLeave = useCallback(() => {
+    setHoveredGame(null);
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+  }, []);
+
   if (!isOpen || !mounted) return null;
 
   const handleGameClick = (slug: string) => {
-    setSelectedGame(slug === selectedGame ? null : slug);
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    setSelectedGame(slug);
     setHoveredService(null);
   };
 
@@ -188,26 +214,31 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
                 type="button"
                 key={game.slug}
                 onClick={() => handleGameClick(game.slug)}
-                onMouseEnter={() => setSelectedGame(game.slug)}
+                onMouseEnter={() => handleGameHover(game.slug)}
+                onMouseLeave={handleGameHoverLeave}
                 className={`group relative flex h-[100px] items-center justify-center overflow-hidden rounded-2xl border-2 transition-all duration-200 ${
                   selectedGame === game.slug
-                    ? "border-[#ffa182] shadow-[0_4px_16px_rgba(255,92,0,0.32)]"
-                    : "border-transparent hover:border-[#ffa182]/50"
+                    ? "border-[#ffa182] shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
+                    : hoveredGame === game.slug
+                      ? "border-[#ffa182]/70 shadow-[0_4px_12px_rgba(255,92,0,0.25)]"
+                      : "border-transparent"
                 }`}
               >
                 <Image src={game.backing} alt="" fill sizes="200px" className="object-cover" />
                 <div
                   className={`absolute inset-0 transition-all duration-200 ${
                     selectedGame === game.slug
-                      ? "bg-[rgba(250,70,9,0.5)]"
-                      : "bg-black/60 group-hover:bg-[rgba(250,70,9,0.3)]"
+                      ? "bg-[rgba(250,70,9,0.55)]"
+                      : hoveredGame === game.slug
+                        ? "bg-[rgba(250,70,9,0.35)]"
+                        : "bg-black/60"
                   }`}
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={game.logo}
                   alt={game.name}
-                  className="relative z-10 h-[45%] w-[55%] object-contain"
+                  className="relative z-10 h-[65%] w-[75%] object-contain"
                   loading="lazy"
                 />
               </button>
@@ -221,8 +252,8 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
             className="flex flex-1 flex-col overflow-y-auto"
             style={{
               background:
-                "linear-gradient(180deg, rgba(17,17,17,0.95) 0%, rgba(23,25,31,0.95) 100%)",
-              backdropFilter: "blur(16px)",
+                "linear-gradient(180deg, rgba(17, 17, 17, 0.92) 0%, rgba(23,25,31,0.8) 100%)",
+              // backdropFilter: "blur(20px)",
             }}
           >
             <div className="w-full px-8 py-10">
