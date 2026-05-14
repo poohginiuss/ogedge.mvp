@@ -41,30 +41,30 @@ export function OrderProcess() {
         sizes="100vw"
         className="object-cover"
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.2) 100%)",
-        }}
-      />
-
       <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 py-16 md:px-12 lg:px-20 lg:py-[120px]">
-        <div className="max-w-[775px] flex flex-col gap-8">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">Order Process</h2>
+        <div className="flex max-w-[775px] flex-col gap-8 max-md:mx-auto max-md:items-center max-md:text-center">
+          <h2 className="font-heading text-3xl font-bold text-white md:text-4xl">Order Process</h2>
 
           <div className="flex flex-col gap-8">
             {steps.map((step) => (
-              <div key={step.title} className="flex items-start gap-6 lg:gap-10">
-                <div className="flex h-12 w-12 lg:h-[50px] lg:w-[50px] shrink-0 items-center justify-center">
+              <div
+                key={step.title}
+                className="flex flex-col items-center gap-3 md:flex-row md:items-start md:gap-10"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center md:h-[50px] md:w-[50px]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={step.icon} alt="" loading="lazy" className="h-12 w-12" />
+                  <img
+                    src={step.icon}
+                    alt=""
+                    loading="lazy"
+                    className="h-10 w-10 object-contain md:h-[50px] md:w-[50px]"
+                  />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-body text-base lg:text-lg font-bold leading-7 text-brand-light">
+                  <h3 className="font-body text-base font-bold leading-7 text-brand-light lg:text-lg">
                     {step.title}
                   </h3>
-                  <p className="mt-1 font-body text-base lg:text-lg leading-7 text-white">
+                  <p className="mt-1 font-body text-sm leading-6 text-white md:text-base lg:text-lg lg:leading-7">
                     {step.description}
                   </p>
                 </div>

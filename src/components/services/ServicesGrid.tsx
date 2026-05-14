@@ -151,16 +151,9 @@ function CustomOfferBanner() {
         }}
       />
 
-      {/* Character artwork from Figma. The container is intentionally
-          taller than the banner so the bottom portion of the image
-          — the warrior's body — is rendered at a larger pixel size; the
-          banner's `overflow-hidden` then clips the empty headroom
-          above. `backgroundSize: cover` makes the character itself
-          fill the box edge-to-edge instead of being letterboxed by
-          transparent padding in the source PNG. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute right-[160px] top-6 hidden h-[350px] w-[350px] lg:block xl:right-[300px]"
+        className="pointer-events-none absolute bottom-0 right-0 h-[180px] w-[140px] opacity-70 lg:bottom-auto lg:right-[160px] lg:top-6 lg:h-[350px] lg:w-[350px] lg:opacity-100 xl:right-[300px]"
         style={{
           backgroundImage: "url('/images/services/services-custom-offer-character.png')",
           backgroundPosition: "center bottom",
