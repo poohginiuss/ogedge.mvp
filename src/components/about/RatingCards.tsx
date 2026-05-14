@@ -23,7 +23,7 @@ export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
         <div className="flex flex-col items-start gap-px">
           <div className="flex items-center gap-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/reviews/star.svg" alt="" className="h-6 w-6" />
+            <img src="/images/icons/reviews/star.svg" alt="" className="h-7 w-7" />
             <span className="font-heading text-[32px] font-semibold leading-none text-brand-light">
               4.94
             </span>
@@ -63,7 +63,7 @@ export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
           </span>
           <div className="flex items-center gap-1.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/reviews/star-green.svg" alt="" className="h-6 w-6" />
+            <img src="/images/icons/reviews/star-green.svg" alt="" className="h-7 w-7" />
             <span className="font-body text-sm font-bold text-[#48a589]">4.9 Star Rating</span>
           </div>
           <div
@@ -87,7 +87,7 @@ export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
           </span>
           <div className="flex items-center gap-1.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/reviews/star-yellow.png" alt="" className="h-6 w-6" />
+            <img src="/images/icons/reviews/star-yellow.png" alt="" className="h-7 w-7" />
             <span className="font-body text-sm font-bold text-[#f5e583]">4.9 Star Rating</span>
           </div>
           <div

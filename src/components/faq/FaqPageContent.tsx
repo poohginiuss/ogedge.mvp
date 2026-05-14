@@ -92,12 +92,7 @@ export function FaqPageContent() {
           <div className="mx-auto w-full max-w-[1280px] px-6 md:px-12 lg:px-0">
             <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
               <div className="min-w-0 flex-1 flex-col lg:max-w-[850px]">
-                {/* Category chips — wrap onto multiple rows on every breakpoint
-                    (designer flagged the mobile layout as "horizontal" / not
-                    matching the design where chips should stack into rows;
-                    msg #38). The chip itself lives in `FaqCategoryChip` so
-                    the marketing FAQ section renders the exact same pill. */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex gap-2 overflow-x-auto pb-2 md:flex-wrap md:overflow-x-visible md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {faqCategories.map((cat) => (
                     <FaqCategoryChip
                       key={cat.id}

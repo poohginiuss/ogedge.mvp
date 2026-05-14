@@ -1,8 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { useState } from "react";
 
 export function ContactMethods() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("support@ogedge.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {/* Chat with Us */}
@@ -35,21 +44,30 @@ export function ContactMethods() {
         </div>
         <button
           type="button"
-          onClick={() => navigator.clipboard.writeText("support@ogedge.com")}
-          className="flex w-full items-center gap-2 rounded-lg px-4 py-2"
-          style={{ background: "rgba(23,25,31,0.3)" }}
+          onClick={handleCopy}
+          className="flex w-full items-center gap-2 rounded-lg px-4 py-2 transition-colors"
+          style={{
+            background: copied ? "rgba(26,173,25,0.15)" : "rgba(23,25,31,0.3)",
+            border: copied ? "1px solid rgba(26,173,25,0.4)" : "1px solid transparent",
+          }}
         >
           <div className="flex flex-1 flex-col items-start gap-0.5">
             <span className="font-body text-sm leading-5 text-text-secondary">Email:</span>
             <span className="font-body text-base leading-6 text-white">support@ogedge.com</span>
           </div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/icons/contact/copy.svg"
-            alt="Copy"
-            className="h-6 w-6 opacity-70"
-            loading="lazy"
-          />
+          {copied ? (
+            <span className="font-body text-sm font-medium text-[#1aad19]">Copied!</span>
+          ) : (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/icons/contact/copy.svg"
+                alt="Copy"
+                className="h-6 w-6 opacity-70"
+                loading="lazy"
+              />
+            </>
+          )}
         </button>
       </div>
 
