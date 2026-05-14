@@ -5,7 +5,6 @@ import { GameSelector } from "@/components/layout/GameSelector";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 type NavLink = {
@@ -29,10 +28,6 @@ const rightNav: NavLink[] = [
 function AboutUsDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-
-  const activeLink = aboutUsLinks.find((link) => pathname === link.href);
-  const displayLabel = activeLink ? activeLink.label : "About Us";
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -51,7 +46,7 @@ function AboutUsDropdown() {
         onClick={() => setOpen((v) => !v)}
         className="inline-flex items-center gap-2 text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light"
       >
-        {displayLabel}
+        About Us
         <ChevronDownIcon
           size={13}
           className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
@@ -197,9 +192,9 @@ export function Header() {
       className="sticky top-0 z-50 w-full bg-dark-surface/80 backdrop-blur-md"
       style={{ backdropFilter: "blur(12px)" }}
     >
-      <div className="relative mx-auto flex w-full max-w-[1920px] items-center justify-between px-6 py-4 lg:px-20 lg:py-5">
+      <div className="relative mx-auto flex w-full max-w-[1920px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 min-[1440px]:px-20 min-[1440px]:py-5">
         {/* Left side */}
-        <div className="flex items-center gap-5 lg:gap-12">
+        <div className="flex items-center gap-3 min-[1440px]:gap-10">
           <Button
             variant="secondary"
             size="sm"
@@ -208,10 +203,10 @@ export function Header() {
               setMobileMenuOpen(false);
             }}
           >
-            <span className="hidden sm:inline">Select your game</span>
-            <span className="sm:hidden">Games</span>
+            <span className="hidden min-[1440px]:inline">Select your game</span>
+            <span className="min-[1440px]:hidden">Games</span>
           </Button>
-          <nav className="hidden items-center gap-12 lg:flex">
+          <nav className="hidden items-center gap-8 min-[1440px]:flex">
             <AboutUsDropdown />
             <Link
               href="/reviews"
@@ -223,7 +218,7 @@ export function Header() {
         </div>
 
         {/* Center logo */}
-        <Link href="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Link href="/" className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
           <Image
             src="/images/logos/logo-white.png"
             alt="OGEdge"
@@ -231,13 +226,13 @@ export function Header() {
             height={58}
             unoptimized
             priority
-            className="h-9 w-auto md:h-10 lg:h-[50px]"
+            className="h-8 w-auto sm:h-9 md:h-10 min-[1440px]:h-[50px]"
           />
         </Link>
 
         {/* Right side */}
-        <div className="flex items-center gap-4 lg:gap-12">
-          <nav className="hidden items-center gap-12 lg:flex">
+        <div className="flex items-center gap-3 min-[1440px]:gap-6">
+          <nav className="hidden items-center gap-8 min-[1440px]:flex">
             {rightNav.map((item) => (
               <Link
                 key={item.label}
@@ -250,7 +245,7 @@ export function Header() {
           </nav>
 
           {/* Currency selector (desktop) */}
-          <div className="hidden lg:block">
+          <div className="hidden min-[1440px]:block">
             <CurrencyDropdown
               selected={selectedCurrency}
               onSelect={setSelectedCurrency}
@@ -258,10 +253,10 @@ export function Header() {
             />
           </div>
 
-          {/* Cart - h-[53px] w-[53px] to match Figma */}
+          {/* Cart */}
           <Link
             href="#cart"
-            className="relative hidden h-[53px] w-[53px] items-center justify-center rounded-2xl border border-dark-border lg:inline-flex"
+            className="relative hidden h-[53px] w-[53px] items-center justify-center rounded-2xl border border-dark-border min-[1440px]:inline-flex"
             aria-label="Cart"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -275,16 +270,16 @@ export function Header() {
           </Link>
 
           {/* Login button */}
-          <div className="hidden lg:block">
+          <div className="hidden min-[1440px]:block">
             <Button href="#login" variant="primary" size="sm">
               Login
             </Button>
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Hamburger for < 1440px */}
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-xl border border-dark-border p-2 text-white lg:hidden"
+            className="inline-flex items-center justify-center rounded-xl border border-dark-border p-2 text-white min-[1440px]:hidden"
             aria-label="Menu"
             onClick={() => setMobileMenuOpen((v) => !v)}
           >
@@ -298,7 +293,7 @@ export function Header() {
       {/* Mobile menu drawer */}
       {mobileMenuOpen && (
         <div
-          className="border-t border-dark-border lg:hidden"
+          className="border-t border-dark-border min-[1440px]:hidden"
           style={{
             background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(23,25,31,0.98) 100%)",
             backdropFilter: "blur(16px)",
