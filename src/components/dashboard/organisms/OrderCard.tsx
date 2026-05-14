@@ -1,3 +1,10 @@
+"use client";
+
+// Needs `"use client"` because the customer variant calls `useRouter()`
+// to navigate to `/app/customer/orders/{id}` when the user taps `View`.
+// Both dashboard hosts (Customer + Booster) are already client components,
+// so this doesn't introduce a new client boundary in practice.
+import { useRouter } from "next/navigation";
 import { ActionButton, IconButton } from "../atoms";
 import type { BoosterOrder } from "../boosterData";
 import type { Order } from "../dashboardData";
@@ -33,8 +40,13 @@ function EarningRow({ order, size }: { order: BoosterOrder; size: "lg" | "sm" })
 }
 
 export function OrderCard(props: OrderCardProps) {
+  const router = useRouter();
+
   if (props.variant === "customer") {
     const { order } = props;
+    // Strip the leading `#` from `#ORD-123456` for use in the URL; the
+    // backend route only cares about the bare id.
+    const navigateToOrder = () => router.push(`/app/customer/orders/${order.id}`);
     return (
       <div className="flex flex-col gap-4 rounded-3xl bg-dark-surface p-6 lg:p-8">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
@@ -44,7 +56,11 @@ export function OrderCard(props: OrderCardProps) {
             </h3>
             <StatusBadgeGroup statuses={order.statuses} />
           </div>
-          <OrderActionGroup hasNotification={order.hasNotification} />
+          <OrderActionGroup
+            hasNotification={order.hasNotification}
+            onView={navigateToOrder}
+            onChat={navigateToOrder}
+          />
         </div>
         <OrderIdRow orderId={order.orderId} />
       </div>

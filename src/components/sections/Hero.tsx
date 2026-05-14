@@ -38,12 +38,16 @@ export function Hero({
 
         <div className="relative z-10 flex h-full w-full items-center justify-center px-6">
           <div className="flex max-w-[568px] flex-col items-center gap-4 text-center">
-            <h1 className="font-heading text-3xl font-bold leading-tight text-white md:text-4xl lg:text-[36px]">
-              {title}
-            </h1>
-            <p className="font-body text-base text-white md:text-xl lg:text-2xl lg:leading-8">
-              {subtitle}
-            </p>
+            {title ? (
+              <h1 className="font-heading text-3xl font-bold leading-tight text-white md:text-4xl lg:text-[36px]">
+                {title}
+              </h1>
+            ) : null}
+            {subtitle ? (
+              <p className="font-body text-base text-white md:text-xl lg:text-2xl lg:leading-8">
+                {subtitle}
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

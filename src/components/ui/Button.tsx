@@ -62,10 +62,12 @@ function getVariantStyle(
       ...shared,
       backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
       border: `${state === "focus" ? 4 : 2}px solid ${state === "focus" ? "#cc794a" : "#ff975d"}`,
+      // Hover used to stack two 64px-blur shadows at 0.5/0.7 alpha which
+      // produced a very wide warm halo that bled past the button edges.
+      // We keep a single, tighter glow (32px blur, 0.55 alpha) so hover
+      // still reads as "active" without overwhelming neighbouring UI.
       boxShadow:
-        state === "hover"
-          ? "0 4px 64px rgba(253,91,1,0.5), 0 4px 64px rgba(255,92,0,0.7)"
-          : "0 4px 32px rgba(255,92,0,0.4)",
+        state === "hover" ? "0 4px 32px rgba(255,92,0,0.55)" : "0 4px 24px rgba(255,92,0,0.35)",
     };
   }
 
