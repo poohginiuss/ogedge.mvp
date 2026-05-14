@@ -48,13 +48,18 @@ const features: Feature[] = [
 
 export function HomeWhyChoose() {
   return (
-    <section className="relative w-full overflow-hidden bg-dark-main">
+    <section className="noise-overlay relative w-full overflow-hidden bg-dark-main">
       {/* Mobile layout */}
       <div className="flex flex-col items-center lg:hidden">
         <div className="relative h-[420px] w-full overflow-hidden">
           <div
-            className="absolute right-[25%] top-1/3 h-[200px] w-[150px] translate-y-1/9 rounded-full"
-            style={{ background: "#ff5c00", filter: "blur(90px)", opacity: 1 }}
+            className="gpu-blur absolute right-[25%] top-1/3 h-[200px] w-[150px] translate-y-1/9 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, #ff5c00 0%, rgba(255,92,0,0.4) 60%, transparent 100%)",
+              filter: "blur(100px)",
+              opacity: 1,
+            }}
           />
           <Image
             src="/images/home/why-choose/character.png"
@@ -100,25 +105,25 @@ export function HomeWhyChoose() {
       </div>
 
       {/* Desktop layout */}
-      <div className="mx-auto hidden w-full max-w-[1440px] items-start gap-8 px-6 py-20 md:px-12 lg:flex lg:px-[60px] lg:py-[100px]">
-        <div className="flex w-[55%] shrink-0 flex-col gap-10">
-          <h2 className="font-heading text-4xl font-bold text-white">
+      <div className="mx-auto hidden w-full max-w-[1600px] items-start gap-10 px-6 py-20 md:px-12 lg:flex lg:px-[80px] lg:py-[120px]">
+        <div className="flex w-[55%] shrink-0 flex-col gap-12">
+          <h2 className="font-heading text-[42px] font-bold leading-tight text-white">
             <span className="text-brand-main">Why</span> Customers Choose{" "}
             <span className="text-brand-main">OGEdge</span>
           </h2>
 
-          <div className="grid grid-cols-2 gap-x-16 gap-y-10">
+          <div className="grid grid-cols-2 gap-x-16 gap-y-12">
             {features.map((feature) => (
-              <div key={feature.id} className="flex flex-col gap-3">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-main/20">
+              <div key={feature.id} className="flex flex-col gap-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-main/20">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={feature.icon} alt="" className="h-7 w-7" loading="lazy" />
+                  <img src={feature.icon} alt="" className="h-8 w-8" loading="lazy" />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <h3 className="font-body text-xl font-bold leading-7 text-brand-main">
+                <div className="flex flex-col gap-1.5">
+                  <h3 className="font-body text-[22px] font-bold leading-8 text-brand-main">
                     {feature.title}
                   </h3>
-                  <p className="font-body text-base leading-6 text-white/80">
+                  <p className="font-body text-[17px] leading-7 text-white/80">
                     {feature.description}
                   </p>
                 </div>
@@ -127,10 +132,15 @@ export function HomeWhyChoose() {
           </div>
         </div>
 
-        <div className="relative flex w-[50%] min-h-[550px] items-end justify-end self-stretch overflow-visible">
+        <div className="relative flex w-[50%] min-h-[620px] items-end justify-end self-stretch overflow-visible">
           <div
-            className="absolute right-[20%] top-1/2 h-[400px] w-[280px] -translate-y-1/2 rounded-full"
-            style={{ background: "#ff5c00", filter: "blur(100px)", opacity: 0.9 }}
+            className="gpu-blur absolute right-[20%] top-1/2 h-[450px] w-[320px] -translate-y-1/2 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, #ff5c00 0%, rgba(255,92,0,0.4) 60%, transparent 100%)",
+              filter: "blur(120px)",
+              opacity: 0.85,
+            }}
           />
           <Image
             src="/images/home/why-choose/character.png"
@@ -138,7 +148,7 @@ export function HomeWhyChoose() {
             width={2400}
             height={1808}
             unoptimized
-            className="relative translate-x-28 h-[550px] w-auto max-w-none object-contain"
+            className="relative translate-x-28 h-[620px] w-auto max-w-none object-contain"
           />
           <div
             className="pointer-events-none absolute -bottom-[70px] left-0 h-[172px] w-full"

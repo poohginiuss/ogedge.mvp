@@ -52,8 +52,8 @@ export function Articles() {
 
         {/* Featured / highlighted post */}
         <Link
-          href="#"
-          className="group mt-8 flex flex-col gap-6 overflow-hidden rounded-3xl border border-dark-border p-6 transition-colors hover:border-brand-light md:flex-row md:gap-8 md:p-8"
+          href="/blog"
+          className="group mt-8 flex flex-col gap-6 overflow-hidden rounded-3xl border border-dark-border p-6 transition-colors hover:border-brand-light active:border-brand-light md:flex-row md:gap-8 md:p-8"
         >
           <div className="relative order-1 h-[260px] w-full overflow-hidden rounded-2xl md:order-2 md:h-[300px] md:w-1/2 md:shrink-0">
             <Image
@@ -93,11 +93,11 @@ export function Articles() {
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
             <Link
-              href="#"
+              href="/blog"
               key={article.title}
-              className="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-dark-muted p-6 transition-colors hover:border-brand-light lg:p-8"
+              className="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-dark-muted p-6 transition-colors hover:border-brand-light active:border-brand-light lg:p-8"
             >
-              <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-3xl bg-[rgba(56,56,82,0.6)] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+              <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-3xl bg-[rgba(56,56,82,0.6)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100">
                 <div
                   className="flex h-16 w-16 items-center justify-center rounded-full"
                   style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(4px)" }}
@@ -132,13 +132,13 @@ export function Articles() {
 
         {/* View all button */}
         <div className="mt-10 flex justify-center">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light"
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light active:text-brand-light"
           >
             View All Blog Posts
             <ArrowRightIcon size={18} />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

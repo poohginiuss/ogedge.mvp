@@ -176,6 +176,20 @@ export function Highlights() {
     triggerSlide("right", (s) => (s + 1) % slides.length);
   }, [isAnimating, triggerSlide]);
 
+  const touchStartX = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 50) {
+      if (delta < 0) goNext();
+      else goPrev();
+    }
+  };
+
   const slide = slides[currentSlide];
 
   const animClass = isAnimating
@@ -203,7 +217,7 @@ export function Highlights() {
         type="button"
         aria-label="Previous highlight"
         onClick={goPrev}
-        className="absolute left-2 top-1/2 z-20 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:left-8"
+        className="absolute left-8 top-1/2 z-20 hidden h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:flex"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -217,7 +231,7 @@ export function Highlights() {
         type="button"
         aria-label="Next highlight"
         onClick={goNext}
-        className="absolute right-2 top-1/2 z-20 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:right-8"
+        className="absolute right-8 top-1/2 z-20 hidden h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:flex"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -230,7 +244,11 @@ export function Highlights() {
 
       <div className="mx-auto w-full max-w-[1280px] px-6 py-14 md:px-12 lg:px-20 lg:py-20">
         {/* Mobile layout — fixed height container with dots pinned at bottom */}
-        <div className="relative flex h-[660px] flex-col sm:h-[730px] lg:hidden">
+        <div
+          className="relative flex h-[660px] flex-col sm:h-[730px] lg:hidden"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
             className={`flex flex-1 flex-col gap-6 overflow-hidden pb-8 transition-all duration-300 ease-in-out ${animClass}`}
           >

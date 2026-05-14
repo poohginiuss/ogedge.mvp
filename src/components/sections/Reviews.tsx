@@ -103,16 +103,17 @@ export function Reviews() {
   };
 
   return (
-    <section className="relative w-full bg-dark-main overflow-hidden">
-      <div className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]">
+    <section className="noise-overlay relative w-full bg-dark-main overflow-hidden">
+      <div className="mx-auto w-full max-w-[1440px] px-6 py-20 md:px-12 lg:max-w-[1760px] lg:px-12 lg:py-[120px]">
         {/* Desktop layout: image left, text right */}
         <div className="hidden lg:grid grid-cols-[525px_1fr] gap-10 items-center">
           <div className="relative">
             <div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[317px] w-[317px] rounded-full pointer-events-none"
+              className="gpu-blur absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[317px] w-[317px] rounded-full pointer-events-none"
               style={{
-                background: "rgba(255,92,0,0.5)",
-                filter: "blur(107px)",
+                background:
+                  "radial-gradient(circle, rgba(255,92,0,0.6) 0%, rgba(255,92,0,0.2) 60%, transparent 100%)",
+                filter: "blur(120px)",
               }}
             />
             <Image
@@ -209,10 +210,11 @@ export function Reviews() {
           {/* Character image */}
           <div className="relative mt-6 w-full flex justify-center">
             <div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[200px] w-[200px] rounded-full pointer-events-none"
+              className="gpu-blur absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[200px] w-[200px] rounded-full pointer-events-none"
               style={{
-                background: "rgba(255, 81, 0, 0.99)",
-                filter: "blur(107px)",
+                background:
+                  "radial-gradient(circle, rgba(255,81,0,0.9) 0%, rgba(255,81,0,0.3) 60%, transparent 100%)",
+                filter: "blur(120px)",
               }}
             />
             <Image
@@ -254,7 +256,7 @@ export function Reviews() {
               <div
                 key={review.name}
                 data-review-card
-                className="snap-start shrink-0 w-[280px] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-4 rounded-3xl p-5 md:p-8"
+                className="snap-start shrink-0 w-[280px] md:w-[calc(50%-12px)] lg:w-[calc((100%-48px)/3)] flex flex-col gap-4 rounded-3xl p-5 md:p-8"
                 style={{
                   background:
                     "linear-gradient(117deg, rgba(56,56,82,0.5) 0%, rgba(43,45,77,0.5) 50%, rgba(13,15,21,0.5) 100%)",

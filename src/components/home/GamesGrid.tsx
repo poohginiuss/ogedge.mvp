@@ -137,10 +137,10 @@ export function GamesGrid() {
   return (
     <section
       id="games"
-      className="relative z-10 -mt-[200px] w-full border-transparent md:-mt-[240px]"
+      className="noise-overlay relative z-10 -mt-[200px] w-full md:-mt-[240px]"
       style={{
         background:
-          "linear-gradient(to bottom, rgba(23,25,31,0.5) 0%, rgba(23,25,31,0.8) 60%, var(--dark-main) 100%)",
+          "linear-gradient(to bottom, rgba(23,25,31,0.5) 0%, rgba(23,25,31,0.6) 30%, rgba(23,25,31,0.75) 50%, rgba(23,25,31,0.85) 70%, var(--dark-main) 100%)",
         backdropFilter: "blur(12px)",
       }}
     >
@@ -150,7 +150,7 @@ export function GamesGrid() {
             <Link
               key={game.slug}
               href={`/${game.slug}`}
-              className="group relative flex h-[140px] items-center justify-center overflow-hidden rounded-3xl border-2 border-transparent transition-all duration-200 hover:border-[#ffa182] hover:shadow-[0_4px_16px_rgba(255,92,0,0.32)] md:h-[180px]"
+              className="group relative flex h-[140px] items-center justify-center overflow-hidden rounded-3xl border-2 border-[#2a2a40] transition-all duration-200 hover:border-[#ffa182] hover:shadow-[0_4px_16px_rgba(255,92,0,0.32)] md:h-[180px]"
             >
               <Image
                 src={game.backing}
@@ -159,7 +159,7 @@ export function GamesGrid() {
                 sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-black/60 transition-all duration-200 group-hover:bg-[rgba(250,70,9,0.5)]" />
+              <div className="absolute inset-0 bg-black/60 transition-all duration-200 group-hover:bg-[rgba(250,70,9,0.6)]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={game.logo}

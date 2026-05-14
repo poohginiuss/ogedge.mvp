@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 type Step = {
   id: string;
@@ -32,8 +35,10 @@ const steps: Step[] = [
 ];
 
 export function HomeSteps() {
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden overflow-x-hidden">
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/home/steps/steps-bg.png"
@@ -56,7 +61,7 @@ export function HomeSteps() {
           {steps.map((step) => (
             <div key={step.id} className="flex flex-col items-center text-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={step.icon} alt="" className="h-[50px] w-[50px]" loading="lazy" />
+              <img src={step.icon} alt="" className="h-9 w-9" loading="lazy" />
               <h3 className="mt-4 font-body text-lg font-bold leading-7 text-brand-light">
                 {step.title}
               </h3>
@@ -71,6 +76,7 @@ export function HomeSteps() {
           type="button"
           className="mt-12 flex items-center gap-6"
           aria-label="Watch the video"
+          onClick={() => setVideoOpen(true)}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -97,9 +103,14 @@ export function HomeSteps() {
           <div className="flex flex-col gap-8">
             {steps.map((step) => (
               <div key={step.id} className="flex items-center gap-10">
-                <div className="flex h-[50px] w-[50px] shrink-0 items-center justify-center">
+                <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={step.icon} alt="" className="h-[50px] w-[50px]" loading="lazy" />
+                  <img
+                    src={step.icon}
+                    alt=""
+                    className="h-[40px] w-[40px] object-contain"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="font-body text-lg font-bold leading-7 text-brand-light">
@@ -112,7 +123,12 @@ export function HomeSteps() {
           </div>
         </div>
 
-        <button type="button" className="flex items-center gap-8" aria-label="Watch the video">
+        <button
+          type="button"
+          className="flex items-center gap-8"
+          aria-label="Watch the video"
+          onClick={() => setVideoOpen(true)}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/home/steps/play-icon.svg"
@@ -127,6 +143,30 @@ export function HomeSteps() {
           </span>
         </button>
       </div>
+      {videoOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setVideoOpen(false)}
+          onKeyDown={(e) => e.key === "Escape" && setVideoOpen(false)}
+        >
+          <div
+            className="relative w-[90vw] max-w-[900px] rounded-2xl bg-dark-surface p-4"
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={() => {}}
+          >
+            <button
+              type="button"
+              className="absolute -top-10 right-0 font-body text-sm font-bold uppercase text-white/80 hover:text-white"
+              onClick={() => setVideoOpen(false)}
+            >
+              Close
+            </button>
+            <div className="flex aspect-video items-center justify-center rounded-xl bg-black">
+              <p className="font-body text-lg text-white/60">Video coming soon</p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

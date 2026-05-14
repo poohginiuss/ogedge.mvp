@@ -29,8 +29,7 @@
    * nav, blog filters, etc. so we keep a single source of truth instead
    * of inlining the filter string in every component.
    */
-  --icon-tint-brand-light:
-    brightness(0) saturate(100%) invert(72%) sepia(48%) saturate(1196%)
+  --icon-tint-brand-light: brightness(0) saturate(100%) invert(72%) sepia(48%) saturate(1196%)
     hue-rotate(326deg) brightness(101%) contrast(101%);
 }
 
@@ -121,6 +120,38 @@ body {
 
 * {
   scrollbar-color: var(--dark-border) var(--dark-main);
+}
+
+/* Noise texture overlay to eliminate gradient color banding.
+   Apply .noise-overlay + position:relative on sections with
+   large dark gradients or blurred glow orbs. The SVG feTurbulence
+   generates fine-grained noise; at 3-4% opacity with soft-light
+   blending it's invisible to the eye but breaks up the 8-bit
+   color steps that cause visible horizontal lines. */
+.noise-overlay {
+  position: relative;
+  isolation: isolate;
+}
+
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* GPU-composited blur for smoother glow orbs.
+   Avoids pixelated/banded blur on low-DPI screens. */
+.gpu-blur {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .camo-native-scrollbar {

@@ -45,13 +45,13 @@ function StatCard({
 }) {
   return (
     <div
-      className="relative flex flex-1 items-center justify-between overflow-hidden rounded-3xl p-6"
+      className="relative flex flex-1 items-center justify-between overflow-hidden rounded-3xl p-4 md:p-6"
       style={{
         background: "rgba(35,35,48,0.5)",
         backdropFilter: "blur(5px)",
       }}
     >
-      <div className="flex flex-col gap-px">
+      <div className="relative z-10 flex flex-col gap-px">
         <div className="flex items-center gap-1">
           {prefix && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -61,10 +61,15 @@ function StatCard({
             {value}
           </span>
         </div>
-        <span className="font-body text-xs text-white/80">{label}</span>
+        <span className="whitespace-nowrap font-body text-xs text-white/80">{label}</span>
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={icon} alt="" className="h-18 w-16 opacity-70" loading="lazy" />
+      <img
+        src={icon}
+        alt=""
+        className="absolute bottom-1 right-2 h-14 w-12 opacity-70 md:static md:bottom-auto md:right-auto md:h-18 md:w-16"
+        loading="lazy"
+      />
       {/* Sunshine glow from bottom-right */}
       <div
         className="pointer-events-none absolute bottom-[-130px] right-[-45px] h-[250px] w-[250px] rounded-full"
@@ -118,12 +123,12 @@ function RatingBadge({
         e.currentTarget.style.boxShadow = "none";
       }}
     >
-      <span className="font-body text-2xl font-medium leading-8 text-white transition-colors">
+      <span className="font-body text-lg font-medium leading-7 text-white transition-colors md:text-2xl md:leading-8">
         {title}
       </span>
       <div className="flex items-center gap-1">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={starIcon} alt="" className="h-[20px] w-[20px]" />
+        <img src={starIcon} alt="" className="-mr-2 h-[25px] w-[25px]" />
         <span className="font-body text-sm font-bold" style={{ color: starColor }}>
           4.9 Star Rating
         </span>

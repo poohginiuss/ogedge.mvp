@@ -38,7 +38,7 @@ export function Faq() {
             left-aligns them — that's the only layout difference. Switching
             categories resets the open accordion so we never display a
             stale `openIndex` for a shorter list. */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+        <div className="mt-10 flex items-center gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-x-visible sm:pb-0">
           {faqCategories.map((tab) => (
             <FaqCategoryChip
               key={tab.id}
@@ -69,11 +69,11 @@ export function Faq() {
               >
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between px-6 py-5 lg:px-8 lg:py-6 text-left"
+                  className="flex w-full items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 text-left"
                   onClick={() => setOpenIndex(isOpen ? -1 : i)}
                   aria-expanded={isOpen}
                 >
-                  <span className="font-body text-base lg:text-xl font-medium leading-7 text-white pr-4">
+                  <span className="font-body text-sm sm:text-base lg:text-xl font-medium leading-6 sm:leading-7 text-white pr-4">
                     {q.question}
                   </span>
                   {isOpen ? (
@@ -83,7 +83,7 @@ export function Faq() {
                   )}
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-5 lg:px-8 lg:pb-6">
+                  <div className="px-4 pb-4 sm:px-6 sm:pb-5 lg:px-8 lg:pb-6">
                     <p className="font-body text-sm lg:text-base leading-6 text-white/90">
                       {q.answer}
                     </p>

@@ -54,7 +54,7 @@ function getVariantStyle(
     display: "inline-flex",
     justifyContent: "center",
     opacity: 1,
-    padding: variant === "link" ? undefined : "24px 32px",
+    padding: variant === "link" ? undefined : undefined,
   };
 
   if (variant === "primary") {
@@ -95,7 +95,14 @@ export function Button(props: ButtonProps) {
   const base =
     "inline-flex items-center justify-center rounded-3xl font-body font-bold uppercase transition-all duration-200 focus:outline-none";
 
-  const padding = variant === "link" ? "" : size === "xs" ? "px-6 py-4" : "px-8 py-6";
+  const padding =
+    variant === "link"
+      ? ""
+      : size === "xs"
+        ? "px-5 py-3"
+        : size === "sm"
+          ? "px-6 py-4"
+          : "px-8 py-6";
   const variantCls = getVariantClasses(variant);
 
   const combinedClassName = `${base} ${padding} ${sizeText[size]} ${variantCls} ${className}`;
