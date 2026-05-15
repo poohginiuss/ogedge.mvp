@@ -22,7 +22,7 @@ export function TrustBadges({ badges = defaultTrustBadges }: TrustBadgesProps) {
       {badges.map(({ icon, label }) => (
         <div
           key={label}
-          className="inline-flex h-10 shrink-0 items-center gap-2 rounded-3xl px-4"
+          className="inline-flex h-10 shrink-0 items-center gap-2 rounded-3xl border border-transparent px-4 transition-all duration-200 hover:border-brand-light/40 hover:shadow-[0_0_12px_rgba(255,92,0,0.2)]"
           style={{
             background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
           }}

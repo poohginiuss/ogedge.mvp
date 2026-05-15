@@ -48,24 +48,31 @@ export function WeeklyEventBanner({
 
   return (
     <div
-      className="relative overflow-hidden rounded-3xl md:overflow-visible"
+      className="relative rounded-3xl"
       style={{
         border: "2px solid #ff975d",
-        background: "rgba(0,0,0,0.35)",
+        background: "rgba(0,0,0,0.2)",
         boxShadow: "0 4px 44px rgba(255,92,0,0.2)",
         backdropFilter: "blur(12px)",
         minHeight: "194px",
+        clipPath: "inset(-80px 0 0 0 round 24px)",
       }}
     >
       <Image
         src={characterImage}
         alt=""
-        width={259}
-        height={262}
+        width={300}
+        height={310}
         unoptimized
-        className="pointer-events-none absolute bottom-0 left-0 z-0 h-full w-auto select-none object-contain md:-top-[60px] md:bottom-auto md:left-2 md:h-[262px]"
+        className="pointer-events-none absolute z-0 select-none object-contain"
+        style={{
+          left: "-10px",
+          bottom: "-10px",
+          height: "280px",
+          width: "auto",
+        }}
       />
-      <div className="relative z-10 p-5 pl-[140px] md:p-8 md:pl-[280px]">
+      <div className="relative z-10 p-5 pl-[150px] md:p-8 md:pl-[280px]">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
           <div className="flex flex-col gap-1 md:max-w-[500px] md:gap-0">
             <p className="font-body text-[10px] uppercase text-white md:hidden md:text-xs">
@@ -73,7 +80,7 @@ export function WeeklyEventBanner({
             </p>
             <p
               className="font-heading text-2xl font-bold leading-tight text-brand-main md:hidden"
-              style={{ textShadow: "0 0 24px rgba(255,92,0,0.7)" }}
+              style={{ textShadow: "0 0 16px rgba(255,92,0,0.4)" }}
             >
               {timerStr}
             </p>
@@ -88,7 +95,7 @@ export function WeeklyEventBanner({
             <p className="font-body text-xs uppercase text-white">Event ends in</p>
             <p
               className="font-heading text-5xl font-bold text-brand-main"
-              style={{ textShadow: "0 0 24px rgba(255,92,0,0.7)" }}
+              style={{ textShadow: "0 0 16px rgba(255,92,0,0.4)" }}
             >
               {timerStr}
             </p>

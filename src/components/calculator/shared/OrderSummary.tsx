@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { Toggle } from "@/components/ui/Toggle";
 import { useState } from "react";
+import { InfoTooltip } from "./InfoTooltip";
 
 export type SummaryRow = {
   label: string;
@@ -80,6 +81,8 @@ export function OrderSummary({
   const [extrasState, setExtrasState] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(extras.map((o) => [o.id, !!o.defaultOn])),
   );
+  const [couponCode, setCouponCode] = useState(defaultCoupon);
+  const [couponApplied, setCouponApplied] = useState(false);
 
   return (
     <aside
@@ -104,13 +107,19 @@ export function OrderSummary({
             >
               {estimatedTime}
             </span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/icons/services/info.svg"
-              alt=""
-              loading="lazy"
-              className="h-4 w-4 opacity-70"
-            />
+            <InfoTooltip
+              label="Estimated start time details"
+              panelClassName="bottom-full right-0 mb-3 w-[220px] translate-y-2 rounded-2xl border border-[#6d6d96] bg-dark-main px-4 py-3 text-left shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
+            >
+              <span className="block font-body text-xs font-bold text-brand-light">
+                {estimatedTime}
+              </span>
+              <span className="mt-1 block font-body text-xs leading-5 text-white/80">
+                Estimated completion time. Your order can start in{" "}
+                <span className="font-bold text-white">{startInLabel}</span>, depending on queue and
+                booster availability.
+              </span>
+            </InfoTooltip>
           </div>
           <p className="mt-1 font-body text-sm text-white/80">
             <span className="font-bold text-white">{startInLabel}</span> until start time
@@ -135,33 +144,50 @@ export function OrderSummary({
 
       <div className="flex items-center gap-2">
         <div
-          className="flex h-12 flex-1 items-center rounded-2xl px-4"
+          className="flex h-12 flex-1 items-center rounded-2xl px-4 transition-colors"
           style={{
-            border: "1px solid #383852",
-            background: "rgba(0,0,0,0.2)",
+            border: couponApplied ? "1px solid rgba(26,173,25,0.5)" : "1px solid #383852",
+            background: couponApplied ? "rgba(26,173,25,0.08)" : "rgba(0,0,0,0.2)",
           }}
         >
           <input
             type="text"
-            defaultValue={defaultCoupon}
-            className="flex-1 bg-transparent font-body text-sm text-white outline-none"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+            readOnly={couponApplied}
+            placeholder="Enter promo code"
+            className="flex-1 bg-transparent font-body text-sm text-white outline-none placeholder:text-white/40"
             aria-label="Coupon code"
           />
         </div>
-        <button
-          type="button"
-          className="h-12 rounded-2xl px-4 font-body text-sm font-bold uppercase text-white"
-          style={{
-            background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
-            border: "1px solid #383852",
-          }}
-        >
-          Apply
-        </button>
+        {couponApplied ? (
+          <span className="flex h-12 items-center rounded-2xl px-4 font-body text-sm font-bold text-[#1aad19]">
+            Applied
+          </span>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              if (couponCode.trim()) setCouponApplied(true);
+            }}
+            disabled={!couponCode.trim()}
+            className="h-12 rounded-2xl px-4 font-body text-sm font-bold uppercase text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.25)] disabled:opacity-40"
+            style={{
+              background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+              border: "1px solid #383852",
+            }}
+          >
+            Apply
+          </button>
+        )}
         <button
           type="button"
           aria-label="Remove coupon"
-          className="flex h-12 w-12 items-center justify-center rounded-2xl"
+          onClick={() => {
+            setCouponCode("");
+            setCouponApplied(false);
+          }}
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)]"
           style={{
             background: "rgba(255,92,0,0.15)",
             border: "1px solid rgba(255,92,0,0.4)",
@@ -280,34 +306,31 @@ export function OrderSummary({
         </Button>
       </div>
 
-      <div className="mt-auto pt-4">
-        <div className="flex items-center gap-3">
-          <div
-            className="flex h-8 w-8 items-center justify-center rounded-lg"
-            style={{ background: "rgba(26,173,25,0.2)" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/icons/services/secured.svg"
-              alt=""
-              loading="lazy"
-              className="h-4 w-4"
-            />
-          </div>
-          <p className="font-body text-xs text-white/80">Secured and trusted checkout with:</p>
+      <div className="mt-auto flex items-start gap-4 pt-4">
+        <div
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
+          style={{ background: "rgba(26,173,25,0.2)" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/icons/services/secured.svg" alt="" loading="lazy" className="h-5 w-5" />
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          {paymentMethods.map((p) => (
-            <div key={p} className="flex h-5 w-8 items-center justify-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`/images/icons/services/pay-${p}.svg`}
-                alt={p}
-                loading="lazy"
-                className="h-5 w-auto object-contain"
-              />
-            </div>
-          ))}
+        <div className="flex flex-col gap-2">
+          <p className="font-body text-xs leading-tight text-white/80">
+            Secured and trusted checkout with:
+          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            {paymentMethods.map((p) => (
+              <div key={p} className="flex h-5 w-8 items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/images/icons/services/pay-${p}.svg`}
+                  alt={p}
+                  loading="lazy"
+                  className="h-5 w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </aside>
