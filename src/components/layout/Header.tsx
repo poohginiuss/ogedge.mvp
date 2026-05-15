@@ -192,9 +192,9 @@ export function Header() {
       className="sticky top-0 z-50 w-full bg-dark-surface/80 backdrop-blur-md"
       style={{ backdropFilter: "blur(12px)" }}
     >
-      <div className="relative mx-auto flex w-full max-w-[1920px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 min-[1440px]:px-20 min-[1440px]:py-5">
+      <div className="relative mx-auto flex w-full max-w-[1920px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 xl:px-18 xl:py-5 2xl:px-22">
         {/* Left side */}
-        <div className="flex items-center gap-3 min-[1440px]:gap-10">
+        <div className="flex items-center gap-3 min-[1440px]:gap-18">
           <Button
             variant="secondary"
             size="sm"
@@ -206,7 +206,7 @@ export function Header() {
             <span className="hidden min-[1440px]:inline">Select your game</span>
             <span className="min-[1440px]:hidden">Games</span>
           </Button>
-          <nav className="hidden items-center gap-8 min-[1440px]:flex">
+          <nav className="hidden items-center gap-10 min-[1440px]:flex">
             <AboutUsDropdown />
             <Link
               href="/reviews"
@@ -231,8 +231,8 @@ export function Header() {
         </Link>
 
         {/* Right side */}
-        <div className="flex items-center gap-3 min-[1440px]:gap-6">
-          <nav className="hidden items-center gap-8 min-[1440px]:flex">
+        <div className="flex items-center gap-3 min-[1440px]:gap-16">
+          <nav className="hidden items-center gap-10 min-[1440px]:flex">
             {rightNav.map((item) => (
               <Link
                 key={item.label}

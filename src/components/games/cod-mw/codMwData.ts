@@ -119,13 +119,13 @@ export const seasonalBundles: SeasonalBundle[] = [
     id: "gold",
     name: "Gold Bundle",
     price: 449.0,
-    image: "/images/camo-boost/weapon-bg.png",
+    image: "/images/camo-boost/weapon.png",
   },
   {
     id: "diamond",
     name: "Diamond Bundle",
     price: 499.0,
-    image: "/images/camo-boost/weapon-bg.png",
+    image: "/images/camo-boost/weapon.png",
   },
 ];
 
