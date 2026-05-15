@@ -200,17 +200,20 @@ export function Highlights() {
 
   return (
     <section className="relative w-full overflow-hidden bg-dark-main">
+      {/* Faint left-edge accent */}
       <div
-        className="pointer-events-none absolute -left-28 top-[280px] h-64 w-64 rounded-full"
-        style={{ background: "rgba(255,92,0,0.2)", filter: "blur(107px)" }}
+        className="pointer-events-none absolute left-70 top-[300px] h-42 w-42 rounded-full"
+        style={{ background: "rgba(255, 94, 0, 0.33)", filter: "blur(70px)" }}
       />
+      {/* Primary glow — behind the right image column, upper area */}
       <div
-        className="pointer-events-none absolute -top-[71px] left-[520px] h-64 w-64 rounded-full"
-        style={{ background: "rgba(255,92,0,0.15)", filter: "blur(107px)" }}
+        className="pointer-events-none absolute right-[40%] top-[120px] h-42 w-42 rounded-full"
+        style={{ background: "rgba(255, 94, 0, 0.48)", filter: "blur(70px)" }}
       />
+      {/* Secondary glow — right column, lower area */}
       <div
-        className="pointer-events-none absolute left-[956px] top-[179px] h-64 w-64 rounded-full"
-        style={{ background: "rgba(255,92,0,0.15)", filter: "blur(107px)" }}
+        className="pointer-events-none absolute right-[20%] top-[400px] h-42 w-42 rounded-full"
+        style={{ background: "rgba(255, 94, 0, 0.48)", filter: "blur(70px)" }}
       />
 
       <button

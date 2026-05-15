@@ -89,6 +89,7 @@ export const categories: CategoryOption[] = [
   { id: "win", icon: "/images/icons/services/crown.svg", label: "Boost per Win" },
   { id: "currency", icon: "/images/icons/services/cash.svg", label: "Currency" },
   { id: "camo", icon: "/images/icons/services/safety-outlined.svg", label: "Camo Boost" },
+  { id: "boosting", icon: "/images/icons/services/crown.svg", label: "Boosting" },
   { id: "mmr", icon: "/images/icons/services/tap.svg", label: "MMR Boost" },
   { id: "leveling", icon: "/images/icons/services/rocket.svg", label: "Leveling" },
 ];
@@ -132,7 +133,7 @@ export const camoCards: SelectableCard[] = [
     name: "Leviathan",
     description: "Base camo - all standard challenges",
     price: 12.99,
-    image: "/images/camo-boost/weapon-bg.png",
+    image: "/images/camo-boost/weapon.png",
     locks: ["leviathan-platinum-2"],
   },
   {
@@ -140,7 +141,7 @@ export const camoCards: SelectableCard[] = [
     name: "Leviathan Gold",
     description: "Gold tier - 100 headshots required",
     price: 24.99,
-    image: "/images/camo-boost/weapon-bg.png",
+    image: "/images/camo-boost/weapon.png",
   },
   {
     id: "leviathan-platinum",
@@ -153,7 +154,7 @@ export const camoCards: SelectableCard[] = [
     name: "Leviathan Diamond",
     description: "Diamond — Platinum all categories",
     price: 24.99,
-    image: "/images/camo-boost/weapon-bg.png",
+    image: "/images/camo-boost/weapon.png",
     locks: ["leviathan-diamond-2"],
   },
   {
@@ -161,7 +162,7 @@ export const camoCards: SelectableCard[] = [
     name: "Leviathan Diamond",
     description: "Diamond — Platinum all categories",
     price: 24.99,
-    image: "/images/camo-boost/weapon-bg.png",
+    image: "/images/camo-boost/weapon.png",
     locks: ["leviathan-diamond"],
   },
   {
@@ -169,7 +170,7 @@ export const camoCards: SelectableCard[] = [
     name: "Leviathan Platinum",
     description: "Platinum — Gold on all in category",
     price: 39.99,
-    image: "/images/camo-boost/weapon-bg.png",
+    image: "/images/camo-boost/weapon.png",
     locks: ["leviathan"],
   },
 ];
@@ -291,6 +292,136 @@ export function formatMmrShort(n: number): string {
   const k = n / 1000;
   return k % 1 === 0 ? `${k}k` : `${k.toFixed(1)}k`;
 }
+
+/* ── Boosting Cards data (ImageTopCardCalculator) ────────────── */
+
+import type { ImageTopCard } from "@/components/calculator/forms/ImageTopCardCalculator";
+
+/**
+ * 16-card mock matching Figma node 837:10791 (4 rows × 4 columns).
+ * Row 1 — mix of image & no-image; card r1c3 is locked (r1c1 selects it out).
+ * Row 2 — 2 image cards + 2 no-image.
+ * Row 3 — all no-image, various title/desc combos.
+ * Row 4 — all no-image, title-only cards.
+ */
+export const boostingCards: ImageTopCard[] = [
+  /* ── Row 1 ── */
+  {
+    id: "r1c1",
+    name: "Leviathan",
+    description: "Base camo - all standard challenges",
+    price: 12.99,
+    image: "/images/camo-boost/weapon.png",
+    locks: ["r1c3"],
+  },
+  {
+    id: "r1c2",
+    name: "Leviathan Platinum",
+    description: "Platinum — Gold on all in category",
+    price: 39.99,
+    image: "/images/camo-boost/weapon.png",
+  },
+  {
+    id: "r1c3",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+    image: "/images/camo-boost/weapon.png",
+  },
+  {
+    id: "r1c4",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+  },
+  /* ── Row 2 ── */
+  {
+    id: "r2c1",
+    name: "Title two lines maximum rest trunc…",
+    description: "This is a description that at max. goes on two lines",
+    price: 12.99,
+    image: "/images/camo-boost/weapon.png",
+  },
+  {
+    id: "r2c2",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+  },
+  {
+    id: "r2c3",
+    name: "Title one line",
+    description: "This is a description that at max. goes on two lines",
+    price: 12.99,
+    image: "/images/camo-boost/weapon.png",
+  },
+  {
+    id: "r2c4",
+    name: "Leviathan Platinum",
+    description: "Platinum — Gold on all in category",
+    price: 39.99,
+  },
+  /* ── Row 3 ── */
+  {
+    id: "r3c1",
+    name: "Title two lines maximum rest is…",
+    description: "Platinum — Gold on all in category",
+    price: 39.99,
+  },
+  {
+    id: "r3c2",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+  },
+  {
+    id: "r3c3",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+  },
+  {
+    id: "r3c4",
+    name: "Leviathan Diamond",
+    description: "Diamond — Platinum all categories",
+    price: 24.99,
+  },
+  /* ── Row 4 ── */
+  {
+    id: "r4c1",
+    name: "Title two lines maximum rest is…",
+    price: 39.99,
+  },
+  {
+    id: "r4c2",
+    name: "Leviathan Diamond",
+    price: 24.99,
+  },
+  {
+    id: "r4c3",
+    name: "Leviathan Diamond",
+    price: 24.99,
+  },
+  {
+    id: "r4c4",
+    name: "Leviathan Diamond",
+    price: 24.99,
+  },
+];
+
+export const boostingRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const boostingBenefits = [
+  "Guaranteed boost to selected tier.",
+  "Account safety & privacy.",
+  "Real-time order tracking.",
+  "24/7 customer support.",
+];
 
 /* ── Leveling Boost data ─────────────────────────────────────── */
 

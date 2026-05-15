@@ -4,6 +4,7 @@ import { CalculatorPageShell } from "@/components/calculator/CalculatorPageShell
 import { BoostPerWinCalculator } from "@/components/calculator/forms/BoostPerWinCalculator";
 import { CardSelectorCalculator } from "@/components/calculator/forms/CardSelectorCalculator";
 import { CurrencyCalculator } from "@/components/calculator/forms/CurrencyCalculator";
+import { ImageTopCardCalculator } from "@/components/calculator/forms/ImageTopCardCalculator";
 import { LevelingBoostCalculator } from "@/components/calculator/forms/LevelingBoostCalculator";
 import { MmrBoostCalculator } from "@/components/calculator/forms/MmrBoostCalculator";
 import { RankBoostingStandard } from "@/components/calculator/forms/RankBoostingStandard";
@@ -32,6 +33,9 @@ import {
   type RankBoostKey,
   type RankKey,
   benefits,
+  boostingBenefits,
+  boostingCards,
+  boostingRequirements,
   camoBenefits,
   camoCards,
   camoRequirements,
@@ -75,6 +79,18 @@ export function ValorantPageContent() {
   /* ── Camo Boost state ── */
   const [selectedCardIds, setSelectedCardIds] = useState<string[]>([]);
 
+  /* ── Boosting Cards state ── */
+  // Pre-select IDs that match the Figma demo (r1c1, r2c1, r2c3, r2c4, r3c1, r4c1).
+  // r1c1 locks r1c3, so r1c3 appears locked.
+  const [selectedBoostingIds, setSelectedBoostingIds] = useState<string[]>([
+    "r1c1",
+    "r2c1",
+    "r2c3",
+    "r2c4",
+    "r3c1",
+    "r4c1",
+  ]);
+
   /* ── Currency state ── */
   const [selectedCurrencyAmount, setSelectedCurrencyAmount] = useState(
     currencyPacks[0]?.amount ?? 0,
@@ -97,12 +113,19 @@ export function ValorantPageContent() {
   const platformLabel = platformOptions.find((p) => p.id === platform)?.label ?? platform;
   const isCurrency = category === "currency";
   const isCamo = category === "camo";
+  const isBoosting = category === "boosting";
   const isRankBoost = category === "rank";
   const isMmr = category === "mmr";
   const isLeveling = category === "leveling";
 
   const onToggleCard = (id: string) => {
     setSelectedCardIds((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
+    );
+  };
+
+  const onToggleBoostingCard = (id: string) => {
+    setSelectedBoostingIds((prev) =>
       prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
     );
   };
@@ -138,6 +161,23 @@ export function ValorantPageContent() {
     } else {
       summaryRows = [{ label: "Pack", value: "—" }];
     }
+  } else if (isBoosting) {
+    summaryTitle = "Boosting";
+    const selectedBoostCards = boostingCards.filter((c) => selectedBoostingIds.includes(c.id));
+    const subtotal = selectedBoostCards.reduce((sum, c) => sum + c.price, 0);
+    totalAmount = `$${subtotal.toFixed(2)}`;
+    summaryRows = [];
+    if (selectedBoostCards.length === 0) {
+      summaryRows.push({ label: "Selected", value: "—" });
+    } else {
+      const preview = selectedBoostCards
+        .slice(0, 3)
+        .map((c) => c.name)
+        .join(", ");
+      const suffix = selectedBoostCards.length > 3 ? ` +${selectedBoostCards.length - 3} more` : "";
+      summaryRows.push({ label: "Selected", value: `${preview}${suffix}` });
+    }
+    summaryRows.push({ label: "Platform", value: platformLabel });
   } else if (isCamo) {
     summaryTitle = "Camo Boost";
     const selectedCards = camoCards.filter((c) => selectedCardIds.includes(c.id));
@@ -284,6 +324,21 @@ export function ValorantPageContent() {
         setPlatform={setPlatform}
         requirements={currencyRequirements}
         benefits={currencyBenefits}
+      />
+    );
+  } else if (isBoosting) {
+    form = (
+      <ImageTopCardCalculator
+        title="Boosting"
+        subtitle="Click cards to select"
+        cards={boostingCards}
+        selectedCardIds={selectedBoostingIds}
+        onToggleCard={onToggleBoostingCard}
+        platformOptions={platformOptions}
+        platform={platform}
+        setPlatform={setPlatform}
+        requirements={boostingRequirements}
+        benefits={boostingBenefits}
       />
     );
   } else if (isCamo) {
