@@ -134,15 +134,13 @@ function ServiceCardItem({ card }: { card: ServiceCard }) {
 function CustomOfferBanner() {
   return (
     <div
-      className="relative isolate flex w-full flex-col gap-6 overflow-hidden rounded-3xl px-6 py-6 md:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-8 lg:py-6"
+      className="relative isolate flex w-full flex-col gap-4 overflow-hidden rounded-3xl px-6 py-6 md:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-8 lg:py-6"
       style={{
         background: "rgba(56,56,82,0.3)",
         border: "2px solid rgba(163,45,5,0.4)",
       }}
     >
-      {/* Soft orange ellipse glow positioned roughly where the Figma
-          places `Ellipse 1`. Larger blur than the cards because this
-          spans the full banner width. */}
+      {/* Soft orange ellipse glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-[50%] top-1/2 h-[333px] w-[333px] -translate-y-1/3 rounded-full"
@@ -151,9 +149,10 @@ function CustomOfferBanner() {
         }}
       />
 
+      {/* Character image — hidden on mobile */}
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 right-0 h-[180px] w-[140px] opacity-70 lg:bottom-auto lg:right-[160px] lg:top-6 lg:h-[350px] lg:w-[350px] lg:opacity-100 xl:right-[300px]"
+        className="pointer-events-none absolute hidden lg:block lg:bottom-auto lg:right-[160px] lg:top-6 lg:h-[350px] lg:w-[350px] xl:right-[300px]"
         style={{
           backgroundImage: "url('/images/services/services-custom-offer-character.png')",
           backgroundPosition: "center bottom",
@@ -163,10 +162,10 @@ function CustomOfferBanner() {
       />
 
       <div className="relative z-[1] flex flex-col gap-1 lg:max-w-[520px]">
-        <h3 className="font-heading text-2xl font-bold leading-8 text-white">
+        <h3 className="font-heading text-xl font-bold leading-7 text-white md:text-2xl md:leading-8">
           Create Your Custom Offer
         </h3>
-        <p className="font-body text-base leading-6 text-white/90">
+        <p className="font-body text-sm leading-5 text-white/90 md:text-base md:leading-6">
           Explain what you&rsquo;re looking for, and we&rsquo;ll create a custom solution with the
           best price, fast ETA, and PRO-level support.
         </p>

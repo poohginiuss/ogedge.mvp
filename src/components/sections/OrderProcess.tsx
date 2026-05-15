@@ -41,11 +41,11 @@ export function OrderProcess() {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 py-16 md:px-12 lg:px-20 lg:py-[120px]">
-        <div className="flex max-w-[775px] flex-col gap-8 max-md:mx-auto max-md:items-center max-md:text-center">
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 py-14 md:px-12 lg:px-20 lg:py-[80px]">
+        <div className="flex max-w-[775px] flex-col gap-6 max-md:mx-auto max-md:items-center max-md:text-center lg:gap-7">
           <h2 className="font-heading text-3xl font-bold text-white md:text-4xl">Order Process</h2>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-5 lg:gap-6">
             {steps.map((step) => (
               <div
                 key={step.title}
