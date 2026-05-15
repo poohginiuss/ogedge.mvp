@@ -23,6 +23,7 @@ import {
   fifaCategories,
   fifaDivisions,
   fifaRankCategories,
+  fifaVolumeDiscountTiers,
   platformOptions,
   queueOptions,
   requirements,
@@ -58,6 +59,7 @@ export function FifaPageContent() {
   let summaryTitle = "Rank Boost";
   let summaryRows: { label: string; value: string }[];
   let totalAmount = "€249.00";
+  let numericSubtotal = 249;
 
   if (isCoins) {
     summaryTitle = "Coins Boost";
@@ -68,6 +70,7 @@ export function FifaPageContent() {
     if (activeCoinsTier) {
       const pricePerUnit = activeCoinsTier.price / activeCoinsTier.amount;
       const calculatedPrice = selectedCoinsAmount * pricePerUnit;
+      numericSubtotal = calculatedPrice;
       totalAmount = `$${calculatedPrice.toFixed(2)}`;
       const amtLabel =
         selectedCoinsAmount >= 1_000_000
@@ -159,8 +162,8 @@ export function FifaPageContent() {
       extras={extraOptions}
       finalRows={finalRows}
       totalAmount={totalAmount}
-      discountMessage="15% discount applied to your order"
-      maxDiscountReached
+      orderSubtotal={numericSubtotal}
+      volumeDiscountTiers={fifaVolumeDiscountTiers}
       defaultCoupon="SALE5"
     />
   );

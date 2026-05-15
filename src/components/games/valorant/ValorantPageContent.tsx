@@ -60,6 +60,7 @@ import {
   ranks,
   requirements,
   serverOptions,
+  volumeDiscountTiers,
 } from "./valorantData";
 
 export function ValorantPageContent() {
@@ -134,6 +135,7 @@ export function ValorantPageContent() {
   let summaryTitle = "Boost Per Win";
   let summaryRows: { label: string; value: string }[];
   let totalAmount = "€327.00";
+  let numericSubtotal = 327;
 
   if (isCurrency) {
     summaryTitle = "Currency";
@@ -145,6 +147,7 @@ export function ValorantPageContent() {
     if (activeCurrencyPack) {
       const pricePerUnit = activeCurrencyPack.price / activeCurrencyPack.amount;
       const calculatedPrice = selectedCurrencyAmount * pricePerUnit;
+      numericSubtotal = calculatedPrice;
       totalAmount = `$${calculatedPrice.toFixed(2)}`;
       const amtK =
         selectedCurrencyAmount >= 1_000_000
@@ -165,6 +168,7 @@ export function ValorantPageContent() {
     summaryTitle = "Boosting";
     const selectedBoostCards = boostingCards.filter((c) => selectedBoostingIds.includes(c.id));
     const subtotal = selectedBoostCards.reduce((sum, c) => sum + c.price, 0);
+    numericSubtotal = subtotal;
     totalAmount = `$${subtotal.toFixed(2)}`;
     summaryRows = [];
     if (selectedBoostCards.length === 0) {
@@ -182,6 +186,7 @@ export function ValorantPageContent() {
     summaryTitle = "Camo Boost";
     const selectedCards = camoCards.filter((c) => selectedCardIds.includes(c.id));
     const subtotal = selectedCards.reduce((sum, c) => sum + c.price, 0);
+    numericSubtotal = subtotal;
     totalAmount = `$${subtotal.toFixed(2)}`;
 
     summaryRows = [];
@@ -219,7 +224,8 @@ export function ValorantPageContent() {
   } else if (isMmr) {
     summaryTitle = "MMR Boost";
     const delta = Math.max(0, desiredMmr - currentMmr);
-    totalAmount = `$${(delta * MMR_PRICE_PER_POINT).toFixed(2)}`;
+    numericSubtotal = delta * MMR_PRICE_PER_POINT;
+    totalAmount = `$${numericSubtotal.toFixed(2)}`;
     summaryRows = [
       {
         label: "Current MMR",
@@ -238,7 +244,8 @@ export function ValorantPageContent() {
   } else if (isLeveling) {
     summaryTitle = "Leveling";
     const delta = Math.max(0, desiredLevel - currentLevel);
-    totalAmount = `$${(delta * LEVELING_PRICE_PER_LEVEL).toFixed(2)}`;
+    numericSubtotal = delta * LEVELING_PRICE_PER_LEVEL;
+    totalAmount = `$${numericSubtotal.toFixed(2)}`;
     summaryRows = [
       { label: "Current Level", value: String(currentLevel) },
       { label: "Desired Level", value: String(desiredLevel) },
@@ -422,8 +429,8 @@ export function ValorantPageContent() {
       extras={extraOptions}
       finalRows={finalRows}
       totalAmount={totalAmount}
-      discountMessage="15% discount applied to your order"
-      maxDiscountReached
+      orderSubtotal={numericSubtotal}
+      volumeDiscountTiers={volumeDiscountTiers}
       defaultCoupon="SALE5"
     />
   );

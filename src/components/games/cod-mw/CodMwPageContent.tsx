@@ -18,6 +18,7 @@ import {
   benefits,
   camoTierOptions,
   codCategories,
+  codVolumeDiscountTiers,
   extraOptions,
   formatUsd,
   gameModes,
@@ -233,8 +234,8 @@ export function CodMwPageContent() {
       extras={extraOptions}
       finalRows={finalRows}
       totalAmount={totalFormatted}
-      discountMessage="15% discount applied to your order"
-      maxDiscountReached
+      orderSubtotal={subtotal}
+      volumeDiscountTiers={codVolumeDiscountTiers}
       defaultCoupon="SALE5"
     />
   );

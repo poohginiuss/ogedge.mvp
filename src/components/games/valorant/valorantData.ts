@@ -2,7 +2,7 @@ import type { SelectableCard } from "@/components/calculator/forms/CardSelectorC
 import type { MmrQuickSelect } from "@/components/calculator/forms/MmrBoostCalculator";
 import type { CategoryOption } from "@/components/calculator/shared/CategoryTabs";
 import type { CurrencyCardData } from "@/components/calculator/shared/CurrencyCard";
-import type { ExtraOption } from "@/components/calculator/shared/OrderSummary";
+import type { ExtraOption, VolumeDiscountTier } from "@/components/calculator/shared/OrderSummary";
 
 export type RankKey =
   | "iron"
@@ -442,4 +442,12 @@ export const levelingBenefits = [
   "Progression towards your final placement division.",
   "A detailed match history with performance overview.",
   "Optional match replays upon request.",
+];
+
+/** Admin-defined volume discount tiers — spend more, save more */
+export const volumeDiscountTiers: VolumeDiscountTier[] = [
+  { minAmount: 100, discountPercent: 3 },
+  { minAmount: 200, discountPercent: 5 },
+  { minAmount: 350, discountPercent: 10 },
+  { minAmount: 500, discountPercent: 18 },
 ];

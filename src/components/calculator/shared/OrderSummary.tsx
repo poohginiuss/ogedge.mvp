@@ -22,6 +22,13 @@ export type FinalRow = {
   value: string;
 };
 
+export type VolumeDiscountTier = {
+  /** Order subtotal must be >= this to qualify */
+  minAmount: number;
+  /** Total discount % awarded at this tier */
+  discountPercent: number;
+};
+
 type OrderSummaryProps = {
   /** Header (small label above the title) */
   eyebrow?: string;
@@ -32,6 +39,10 @@ type OrderSummaryProps = {
   extras?: ExtraOption[];
   finalRows: FinalRow[];
   totalAmount: string;
+  /** Numeric subtotal used to evaluate volume discount tiers */
+  orderSubtotal?: number;
+  /** Admin-defined volume discount tiers (sorted ascending by minAmount) */
+  volumeDiscountTiers?: VolumeDiscountTier[];
   /** Banner messages above the final rows */
   discountMessage?: string;
   maxDiscountReached?: boolean;
@@ -64,6 +75,173 @@ function valueColorClass(value: string): string {
   return "text-white";
 }
 
+function getVolumeDiscountState(
+  tiers: VolumeDiscountTier[],
+  subtotal: number,
+) {
+  const sorted = [...tiers].sort((a, b) => a.minAmount - b.minAmount);
+
+  let activeTier: VolumeDiscountTier | null = null;
+  let nextTier: VolumeDiscountTier | null = null;
+
+  for (let i = 0; i < sorted.length; i++) {
+    if (subtotal >= sorted[i].minAmount) {
+      activeTier = sorted[i];
+      nextTier = sorted[i + 1] ?? null;
+    } else {
+      if (!activeTier) nextTier = sorted[i];
+      break;
+    }
+  }
+
+  const prevThreshold = activeTier?.minAmount ?? 0;
+  const nextThreshold = nextTier?.minAmount ?? prevThreshold;
+  const range = nextThreshold - prevThreshold;
+  const progressPercent =
+    range > 0
+      ? Math.min(100, Math.max(0, ((subtotal - prevThreshold) / range) * 100))
+      : 100;
+
+  return {
+    activeTier,
+    nextTier,
+    isMax: activeTier !== null && nextTier === null,
+    amountToNext: nextTier ? nextTier.minAmount - subtotal : 0,
+    extraPercent: nextTier
+      ? nextTier.discountPercent - (activeTier?.discountPercent ?? 0)
+      : 0,
+    progressPercent,
+  };
+}
+
+/** Pick a fill color for the progress bar based on how far through the tiers we are */
+function tierColor(activeTier: VolumeDiscountTier | null, isMax: boolean, allTiers: VolumeDiscountTier[]) {
+  if (isMax) return { fill: "#1aad19", glow: "rgba(26,173,25,0.5)" };
+  if (!activeTier) return { fill: "#ff5c00", glow: "rgba(255,92,0,0.4)" };
+  const sorted = [...allTiers].sort((a, b) => a.minAmount - b.minAmount);
+  const idx = sorted.findIndex((t) => t.minAmount === activeTier.minAmount);
+  const colors = [
+    { fill: "#ff5c00", glow: "rgba(255,92,0,0.4)" },
+    { fill: "#ff8c00", glow: "rgba(255,140,0,0.4)" },
+    { fill: "#f5a623", glow: "rgba(245,166,35,0.4)" },
+    { fill: "#1aad19", glow: "rgba(26,173,25,0.5)" },
+  ];
+  return colors[Math.min(idx + 1, colors.length - 1)];
+}
+
+function VolumeDiscountBanners({
+  tiers,
+  subtotal,
+  discountMessage,
+  maxDiscountReached,
+}: {
+  tiers?: VolumeDiscountTier[];
+  subtotal?: number;
+  discountMessage?: string;
+  maxDiscountReached?: boolean;
+}) {
+  const hasVolumeTiers = tiers && tiers.length > 0 && subtotal != null;
+
+  const vol = hasVolumeTiers ? getVolumeDiscountState(tiers, subtotal) : null;
+
+  const showProgress = vol && vol.nextTier && vol.amountToNext > 0;
+  const showApplied = vol ? vol.activeTier !== null : !!discountMessage;
+  const showMax = vol ? vol.isMax : !!maxDiscountReached;
+
+  const appliedText = vol?.activeTier
+    ? `${vol.activeTier.discountPercent}% discount applied to your order`
+    : discountMessage;
+
+  if (!showProgress && !showApplied && !showMax) return null;
+
+  const color = vol
+    ? tierColor(vol.activeTier, vol.isMax, tiers!)
+    : { fill: "#ff5c00", glow: "rgba(255,92,0,0.4)" };
+
+  return (
+    <div className="flex flex-col gap-2">
+      {showProgress && vol && (
+        <div
+          className="relative overflow-hidden rounded-2xl font-body text-sm"
+          style={{
+            background: "rgba(0,0,0,0.25)",
+            border: vol.activeTier
+              ? `1px solid ${color.glow}`
+              : "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          <div
+            className="absolute inset-y-0 left-0 rounded transition-all duration-700 ease-out"
+            style={{
+              width: `${vol.progressPercent}%`,
+              background: `linear-gradient(90deg, ${color.fill} 0%, ${color.fill}99 100%)`,
+              boxShadow: `0 0 16px ${color.glow}`,
+            }}
+          />
+          <span
+            className="relative z-10 block px-4 py-3 text-center font-semibold text-white"
+            style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
+          >
+            Add ${vol.amountToNext.toFixed(2)} to save an extra{" "}
+            {vol.extraPercent}% on your order
+          </span>
+        </div>
+      )}
+
+      {showApplied && appliedText && (
+        <div
+          className="relative overflow-hidden rounded-2xl font-body text-sm"
+          style={{
+            background: "rgba(0,0,0,0.25)",
+            border: `1px solid ${color.glow}`,
+          }}
+        >
+          <div
+            className="absolute inset-y-0 left-0 rounded-2xl"
+            style={{
+              width: "100%",
+              background: `linear-gradient(90deg, ${color.fill}40 0%, ${color.fill}20 100%)`,
+            }}
+          />
+          <span
+            className="relative z-10 block px-4 py-3 text-center font-semibold"
+            style={{
+              color: color.fill,
+              textShadow: `0 0 10px ${color.glow}`,
+            }}
+          >
+            {appliedText}
+          </span>
+        </div>
+      )}
+
+      {showMax && (
+        <div
+          className="relative overflow-hidden rounded-2xl font-body text-base font-semibold"
+          style={{
+            background: "rgba(26,173,25,0.15)",
+            border: "1px solid rgba(26,173,25,0.35)",
+          }}
+        >
+          <div
+            className="absolute inset-y-0 left-0 rounded-2xl"
+            style={{
+              width: "100%",
+              background: "linear-gradient(90deg, rgba(26,173,25,0.3) 0%, rgba(26,173,25,0.1) 100%)",
+            }}
+          />
+          <span
+            className="relative z-10 block px-4 py-3 text-center"
+            style={{ color: "#1aad19", textShadow: "0 0 8px rgba(26,173,25,0.5)" }}
+          >
+            Maximum discount reached!
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function OrderSummary({
   eyebrow = "Order Summary",
   title,
@@ -73,6 +251,8 @@ export function OrderSummary({
   extras = [],
   finalRows,
   totalAmount,
+  orderSubtotal,
+  volumeDiscountTiers,
   discountMessage,
   maxDiscountReached = false,
   defaultCoupon = "",
@@ -142,9 +322,9 @@ export function OrderSummary({
 
       <div className="my-4 h-px w-full bg-border-subtle" />
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 sm:gap-2">
         <div
-          className="flex h-12 flex-1 items-center rounded-2xl px-4 transition-colors"
+          className="flex h-10 min-w-0 flex-1 items-center rounded-xl px-3 transition-colors sm:h-12 sm:rounded-2xl sm:px-4"
           style={{
             border: couponApplied ? "1px solid rgba(26,173,25,0.5)" : "1px solid #383852",
             background: couponApplied ? "rgba(26,173,25,0.08)" : "rgba(0,0,0,0.2)",
@@ -156,12 +336,12 @@ export function OrderSummary({
             onChange={(e) => setCouponCode(e.target.value)}
             readOnly={couponApplied}
             placeholder="Enter promo code"
-            className="flex-1 bg-transparent font-body text-sm text-white outline-none placeholder:text-white/40"
+            className="min-w-0 flex-1 bg-transparent font-body text-xs text-white outline-none placeholder:text-white/40 sm:text-sm"
             aria-label="Coupon code"
           />
         </div>
         {couponApplied ? (
-          <span className="flex h-12 items-center rounded-2xl px-4 font-body text-sm font-bold text-[#1aad19]">
+          <span className="flex h-10 shrink-0 items-center rounded-xl px-3 font-body text-xs font-bold text-[#1aad19] sm:h-12 sm:rounded-2xl sm:px-4 sm:text-sm">
             Applied
           </span>
         ) : (
@@ -171,7 +351,7 @@ export function OrderSummary({
               if (couponCode.trim()) setCouponApplied(true);
             }}
             disabled={!couponCode.trim()}
-            className="h-12 rounded-2xl px-4 font-body text-sm font-bold uppercase text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.25)] disabled:opacity-40"
+            className="h-10 shrink-0 rounded-xl px-3 font-body text-xs font-bold uppercase text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.25)] disabled:opacity-40 sm:h-12 sm:rounded-2xl sm:px-4 sm:text-sm"
             style={{
               background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
               border: "1px solid #383852",
@@ -187,7 +367,7 @@ export function OrderSummary({
             setCouponCode("");
             setCouponApplied(false);
           }}
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)]"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] sm:h-12 sm:w-12 sm:rounded-2xl"
           style={{
             background: "rgba(255,92,0,0.15)",
             border: "1px solid rgba(255,92,0,0.4)",
@@ -198,7 +378,7 @@ export function OrderSummary({
             src="/images/icons/services/delete.svg"
             alt=""
             loading="lazy"
-            className="h-[18px] w-[18px]"
+            className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
           />
         </button>
       </div>
@@ -250,34 +430,12 @@ export function OrderSummary({
 
       <div className="my-4 h-px w-full bg-border-subtle" />
 
-      {(discountMessage || maxDiscountReached) && (
-        <div className="flex flex-col gap-2">
-          {discountMessage && (
-            <div
-              className="rounded-2xl px-4 py-3 text-center font-body text-sm"
-              style={{ background: "var(--dark-border)" }}
-            >
-              <span
-                className="font-semibold text-brand-light"
-                style={{ textShadow: "0 0 10px rgba(255,151,93,0.5)" }}
-              >
-                {discountMessage}
-              </span>
-            </div>
-          )}
-          {maxDiscountReached && (
-            <div
-              className="rounded-2xl px-4 py-3 text-center font-body text-base font-semibold"
-              style={{
-                background: "rgba(26,173,25,0.2)",
-                color: "var(--success-main)",
-              }}
-            >
-              Maximum discount reached!
-            </div>
-          )}
-        </div>
-      )}
+      <VolumeDiscountBanners
+        tiers={volumeDiscountTiers}
+        subtotal={orderSubtotal}
+        discountMessage={discountMessage}
+        maxDiscountReached={maxDiscountReached}
+      />
 
       <div className="mt-4 flex flex-col gap-1">
         {finalRows.map((row) => (
@@ -305,6 +463,12 @@ export function OrderSummary({
           Buy Now ({totalAmount})
         </Button>
       </div>
+
+      <p className="mt-4 font-body text-xs leading-relaxed text-white/60">
+        By placing an order at <span className="font-bold text-white/80">ogedge.com</span> you&rsquo;re
+        agreeing to our <span className="font-bold text-white/80">Terms of Use</span> and{" "}
+        <span className="font-bold text-white/80">Privacy Policy</span>
+      </p>
 
       <div className="mt-auto flex items-start gap-4 pt-4">
         <div

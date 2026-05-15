@@ -1,5 +1,5 @@
 import type { CategoryOption } from "@/components/calculator/shared/CategoryTabs";
-import type { ExtraOption } from "@/components/calculator/shared/OrderSummary";
+import type { ExtraOption, VolumeDiscountTier } from "@/components/calculator/shared/OrderSummary";
 
 export type CodWeapon = {
   id: string;
@@ -180,3 +180,10 @@ export function formatUsd(amount: number): string {
 export function getCamoTierLabel(id: string): string {
   return camoTierOptions.find((t) => t.id === id)?.label ?? id;
 }
+
+export const codVolumeDiscountTiers: VolumeDiscountTier[] = [
+  { minAmount: 100, discountPercent: 3 },
+  { minAmount: 200, discountPercent: 5 },
+  { minAmount: 350, discountPercent: 10 },
+  { minAmount: 500, discountPercent: 18 },
+];

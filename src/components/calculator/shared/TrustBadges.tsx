@@ -4,7 +4,7 @@ export type TrustBadge = {
 };
 
 export const defaultTrustBadges: TrustBadge[] = [
-  { icon: "/images/icons/services/lock.svg", label: "SSL Secure" },
+  { icon: "/images/icons/services/lock-one.svg", label: "SSL Secure" },
   { icon: "/images/icons/services/vpn.svg", label: "VPN" },
   { icon: "/images/icons/services/safe-lock.svg", label: "Safest Service" },
   { icon: "/images/icons/services/support.svg", label: "24/7 Support" },

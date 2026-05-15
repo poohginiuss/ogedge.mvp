@@ -1,6 +1,6 @@
 import type { CurrencyTier } from "@/components/calculator/forms/CurrencySliderCalculator";
 import type { CategoryOption } from "@/components/calculator/shared/CategoryTabs";
-import type { ExtraOption } from "@/components/calculator/shared/OrderSummary";
+import type { ExtraOption, VolumeDiscountTier } from "@/components/calculator/shared/OrderSummary";
 import type { DropdownOption } from "@/components/ui/Dropdown";
 
 export const fifaRankCategories: DropdownOption[] = [
@@ -130,4 +130,11 @@ export const coinsBenefits = [
   "Progression towards your final placement division.",
   "A detailed match history with performance overview.",
   "Optional match replays upon request.",
+];
+
+export const fifaVolumeDiscountTiers: VolumeDiscountTier[] = [
+  { minAmount: 100, discountPercent: 3 },
+  { minAmount: 200, discountPercent: 5 },
+  { minAmount: 350, discountPercent: 10 },
+  { minAmount: 500, discountPercent: 18 },
 ];
