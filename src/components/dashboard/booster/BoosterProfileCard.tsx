@@ -1,6 +1,6 @@
-import { StarRating } from "./atoms";
+import { StarRating } from "../atoms";
+import { ProfileIdentity } from "../molecules";
 import { boosterProfile } from "./boosterData";
-import { ProfileIdentity } from "./molecules";
 
 export function BoosterProfileCard() {
   return (

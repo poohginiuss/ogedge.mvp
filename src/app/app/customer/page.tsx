@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import CustomerDashboardContent from "@/components/dashboard/CustomerDashboardContent";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Customer Dashboard | OGEdge",

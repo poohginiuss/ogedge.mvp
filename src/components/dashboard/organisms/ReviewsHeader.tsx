@@ -1,5 +1,5 @@
 import { StarRating } from "../atoms";
-import { boosterProfile } from "../boosterData";
+import { boosterProfile } from "../booster/boosterData";
 import { PanelHeader } from "../molecules";
 
 export function ReviewsHeader() {

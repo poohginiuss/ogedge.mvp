@@ -1,5 +1,5 @@
 import { Avatar, IconChip } from "../atoms";
-import { boosterReviews } from "../boosterData";
+import { boosterReviews } from "../booster/boosterData";
 
 export function ReviewList() {
   return (

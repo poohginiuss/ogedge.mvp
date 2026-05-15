@@ -245,32 +245,32 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={onNotify}
-            className="flex h-9 items-center gap-1.5 rounded-lg px-2 font-body text-xs font-medium uppercase text-white transition-colors hover:bg-white/5"
+            className="flex h-10 items-center gap-2 rounded-xl px-3 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5"
           >
             <Image
               src="/images/dashboard/orderview/icons/bell-notify.svg"
               alt=""
-              width={14}
-              height={14}
-              className="h-[14px] w-[14px]"
+              width={18}
+              height={18}
+              className="h-[18px] w-[18px]"
             />
             Notify
           </button>
           <button
             type="button"
             onClick={onProfile}
-            className="flex h-9 items-center gap-1.5 rounded-lg px-2 font-body text-xs font-medium uppercase text-white transition-colors hover:bg-white/5"
+            className="flex h-10 items-center gap-2 rounded-xl px-3 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5"
           >
             <Image
               src="/images/dashboard/orderview/icons/profile-circle.svg"
               alt=""
-              width={14}
-              height={14}
-              className="h-[14px] w-[14px]"
+              width={18}
+              height={18}
+              className="h-[18px] w-[18px]"
             />
             Profile
           </button>
@@ -311,18 +311,21 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
       )}
 
       {/* ─── 3 + 4. Scrollable conversation (context + messages) ─────── */}
-      <div
-        ref={scrollRef}
-        className="relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-6 py-6"
-      >
-        <Image
-          src="/images/dashboard/orderview/chat/brand-watermark.png"
-          alt=""
-          width={215}
-          height={261}
-          className="pointer-events-none absolute left-1/2 top-[130px] h-[260px] w-auto -translate-x-1/2 opacity-[0.03]"
-        />
-        <div className="relative z-10 flex flex-col gap-4">
+      <div className="relative min-h-0 flex-1">
+        {/* Centered logo watermark — stays fixed while messages scroll */}
+        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
+          <Image
+            src="/images/dashboard/orderview/chat/brand-watermark.png"
+            alt=""
+            width={180}
+            height={60}
+            className="h-auto w-[180px] opacity-[0.04]"
+          />
+        </div>
+        <div
+          ref={scrollRef}
+          className="relative z-10 flex h-full flex-col gap-4 overflow-y-auto px-6 py-6"
+        >
           <ConfirmationBubble view={view} />
           {messages.map((msg) => (
             <MessageBubble key={msg.id} msg={msg} />

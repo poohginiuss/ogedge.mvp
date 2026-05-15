@@ -1,5 +1,5 @@
 import { ProgressBar } from "../atoms";
-import { boosterProfile } from "../boosterData";
+import { boosterProfile } from "../booster/boosterData";
 import { StatRow } from "../molecules";
 
 export function CompletionStats() {

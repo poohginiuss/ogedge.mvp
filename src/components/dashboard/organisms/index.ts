@@ -4,6 +4,7 @@ export { DashboardShell } from "./DashboardShell";
 export { LoyaltyHeader } from "./LoyaltyHeader";
 export { LoyaltyTierList } from "./LoyaltyTierList";
 export { MobileDrawer } from "./MobileDrawer";
+export { MobileNavPanel } from "./MobileNavPanel";
 export { OrderCard } from "./OrderCard";
 export { OrderSection } from "./OrderSection";
 export { ReviewList } from "./ReviewList";

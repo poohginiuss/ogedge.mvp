@@ -1,5 +1,5 @@
-import type { NavItem, OrderStatus } from "./dashboardData";
-export { orderStatusMap } from "./dashboardData";
+import type { NavItem, OrderStatus } from "../dashboardData";
+export { orderStatusMap } from "../dashboardData";
 
 export const boosterSidebarNavItems: NavItem[] = [
   {

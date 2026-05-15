@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ActionButton } from "./atoms";
-import { userProfile } from "./dashboardData";
+import { ActionButton } from "../atoms";
+import { userProfile } from "../dashboardData";
 
 export function DashboardReferralCard() {
   const [copied, setCopied] = useState(false);

@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import BoosterDashboardContent from "@/components/dashboard/BoosterDashboardContent";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Booster Dashboard | OGEdge",

@@ -43,8 +43,7 @@ const STATUS_PILL_THEME: Record<OrderHeroStatus, PillTheme> = {
   },
   paused: {
     label: "PAUSED",
-    background:
-      "linear-gradient(90deg, #21222f 0%, #906918 20%, #ffb000 100%)",
+    background: "linear-gradient(90deg, #21222f 0%, #906918 20%, #ffb000 100%)",
     glyph: "pause",
   },
   "review-order": {
@@ -169,9 +168,7 @@ export function StatusPill({ status, countdown, subLabel, className }: StatusPil
       )}
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center text-center">
-        <span className="font-body text-2xl font-bold uppercase leading-tight">
-          {theme.label}
-        </span>
+        <span className="font-body text-2xl font-bold uppercase leading-tight">{theme.label}</span>
         {subLabel && (
           <div className="mt-1 flex flex-col items-center gap-0.5">
             <span className="font-body text-sm text-white">{subLabel}</span>
@@ -196,7 +193,13 @@ export function StatusPill({ status, countdown, subLabel, className }: StatusPil
             className="absolute inset-0 rounded-full border border-dashed border-white/40"
           />
           <span aria-hidden className="absolute inset-1 rounded-full bg-white/10" />
-          <svg width="24" height="24" viewBox="0 0 28 28" role="presentation" className="relative text-white">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 28 28"
+            role="presentation"
+            className="relative text-white"
+          >
             <Glyph kind={theme.glyph} />
           </svg>
         </div>

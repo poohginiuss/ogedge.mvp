@@ -1,32 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import type { TableOrder } from "./activeOrdersData";
+import type { TableOrder } from "../activeOrdersData";
+import { CopyButton } from "../atoms";
 import {
-  ChatIcon,
   DetailTags,
   MobileCardShell,
   MobileDetailRow,
   PAGE_SIZE,
   Pagination,
   RowShell,
-  StarRating,
   StatusPill,
   TablePageHeader,
   ViewLink,
-} from "./orderTableShared";
+} from "../orderTableShared";
 
 // ─── Column config ────────────────────────────────────────────────────────────
+// No Employee or Chat columns. Details grows to fill available width (flex-1).
 
-const COLS = [
-  { label: "ID",       width: "w-[120px]",  align: ""            },
-  { label: "Game",     width: "w-[250px]",  align: ""            },
-  { label: "Service",  width: "w-[250px]",  align: ""            },
-  { label: "Details",  width: "w-[350px]",  align: ""            },
-  { label: "Employee", width: "w-[120px]",  align: "text-center" },
-  { label: "Status",   width: "w-[230px]",  align: "text-center" },
-  { label: "Chat",     width: "w-[170px]",  align: "text-center" },
-  { label: "Actions",  width: "w-[170px]",  align: "text-center" },
+const FIXED_COLS = [
+  { label: "ID", cls: "w-[120px] shrink-0", align: "" },
+  { label: "Game", cls: "w-[250px] shrink-0", align: "" },
+  { label: "Service", cls: "w-[250px] shrink-0", align: "" },
+  // Details is flex-grow so it fills the gap left by removed Employee/Chat
+  { label: "Details", cls: "min-w-[300px] flex-1", align: "" },
+  { label: "Status", cls: "w-[230px] shrink-0", align: "text-center" },
+  { label: "Actions", cls: "w-[170px] shrink-0", align: "text-center" },
 ] as const;
 
 // ─── Desktop row ──────────────────────────────────────────────────────────────
@@ -34,38 +33,41 @@ const COLS = [
 function DesktopRow({ order }: { order: TableOrder }) {
   return (
     <RowShell>
+      {/* ID */}
       <div className="w-[120px] shrink-0 pl-6">
-        <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
-          {order.orderId}
+        <span className="flex items-center gap-1.5">
+          <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
+            {order.orderId}
+          </span>
+          <CopyButton
+            ariaLabel="Copy order ID"
+            onCopy={() => navigator.clipboard.writeText(order.orderId)}
+          />
         </span>
       </div>
 
+      {/* Game */}
       <div className="w-[250px] shrink-0 pl-6">
         <span className="font-body text-base font-semibold text-white">{order.game}</span>
       </div>
 
+      {/* Service */}
       <div className="w-[250px] shrink-0 pl-6">
         <p className="font-body text-base font-semibold text-white">{order.service}</p>
         <p className="font-body text-sm font-bold text-white">{order.rangeLabel}</p>
       </div>
 
-      <div className="w-[350px] shrink-0 pl-6">
+      {/* Details — grows to fill remaining space */}
+      <div className="min-w-[300px] flex-1 pl-6">
         <DetailTags tags={order.details} />
       </div>
 
-      <div className="flex w-[120px] shrink-0 flex-col items-center gap-2">
-        <span className="font-body text-base text-white">{order.employeeName}</span>
-        <StarRating rating={order.employeeRating} />
-      </div>
-
+      {/* Status */}
       <div className="flex w-[230px] shrink-0 items-center justify-center">
         <StatusPill status={order.tableStatus} />
       </div>
 
-      <div className="flex w-[170px] shrink-0 items-center justify-center p-6">
-        <ChatIcon active={order.chatActive} />
-      </div>
-
+      {/* Actions */}
       <div className="flex w-[170px] shrink-0 items-center justify-center px-8">
         <ViewLink orderId={order.orderId} />
       </div>
@@ -77,9 +79,13 @@ function DesktopRow({ order }: { order: TableOrder }) {
 
 function MobileCard({ order }: { order: TableOrder }) {
   return (
-    <MobileCardShell order={order} showChat>
-      <MobileDetailRow label="ID" striped={false}>{order.orderId}</MobileDetailRow>
-      <MobileDetailRow label="Game" striped>{order.game}</MobileDetailRow>
+    <MobileCardShell order={order} showChat={false}>
+      <MobileDetailRow label="ID" striped={false}>
+        {order.orderId}
+      </MobileDetailRow>
+      <MobileDetailRow label="Game" striped>
+        {order.game}
+      </MobileDetailRow>
       <MobileDetailRow label="Service" striped={false}>
         {order.service}: {order.rangeLabel}
       </MobileDetailRow>
@@ -92,44 +98,35 @@ function MobileCard({ order }: { order: TableOrder }) {
         <span className="shrink-0 font-body text-sm text-white/80">Details</span>
         <DetailTags tags={order.details} />
       </div>
-
-      <MobileDetailRow label="Employee" striped={false}>
-        <span className="flex items-center gap-2">
-          {order.employeeName} <StarRating rating={order.employeeRating} />
-        </span>
-      </MobileDetailRow>
-
-      <div
-        className="flex items-center justify-between rounded-lg px-2 py-1"
-        style={{ background: "rgba(0,0,0,0.2)" }}
-      >
-        <span className="font-body text-sm text-white/80">Status</span>
-        <StatusPill status={order.tableStatus} />
-      </div>
     </MobileCardShell>
   );
 }
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-type Props = { orders: TableOrder[]; onPurchaseBoost: () => void };
+type Props = { orders: TableOrder[]; onPurchaseBoost: () => void; onSupport?: () => void };
 
-export function ActiveOrdersTable({ orders, onPurchaseBoost }: Props) {
+export function CompletedOrdersTable({ orders, onPurchaseBoost, onSupport }: Props) {
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(orders.length / PAGE_SIZE));
   const visible = orders.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <div className="flex flex-col gap-8">
-      <TablePageHeader title="My Orders" onPurchaseBoost={onPurchaseBoost} />
+      <TablePageHeader
+        title="Completed Orders"
+        onPurchaseBoost={onPurchaseBoost}
+        onSupport={onSupport}
+      />
 
-      {/* Desktop table — scrolls horizontally when narrower than column total */}
+      {/* Desktop table — full width, scrolls horizontally only when very narrow */}
       <div className="hidden overflow-x-auto lg:block">
-        <div className="flex w-max flex-col gap-0">
+        {/* min-w keeps columns from crushing on edge-case narrow viewports */}
+        <div className="flex min-w-[1020px] w-full flex-col gap-0">
           {/* Header */}
-          <div className="flex items-center">
-            {COLS.map((col) => (
-              <div key={col.label} className={`${col.width} shrink-0 py-1 pl-6 ${col.align}`}>
+          <div className="flex w-full items-center">
+            {FIXED_COLS.map((col) => (
+              <div key={col.label} className={`${col.cls} py-1 pl-6 ${col.align}`}>
                 <span className="font-body text-sm font-bold text-white/80">{col.label}</span>
               </div>
             ))}

@@ -29,10 +29,26 @@ export type TableOrder = {
 // ─── Tag definitions ──────────────────────────────────────────────────────────
 
 export const TAG_EUW: DetailTag = { label: "EUW", color: "#ffb000", bg: "rgba(255,176,0,0.2)" };
-export const TAG_STREAMING: DetailTag = { label: "Streaming", color: "#ff543e", bg: "rgba(194,39,45,0.2)" };
-export const TAG_OFFLINE: DetailTag = { label: "Offline Mode", color: "#2dc227", bg: "rgba(45,194,39,0.2)" };
-export const TAG_PRIORITY: DetailTag = { label: "Priority", color: "#ff5c00", bg: "rgba(255,92,0,0.2)" };
-export const TAG_RUSH: DetailTag = { label: "Rush Completion", color: "#4285f4", bg: "rgba(38,86,151,0.2)" };
+export const TAG_STREAMING: DetailTag = {
+  label: "Streaming",
+  color: "#ff543e",
+  bg: "rgba(194,39,45,0.2)",
+};
+export const TAG_OFFLINE: DetailTag = {
+  label: "Offline Mode",
+  color: "#2dc227",
+  bg: "rgba(45,194,39,0.2)",
+};
+export const TAG_PRIORITY: DetailTag = {
+  label: "Priority",
+  color: "#ff5c00",
+  bg: "rgba(255,92,0,0.2)",
+};
+export const TAG_RUSH: DetailTag = {
+  label: "Rush Completion",
+  color: "#4285f4",
+  bg: "rgba(38,86,151,0.2)",
+};
 export const TAG_NA: DetailTag = { label: "NA", color: "#ffb000", bg: "rgba(255,176,0,0.2)" };
 export const TAG_EU: DetailTag = { label: "EU", color: "#ffb000", bg: "rgba(255,176,0,0.2)" };
 

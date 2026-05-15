@@ -6,7 +6,7 @@
 // so this doesn't introduce a new client boundary in practice.
 import { useRouter } from "next/navigation";
 import { ActionButton, IconButton } from "../atoms";
-import type { BoosterOrder } from "../boosterData";
+import type { BoosterOrder } from "../booster/boosterData";
 import type { Order } from "../dashboardData";
 import { OrderActionGroup, OrderIdRow, StatusBadgeGroup } from "../molecules";
 

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { IconChip } from "./atoms";
-import { userProfile } from "./dashboardData";
-import { CtaCard, ProfileIdentity } from "./molecules";
+import { IconChip } from "../atoms";
+import { userProfile } from "../dashboardData";
+import { CtaCard, ProfileIdentity } from "../molecules";
 
 const TIER_CHIP_BG = "rgba(255,92,0,0.2)";
 const TIER_CHIP_COLOR = "#ff5c00";
@@ -45,7 +45,7 @@ export function DashboardProfileCard({ onNewOrder, onSupport }: DashboardProfile
       style={{ background: "rgba(56,56,82,0.3)" }}
     >
       {/* Desktop: single row with user info left, action buttons right */}
-      <div className="hidden lg:flex lg:items-center lg:justify-between">
+      <div className="hidden xl:flex xl:items-center xl:justify-between">
         <ProfileIdentity
           avatarSrc={userProfile.avatarUrl}
           avatarSize={90}
@@ -73,8 +73,8 @@ export function DashboardProfileCard({ onNewOrder, onSupport }: DashboardProfile
         </div>
       </div>
 
-      {/* Mobile: stacked layout */}
-      <div className="flex flex-col gap-6 lg:hidden">
+      {/* Mobile + tablet: stacked layout */}
+      <div className="flex flex-col gap-6 xl:hidden">
         <ProfileIdentity
           avatarSrc={userProfile.avatarUrl}
           avatarSize={64}

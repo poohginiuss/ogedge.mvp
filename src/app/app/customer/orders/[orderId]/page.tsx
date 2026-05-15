@@ -1,4 +1,4 @@
-import CustomerOrderViewContent from "@/components/dashboard/CustomerOrderViewContent";
+import CustomerOrderViewContent from "@/components/dashboard/customer/CustomerOrderViewContent";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

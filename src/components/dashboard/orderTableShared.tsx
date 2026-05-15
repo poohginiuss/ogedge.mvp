@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { DetailTag, TableOrder, TableOrderStatus } from "./activeOrdersData";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -106,7 +106,11 @@ export function StarRating({ rating }: { rating: number }) {
   return (
     <span className="flex items-center gap-1">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/dashboard/orderview/icons/star-small.svg" alt="" className="-mr-2 h-7 w-7" />
+      <img
+        src="/images/dashboard/orderview/icons/star-small.svg"
+        alt=""
+        className="-mr-2 h-7 w-7"
+      />
       <span className="font-body text-xs font-bold" style={{ color: "#ff975d" }}>
         {rating}
       </span>
@@ -194,10 +198,16 @@ function buildPageItems(current: number, total: number): (number | "…")[] {
   must.add(Math.min(total, current + 1));
 
   // If near the start, anchor first few
-  if (current <= 3) { must.add(2); must.add(3); }
+  if (current <= 3) {
+    must.add(2);
+    must.add(3);
+  }
 
   // If near the end, anchor last few
-  if (current >= total - 2) { must.add(total - 2); must.add(total - 1); }
+  if (current >= total - 2) {
+    must.add(total - 2);
+    must.add(total - 1);
+  }
 
   const sorted = Array.from(must).sort((a, b) => a - b);
 
@@ -219,8 +229,7 @@ export function Pagination({
   total: number;
   onPage: (p: number) => void;
 }) {
-  const BTN =
-    "flex h-10 w-10 items-center justify-center rounded-lg font-body text-base font-bold";
+  const BTN = "flex h-10 w-10 items-center justify-center rounded-lg font-body text-base font-bold";
   const INACTIVE = "border border-dark-border bg-black/20 text-white/50";
   const ACTIVE = "bg-brand-main text-white";
   const NAV = "border border-dark-border bg-black/20";
@@ -281,54 +290,144 @@ export function Pagination({
   );
 }
 
+// ─── Action menu (3-dot overflow) ──────────────────────────────────────────────
+
+type ActionMenuItem = {
+  label: string;
+  icon?: string;
+  onClick?: () => void;
+};
+
+export function ActionMenuButton({ items }: { items: ActionMenuItem[] }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="More actions"
+        className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-2xl"
+        style={{ background: "rgba(56,56,82,0.3)" }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/dashboard/orderview/icons/options-vertical.svg"
+          alt=""
+          className="h-6 w-6"
+        />
+      </button>
+
+      {open && (
+        <div
+          className="absolute right-0 top-[calc(100%+6px)] z-50 min-w-[240px] overflow-hidden rounded-2xl"
+          style={{
+            background: "linear-gradient(-54deg, #17191f 0%, #383852 100%)",
+            border: "1px solid #383852",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+          }}
+        >
+          {items.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              onClick={() => {
+                item.onClick?.();
+                setOpen(false);
+              }}
+              className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-white/5"
+            >
+              {item.icon && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={item.icon} alt="" className="h-5 w-5 shrink-0" />
+              )}
+              <span className="font-body text-base font-medium text-white">{item.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Page header (shared between both tables) ─────────────────────────────────
 
 export function TablePageHeader({
   title,
   onPurchaseBoost,
+  onSupport,
 }: {
   title: string;
-  onPurchaseBoost: () => void;
+  onPurchaseBoost?: () => void;
+  onSupport?: () => void;
 }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
-      <h2 className="font-heading text-2xl font-semibold text-white lg:text-[32px]">{title}</h2>
+      <h2 className="hidden font-heading text-2xl font-semibold text-white lg:block lg:text-[32px]">
+        {title}
+      </h2>
 
       {/* Desktop */}
-      <div className="hidden lg:block">
-        <button
-          type="button"
-          onClick={onPurchaseBoost}
-          className="flex items-center rounded-3xl border border-brand-light px-8 py-6 font-body text-xl font-bold uppercase tracking-wide text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)]"
-          style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
-        >
-          PURCHASE BOOST
-        </button>
+      <div className="hidden items-center gap-4 lg:flex">
+        {onSupport && (
+          <button
+            type="button"
+            onClick={onSupport}
+            className="flex h-[48px] items-center gap-3 rounded-2xl border border-[#6d6d96] px-10 font-body text-base font-bold capitalize text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.2)]"
+            style={{ background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/dashboard/icons/support-icon.svg" alt="" className="h-5 w-5" />
+            Support
+          </button>
+        )}
+        {onPurchaseBoost && (
+          <button
+            type="button"
+            onClick={onPurchaseBoost}
+            className="flex h-[48px] items-center rounded-2xl border border-brand-light px-10 font-body text-base font-bold uppercase tracking-wide text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)]"
+            style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
+          >
+            PURCHASE BOOST
+          </button>
+        )}
       </div>
 
-      {/* Mobile */}
-      <div className="flex flex-1 items-center gap-3 lg:hidden">
-        <button
-          type="button"
-          onClick={onPurchaseBoost}
-          className="flex flex-1 items-center justify-center rounded-2xl border border-brand-light px-8 py-3 font-body text-base font-bold uppercase text-white"
-          style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
-        >
-          PURCHASE BOOST
-        </button>
-        <button
-          type="button"
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
-          style={{ background: "rgba(56,56,82,0.3)" }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/dashboard/orderview/icons/mobile-options.svg"
-            alt="Options"
-            className="h-6 w-6"
-          />
-        </button>
-      </div>
+      {/* Mobile — only render when there's a purchase button (customer).
+          Booster pages render the support 3-dot via the layout's mobileHeaderRight. */}
+      {onPurchaseBoost && (
+        <div className="flex flex-1 items-center gap-2 lg:hidden">
+          <button
+            type="button"
+            onClick={onPurchaseBoost}
+            className="flex h-[44px] flex-1 items-center justify-center whitespace-nowrap rounded-2xl border border-brand-light font-body text-sm font-bold uppercase text-white"
+            style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
+          >
+            Purchase Boost
+          </button>
+          {onSupport && (
+            <ActionMenuButton
+              items={[
+                {
+                  label: "Support",
+                  icon: "/images/dashboard/icons/support-icon.svg",
+                  onClick: onSupport,
+                },
+              ]}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -347,7 +446,7 @@ export function MobileCardShell({
 }) {
   return (
     <div className="flex flex-col rounded-3xl p-4" style={{ backgroundImage: MOBILE_CARD_BG }}>
-      {/* Header row */}
+      {/* Header row: ID + copy + chat */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -359,7 +458,11 @@ export function MobileCardShell({
           <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
             {order.orderId}
           </span>
-          <button type="button" aria-label="Copy order ID">
+          <button
+            type="button"
+            aria-label="Copy order ID"
+            onClick={() => navigator.clipboard.writeText(order.orderId)}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/dashboard/orderview/icons/copy-icon.svg"
@@ -369,14 +472,28 @@ export function MobileCardShell({
           </button>
         </div>
 
-        <div className="flex items-center gap-2">
-          {showChat && <ChatIcon active={order.chatActive} />}
-          <ViewLink orderId={order.orderId} />
-        </div>
+        {showChat && <ChatIcon active={order.chatActive} />}
+      </div>
+
+      {/* Status pill — always at top below header */}
+      <div className="mt-3 flex items-center justify-between rounded-lg px-2 py-1">
+        <StatusPill status={order.tableStatus} />
       </div>
 
       {/* Slot for table-specific rows */}
-      <div className="mt-4 flex flex-col gap-2">{children}</div>
+      <div className="mt-3 flex flex-col gap-2">{children}</div>
+
+      {/* VIEW button — full-width at bottom */}
+      <Link
+        href={`/app/customer/orders/${order.orderId}`}
+        className="mt-4 flex items-center justify-center rounded-2xl py-3 font-body text-base font-bold uppercase tracking-wide text-white transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)]"
+        style={{
+          background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+          border: "1px solid #6d6d96",
+        }}
+      >
+        VIEW ORDER
+      </Link>
     </div>
   );
 }
