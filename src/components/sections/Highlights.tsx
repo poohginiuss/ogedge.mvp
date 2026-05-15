@@ -212,7 +212,7 @@ export function Highlights() {
       />
       {/* Secondary glow — right column, lower area */}
       <div
-        className="pointer-events-none absolute right-[20%] top-[400px] h-42 w-42 rounded-full"
+        className="pointer-events-none absolute right-[20%] top-[550px] h-42 w-42 rounded-full"
         style={{ background: "rgba(255, 94, 0, 0.48)", filter: "blur(70px)" }}
       />
 
@@ -245,7 +245,7 @@ export function Highlights() {
         />
       </button>
 
-      <div className="mx-auto w-full max-w-[1280px] px-6 py-14 md:px-12 lg:px-20 lg:py-20">
+      <div className="mx-auto w-full max-w-[1440px] px-6 py-14 md:px-12 lg:px-20 lg:py-20">
         {/* Mobile layout — fixed height container with dots pinned at bottom */}
         <div
           className="relative flex h-[660px] flex-col sm:h-[730px] lg:hidden"
@@ -281,7 +281,7 @@ export function Highlights() {
         </div>
 
         {/* Desktop layout — fixed height with dots pinned at bottom-left */}
-        <div className="relative hidden h-[560px] lg:grid lg:grid-cols-2 lg:gap-16">
+        <div className="relative hidden h-[720px] lg:grid lg:grid-cols-[0.9fr_1.35fr] lg:gap-8">
           <div className="flex h-full flex-col">
             <div
               className={`flex h-full flex-col justify-center gap-6 pb-12 transition-all duration-300 ease-in-out ${animClass}`}
@@ -299,7 +299,7 @@ export function Highlights() {
           </div>
 
           <div
-            className={`flex items-center justify-center transition-all duration-300 ease-in-out ${animClass}`}
+            className={`flex items-center justify-center overflow-visible transition-all duration-300 ease-in-out ${animClass}`}
           >
             <Image
               src={slide.image}
@@ -307,8 +307,8 @@ export function Highlights() {
               width={slide.imageWidth}
               height={slide.imageHeight}
               unoptimized
-              sizes="50vw"
-              className="max-h-full w-auto max-w-full object-contain"
+              sizes="65vw"
+              className="h-auto max-h-[760px] w-[128%] max-w-none object-contain"
             />
           </div>
 

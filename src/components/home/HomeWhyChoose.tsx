@@ -74,7 +74,7 @@ export function HomeWhyChoose() {
             className="pointer-events-none absolute bottom-0 left-0 h-[40%] w-full"
             style={{
               background:
-                "linear-gradient(to top, var(--dark-main) 0%, var(--dark-main) 36%, rgba(17,17,17,0.96) 56%, rgba(17,17,17,0.72) 74%, rgba(17,17,17,0.3) 88%, transparent 100%)",
+                "linear-gradient(to top, rgb(23,25,31) 0%, rgb(23,25,31) 36%, rgba(23,25,31,0.96) 56%, rgba(23,25,31,0.72) 74%, rgba(23,25,31,0.3) 88%, transparent 100%)",
             }}
           />
         </div>
@@ -105,8 +105,8 @@ export function HomeWhyChoose() {
       </div>
 
       {/* Desktop layout */}
-      <div className="mx-auto hidden w-full max-w-[1600px] items-start gap-10 px-6 py-20 md:px-12 lg:flex lg:px-[80px] lg:py-[120px]">
-        <div className="flex w-[55%] shrink-0 flex-col gap-12">
+      <div className="relative mx-auto hidden w-full max-w-[1600px] items-start gap-10 px-6 py-20 md:px-12 lg:flex lg:px-[80px] lg:py-[120px]">
+        <div className="relative z-20 flex w-[55%] shrink-0 flex-col gap-12">
           <h2 className="font-heading text-[42px] font-bold leading-tight text-white">
             <span className="text-brand-main">Why</span> Customers Choose{" "}
             <span className="text-brand-main">OGEdge</span>
@@ -150,12 +150,17 @@ export function HomeWhyChoose() {
             unoptimized
             className="relative translate-x-28 h-[620px] w-auto max-w-none object-contain"
           />
-          <div
-            className="pointer-events-none absolute -bottom-[70px] left-0 h-[172px] w-full"
-            style={{ background: "var(--dark-main)", filter: "blur(35px)" }}
-          />
         </div>
       </div>
+
+      {/* Desktop bottom gradient — fades character, left text stays above via z-20 */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 z-10 hidden h-[480px] w-full lg:block"
+        style={{
+          background:
+            "linear-gradient(to top, rgb(23, 25, 31) 0%, rgb(23, 25, 31) 10%, rgba(23,25,31) 18%, rgba(23,25,31) 25%, rgb(23, 25, 31) 32%, rgba(23, 25, 31, 0.92) 40%, rgba(23, 25, 31, 0.77) 48%, rgba(23,25,31,0.58) 56%, rgba(23,25,31,0.42) 64%, rgba(23,25,31,0.28) 72%, rgba(23,25,31,0.16) 80%, rgba(23,25,31,0.08) 88%, rgba(23,25,31,0.02) 94%, transparent 100%)",
+        }}
+      />
     </section>
   );
 }

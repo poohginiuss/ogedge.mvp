@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type GameCard = {
   slug: string;
@@ -132,7 +132,30 @@ const INITIAL_COUNT = 8;
 
 export function GamesGrid() {
   const [showAll, setShowAll] = useState(false);
-  const visibleGames = showAll ? games : games.slice(0, INITIAL_COUNT);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [collapsedH, setCollapsedH] = useState<number | null>(null);
+  const [fullH, setFullH] = useState<number | null>(null);
+
+  const measure = useCallback(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const gap = parseFloat(getComputedStyle(el).rowGap) || 0;
+    const cols = getComputedStyle(el).gridTemplateColumns.split(" ").length;
+    const rows = Math.ceil(INITIAL_COUNT / cols);
+    const firstChild = el.children[0] as HTMLElement | undefined;
+    if (!firstChild) return;
+    const cardH = firstChild.offsetHeight;
+    setCollapsedH(rows * cardH + (rows - 1) * gap);
+    setFullH(el.scrollHeight);
+  }, []);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [measure]);
+
+  const targetH = showAll ? fullH : collapsedH;
 
   return (
     <section
@@ -140,45 +163,54 @@ export function GamesGrid() {
       className="noise-overlay relative z-10 -mt-[200px] w-full md:-mt-[240px]"
       style={{
         background:
-          "linear-gradient(to bottom, rgba(23,25,31,0.5) 0%, rgba(23,25,31,0.6) 30%, rgba(23,25,31,0.75) 50%, rgba(23,25,31,0.85) 70%, var(--dark-main) 100%)",
+          "linear-gradient(to bottom, rgba(23,25,31,0.5) 0%, rgba(23,25,31,0.52) 8%, rgba(23,25,31,0.55) 15%, rgba(23,25,31,0.58) 20%, rgba(23,25,31,0.62) 25%, rgba(23,25,31,0.66) 30%, rgba(23,25,31,0.7) 35%, rgba(23,25,31,0.74) 40%, rgba(23,25,31,0.78) 45%, rgba(23,25,31,0.82) 50%, rgba(23,25,31,0.86) 55%, rgba(23,25,31,0.9) 60%, rgba(23,25,31,0.93) 65%, rgba(23,25,31,0.96) 72%, rgba(23,25,31,0.98) 80%, rgba(23,25,31,1) 90%, rgb(23,25,31) 100%)",
         backdropFilter: "blur(12px)",
       }}
     >
       <div className="mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12 lg:px-0 lg:py-16">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 md:gap-6">
-          {visibleGames.map((game) => (
-            <Link
-              key={game.slug}
-              href={`/${game.slug}`}
-              className="group relative flex h-[140px] items-center justify-center overflow-hidden rounded-3xl border-2 border-[#2a2a40] transition-all duration-200 hover:border-[#ffa182] hover:shadow-[0_4px_16px_rgba(255,92,0,0.32)] md:h-[180px]"
-            >
-              <Image
-                src={game.backing}
-                alt=""
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-black/60 transition-all duration-200 group-hover:bg-[rgba(250,70,9,0.6)]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={game.logo}
-                alt={game.name}
-                className="relative z-10 h-[55%] w-[55%] object-contain"
-                loading="lazy"
-              />
-            </Link>
-          ))}
-        </div>
-
-        {!showAll && games.length > INITIAL_COUNT && (
+        <div className="relative overflow-hidden" style={{
+          height: targetH ?? "auto",
+          transition: targetH != null ? "height 0.5s cubic-bezier(0.4, 0, 0.2, 1)" : undefined,
+        }}>
           <div
-            className="pointer-events-none absolute bottom-[88px] left-0 h-[200px] w-full"
+            ref={gridRef}
+            className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 md:gap-6"
+          >
+            {games.map((game) => (
+              <Link
+                key={game.slug}
+                href={`/${game.slug}`}
+                className="group relative flex h-[140px] items-center justify-center overflow-hidden rounded-3xl border-2 border-[#2a2a40] transition-all duration-200 hover:border-[#ffa182] hover:shadow-[0_4px_16px_rgba(255,92,0,0.32)] md:h-[180px]"
+              >
+                <Image
+                  src={game.backing}
+                  alt=""
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/60 transition-all duration-200 group-hover:bg-[rgba(250,70,9,0.6)]" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={game.logo}
+                  alt={game.name}
+                  className="relative z-10 h-[55%] w-[55%] object-contain"
+                  loading="lazy"
+                />
+              </Link>
+            ))}
+          </div>
+
+          {/* Fade overlay when collapsed */}
+          <div
+            className="pointer-events-none absolute bottom-0 left-0 h-[200px] w-full transition-opacity duration-500"
             style={{
-              background: "linear-gradient(180deg, transparent 0%, rgba(23,25,31,0.9) 100%)",
+              opacity: showAll ? 0 : 1,
+              background:
+                "linear-gradient(to top, rgba(23,25,31,1) 0%, rgba(23,25,31,0.98) 10%, rgba(23,25,31,0.92) 25%, rgba(23,25,31,0.8) 40%, rgba(23,25,31,0.6) 55%, rgba(23,25,31,0.35) 70%, rgba(23,25,31,0.15) 85%, transparent 100%)",
             }}
           />
-        )}
+        </div>
 
         <div className="relative z-10 mt-8 flex justify-center">
           <button
