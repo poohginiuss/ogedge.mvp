@@ -133,7 +133,7 @@ function RatingBadge({
       </span>
       <div className="flex items-center gap-0.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={starIcon} alt="" className="-mr-1.5 h-5 w-5 md:-mr-2 md:h-[25px] md:w-[25px]" />
+        <img src={starIcon} alt="" className="-mr-1 h-6 w-6 md:-mr-1.5 md:h-8 md:w-8" />
         <span
           className="whitespace-nowrap font-body text-xs font-bold md:text-sm"
           style={{ color: starColor }}
