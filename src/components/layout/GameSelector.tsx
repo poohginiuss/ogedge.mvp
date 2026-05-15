@@ -191,11 +191,10 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
         <div
           className="flex h-full w-[620px] shrink-0 flex-col overflow-y-auto border-r border-dark-border xl:w-[700px]"
           style={{
-            background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(23,25,31,0.98) 100%)",
-            backdropFilter: "blur(16px)",
+            background: "linear-gradient(180deg,rgb(29, 29, 34) 0%,rgb(35, 35, 48) 50%,rgb(23, 25, 31) 100%)",
           }}
         >
-          <div className="flex items-center gap-4 px-10 py-5">
+          <div className="flex items-center gap-4 px-20 py-10">
             <button
               type="button"
               onClick={onClose}
@@ -208,7 +207,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
               Games
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-3 px-10 pb-8">
+          <div className="grid grid-cols-3 gap-1.5 px-20 pb-10">
             {games.map((game) => (
               <button
                 type="button"
@@ -252,12 +251,12 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
             className="flex flex-1 flex-col overflow-y-auto"
             style={{
               background:
-                "linear-gradient(180deg, rgba(17, 17, 17, 0.92) 0%, rgba(23,25,31,0.8) 100%)",
-              // backdropFilter: "blur(20px)",
+                "linear-gradient(180deg, rgba(17, 17, 20, 0.7) 0%, rgba(17, 17, 20, 0.71) 50%, rgba(15, 17, 20, 0.75) 100%)",
+              backdropFilter: "blur(2px)",
             }}
           >
-            <div className="w-full px-8 py-10">
-              <div className="grid grid-cols-3 gap-8">
+            <div className="w-full pt-32 px-20">
+              <div className="grid grid-cols-[repeat(3,max-content)] gap-5">
                 {services.map((service) => (
                   <ServiceCardDesktop
                     key={service.id}
@@ -283,8 +282,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
       <div
         className="flex h-full w-full flex-col overflow-y-auto lg:hidden"
         style={{
-          background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(23,25,31,0.98) 100%)",
-          backdropFilter: "blur(16px)",
+          background: "linear-gradient(180deg,rgb(29, 29, 34) 0%,rgb(35, 35, 48) 50%,rgb(23, 25, 31) 100%)",
         }}
       >
         <div className="flex items-center gap-4 px-4 py-4">
@@ -301,13 +299,13 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
           </span>
         </div>
 
-        <div className="grid grid-cols-4 gap-2.5 px-4 pb-6">
+        <div className="grid grid-cols-4 gap-[1px] px-3 pb-6">
           {games.map((game) => (
             <button
               type="button"
               key={game.slug}
               onClick={() => handleGameClick(game.slug)}
-              className={`group relative flex aspect-[7/4] items-center justify-center overflow-hidden rounded-xl border-2 transition-all duration-200 ${
+              className={`group relative flex aspect-[6/4] items-center justify-center overflow-hidden rounded-2xl border-2 transition-all duration-200 ${
                 selectedGame === game.slug
                   ? "border-[#ffa182] shadow-[0_4px_12px_rgba(255,92,0,0.3)]"
                   : "border-transparent"
@@ -323,7 +321,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
               <img
                 src={game.logo}
                 alt={game.name}
-                className="relative z-10 h-[50%] w-[60%] object-contain"
+                className="relative z-10 h-[760%] w-[80%] object-contain"
                 loading="lazy"
               />
             </button>

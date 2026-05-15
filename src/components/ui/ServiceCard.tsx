@@ -622,7 +622,7 @@ export function ServiceCardDesktop({
   return (
     <div
       onMouseEnter={onHover}
-      className={`relative flex h-[307px] flex-col gap-2 overflow-hidden rounded-3xl p-6 transition-all duration-200 ${
+      className={`relative flex h-[307px] max-w-[300px] min-w-[280px] flex-col gap-2 overflow-hidden rounded-3xl p-6 transition-all duration-200 ${
         isHovered
           ? "border border-brand-light shadow-[0_0_24px_rgba(255,92,0,0.4)]"
           : "border border-transparent"

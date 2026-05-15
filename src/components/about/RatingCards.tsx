@@ -63,7 +63,7 @@ export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
           <span className="font-body text-base font-medium leading-6 text-white transition-colors group-hover:text-[#48a589] lg:text-2xl lg:leading-8">
             Rated Excellent
           </span>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-0.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/icons/reviews/star-green.svg"
@@ -75,10 +75,10 @@ export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
             </span>
           </div>
           <div
-            className="pointer-events-none absolute bottom-[-80px] right-[-30px] h-[130px] w-[130px] rounded-full transition-opacity group-hover:opacity-100 lg:bottom-[-130px] lg:right-[-45px] lg:h-[250px] lg:w-[250px]"
+            className="pointer-events-none absolute bottom-[-40px] left-1/2 h-[120px] w-[80%] -translate-x-1/2 rounded-full lg:bottom-[-70px] lg:h-[200px] lg:w-[90%] lg:-translate-x-20"
             style={{
-              background: "radial-gradient(circle, rgba(72,165,137,0.35) 0%, transparent 70%)",
-              filter: "blur(10px)",
+              background: "radial-gradient(ellipse, rgba(72,165,137,0.45) 0%, rgba(72,165,137,0.15) 50%, transparent 80%)",
+              filter: "blur(20px)",
             }}
           />
         </a>
@@ -93,7 +93,7 @@ export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
           <span className="font-body text-base font-medium leading-6 text-white transition-colors group-hover:text-[#f5e583] lg:text-2xl lg:leading-8">
             Top Rated
           </span>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-0.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/icons/reviews/star-yellow.png"
@@ -105,10 +105,10 @@ export function RatingCards({ showSeeAllLink = true }: RatingCardsProps = {}) {
             </span>
           </div>
           <div
-            className="pointer-events-none absolute bottom-[-80px] right-[-30px] h-[130px] w-[130px] rounded-full transition-opacity group-hover:opacity-100 lg:bottom-[-130px] lg:right-[-45px] lg:h-[250px] lg:w-[250px]"
+            className="pointer-events-none absolute bottom-[-40px] left-1/2 h-[120px] w-[80%] -translate-x-1/2 rounded-full lg:bottom-[-70px] lg:h-[200px] lg:w-[90%] lg:-translate-x-20"
             style={{
-              background: "radial-gradient(circle, rgba(245,229,131,0.35) 0%, transparent 70%)",
-              filter: "blur(10px)",
+              background: "radial-gradient(ellipse, rgba(245,229,131,0.4) 0%, rgba(245,229,131,0.12) 50%, transparent 80%)",
+              filter: "blur(20px)",
             }}
           />
         </a>
