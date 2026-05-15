@@ -2,8 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ActiveOrdersTable } from "./ActiveOrdersTable";
+import { CompletedOrdersTable } from "./CompletedOrdersTable";
 import { DashboardProfileCard } from "./DashboardProfileCard";
 import { DashboardReferralCard } from "./DashboardReferralCard";
+import { sampleCompletedTableOrders, sampleTableOrders } from "./activeOrdersData";
 import type { Order, OrderStatus } from "./dashboardData";
 import { sampleOrders } from "./dashboardData";
 import {
@@ -54,43 +57,11 @@ export default function CustomerDashboardContent() {
   let viewContent: React.ReactNode;
   if (activeView === "active-orders") {
     viewContent = (
-      <>
-        {profileCard}
-        <OrderSection
-          title="Active Orders"
-          titleClassName="font-heading text-2xl font-semibold text-white lg:text-[32px]"
-          className="flex flex-col gap-6"
-        >
-          {activeOrders.length === 0 ? (
-            <EmptyOrdersState label={"You don\u2019t have any active orders right now."} />
-          ) : (
-            activeOrders.map((order) => (
-              <OrderCard key={order.id} variant="customer" order={order} />
-            ))
-          )}
-        </OrderSection>
-      </>
+      <ActiveOrdersTable orders={sampleTableOrders} onPurchaseBoost={handleNewOrder} />
     );
   } else if (activeView === "completed-orders") {
     viewContent = (
-      <>
-        {profileCard}
-        <OrderSection
-          title="Completed Orders"
-          titleClassName="font-heading text-2xl font-semibold text-white lg:text-[32px]"
-          className="flex flex-col gap-6"
-        >
-          {completedOrders.length === 0 ? (
-            <EmptyOrdersState
-              label={"No completed orders yet \u2014 finish your first order to see it here."}
-            />
-          ) : (
-            completedOrders.map((order) => (
-              <OrderCard key={order.id} variant="customer" order={order} />
-            ))
-          )}
-        </OrderSection>
-      </>
+      <CompletedOrdersTable orders={sampleCompletedTableOrders} onPurchaseBoost={handleNewOrder} />
     );
   } else if (activeView === "support") {
     viewContent = (

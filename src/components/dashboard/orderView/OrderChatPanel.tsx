@@ -23,16 +23,24 @@ type Props = {
   onReport?: () => void;
 };
 
+function AdminAvatar() {
+  return (
+    <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ff5c00]">
+      <Image
+        src="/images/dashboard/orderview/chat/brand-watermark.png"
+        alt="OGEdge"
+        width={20}
+        height={20}
+        className="h-5 w-5 object-contain"
+      />
+    </div>
+  );
+}
+
 function PreloadedBubble({ title, body }: { title: string; body: string }) {
   return (
     <div className="flex w-full items-end gap-2">
-      <Image
-        src="/images/dashboard/orderview/chat/admin-dot.png"
-        alt=""
-        width={24}
-        height={24}
-        className="h-6 w-6 shrink-0 rounded-full"
-      />
+      <AdminAvatar />
       <div
         className="flex min-w-0 flex-1 flex-col justify-center gap-1 bg-[#383852] p-3"
         style={{
@@ -43,6 +51,47 @@ function PreloadedBubble({ title, body }: { title: string; body: string }) {
       >
         <p className="font-body text-sm font-medium leading-tight text-white">{title}</p>
         {body && <p className="font-body text-xs leading-tight text-white/80">{body}</p>}
+      </div>
+    </div>
+  );
+}
+
+function ConfirmationBubble({ view }: { view: OrderViewModel }) {
+  return (
+    <div className="flex w-full items-end gap-2">
+      <AdminAvatar />
+      <div
+        className="flex min-w-0 flex-1 flex-col justify-center gap-2 bg-[#383852] p-3"
+        style={{
+          borderTopLeftRadius: "16px",
+          borderTopRightRadius: "16px",
+          borderBottomRightRadius: "16px",
+        }}
+      >
+        <p className="font-body text-sm font-medium leading-tight text-white">
+          Your order is confirmed. Feel free to use this chat for chatting with your booster
+        </p>
+        <div className="flex items-center gap-2 rounded-lg bg-[#232330] p-2">
+          <div className="relative h-8 w-12 shrink-0 overflow-hidden rounded-lg bg-[#17191f]">
+            <Image
+              src={view.chatContextArtwork}
+              alt=""
+              width={48}
+              height={32}
+              className="h-full w-full object-cover"
+            />
+            <span className="absolute inset-0 rounded-lg bg-black/60" />
+          </div>
+          <div className="min-w-0 flex-1 font-body text-sm leading-tight text-white/80">
+            <p className="font-bold text-white">{view.chatContextLabel}</p>
+            <p className="truncate">
+              <span>Date Start: </span>
+              <span className="font-bold">
+                {view.chatContextDate.replace(/^Date Start:\s*/, "")}
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -105,6 +154,7 @@ function MessageBubble({ msg }: { msg: ChatMessage }) {
 export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, onReport }: Props) {
   const [draft, setDraft] = useState("I want to talk about my order");
   const [messages, setMessages] = useState<ChatMessage[]>(view.messages);
+  const [reportSubmitted, setReportSubmitted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Pin the message list to the bottom whenever a new message arrives so
@@ -144,10 +194,7 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
     : "flex h-full flex-col overflow-hidden rounded-3xl bg-[#232330]";
 
   return (
-    <div
-      className={outerClasses}
-      style={inDrawer ? undefined : { border: "1px solid rgba(255,151,93,0.4)" }}
-    >
+    <div className={outerClasses} style={inDrawer ? undefined : { border: "1px solid #ff975d" }}>
       {/* ─── 1. Booster header ───────────────────────────────────────── */}
       <div className="flex items-center justify-between gap-3 px-5 py-4">
         <div className="flex items-center gap-3">
@@ -170,19 +217,29 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
             <span className="font-body text-sm font-semibold text-white">{view.boosterName}</span>
             <div className="flex items-center gap-2 text-xs text-white/70">
               {view.boosterOnline && (
-                <span className="flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#34a853]" />
+                <span className="flex items-center gap-1 text-[#1aad19]">
+                  <span className="h-[4.75px] w-[4.75px] rounded-full bg-[#1aad19]" />
                   Online
                 </span>
               )}
-              <span className="flex items-center gap-1">
-                <span className="text-[#ffb000]">★</span>
+              <span className="flex items-center gap-1 text-[#ff975d]">
+                <Image
+                  src="/images/dashboard/orderview/icons/rating-star-sm.svg"
+                  alt=""
+                  width={30}
+                  height={30}
+                  className="-mr-2 h-[30px] w-[30px]"
+                />
                 {view.boosterRating}
               </span>
-              <span className="flex items-center gap-1 text-[#ff5c00]">
-                <span aria-hidden className="text-[10px]">
-                  ★
-                </span>
+              <span className="flex items-center gap-1 text-[#ff975d]">
+                <Image
+                  src="/images/dashboard/orderview/icons/review-bubble.svg"
+                  alt=""
+                  width={30}
+                  height={30}
+                  className="-mr-2 h-[30px] w-[30px]"
+                />
                 {view.boosterReviewCount}
               </span>
             </div>
@@ -192,21 +249,28 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
           <button
             type="button"
             onClick={onNotify}
-            className="flex h-9 items-center gap-1.5 rounded-lg px-2 font-body text-xs font-bold uppercase tracking-[0.24px] text-white transition-colors hover:bg-white/5"
+            className="flex h-9 items-center gap-1.5 rounded-lg px-2 font-body text-xs font-medium uppercase text-white transition-colors hover:bg-white/5"
           >
-            <Image src="/images/dashboard/orderview/icons/bell.svg" alt="" width={14} height={14} />
+            <Image
+              src="/images/dashboard/orderview/icons/bell-notify.svg"
+              alt=""
+              width={14}
+              height={14}
+              className="h-[14px] w-[14px]"
+            />
             Notify
           </button>
           <button
             type="button"
             onClick={onProfile}
-            className="flex h-9 items-center gap-1.5 rounded-lg px-2 font-body text-xs font-bold uppercase tracking-[0.24px] text-white transition-colors hover:bg-white/5"
+            className="flex h-9 items-center gap-1.5 rounded-lg px-2 font-body text-xs font-medium uppercase text-white transition-colors hover:bg-white/5"
           >
             <Image
-              src="/images/dashboard/orderview/icons/profile-person.svg"
+              src="/images/dashboard/orderview/icons/profile-circle.svg"
               alt=""
-              width={13}
-              height={13}
+              width={14}
+              height={14}
+              className="h-[14px] w-[14px]"
             />
             Profile
           </button>
@@ -216,74 +280,54 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
       {/* ─── 2. Booster-poaching warning ─────────────────────────────── */}
       {view.showBoosterPoachingWarning && (
         <div
-          className="flex items-start justify-between gap-3 px-5 py-3"
-          style={{ background: "rgba(194,39,45,0.18)" }}
+          className="flex items-center justify-between gap-4 px-6 py-2"
+          style={{
+            background:
+              "linear-gradient(97deg, rgba(255,151,93,0.2) 0%, rgba(255,92,0,0.2) 50%, rgba(163,45,5,0.2) 100%)",
+          }}
         >
           <p className="font-body text-[11px] leading-snug text-white/85">
-            Has a booster contacted you offer your order? This violates our terms. Report it to earn
-            a <span className="font-semibold text-[#ff5c00]">$75–$150</span> reward and help keep
-            the platform safe.
+            Has a booster contacted you after your order? This violates our terms. Report it to earn
+            a <span className="font-semibold text-white">$75–$150</span> reward and help keep the
+            platform safe.
           </p>
           <button
             type="button"
-            onClick={onReport}
-            className="flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-[#383852] px-3 font-body text-[11px] font-bold uppercase tracking-[0.24px] text-white"
+            onClick={() => {
+              setReportSubmitted(true);
+              onReport?.();
+            }}
+            className="flex h-10 shrink-0 items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-colors hover:bg-[#17191f]/70"
           >
             <Image
               src="/images/dashboard/orderview/icons/report-flag.svg"
               alt=""
-              width={12}
-              height={12}
+              width={16}
+              height={16}
             />
-            Report
+            {reportSubmitted ? "Reported" : "Report"}
           </button>
         </div>
       )}
 
       {/* ─── 3 + 4. Scrollable conversation (context + messages) ─────── */}
-      <div ref={scrollRef} className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-5 py-4">
-        {/* Confirmation context card */}
-        <div
-          className="flex items-center gap-3 rounded-2xl px-3 py-2"
-          style={{ background: "rgba(56,56,82,0.5)" }}
-        >
-          <Image
-            src="/images/dashboard/orderview/chat/admin-dot.png"
-            alt=""
-            width={24}
-            height={24}
-            className="h-6 w-6 shrink-0 rounded-full"
-          />
-          <p className="flex-1 font-body text-xs leading-snug text-white/85">
-            Your order is confirmed. Feel free to use this chat for chatting with your booster
-          </p>
+      <div
+        ref={scrollRef}
+        className="relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-6 py-6"
+      >
+        <Image
+          src="/images/dashboard/orderview/chat/brand-watermark.png"
+          alt=""
+          width={215}
+          height={261}
+          className="pointer-events-none absolute left-1/2 top-[130px] h-[260px] w-auto -translate-x-1/2 opacity-[0.03]"
+        />
+        <div className="relative z-10 flex flex-col gap-4">
+          <ConfirmationBubble view={view} />
+          {messages.map((msg) => (
+            <MessageBubble key={msg.id} msg={msg} />
+          ))}
         </div>
-
-        {/* Order id + start date context card with the game badge */}
-        <div
-          className="flex items-center gap-3 rounded-2xl p-3"
-          style={{ background: "rgba(56,56,82,0.5)" }}
-        >
-          <div className="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-[#17191f]">
-            <Image
-              src={view.chatContextArtwork}
-              alt=""
-              width={40}
-              height={40}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="flex flex-col leading-tight">
-            <span className="font-body text-sm font-semibold text-white">
-              {view.chatContextLabel}
-            </span>
-            <span className="font-body text-xs text-white/70">{view.chatContextDate}</span>
-          </div>
-        </div>
-
-        {messages.map((msg) => (
-          <MessageBubble key={msg.id} msg={msg} />
-        ))}
       </div>
 
       {/* ─── 5. Input footer ─────────────────────────────────────────── */}

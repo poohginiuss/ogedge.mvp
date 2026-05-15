@@ -23,10 +23,7 @@ function PanelShell({
       <div className="flex items-center gap-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={icon} alt="" className="h-6 w-6" />
-        <h3
-          className="font-body text-base font-semibold leading-none"
-          style={{ color: "#ff975d" }}
-        >
+        <h3 className="font-body text-base font-semibold leading-none" style={{ color: "#ff975d" }}>
           {title}
         </h3>
       </div>
@@ -52,7 +49,7 @@ function DetailRow({
         align === "center" ? "min-h-[30px] items-center" : "items-start py-1.5"
       } ${striped ? "bg-black/20" : ""}`}
     >
-      <span className="shrink-0 font-body text-sm font-normal text-white/80">{label}</span>
+      <span className="shrink-0 font-body text-base font-normal text-white/80">{label}</span>
       <div className="flex min-w-0 items-center gap-2 text-right">{children}</div>
     </div>
   );
@@ -78,7 +75,14 @@ function CopyButton({ value }: { value: string }) {
       {copied ? (
         <svg width="14" height="14" viewBox="0 0 14 14" role="img" aria-label="Copied">
           <title>Copied</title>
-          <path d="M3 7l3 3 5-6" stroke="#34a853" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <path
+            d="M3 7l3 3 5-6"
+            stroke="#34a853"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
         </svg>
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
@@ -88,15 +92,34 @@ function CopyButton({ value }: { value: string }) {
   );
 }
 
-function EditButton({ label }: { label: string }) {
+function EditButton({
+  label,
+  active,
+  onClick,
+}: { label: string; active?: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
-      aria-label={`Edit ${label}`}
+      aria-label={active ? `Save ${label}` : `Edit ${label}`}
+      onClick={onClick}
       className="flex h-4 w-4 shrink-0 items-center justify-center transition-opacity hover:opacity-70"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/dashboard/orderview/icons/edit-icon.svg" alt="" className="h-4 w-4" />
+      {active ? (
+        <svg width="14" height="14" viewBox="0 0 14 14" role="img" aria-label="Save">
+          <title>Save</title>
+          <path
+            d="M3 7l3 3 5-6"
+            stroke="#34a853"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.8"
+            fill="none"
+          />
+        </svg>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/images/dashboard/orderview/icons/edit-icon.svg" alt="" className="h-4 w-4" />
+      )}
     </button>
   );
 }
@@ -124,6 +147,11 @@ export function AccountDetailsPanel({
   rows: AccountDetailRow[];
   chips: AccountDetailChip[];
 }) {
+  const [values, setValues] = useState(() =>
+    Object.fromEntries(rows.map((row) => [row.label, row.value])),
+  );
+  const [editing, setEditing] = useState<string | null>(null);
+
   return (
     <PanelShell
       icon="/images/dashboard/orderview/icons/account-details-icon.svg"
@@ -131,22 +159,52 @@ export function AccountDetailsPanel({
     >
       {rows.map((row, idx) => (
         <DetailRow key={row.label} label={row.label} striped={idx % 2 === 1}>
-          {row.masked ? (
+          {editing === row.label ? (
+            <input
+              type={row.masked ? "password" : "text"}
+              value={values[row.label] ?? ""}
+              onChange={(event) =>
+                setValues((prev) => ({
+                  ...prev,
+                  [row.label]: event.target.value,
+                }))
+              }
+              onKeyDown={(event) => {
+                if (event.key === "Enter") setEditing(null);
+                if (event.key === "Escape") {
+                  setValues((prev) => ({
+                    ...prev,
+                    [row.label]: row.value,
+                  }));
+                  setEditing(null);
+                }
+              }}
+              className="min-w-0 max-w-[180px] rounded-md bg-black/30 px-2 py-1 text-right font-body text-base font-semibold text-white outline-none ring-1 ring-[#383852] focus:ring-brand-light"
+            />
+          ) : row.masked ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src="/images/dashboard/orderview/icons/password-dots.svg" alt="Password" className="h-4 w-[80px]" />
+            <img
+              src="/images/dashboard/orderview/icons/password-dots.svg"
+              alt="Password"
+              className="h-4 w-[80px]"
+            />
           ) : (
-            <span className="font-body text-base font-semibold text-white">{row.value}</span>
+            <span className="font-body text-base font-semibold text-white">
+              {values[row.label] ?? row.value}
+            </span>
           )}
-          {row.copyable && <CopyButton value={row.value} />}
-          {row.editable && <EditButton label={row.label} />}
+          {row.copyable && !row.masked && <CopyButton value={row.value} />}
+          {row.editable && (
+            <EditButton
+              label={row.label}
+              active={editing === row.label}
+              onClick={() => setEditing((current) => (current === row.label ? null : row.label))}
+            />
+          )}
         </DetailRow>
       ))}
       {chips.length > 0 && (
-        <DetailRow
-          label="Details"
-          striped={rows.length % 2 === 1}
-          align="start"
-        >
+        <DetailRow label="Details" striped={rows.length % 2 === 1} align="start">
           <div className="flex flex-wrap items-center justify-end gap-2">
             {chips.map((chip) => (
               <span
@@ -173,7 +231,11 @@ export function DescriptionPanel({ title, body }: { title: string; body: string 
     <div className="rounded-3xl bg-dark-surface p-6 lg:p-8">
       <div className="flex items-start gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/dashboard/orderview/icons/info-orange.svg" alt="" className="mt-1 h-5 w-5 shrink-0" />
+        <img
+          src="/images/dashboard/orderview/icons/info-orange.svg"
+          alt=""
+          className="mt-1 h-5 w-5 shrink-0"
+        />
         <div className="flex flex-col gap-2">
           <h3 className="font-body text-base font-semibold text-white lg:text-lg">{title}</h3>
           <p className="font-body text-sm leading-6 text-white/70 lg:text-base">{body}</p>

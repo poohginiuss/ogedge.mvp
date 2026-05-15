@@ -33,10 +33,10 @@ function ToolbarButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-[58px] flex-1 items-center justify-center gap-2 rounded-2xl bg-dark-surface px-4 transition-colors hover:bg-[#2d2d40]"
+      className="flex h-[64px] flex-1 items-center justify-center gap-3 rounded-2xl bg-dark-surface px-5 transition-colors hover:bg-[#2d2d40]"
     >
-      <Image src={icon} alt="" width={20} height={20} className="shrink-0" />
-      <span className="whitespace-nowrap font-body text-base font-medium text-white">{label}</span>
+      <Image src={icon} alt="" width={24} height={24} className="h-6 w-6 shrink-0" />
+      <span className="whitespace-nowrap font-body text-lg font-semibold text-white">{label}</span>
     </button>
   );
 }
@@ -76,10 +76,11 @@ export function OrderActionToolbar({
           className="flex-1"
           style={{
             display: "flex",
-            height: 58,
+            height: 64,
             padding: "0 24px",
             borderRadius: 16,
             whiteSpace: "nowrap",
+            fontSize: 16,
           }}
         >
           Purchase Boost

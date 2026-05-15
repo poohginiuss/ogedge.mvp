@@ -19,8 +19,13 @@ export type RankBoostingStandardProps = {
   setCurrentRank: (rank: string) => void;
   currentDivision: number;
   setCurrentDivision: (idx: number) => void;
+  /** Current LP — only used when currentRank === desiredRank */
+  currentLP: number;
+  setCurrentLP: (lp: number) => void;
   desiredRank: string;
   setDesiredRank: (rank: string) => void;
+  desiredDivision: number;
+  setDesiredDivision: (idx: number) => void;
   desiredLP: number;
   setDesiredLP: (lp: number) => void;
   server: string;
@@ -38,8 +43,7 @@ export type RankBoostingStandardProps = {
   benefits: string[];
   /**
    * Number of top ranks to exclude from the *current* rank picker.
-   * E.g. 3 hides Master/Grandmaster/Challenger from "Current Rank" because
-   * orders can't start there (msg #52). Default 0 = all ranks selectable.
+   * E.g. 3 hides Master/Grandmaster/Challenger from "Current Rank".
    */
   currentRankExcludeTop?: number;
 };
@@ -49,7 +53,7 @@ const SELECTED_BG =
 
 const LP_MIN = 0;
 const LP_MAX = 500;
-const LP_STEP = 100;
+const LP_STEP = 20;
 
 function RankGrid({
   ranks,
@@ -62,7 +66,6 @@ function RankGrid({
   selected: string;
   onSelect: (key: string) => void;
   minIndex?: number;
-  /** Inclusive upper bound. Ranks with index > maxIndex are disabled. */
   maxIndex?: number;
 }) {
   const upper = maxIndex ?? ranks.length - 1;
@@ -84,13 +87,131 @@ function RankGrid({
   );
 }
 
+function DivisionGrid({
+  divisions,
+  selected,
+  onSelect,
+}: {
+  divisions: string[];
+  selected: number;
+  onSelect: (idx: number) => void;
+}) {
+  return (
+    <div className="grid grid-cols-4 gap-2">
+      {divisions.map((div, i) => {
+        const active = selected === i;
+        return (
+          <button
+            key={div}
+            type="button"
+            onClick={() => onSelect(i)}
+            className="relative flex h-14 items-center justify-center rounded-2xl px-4 transition-all"
+            style={{
+              border: active ? "1px solid #ff975d" : "1px solid #383852",
+              background: active ? SELECTED_BG : "rgba(0,0,0,0.2)",
+              boxShadow: active ? "0 4px 7px rgba(255,92,0,0.3)" : "0 4px 16px rgba(0,0,0,0.15)",
+            }}
+          >
+            <span
+              className={`font-body text-base font-medium leading-6 ${active ? "text-[#ff5c00]" : "text-white"}`}
+            >
+              {div}
+            </span>
+            {active && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src="/images/icons/services/platform-check.svg"
+                alt=""
+                className="absolute right-1.5 top-1.5 h-3 w-3"
+              />
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function LpStepper({
+  value,
+  onChange,
+  label,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+  label: string;
+}) {
+  const handleInput = (raw: string) => {
+    const parsed = raw === "" ? 0 : Number.parseInt(raw, 10);
+    if (Number.isNaN(parsed)) return;
+    onChange(Math.max(LP_MIN, Math.min(LP_MAX, parsed)));
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        type="button"
+        onClick={() => onChange(Math.max(LP_MIN, value - LP_STEP))}
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all"
+        style={{
+          border: "1px solid #383852",
+          background:
+            "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(-67deg, #17191f 0%, #383852 100%)",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/icons/services/minus.svg" alt="Decrease" className="h-6 w-6" />
+      </button>
+      <div
+        className="flex h-14 flex-1 items-center justify-center rounded-2xl"
+        style={{
+          background: "rgba(0,0,0,0.2)",
+          border: "1px solid #383852",
+          boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+        }}
+      >
+        <input
+          type="number"
+          inputMode="numeric"
+          min={LP_MIN}
+          max={LP_MAX}
+          value={value}
+          onChange={(e) => handleInput(e.target.value)}
+          aria-label={label}
+          className="w-20 bg-transparent text-center font-body text-xl font-bold leading-[30px] text-white outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        />
+        <span className="font-body text-xl font-bold leading-[30px] text-white">LP</span>
+      </div>
+      <button
+        type="button"
+        onClick={() => onChange(Math.min(LP_MAX, value + LP_STEP))}
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all"
+        style={{
+          border: "1px solid #383852",
+          background:
+            "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(-67deg, #17191f 0%, #383852 100%)",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/icons/services/plus.svg" alt="Increase" className="h-6 w-6" />
+      </button>
+    </div>
+  );
+}
+
 export function RankBoostingStandard({
   currentRank,
   setCurrentRank,
   currentDivision,
   setCurrentDivision,
+  currentLP,
+  setCurrentLP,
   desiredRank,
   setDesiredRank,
+  desiredDivision,
+  setDesiredDivision,
   desiredLP,
   setDesiredLP,
   server,
@@ -113,26 +234,35 @@ export function RankBoostingStandard({
   const currentRankData = ranks[currentRankIdx];
   const desiredRankData = ranks[desiredRankIdx];
 
-  const currentLabel = `${currentRankData?.label ?? ""} ${divisions[currentDivision]}`;
-  const desiredLabel = `${desiredRankData?.label ?? ""} ${desiredLP} LP`;
+  // When the same rank tier is selected on both sides, switch to LP mode
+  const sameRank = currentRank === desiredRank;
+
+  const currentLabel = sameRank
+    ? `${currentRankData?.label ?? ""} ${currentLP} LP`
+    : `${currentRankData?.label ?? ""} ${divisions[currentDivision]}`;
+
+  const desiredLabel = sameRank
+    ? `${desiredRankData?.label ?? ""} ${desiredLP} LP`
+    : `${desiredRankData?.label ?? ""} ${divisions[desiredDivision]}`;
 
   const currentMaxIdx = Math.max(0, ranks.length - 1 - currentRankExcludeTop);
-  const minDesiredIdx = Math.min(currentRankIdx + 1, ranks.length - 1);
+  const minDesiredIdx = Math.min(currentRankIdx, ranks.length - 1);
 
   const handleSetCurrentRank = (key: string) => {
     setCurrentRank(key);
     const newIdx = ranks.findIndex((r) => r.key === key);
-    const minIdx = Math.min(newIdx + 1, ranks.length - 1);
-    if (desiredRankIdx <= newIdx) {
-      setDesiredRank(ranks[minIdx].key);
+    // If desired is now strictly below current, clamp it up.
+    if (desiredRankIdx < newIdx) {
+      setDesiredRank(ranks[Math.min(newIdx, ranks.length - 1)].key);
     }
   };
 
-  const handleLpInput = (raw: string) => {
-    // Allow empty -> 0; otherwise parse and clamp to [LP_MIN, LP_MAX].
-    const parsed = raw === "" ? 0 : Number.parseInt(raw, 10);
-    if (Number.isNaN(parsed)) return;
-    setDesiredLP(Math.max(LP_MIN, Math.min(LP_MAX, parsed)));
+  const handleSetDesiredRank = (key: string) => {
+    // Reset LP fields when switching between rank tiers.
+    if (key !== currentRank && desiredLP === currentLP) {
+      setDesiredLP(0);
+    }
+    setDesiredRank(key);
   };
 
   return (
@@ -146,9 +276,9 @@ export function RankBoostingStandard({
       }}
     >
       <div className="flex flex-col gap-8">
-        {/* Current Rank + Desired Rank — side by side on desktop */}
+        {/* Current Rank + Desired Rank */}
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-8">
-          {/* Current Rank */}
+          {/* ── Current Rank ── */}
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex flex-col gap-1">
               <h3 className="font-body text-2xl font-medium leading-8 text-white">Current Rank</h3>
@@ -168,44 +298,19 @@ export function RankBoostingStandard({
                 maxIndex={currentMaxIdx}
               />
 
-              <div className="grid grid-cols-4 gap-2">
-                {divisions.map((div, i) => {
-                  const active = currentDivision === i;
-                  return (
-                    <button
-                      key={div}
-                      type="button"
-                      onClick={() => setCurrentDivision(i)}
-                      className="relative flex h-14 items-center justify-center rounded-2xl px-4 transition-all"
-                      style={{
-                        border: active ? "1px solid #ff975d" : "1px solid #383852",
-                        background: active ? SELECTED_BG : "rgba(0,0,0,0.2)",
-                        boxShadow: active
-                          ? "0 4px 7px rgba(255,92,0,0.3)"
-                          : "0 4px 16px rgba(0,0,0,0.15)",
-                      }}
-                    >
-                      <span
-                        className={`font-body text-base font-medium leading-6 ${active ? "text-[#ff5c00]" : "text-white"}`}
-                      >
-                        {div}
-                      </span>
-                      {active && (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          src="/images/icons/services/platform-check.svg"
-                          alt=""
-                          className="absolute right-1.5 top-1.5 h-3 w-3"
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
+              {sameRank ? (
+                <LpStepper value={currentLP} onChange={setCurrentLP} label="Current LP" />
+              ) : (
+                <DivisionGrid
+                  divisions={divisions}
+                  selected={currentDivision}
+                  onSelect={setCurrentDivision}
+                />
+              )}
             </div>
           </div>
 
-          {/* Desired Rank */}
+          {/* ── Desired Rank ── */}
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex flex-col gap-1">
               <h3 className="font-body text-2xl font-medium leading-8 text-white">Desired Rank</h3>
@@ -218,63 +323,19 @@ export function RankBoostingStandard({
               <RankGrid
                 ranks={ranks}
                 selected={desiredRank}
-                onSelect={setDesiredRank}
+                onSelect={handleSetDesiredRank}
                 minIndex={minDesiredIdx}
               />
 
-              {/* LP stepper */}
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setDesiredLP(Math.max(LP_MIN, desiredLP - LP_STEP))}
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all"
-                  style={{
-                    border: "1px solid #383852",
-                    background:
-                      "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(-67deg, #17191f 0%, #383852 100%)",
-                    boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
-                  }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/icons/services/minus.svg" alt="Decrease" className="h-6 w-6" />
-                </button>
-                <div
-                  className="flex h-14 flex-1 items-center justify-center rounded-2xl"
-                  style={{
-                    background: "rgba(0,0,0,0.2)",
-                    border: "1px solid #383852",
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-                  }}
-                >
-                  {/* Editable LP input — backend decides step granularity
-                      (typically +20), so we accept any int in [0, 500]. */}
-                  <input
-                    type="number"
-                    inputMode="numeric"
-                    min={LP_MIN}
-                    max={LP_MAX}
-                    value={desiredLP}
-                    onChange={(e) => handleLpInput(e.target.value)}
-                    aria-label="Desired LP"
-                    className="w-20 bg-transparent text-center font-body text-xl font-bold leading-[30px] text-white outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                  />
-                  <span className="font-body text-xl font-bold leading-[30px] text-white">LP</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setDesiredLP(Math.min(LP_MAX, desiredLP + LP_STEP))}
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all"
-                  style={{
-                    border: "1px solid #383852",
-                    background:
-                      "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(-67deg, #17191f 0%, #383852 100%)",
-                    boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
-                  }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/icons/services/plus.svg" alt="Increase" className="h-6 w-6" />
-                </button>
-              </div>
+              {sameRank ? (
+                <LpStepper value={desiredLP} onChange={setDesiredLP} label="Desired LP" />
+              ) : (
+                <DivisionGrid
+                  divisions={divisions}
+                  selected={desiredDivision}
+                  onSelect={setDesiredDivision}
+                />
+              )}
             </div>
           </div>
         </div>

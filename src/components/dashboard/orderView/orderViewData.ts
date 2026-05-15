@@ -157,9 +157,9 @@ export const sampleOrderView: OrderViewModel = {
     { label: "Your Country", value: "EUW" },
   ],
   accountDetails: [
-    { label: "In-Game Name", value: "CouchPotato1234" },
+    { label: "In-Game Name", value: "CouchPotato1234", editable: true },
     { label: "Server", value: "EUW" },
-    { label: "Login Name", value: "CouchPotato", copyable: true },
+    { label: "Login Name", value: "CouchPotato", editable: true },
     { label: "Login Password", value: "supersecret", editable: true, masked: true },
   ],
   accountDetailChips: [

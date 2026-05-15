@@ -44,7 +44,7 @@ export function FifaPageContent() {
   const [desiredDivision, setDesiredDivision] = useState("5");
 
   /* ── Coins Boost state ── */
-  const [selectedCoinsIndex, setSelectedCoinsIndex] = useState(0);
+  const [selectedCoinsAmount, setSelectedCoinsAmount] = useState(coinsTiers[0]?.amount ?? 0);
 
   /* ── Shared state ── */
   const [platform, setPlatform] = useState("PlayStation");
@@ -61,12 +61,24 @@ export function FifaPageContent() {
 
   if (isCoins) {
     summaryTitle = "Coins Boost";
-    const tier = coinsTiers[selectedCoinsIndex];
-    if (tier) {
-      totalAmount = `$${tier.price.toFixed(2)}`;
+    let activeCoinsTier = coinsTiers[0];
+    for (const tier of coinsTiers) {
+      if (tier.amount <= selectedCoinsAmount) activeCoinsTier = tier;
+    }
+    if (activeCoinsTier) {
+      const pricePerUnit = activeCoinsTier.price / activeCoinsTier.amount;
+      const calculatedPrice = selectedCoinsAmount * pricePerUnit;
+      totalAmount = `$${calculatedPrice.toFixed(2)}`;
+      const amtLabel =
+        selectedCoinsAmount >= 1_000_000
+          ? `${(selectedCoinsAmount / 1_000_000).toFixed(selectedCoinsAmount % 1_000_000 === 0 ? 0 : 1)}M`
+          : `${Math.round(selectedCoinsAmount / 1_000)}K`;
       summaryRows = [
-        { label: "Pack", value: `${tier.amountLabel} — ${tier.tierName}` },
-        { label: "Discount", value: tier.discount != null ? `${tier.discount}% OFF` : "—" },
+        { label: "Amount", value: amtLabel },
+        {
+          label: "Discount",
+          value: activeCoinsTier.discount != null ? `${activeCoinsTier.discount}% OFF` : "—",
+        },
         { label: "Platform", value: platformLabel },
       ];
     } else {
@@ -101,8 +113,8 @@ export function FifaPageContent() {
         title="Currency"
         subtitle="Select your desired currency"
         tiers={coinsTiers}
-        selectedIndex={selectedCoinsIndex}
-        onSelectTier={setSelectedCoinsIndex}
+        selectedAmount={selectedCoinsAmount}
+        onAmountChange={setSelectedCoinsAmount}
         platformOptions={platformOptions}
         platform={platform}
         setPlatform={setPlatform}

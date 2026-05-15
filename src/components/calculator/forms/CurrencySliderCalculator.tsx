@@ -8,6 +8,8 @@ import { QuickSelectButton } from "../shared/QuickSelectButton";
 
 export type CurrencyTier = {
   id: string;
+  /** Raw numeric amount (e.g. 100_000) used for the continuous slider. */
+  amount: number;
   amountLabel: string;
   quickLabel: string;
   tierName: string;
@@ -22,8 +24,9 @@ export type CurrencySliderCalculatorProps = {
   title: string;
   subtitle: string;
   tiers: CurrencyTier[];
-  selectedIndex: number;
-  onSelectTier: (index: number) => void;
+  /** Actual currency amount selected (not an index). */
+  selectedAmount: number;
+  onAmountChange: (amount: number) => void;
   platformOptions: { id: string; label: string; icon: string }[];
   platform: string;
   setPlatform: (p: string) => void;
@@ -35,22 +38,56 @@ const CALC_BORDER = "2px solid #6d6d96";
 const CALC_BG =
   "linear-gradient(111deg, rgba(56,56,82,0.5) 0%, rgba(43,45,77,0.5) 50%, rgba(13,15,21,0.5) 100%)";
 
+/** Highest tier whose amount <= selectedAmount (for discount / per-unit price). */
+function getActiveTier(tiers: CurrencyTier[], amount: number): CurrencyTier {
+  let active = tiers[0] as CurrencyTier;
+  for (const tier of tiers) {
+    if (tier.amount <= amount) active = tier;
+  }
+  return active;
+}
+
+function formatAmountLabel(n: number): string {
+  if (n >= 1_000_000) {
+    const m = n / 1_000_000;
+    return `${m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)}M`;
+  }
+  if (n >= 1_000) return `${Math.round(n / 1_000)}K`;
+  return String(n);
+}
+
 export function CurrencySliderCalculator({
   title,
   subtitle,
   tiers,
-  selectedIndex,
-  onSelectTier,
+  selectedAmount,
+  onAmountChange,
   platformOptions,
   platform,
   setPlatform,
   requirements,
   benefits,
 }: CurrencySliderCalculatorProps) {
-  const selected = tiers[selectedIndex];
-  if (!selected) return null;
+  if (!tiers.length) return null;
+
+  const minAmount = tiers[0]?.amount ?? 0;
+  const maxAmount = tiers[tiers.length - 1]?.amount ?? 0;
+  const packAmounts = tiers.map((t) => t.amount);
+
+  const activeTier = getActiveTier(tiers, selectedAmount);
+  const pricePerUnit = activeTier.price / activeTier.amount;
+  const totalPrice = selectedAmount * pricePerUnit;
+  const amountLabel = formatAmountLabel(selectedAmount);
+
+  // Active tier index for QuickSelectButton highlight
+  const activeTierIndex = tiers.indexOf(activeTier);
 
   const snapPoints = tiers.map((t) => ({ label: t.discountLabel }));
+
+  const savingsLabel =
+    activeTier.discount != null
+      ? `$${((totalPrice * activeTier.discount) / (100 - activeTier.discount)).toFixed(0)}`
+      : undefined;
 
   return (
     <div
@@ -77,12 +114,11 @@ export function CurrencySliderCalculator({
           }}
         >
           <div className="flex items-center gap-4">
-            {/* Placeholder image */}
-            {selected.image ? (
+            {activeTier.image ? (
               <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={selected.image}
+                  src={activeTier.image}
                   alt=""
                   className="pointer-events-none size-full object-cover"
                 />
@@ -107,26 +143,37 @@ export function CurrencySliderCalculator({
             )}
             <div className="flex flex-col">
               <span className="font-heading text-2xl font-black leading-normal text-[#ff975d]">
-                {selected.amountLabel}
+                {amountLabel}
               </span>
               <span className="text-sm font-normal text-white/80">Selected Currency</span>
             </div>
           </div>
-          {selected.discount != null && (
-            <div className="flex items-center justify-center rounded-lg bg-[#10a83c] px-4 py-2">
-              <span className="font-body text-sm font-bold text-white">
-                -{selected.discount}% OFF
+          <div className="flex flex-col items-end gap-1">
+            {activeTier.discount != null && (
+              <div className="flex items-center justify-center rounded-lg bg-[#10a83c] px-4 py-2">
+                <span className="font-body text-sm font-bold text-white">
+                  -{activeTier.discount}% OFF
+                </span>
+              </div>
+            )}
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-normal text-white/80">Price:</span>
+              <span className="font-heading text-lg font-semibold text-[#ff975d]">
+                ${totalPrice.toFixed(2)}
               </span>
             </div>
-          )}
+          </div>
         </div>
 
-        {/* Currency range slider */}
+        {/* Continuous currency range slider */}
         <CurrencyRangeSlider
           snapPoints={snapPoints}
-          value={selectedIndex}
-          onChange={onSelectTier}
-          savingsLabel={selected.savingsAmount}
+          value={selectedAmount}
+          onChange={onAmountChange}
+          continuousMin={minAmount}
+          continuousMax={maxAmount}
+          packAmounts={packAmounts}
+          savingsLabel={savingsLabel}
           labelVariant="orange"
         />
 
@@ -139,8 +186,8 @@ export function CurrencySliderCalculator({
                 key={tier.id}
                 topLabel={tier.tierName}
                 bottomLabel={tier.discount != null ? `-${tier.discount}%` : "Base"}
-                selected={i === selectedIndex}
-                onClick={() => onSelectTier(i)}
+                selected={i === activeTierIndex && selectedAmount === tier.amount}
+                onClick={() => onAmountChange(tier.amount)}
               />
             ))}
           </div>
@@ -155,8 +202,8 @@ export function CurrencySliderCalculator({
                 key={tier.id}
                 topLabel={tier.quickLabel}
                 bottomLabel={tier.amountLabel}
-                selected={i === selectedIndex}
-                onClick={() => onSelectTier(i)}
+                selected={i === activeTierIndex && selectedAmount === tier.amount}
+                onClick={() => onAmountChange(tier.amount)}
               />
             ))}
           </div>

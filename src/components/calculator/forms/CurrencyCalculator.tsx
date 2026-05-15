@@ -10,8 +10,9 @@ export type CurrencyCalculatorProps = {
   title: string;
   subtitle: string;
   packs: CurrencyCardData[];
-  selectedIndex: number;
-  onSelectPack: (index: number) => void;
+  /** Actual currency amount selected (not an index). */
+  selectedAmount: number;
+  onAmountChange: (amount: number) => void;
   platformOptions: { id: string; label: string; icon: string }[];
   platform: string;
   setPlatform: (p: string) => void;
@@ -23,29 +24,61 @@ const CALC_BORDER = "2px solid #6d6d96";
 const CALC_BG =
   "linear-gradient(111deg, rgba(56,56,82,0.5) 0%, rgba(43,45,77,0.5) 50%, rgba(13,15,21,0.5) 100%)";
 
+/** Highest pack whose amount <= selectedAmount (for pricing / discount tier). */
+function getActivePack(packs: CurrencyCardData[], amount: number): CurrencyCardData {
+  let active = packs[0];
+  for (const pack of packs) {
+    if (pack.amount <= amount) active = pack;
+  }
+  return active as CurrencyCardData;
+}
+
+/** Format a raw number as a compact currency label: 1 500 000 → "1.5M", 300 000 → "300K". */
+function formatAmountLabel(n: number): string {
+  if (n >= 1_000_000) {
+    const m = n / 1_000_000;
+    return `${m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)}M`;
+  }
+  if (n >= 1_000) {
+    return `${Math.round(n / 1_000)}K`;
+  }
+  return String(n);
+}
+
 export function CurrencyCalculator({
   title,
   subtitle,
   packs,
-  selectedIndex,
-  onSelectPack,
+  selectedAmount,
+  onAmountChange,
   platformOptions,
   platform,
   setPlatform,
   requirements,
   benefits,
 }: CurrencyCalculatorProps) {
-  const selected = packs[selectedIndex];
-  if (!selected) return null;
+  if (!packs.length) return null;
+
+  const minAmount = packs[0]?.amount ?? 0;
+  const maxAmount = packs[packs.length - 1]?.amount ?? 0;
+  const packAmounts = packs.map((p) => p.amount);
+
+  const activePack = getActivePack(packs, selectedAmount);
+  const pricePerUnit = activePack.price / activePack.amount;
+  const totalPrice = selectedAmount * pricePerUnit;
 
   const savingsDisplay =
-    selected.discount != null
-      ? `$${((selected.price * selected.discount) / (100 - selected.discount)).toFixed(0)}`
+    activePack.discount != null
+      ? `$${((totalPrice * activePack.discount) / (100 - activePack.discount)).toFixed(0)}`
       : "$0";
 
-  const snapPoints = packs.map((p) => ({
-    label: p.discountLabel,
-  }));
+  const amountLabel = formatAmountLabel(selectedAmount);
+
+  // The card that is "selected" = the pack at the exact amount, or the tier card
+  // if dragged to an intermediate amount (highlight the tier's card).
+  const activePackIndex = packs.indexOf(activePack);
+
+  const snapPoints = packs.map((p) => ({ label: p.discountLabel }));
 
   return (
     <div
@@ -65,7 +98,7 @@ export function CurrencyCalculator({
 
         {/* Info block */}
         <div
-          className="flex flex-col items-center gap-1 overflow-hidden rounded-3xl border border-[#ff975d] p-6 shadow-[0_4px_14px_0_rgba(255,92,0,0.3)] md:flex-row md:items-center md:justify-between"
+          className="relative flex flex-col items-center gap-1 overflow-hidden rounded-3xl border border-[#ff975d] p-6 shadow-[0_4px_14px_0_rgba(255,92,0,0.3)] md:flex-row md:items-center md:justify-between"
           style={{
             backgroundImage:
               "linear-gradient(170deg, rgba(255,92,0,0.2) 4%, rgba(204,74,0,0.02) 52%, rgba(255,92,0,0.2) 100%), linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(90deg, #383852 0%, #383852 100%)",
@@ -76,30 +109,28 @@ export function CurrencyCalculator({
             <div className="relative h-[49px] w-[80px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={selected.image}
+                src={activePack.image}
                 alt=""
                 className="pointer-events-none absolute inset-0 size-full object-cover"
               />
             </div>
             <div className="flex flex-col items-center gap-1 md:items-start">
               <div className="flex items-center gap-1 text-xl leading-[30px] md:text-2xl">
-                <span className="font-heading font-black text-[#ff975d]">
-                  {selected.amountLabel}
-                </span>
+                <span className="font-heading font-black text-[#ff975d]">{amountLabel}</span>
                 <span className="font-medium text-white">Selected</span>
               </div>
-              {/* Savings + price row on mobile */}
+              {/* Savings + price on mobile */}
               <div className="flex items-center justify-between gap-6 md:hidden">
                 <div className="flex flex-col items-center">
                   <span className="text-xs font-normal text-white/80">Total Savings:</span>
-                  <span className="font-bold text-lg leading-7 text-[#ff975d]">
+                  <span className="text-lg font-bold leading-7 text-[#ff975d]">
                     {savingsDisplay}
                   </span>
                 </div>
                 <div className="flex flex-col items-center">
                   <span className="text-xs font-normal text-white/80">Total Price:</span>
-                  <span className="font-bold text-lg leading-7 text-[#ff975d]">
-                    ${selected.price.toFixed(2)}
+                  <span className="text-lg font-bold leading-7 text-[#ff975d]">
+                    ${totalPrice.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -111,36 +142,29 @@ export function CurrencyCalculator({
             </div>
           </div>
 
-          {/* Discount badge on mobile */}
-          {selected.discount != null && (
-            <div className="absolute right-6 top-0 md:relative md:right-auto md:top-auto">
-              {/* Keep positioned absolutely on mobile (inside relative parent) */}
-            </div>
-          )}
-
           {/* Right: discount + price (desktop) */}
           <div className="hidden flex-col items-end gap-1 md:flex">
-            {selected.discount != null && (
+            {activePack.discount != null && (
               <div className="flex items-center justify-center rounded-2xl bg-[#10a83c] px-4 py-1.5">
                 <span className="font-body text-sm font-bold leading-5 text-white">
-                  {selected.discount}% OFF
+                  {activePack.discount}% OFF
                 </span>
               </div>
             )}
             <div className="flex items-center gap-2 leading-normal">
               <span className="text-sm font-normal text-white/80">Total Price:</span>
               <span className="font-heading text-xl font-semibold text-[#ff975d]">
-                ${selected.price.toFixed(2)}
+                ${totalPrice.toFixed(2)}
               </span>
             </div>
           </div>
 
-          {/* Discount badge on mobile (absolute positioned) */}
-          {selected.discount != null && (
+          {/* Discount badge on mobile */}
+          {activePack.discount != null && (
             <div className="absolute right-6 top-3 md:hidden">
               <div className="flex items-center justify-center rounded-2xl bg-[#10a83c] px-4 py-1.5">
                 <span className="font-body text-sm font-bold leading-5 text-white">
-                  {selected.discount}% OFF
+                  {activePack.discount}% OFF
                 </span>
               </div>
             </div>
@@ -153,17 +177,20 @@ export function CurrencyCalculator({
             <CurrencyCard
               key={pack.id}
               pack={pack}
-              selected={i === selectedIndex}
-              onClick={() => onSelectPack(i)}
+              selected={i === activePackIndex && selectedAmount === pack.amount}
+              onClick={() => onAmountChange(pack.amount)}
             />
           ))}
         </div>
 
-        {/* Currency range slider */}
+        {/* Continuous currency range slider */}
         <CurrencyRangeSlider
           snapPoints={snapPoints}
-          value={selectedIndex}
-          onChange={onSelectPack}
+          value={selectedAmount}
+          onChange={onAmountChange}
+          continuousMin={minAmount}
+          continuousMax={maxAmount}
+          packAmounts={packAmounts}
         />
 
         {/* "Choose your Currency Pack" label */}

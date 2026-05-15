@@ -135,13 +135,50 @@ export function BoostPerWinCalculator({
 
         {/* Number of Wins */}
         <div className="flex flex-col gap-2">
-          <div>
-            <h3 className="font-body text-2xl font-medium text-white">Number of Wins</h3>
-            <p className="font-body text-base font-medium text-white/50">
-              Select the number of desired wins
-            </p>
+          {/* Title row — value box sits top-right on mobile, hidden on md+ */}
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h3 className="font-body text-2xl font-medium text-white">Number of Wins</h3>
+              <p className="font-body text-base font-medium text-white/50">
+                Select the number of desired wins
+              </p>
+            </div>
+            <div
+              className="flex h-14 w-[80px] shrink-0 items-center justify-center rounded-2xl md:hidden"
+              style={{
+                border: "1px solid #ff975d",
+                background:
+                  "linear-gradient(145deg, rgba(255,92,0,0.2) 4%, rgba(204,74,0,0.02) 52%, rgba(255,92,0,0.2) 100%), linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(90deg, #383852 0%, #383852 100%)",
+                boxShadow: "0 4px 7px rgba(255,92,0,0.3)",
+              }}
+            >
+              <span className="font-heading text-[34px] font-bold leading-none text-brand-light">
+                {wins}
+              </span>
+            </div>
           </div>
-          <div className="mt-2 flex items-center gap-8">
+
+          {/* Mobile: full-width slider + min/max labels below */}
+          <div className="mt-1 flex flex-col gap-1 md:hidden">
+            <Slider min={1} max={5} value={wins} onChange={setWins} />
+            <div className="flex justify-between px-1">
+              <span
+                className="flex h-6 w-6 items-center justify-center rounded-md font-body text-xs font-semibold text-white"
+                style={{ background: "rgba(56,56,82,0.8)" }}
+              >
+                1
+              </span>
+              <span
+                className="flex h-6 w-6 items-center justify-center rounded-md font-body text-xs font-semibold text-white"
+                style={{ background: "rgba(56,56,82,0.8)" }}
+              >
+                5
+              </span>
+            </div>
+          </div>
+
+          {/* Desktop: inline slider with min/max + value box to the right */}
+          <div className="mt-2 hidden items-center gap-8 md:flex">
             <div className="flex flex-1 items-center gap-4">
               <span className="font-body text-xl font-semibold text-white">1</span>
               <Slider min={1} max={5} value={wins} onChange={setWins} className="flex-1" />

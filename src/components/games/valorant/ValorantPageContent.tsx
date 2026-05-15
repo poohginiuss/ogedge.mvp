@@ -67,14 +67,18 @@ export function ValorantPageContent() {
   /* ── Rank Boost state ── */
   const [currentRank, setCurrentRank] = useState<RankBoostKey>("emerald");
   const [currentDivision, setCurrentDivision] = useState<number>(2);
+  const [currentLP, setCurrentLP] = useState<number>(0);
   const [desiredRank, setDesiredRank] = useState<RankBoostKey>("grandmaster");
+  const [desiredDivision, setDesiredDivision] = useState<number>(0);
   const [desiredLP, setDesiredLP] = useState<number>(100);
 
   /* ── Camo Boost state ── */
   const [selectedCardIds, setSelectedCardIds] = useState<string[]>([]);
 
   /* ── Currency state ── */
-  const [selectedCurrencyIndex, setSelectedCurrencyIndex] = useState(0);
+  const [selectedCurrencyAmount, setSelectedCurrencyAmount] = useState(
+    currencyPacks[0]?.amount ?? 0,
+  );
 
   /* ── MMR Boost state ── */
   const [currentMmr, setCurrentMmr] = useState<number>(1000);
@@ -110,12 +114,25 @@ export function ValorantPageContent() {
 
   if (isCurrency) {
     summaryTitle = "Currency";
-    const pack = currencyPacks[selectedCurrencyIndex];
-    if (pack) {
-      totalAmount = `$${pack.price.toFixed(2)}`;
+    // Find the highest pack whose amount <= selectedCurrencyAmount for pricing
+    let activeCurrencyPack = currencyPacks[0];
+    for (const pack of currencyPacks) {
+      if (pack.amount <= selectedCurrencyAmount) activeCurrencyPack = pack;
+    }
+    if (activeCurrencyPack) {
+      const pricePerUnit = activeCurrencyPack.price / activeCurrencyPack.amount;
+      const calculatedPrice = selectedCurrencyAmount * pricePerUnit;
+      totalAmount = `$${calculatedPrice.toFixed(2)}`;
+      const amtK =
+        selectedCurrencyAmount >= 1_000_000
+          ? `${(selectedCurrencyAmount / 1_000_000).toFixed(selectedCurrencyAmount % 1_000_000 === 0 ? 0 : 1)}M`
+          : `${Math.round(selectedCurrencyAmount / 1_000)}K`;
       summaryRows = [
-        { label: "Pack", value: `${pack.amountLabel} — ${pack.packName}` },
-        { label: "Discount", value: pack.discount != null ? `${pack.discount}% OFF` : "—" },
+        { label: "Amount", value: amtK },
+        {
+          label: "Discount",
+          value: activeCurrencyPack.discount != null ? `${activeCurrencyPack.discount}% OFF` : "—",
+        },
         { label: "Platform", value: platformLabel },
       ];
     } else {
@@ -141,14 +158,19 @@ export function ValorantPageContent() {
     summaryRows.push({ label: "Platform", value: platformLabel });
   } else if (isRankBoost) {
     summaryTitle = "Rank Boost";
+    const sameRankTier = currentRank === desiredRank;
     summaryRows = [
       {
         label: "Current Rank",
-        value: `${rankBoostRanks.find((r) => r.key === currentRank)?.label ?? ""} ${rankBoostDivisions[currentDivision]}`,
+        value: sameRankTier
+          ? `${rankBoostRanks.find((r) => r.key === currentRank)?.label ?? ""} ${currentLP} LP`
+          : `${rankBoostRanks.find((r) => r.key === currentRank)?.label ?? ""} ${rankBoostDivisions[currentDivision]}`,
       },
       {
         label: "Desired Rank",
-        value: `${rankBoostRanks.find((r) => r.key === desiredRank)?.label ?? ""} ${desiredLP} LP`,
+        value: sameRankTier
+          ? `${rankBoostRanks.find((r) => r.key === desiredRank)?.label ?? ""} ${desiredLP} LP`
+          : `${rankBoostRanks.find((r) => r.key === desiredRank)?.label ?? ""} ${rankBoostDivisions[desiredDivision]}`,
       },
       { label: "Server", value: server },
       { label: "Queue", value: queue },
@@ -255,8 +277,8 @@ export function ValorantPageContent() {
         title="Currency"
         subtitle="Select your desired currency"
         packs={currencyPacks}
-        selectedIndex={selectedCurrencyIndex}
-        onSelectPack={setSelectedCurrencyIndex}
+        selectedAmount={selectedCurrencyAmount}
+        onAmountChange={setSelectedCurrencyAmount}
         platformOptions={platformOptions}
         platform={platform}
         setPlatform={setPlatform}
@@ -286,8 +308,12 @@ export function ValorantPageContent() {
         setCurrentRank={(r) => setCurrentRank(r as RankBoostKey)}
         currentDivision={currentDivision}
         setCurrentDivision={setCurrentDivision}
+        currentLP={currentLP}
+        setCurrentLP={setCurrentLP}
         desiredRank={desiredRank}
         setDesiredRank={(r) => setDesiredRank(r as RankBoostKey)}
+        desiredDivision={desiredDivision}
+        setDesiredDivision={setDesiredDivision}
         desiredLP={desiredLP}
         setDesiredLP={setDesiredLP}
         server={server}
@@ -303,8 +329,6 @@ export function ValorantPageContent() {
         platformOptions={platformOptions}
         requirements={rankBoostRequirements}
         benefits={rankBoostBenefits}
-        // Hide Master / Grandmaster / Challenger from current-rank picker
-        // per designer feedback (msg #52) — orders can't start there.
         currentRankExcludeTop={3}
       />
     );

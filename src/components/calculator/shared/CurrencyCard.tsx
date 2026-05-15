@@ -25,7 +25,9 @@ export function CurrencyCard({ pack, selected, onClick }: CurrencyCardProps) {
         type="button"
         onClick={onClick}
         className={`relative flex h-[212px] flex-1 cursor-pointer flex-col items-center justify-between overflow-hidden rounded-[20px] border py-3 transition-all ${
-          selected ? "border-[rgba(255,255,255,0.53)]" : "border-[rgba(255,255,255,0.25)]"
+          selected
+            ? "border-[#ff975d] drop-shadow-[0_4px_7px_rgba(255,92,0,0.3)]"
+            : "border-[rgba(255,255,255,0.25)]"
         }`}
       >
         {/* Gold gradient background */}

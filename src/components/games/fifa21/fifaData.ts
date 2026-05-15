@@ -65,6 +65,7 @@ export const extraOptions: ExtraOption[] = [
 export const coinsTiers: CurrencyTier[] = [
   {
     id: "100k",
+    amount: 100_000,
     amountLabel: "100K",
     quickLabel: "Base",
     tierName: "Standard",
@@ -73,6 +74,7 @@ export const coinsTiers: CurrencyTier[] = [
   },
   {
     id: "500k",
+    amount: 500_000,
     amountLabel: "500K",
     quickLabel: "Popular",
     tierName: "Regular",
@@ -83,6 +85,7 @@ export const coinsTiers: CurrencyTier[] = [
   },
   {
     id: "1m",
+    amount: 1_000_000,
     amountLabel: "1M",
     quickLabel: "-10% OFF",
     tierName: "Bulk",
@@ -93,6 +96,7 @@ export const coinsTiers: CurrencyTier[] = [
   },
   {
     id: "1.5m",
+    amount: 1_500_000,
     amountLabel: "1.5M",
     quickLabel: "-15% OFF",
     tierName: "Premium",
@@ -103,6 +107,7 @@ export const coinsTiers: CurrencyTier[] = [
   },
   {
     id: "2m",
+    amount: 2_000_000,
     amountLabel: "2M",
     quickLabel: "-20% OFF",
     tierName: "VIP",
