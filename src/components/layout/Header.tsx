@@ -255,7 +255,7 @@ export function Header() {
 
           {/* Cart */}
           <Link
-            href="#cart"
+            href="/checkout"
             className="relative hidden h-[53px] w-[53px] items-center justify-center rounded-2xl border border-dark-border min-[1440px]:inline-flex"
             aria-label="Cart"
           >
