@@ -152,16 +152,16 @@ export function StatusPill({ status, countdown, subLabel, className }: StatusPil
         <div
           aria-hidden
           className="absolute right-6 top-1/2 z-0 flex -translate-y-1/2 items-center justify-center"
-          style={{ width: "118px", height: "118px" }}
+          style={{ width: "82px", height: "82px" }}
         >
           <span className="absolute inset-0 rounded-full border border-dashed border-white/30" />
           <span
-            className="flex h-[70px] w-[70px] items-center justify-center rounded-2xl border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+            className="flex h-[50px] w-[50px] items-center justify-center rounded-xl border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.4)]"
             style={{ background: "rgba(255,255,255,0.2)", backdropFilter: "blur(6px)" }}
           >
-            <svg width="49" height="49" viewBox="0 0 49 49" fill="none">
-              <rect x="15" y="12" width="6" height="25" rx="2" fill="white" fillOpacity="0.9" />
-              <rect x="28" y="12" width="6" height="25" rx="2" fill="white" fillOpacity="0.9" />
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="8" y="6" width="4" height="16" rx="1.5" fill="white" fillOpacity="0.9" />
+              <rect x="16" y="6" width="4" height="16" rx="1.5" fill="white" fillOpacity="0.9" />
             </svg>
           </span>
         </div>
