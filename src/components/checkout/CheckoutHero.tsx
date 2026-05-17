@@ -89,38 +89,46 @@ export function CheckoutHero({ activeStep }: CheckoutHeroProps) {
         <div className="flex w-full flex-col gap-3 lg:hidden">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
+              {STEPS.filter((s) => s.num < activeStep).map((step) => (
+                <Image
+                  key={step.num}
+                  src="/images/icons/checkout/step-check.svg"
+                  alt={`Step ${step.num} complete`}
+                  width={24}
+                  height={24}
+                />
+              ))}
               <span
-                className="flex h-6 w-6 items-center justify-center rounded-full font-body text-xs font-bold text-white"
+                className="flex h-6 w-6 items-center justify-center rounded-full font-body text-xs font-medium text-white"
                 style={{ background: "#ff5c00" }}
               >
                 {activeStep}
               </span>
-              <span className="font-body text-sm font-semibold text-[#ff5c00]">
+              <span className="font-body text-sm font-medium leading-5 text-[#ff5c00]">
                 {STEPS[activeStep - 1].label}
               </span>
             </div>
             <div className="flex items-center gap-2">
-              {STEPS.filter((s) => s.num !== activeStep).map((step) => (
+              {STEPS.filter((s) => s.num > activeStep).map((step) => (
                 <span
                   key={step.num}
-                  className="flex h-6 w-6 items-center justify-center rounded-full font-body text-xs font-bold"
-                  style={{
-                    background: "rgba(255,92,0,0.4)",
-                    color: "rgba(255,255,255,0.4)",
-                  }}
+                  className="flex h-6 w-6 items-center justify-center rounded-full font-body text-xs font-medium text-white"
+                  style={{ background: "#383852" }}
                 >
                   {step.num}
                 </span>
               ))}
             </div>
           </div>
-          <div className="h-0.5 w-full rounded-full bg-white/10">
-            <div
-              className="h-full rounded-full bg-[#ff5c00] transition-all"
-              style={{ width: `${(activeStep / STEPS.length) * 100}%` }}
-            />
-          </div>
         </div>
+      </div>
+
+      {/* Mobile progress bar — full width, outside padded container */}
+      <div className="mt-3 h-0.5 w-full bg-white/10 lg:hidden">
+        <div
+          className="h-full bg-[#ff5c00] transition-all"
+          style={{ width: `${(activeStep / STEPS.length) * 100}%` }}
+        />
       </div>
     </section>
   );
