@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { InfoTooltip } from "@/components/calculator/shared/InfoTooltip";
 
 type SummaryRow = { label: string; value: string };
 type PriceRow = { label: string; value: string; color?: "orange" | "green" | "white" };
@@ -19,6 +20,10 @@ export type FastCheckoutProps = {
   addons?: AddonTag[];
   priceRows?: PriceRow[];
   totalAmount?: string;
+  /** Minimum order amount required to proceed (numeric, e.g. 5) */
+  minOrderAmount?: number;
+  /** Numeric total for threshold comparison (parsed from totalAmount) */
+  numericTotal?: number;
 };
 
 const PAYMENT_METHODS = [
@@ -82,7 +87,9 @@ export function FastCheckoutPanel({
     { label: "Offline Mode", value: "FREE", color: "green" },
     { label: "Priority", value: "+20%", color: "white" },
   ],
-  totalAmount = "€327.00",
+  totalAmount = "$3.00",
+  minOrderAmount = 5,
+  numericTotal,
 }: FastCheckoutProps) {
   const [coupon, setCoupon] = useState("SALE5");
   const [couponApplied, setCouponApplied] = useState(true);
@@ -92,6 +99,11 @@ export function FastCheckoutPanel({
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [priceOpen, setPriceOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
+
+  const parsedTotal = numericTotal ?? (Number.parseFloat(totalAmount.replace(/[^0-9.]/g, "")) || 0);
+  const currencyLabel = currency === "EUR" ? "EUR" : "USD";
+  const currencySymbol = currency === "EUR" ? "€" : "$";
+  const isBelowMinimum = minOrderAmount != null && parsedTotal < minOrderAmount;
 
   useEffect(() => {
     setMounted(true);
@@ -145,7 +157,19 @@ export function FastCheckoutPanel({
                 <span className="font-body text-lg font-bold text-[#ff975d] [text-shadow:0_0_10px_#fa4609]">
                   {estimatedTime}
                 </span>
-                <Image src="/images/icons/checkout/fast-info.svg" alt="" width={16} height={16} />
+                <InfoTooltip
+                  label="Estimated start time details"
+                  panelClassName="top-full right-0 mt-3 w-[220px] -translate-y-2 rounded-2xl border border-[#6d6d96] bg-[#1a1c2e] px-4 py-3 text-left shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
+                >
+                  <span className="block font-body text-xs font-bold text-[#ff975d]">
+                    {estimatedTime}
+                  </span>
+                  <span className="mt-1 block font-body text-xs leading-5 text-white/80">
+                    Estimated completion time. Your order can start in{" "}
+                    <span className="font-bold text-white">{startIn}</span>, depending on queue and
+                    booster availability.
+                  </span>
+                </InfoTooltip>
               </div>
               <p className="font-body text-sm text-white/80">
                 <span className="font-extrabold text-white">{startIn}</span> until start time
@@ -158,7 +182,7 @@ export function FastCheckoutPanel({
             {summaryRows.map((row, i) => (
               <div
                 key={row.label}
-                className="flex items-center justify-between rounded-lg px-2 py-1"
+                className="flex items-center justify-between rounded-lg px-2 py-1 transition-colors hover:bg-[rgba(255,255,255,0.05)]"
                 style={{
                   background: i % 2 === 1 ? "rgba(0,0,0,0.2)" : "transparent",
                 }}
@@ -173,7 +197,10 @@ export function FastCheckoutPanel({
           {addons.length > 0 && (
             <div className="mt-2 flex items-center gap-4 rounded-lg px-2 py-1">
               {addons.map((addon) => (
-                <div key={addon.label} className="flex items-center gap-2">
+                <div
+                  key={addon.label}
+                  className="flex items-center gap-2 transition-colors hover:text-white"
+                >
                   <Image
                     src="/images/icons/checkout/fast-addon.svg"
                     alt=""
@@ -254,7 +281,7 @@ export function FastCheckoutPanel({
               <button
                 type="button"
                 onClick={() => setCurrency("EUR")}
-                className="flex h-[50px] items-center gap-2 rounded-2xl border px-4"
+                className="flex h-[50px] items-center gap-2 rounded-2xl border px-4 transition-all hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
                 style={{
                   borderColor: currency === "EUR" ? "#ff975d" : "#383852",
                   background: "rgba(0,0,0,0.2)",
@@ -285,7 +312,7 @@ export function FastCheckoutPanel({
               <button
                 type="button"
                 onClick={() => setCurrency("USD")}
-                className="flex h-[50px] items-center gap-2 rounded-2xl border px-4"
+                className="flex h-[50px] items-center gap-2 rounded-2xl border px-4 transition-all hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
                 style={{
                   borderColor: currency === "USD" ? "#ff975d" : "#383852",
                   background: "rgba(0,0,0,0.2)",
@@ -327,7 +354,7 @@ export function FastCheckoutPanel({
             <button
               type="button"
               onClick={() => setSelectedMethod("gpay")}
-              className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.6)] px-6 py-4"
+              className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.6)] px-6 py-4 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
               style={{
                 borderColor: selectedMethod === "gpay" ? "#ff975d" : "#383852",
               }}
@@ -373,7 +400,7 @@ export function FastCheckoutPanel({
                     key={method.id}
                     type="button"
                     onClick={() => setSelectedMethod(method.id)}
-                    className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.2)] p-6"
+                    className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.2)] p-6 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
                     style={{
                       borderColor: isSelected ? "#ff975d" : "#383852",
                     }}
@@ -441,7 +468,7 @@ export function FastCheckoutPanel({
                 {priceRows.map((row) => (
                   <div
                     key={row.label}
-                    className="flex items-center justify-between rounded-lg bg-[rgba(0,0,0,0.2)] px-2 py-1"
+                    className="flex items-center justify-between rounded-lg bg-[rgba(0,0,0,0.2)] px-2 py-1 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                   >
                     <span className="font-body text-sm font-normal text-white/80">{row.label}</span>
                     <span
@@ -468,6 +495,29 @@ export function FastCheckoutPanel({
                 {totalAmount}
               </span>
             </div>
+
+            {/* Minimum order warning */}
+            {isBelowMinimum && (
+              <div className="flex items-center gap-3 rounded-2xl bg-[rgba(0,0,0,0.25)] p-4">
+                <div
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[#ff5c00]"
+                  style={{ background: "rgba(255,92,0,0.15)" }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <circle cx="10" cy="10" r="8" stroke="#ff5c00" strokeWidth="2" />
+                    <path d="M10 6v5" stroke="#ff5c00" strokeWidth="2.5" strokeLinecap="round" />
+                    <circle cx="10" cy="14.5" r="1.2" fill="#ff5c00" />
+                  </svg>
+                </div>
+                <p className="font-body text-sm font-normal leading-5 text-white">
+                  To proceed to checkout, your order must be at least{" "}
+                  <span className="font-bold">
+                    {currencyLabel} {currencySymbol}
+                    {minOrderAmount}
+                  </span>
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -537,13 +587,14 @@ export function FastCheckoutPanel({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex flex-1 items-center justify-center rounded-3xl bg-[#232330] px-6 py-4 font-body text-sm font-bold uppercase tracking-wider text-white backdrop-blur-[3px]"
+                className="flex flex-1 items-center justify-center rounded-3xl bg-[#232330] px-6 py-4 font-body text-sm font-bold uppercase tracking-wider text-white backdrop-blur-[3px] transition-all hover:bg-[#2d2d40] hover:shadow-[0_2px_12px_rgba(0,0,0,0.3)]"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="flex flex-1 flex-col items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-3 shadow-[0_4px_12px_rgba(255,92,0,0.3)]"
+                disabled={isBelowMinimum}
+                className={`flex flex-1 flex-col items-center justify-center rounded-3xl border-2 px-6 py-3 transition-all ${isBelowMinimum ? "cursor-not-allowed border-[#ff975d]/40 opacity-50" : "border-[#ff975d] shadow-[0_4px_12px_rgba(255,92,0,0.3)] hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"}`}
                 style={{
                   backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
                 }}

@@ -7,6 +7,7 @@ import { CartItemCard } from "./CartItemCard";
 import { CartSummary } from "./CartSummary";
 import { CheckoutHero } from "./CheckoutHero";
 import { DiscountCodeSection } from "./DiscountCodeSection";
+import { RecommendedItems } from "./RecommendedItems";
 import { SelectBoosterSection } from "./SelectBoosterSection";
 import { type Booster, type CartItem, SAMPLE_CART_ITEMS } from "./checkoutData";
 
@@ -141,6 +142,9 @@ export function CheckoutPageContent() {
 
         {/* Summary + Actions */}
         <CartSummary subtotal={subtotal} tipAmount={tipAmount} total={total} />
+
+        {/* Recommended items */}
+        <RecommendedItems />
       </div>
     </div>
   );
