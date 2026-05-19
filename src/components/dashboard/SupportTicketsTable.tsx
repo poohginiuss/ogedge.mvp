@@ -88,12 +88,12 @@ function DesktopRow({ ticket }: { ticket: SupportTicket }) {
       </div>
 
       <div className="flex flex-1 items-center justify-center px-8">
-        <button
-          type="button"
+        <Link
+          href={`/app/customer/support/${ticket.ticketId.replace("#", "")}`}
           className="font-body text-base font-bold uppercase tracking-wide text-white transition-colors hover:text-[#ff975d]"
         >
           VIEW
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -127,12 +127,12 @@ function MobileCard({ ticket }: { ticket: SupportTicket }) {
             />
           </button>
         </div>
-        <button
-          type="button"
+        <Link
+          href={`/app/customer/support/${ticket.ticketId.replace("#", "")}`}
           className="font-body text-base font-bold uppercase tracking-wide text-white transition-colors hover:text-[#ff975d]"
         >
           VIEW
-        </button>
+        </Link>
       </div>
 
       {/* Detail rows */}

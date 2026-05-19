@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
 
-export function ContactMethods() {
+export function ContactMethods({ showEmail = true }: { showEmail?: boolean } = {}) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -31,45 +31,46 @@ export function ContactMethods() {
         </Button>
       </div>
 
-      {/* Email Us */}
-      <div
-        className="flex flex-col gap-6 rounded-3xl p-8"
-        style={{ background: "rgba(56,56,82,0.3)" }}
-      >
-        <div className="flex flex-col gap-2">
-          <h3 className="font-body text-xl font-medium leading-[30px] text-white">Email Us</h3>
-          <p className="font-body text-base leading-6 text-white">
-            Please contact us on our support email if you have further questions.
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="flex w-full items-center gap-2 rounded-lg px-4 py-2 transition-colors"
-          style={{
-            background: copied ? "rgba(26,173,25,0.15)" : "rgba(23,25,31,0.3)",
-            border: copied ? "1px solid rgba(26,173,25,0.4)" : "1px solid transparent",
-          }}
+      {showEmail && (
+        <div
+          className="flex flex-col gap-6 rounded-3xl p-8"
+          style={{ background: "rgba(56,56,82,0.3)" }}
         >
-          <div className="flex flex-1 flex-col items-start gap-0.5">
-            <span className="font-body text-sm leading-5 text-text-secondary">Email:</span>
-            <span className="font-body text-base leading-6 text-white">support@ogedge.com</span>
+          <div className="flex flex-col gap-2">
+            <h3 className="font-body text-xl font-medium leading-[30px] text-white">Email Us</h3>
+            <p className="font-body text-base leading-6 text-white">
+              Please contact us on our support email if you have further questions.
+            </p>
           </div>
-          {copied ? (
-            <span className="font-body text-sm font-medium text-[#1aad19]">Copied!</span>
-          ) : (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/icons/contact/copy.svg"
-                alt="Copy"
-                className="h-6 w-6 opacity-70"
-                loading="lazy"
-              />
-            </>
-          )}
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="flex w-full items-center gap-2 rounded-lg px-4 py-2 transition-colors"
+            style={{
+              background: copied ? "rgba(26,173,25,0.15)" : "rgba(23,25,31,0.3)",
+              border: copied ? "1px solid rgba(26,173,25,0.4)" : "1px solid transparent",
+            }}
+          >
+            <div className="flex flex-1 flex-col items-start gap-0.5">
+              <span className="font-body text-sm leading-5 text-text-secondary">Email:</span>
+              <span className="font-body text-base leading-6 text-white">support@ogedge.com</span>
+            </div>
+            {copied ? (
+              <span className="font-body text-sm font-medium text-[#1aad19]">Copied!</span>
+            ) : (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/icons/contact/copy.svg"
+                  alt="Copy"
+                  className="h-6 w-6 opacity-70"
+                  loading="lazy"
+                />
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Other Support */}
       <div
