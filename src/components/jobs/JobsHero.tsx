@@ -42,7 +42,7 @@ export function JobsHero() {
             alt="OGEdge Booster Character"
             fill
             priority
-            className="object-contain object-bottom"
+            className="object-contain object-bottom -translate-y-12"
           />
           {/* Bottom fade so character blends into section below */}
           <div
