@@ -49,7 +49,7 @@ export function CardSelectorCalculator({
 
   return (
     <div
-      className="min-w-0 rounded-3xl p-6 md:p-10 lg:px-[60px] lg:py-[50px]"
+      className="min-w-0 rounded-3xl p-6 md:p-10 xl:px-[60px] xl:py-[50px]"
       style={{ border: CALC_BORDER, background: CALC_BG, backdropFilter: "blur(7px)" }}
     >
       <div className="flex min-w-0 flex-col gap-8 font-body">
@@ -60,7 +60,7 @@ export function CardSelectorCalculator({
         </div>
 
         {/* Card grid */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:gap-6">
           {cards.map((card) => (
             <SelectableCardButton
               key={card.id}

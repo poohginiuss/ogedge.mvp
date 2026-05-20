@@ -190,7 +190,7 @@ export function RankBoostingImage({
 
   return (
     <div
-      className="rounded-3xl p-6 md:p-10 lg:px-[60px] lg:py-[50px]"
+      className="rounded-3xl p-6 md:p-10 xl:px-[60px] xl:py-[50px]"
       style={{
         border: "2px solid #6d6d96",
         background:
@@ -201,7 +201,7 @@ export function RankBoostingImage({
       <div className="flex flex-col gap-8">
         {/* Rank selectors */}
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-8 lg:flex-row lg:gap-8">
+          <div className="flex flex-col gap-8 xl:flex-row xl:gap-8">
             {/* Current Rank */}
             <div className="flex flex-1 flex-col gap-6">
               <div>
@@ -270,7 +270,7 @@ export function RankBoostingImage({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:gap-6">
             <Dropdown
               label="Server *"
               value={server}

@@ -18,81 +18,84 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
   const [closeHovered, setCloseHovered] = useState(false);
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-6">
-        <Link
-          href="/app/customer/support"
-          aria-label="Back to tickets"
-          className="rounded-lg p-1 transition-all duration-200"
-          style={{
-            background: backHovered ? "rgba(56,56,82,0.5)" : "transparent",
-          }}
-          onMouseEnter={() => setBackHovered(true)}
-          onMouseLeave={() => setBackHovered(false)}
-        >
-          <Image
-            src={`${ICON}/back.svg`}
-            alt=""
-            width={12}
-            height={24}
-            className="hidden lg:block"
-            aria-hidden="true"
-          />
-          <Image
-            src={`${ICON}/back.svg`}
-            alt=""
-            width={8}
-            height={16}
-            className="lg:hidden"
-            aria-hidden="true"
-          />
-        </Link>
+    <div className="flex flex-col gap-4 lg:gap-0">
+      {/* Desktop: single row with back + title left, buttons right */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+        <div className="flex items-center gap-6">
+          <Link
+            href="/app/customer/support"
+            aria-label="Back to tickets"
+            className="rounded-lg p-1 transition-all duration-200"
+            style={{
+              background: backHovered ? "rgba(56,56,82,0.5)" : "transparent",
+            }}
+            onMouseEnter={() => setBackHovered(true)}
+            onMouseLeave={() => setBackHovered(false)}
+          >
+            <Image
+              src={`${ICON}/back.svg`}
+              alt=""
+              width={12}
+              height={24}
+              className="hidden lg:block"
+              aria-hidden="true"
+            />
+            <Image
+              src={`${ICON}/back.svg`}
+              alt=""
+              width={8}
+              height={16}
+              className="lg:hidden"
+              aria-hidden="true"
+            />
+          </Link>
 
-        <div className="flex min-w-0 flex-1 flex-col">
-          <div className="flex items-center justify-between gap-2 lg:justify-start">
-            <h1 className="font-heading text-lg font-bold text-white lg:text-[32px] lg:font-semibold">
-              Ticket {view.ticketId}
-            </h1>
-            <span
-              className="rounded-lg px-2 py-1 font-body text-sm font-semibold uppercase"
-              style={{ background: theme.bg, color: theme.color }}
-            >
-              {theme.label}
-            </span>
+          <div className="flex min-w-0 flex-col">
+            <div className="flex items-center gap-2">
+              <h1 className="font-heading text-lg font-bold text-white lg:text-[32px] lg:font-semibold">
+                Ticket {view.ticketId}
+              </h1>
+              <span
+                className="rounded-lg px-2 py-1 font-body text-sm font-semibold uppercase"
+                style={{ background: theme.bg, color: theme.color }}
+              >
+                {theme.label}
+              </span>
+            </div>
+            <p className="font-body text-sm text-white lg:text-base">
+              Created on {view.createdAt}
+            </p>
           </div>
-          <p className="font-body text-sm text-white lg:text-base">
-            Created on {view.createdAt}
-          </p>
         </div>
-      </div>
 
-      <div className="flex gap-4">
-        <button
-          type="button"
-          className="flex flex-1 items-center justify-center gap-2 rounded-2xl px-6 py-3 font-body text-base font-medium text-white transition-all duration-200 lg:flex-initial lg:gap-4 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-xl lg:font-bold"
-          style={{
-            background: newHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
-            boxShadow: newHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
-          }}
-          onMouseEnter={() => setNewHovered(true)}
-          onMouseLeave={() => setNewHovered(false)}
-        >
-          <Image src={`${ICON}/add.svg`} alt="" width={24} height={24} aria-hidden="true" />
-          <span>New Ticket</span>
-        </button>
-        <button
-          type="button"
-          className="flex flex-1 items-center justify-center gap-2 rounded-2xl px-6 py-3 font-body text-base font-medium text-white transition-all duration-200 lg:flex-initial lg:gap-4 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-xl lg:font-bold"
-          style={{
-            background: closeHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
-            boxShadow: closeHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
-          }}
-          onMouseEnter={() => setCloseHovered(true)}
-          onMouseLeave={() => setCloseHovered(false)}
-        >
-          <Image src={`${ICON}/check.svg`} alt="" width={24} height={24} aria-hidden="true" />
-          <span>Close Ticket</span>
-        </button>
+        <div className="flex gap-4">
+          <button
+            type="button"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl px-6 py-3 font-body text-base font-medium text-white transition-all duration-200 lg:flex-initial lg:gap-4 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-xl lg:font-bold"
+            style={{
+              background: newHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
+              boxShadow: newHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
+            }}
+            onMouseEnter={() => setNewHovered(true)}
+            onMouseLeave={() => setNewHovered(false)}
+          >
+            <Image src={`${ICON}/add.svg`} alt="" width={24} height={24} aria-hidden="true" />
+            <span>New Ticket</span>
+          </button>
+          <button
+            type="button"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl px-6 py-3 font-body text-base font-medium text-white transition-all duration-200 lg:flex-initial lg:gap-4 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-xl lg:font-bold"
+            style={{
+              background: closeHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
+              boxShadow: closeHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
+            }}
+            onMouseEnter={() => setCloseHovered(true)}
+            onMouseLeave={() => setCloseHovered(false)}
+          >
+            <Image src={`${ICON}/check.svg`} alt="" width={24} height={24} aria-hidden="true" />
+            <span>Close Ticket</span>
+          </button>
+        </div>
       </div>
     </div>
   );

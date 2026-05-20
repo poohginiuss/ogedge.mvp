@@ -132,7 +132,12 @@ export function OrderDetailsPanel({ rows }: { rows: OrderDetailRow[] }) {
     >
       {rows.map((row, idx) => (
         <DetailRow key={row.label} label={row.label} striped={idx % 2 === 1}>
-          <span className="font-body text-base font-semibold text-white">{row.value}</span>
+          <span
+            className="font-body text-base font-semibold"
+            style={{ color: row.valueColor ?? "#ffffff" }}
+          >
+            {row.value}
+          </span>
           {row.copyable && <CopyButton value={row.value} />}
         </DetailRow>
       ))}

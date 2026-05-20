@@ -80,7 +80,7 @@ export function SelectableCardButton({
         <img
           src="/images/icons/services/lock.svg"
           alt=""
-          className="absolute right-[11px] top-[11px] h-4 w-4"
+          className="absolute right-[11px] top-[11px] h-6 w-6"
         />
       )}
     </button>

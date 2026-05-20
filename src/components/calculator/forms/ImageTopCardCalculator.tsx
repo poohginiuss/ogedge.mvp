@@ -49,7 +49,7 @@ export function ImageTopCardCalculator({
 
   return (
     <div
-      className="min-w-0 rounded-3xl p-6 md:p-10 lg:px-[60px] lg:py-[50px]"
+      className="min-w-0 rounded-3xl p-6 md:p-10 xl:px-[60px] xl:py-[50px]"
       style={{ border: CALC_BORDER, background: CALC_BG, backdropFilter: "blur(7px)" }}
     >
       <div className="flex min-w-0 flex-col gap-8 font-body">
@@ -64,7 +64,7 @@ export function ImageTopCardCalculator({
         </div>
 
         {/* Card grid — 2-col mobile, 4-col desktop */}
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+        <div className="grid grid-cols-2 gap-4 xl:grid-cols-4 xl:gap-6">
           {cards.map((card) => (
             <ImageTopCardButton
               key={card.id}

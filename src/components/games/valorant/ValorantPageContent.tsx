@@ -50,6 +50,7 @@ import {
   levelingRequirements,
   mmrBenefits,
   mmrQuickSelects,
+  mmrRankTiers,
   mmrRequirements,
   platformOptions,
   queueOptions,
@@ -117,6 +118,7 @@ export function ValorantPageContent() {
   const isBoosting = category === "boosting";
   const isRankBoost = category === "rank";
   const isMmr = category === "mmr";
+  const isMmrImg = category === "mmr-img";
   const isLeveling = category === "leveling";
 
   const onToggleCard = (id: string) => {
@@ -221,7 +223,7 @@ export function ValorantPageContent() {
       { label: "Queue", value: queue },
       { label: "Platform", value: platformLabel },
     ];
-  } else if (isMmr) {
+  } else if (isMmr || isMmrImg) {
     summaryTitle = "MMR Boost";
     const delta = Math.max(0, desiredMmr - currentMmr);
     numericSubtotal = delta * MMR_PRICE_PER_POINT;
@@ -316,6 +318,25 @@ export function ValorantPageContent() {
         min={MMR_MIN}
         max={MMR_MAX}
         step={MMR_STEP}
+      />
+    );
+  } else if (isMmrImg) {
+    form = (
+      <MmrBoostCalculator
+        currentMmr={currentMmr}
+        setCurrentMmr={setCurrentMmr}
+        desiredMmr={desiredMmr}
+        setDesiredMmr={setDesiredMmr}
+        platform={platform}
+        setPlatform={setPlatform}
+        platformOptions={platformOptions}
+        quickSelects={mmrQuickSelects}
+        requirements={mmrRequirements}
+        benefits={mmrBenefits}
+        min={MMR_MIN}
+        max={MMR_MAX}
+        step={MMR_STEP}
+        rankTiers={mmrRankTiers}
       />
     );
   } else if (isCurrency) {

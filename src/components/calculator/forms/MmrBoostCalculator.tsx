@@ -13,6 +13,12 @@ export type MmrQuickSelect = {
   desired: number;
 };
 
+export type MmrRankTier = {
+  label: string;
+  minMmr: number;
+  image?: string;
+};
+
 export type MmrBoostCalculatorProps = {
   currentMmr: number;
   setCurrentMmr: (v: number) => void;
@@ -27,6 +33,7 @@ export type MmrBoostCalculatorProps = {
   min?: number;
   max?: number;
   step?: number;
+  rankTiers?: MmrRankTier[];
 };
 
 const STEPPER_BG =
@@ -39,6 +46,17 @@ function formatMmrValue(n: number): string {
   return n.toLocaleString("de-DE");
 }
 
+function getRankForMmr(
+  mmr: number,
+  tiers: MmrRankTier[],
+): MmrRankTier | undefined {
+  let match: MmrRankTier | undefined;
+  for (const tier of tiers) {
+    if (mmr >= tier.minMmr) match = tier;
+  }
+  return match;
+}
+
 type MmrStepperProps = {
   label: string;
   value: number;
@@ -47,6 +65,7 @@ type MmrStepperProps = {
   max: number;
   step: number;
   highlighted?: boolean;
+  rankTier?: MmrRankTier;
 };
 
 function MmrStepper({
@@ -57,6 +76,7 @@ function MmrStepper({
   max,
   step,
   highlighted = false,
+  rankTier,
 }: MmrStepperProps) {
   return (
     <div
@@ -71,6 +91,14 @@ function MmrStepper({
         <span className="font-body text-sm font-semibold uppercase leading-none text-white/80">
           {label}
         </span>
+        {rankTier?.image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={rankTier.image}
+            alt={rankTier.label}
+            className="h-16 w-16 object-contain"
+          />
+        )}
         <div className="flex w-full items-center gap-2">
           <button
             type="button"
@@ -132,7 +160,9 @@ function MmrStepper({
             <img src="/images/icons/services/plus.svg" alt="" className="h-6 w-6" />
           </button>
         </div>
-        <span className="font-body text-sm font-normal leading-none text-white/80">Rank</span>
+        <span className="font-body text-sm font-normal leading-none text-white/80">
+          {rankTier?.label ?? "Rank"}
+        </span>
       </div>
     </div>
   );
@@ -216,6 +246,7 @@ export function MmrBoostCalculator({
   min = 0,
   max = 6500,
   step = 100,
+  rankTiers,
 }: MmrBoostCalculatorProps) {
   // Keep current ≤ desired by nudging the other endpoint when the user types past it.
   const handleCurrentChange = (v: number) => {
@@ -231,6 +262,9 @@ export function MmrBoostCalculator({
     }
   };
 
+  const currentRankTier = rankTiers ? getRankForMmr(currentMmr, rankTiers) : undefined;
+  const desiredRankTier = rankTiers ? getRankForMmr(desiredMmr, rankTiers) : undefined;
+
   const handleQuickSelect = (qs: MmrQuickSelect) => {
     setCurrentMmr(qs.current);
     setDesiredMmr(qs.desired);
@@ -238,7 +272,7 @@ export function MmrBoostCalculator({
 
   return (
     <div
-      className="rounded-3xl p-6 md:p-10 lg:px-[60px] lg:py-[50px]"
+      className="rounded-3xl p-6 md:p-10 xl:px-[60px] xl:py-[50px]"
       style={{
         border: "2px solid #6d6d96",
         background:
@@ -246,19 +280,19 @@ export function MmrBoostCalculator({
         backdropFilter: "blur(7px)",
       }}
     >
-      <div className="flex flex-col gap-6 lg:gap-8">
+      <div className="flex flex-col gap-6 xl:gap-8">
         {/* Header */}
         <div className="flex flex-col gap-1">
-          <h3 className="font-body text-lg font-medium leading-7 text-white lg:text-2xl lg:leading-8">
+          <h3 className="font-body text-lg font-medium leading-7 text-white xl:text-2xl xl:leading-8">
             Select MMR Range
           </h3>
-          <p className="font-body text-xs font-normal leading-[18px] text-white/50 lg:text-base lg:leading-6">
+          <p className="font-body text-xs font-normal leading-[18px] text-white/50 xl:text-base xl:leading-6">
             Configure your order
           </p>
         </div>
 
         {/* Current/Desired MMR steppers + arrow */}
-        <div className="flex flex-col items-center gap-4 lg:flex-row lg:gap-4">
+        <div className="flex flex-col items-center gap-4 xl:flex-row xl:gap-4">
           <MmrStepper
             label="Current MMR"
             value={currentMmr}
@@ -266,12 +300,13 @@ export function MmrBoostCalculator({
             min={min}
             max={max}
             step={step}
+            rankTier={currentRankTier}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/icons/services/arrow-right-sm.svg"
             alt="to"
-            className="h-5 w-5 shrink-0 rotate-180 lg:rotate-90"
+            className="h-5 w-5 shrink-0 rotate-180 xl:rotate-90"
           />
           <MmrStepper
             label="Desired MMR"
@@ -281,6 +316,7 @@ export function MmrBoostCalculator({
             max={max}
             step={step}
             highlighted
+            rankTier={desiredRankTier}
           />
         </div>
 
@@ -307,7 +343,7 @@ export function MmrBoostCalculator({
         {/* Quick Selection */}
         <div className="flex flex-col gap-3">
           <p className="font-body text-base font-medium leading-6 text-white">Quick Selection</p>
-          <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-5">
             {quickSelects.map((qs) => {
               const selected = qs.current === currentMmr && qs.desired === desiredMmr;
               return (
@@ -327,10 +363,10 @@ export function MmrBoostCalculator({
         {/* Game Configuration */}
         <div className="flex flex-col gap-4">
           <div>
-            <h3 className="font-body text-lg font-medium leading-7 text-white lg:text-2xl lg:leading-8">
+            <h3 className="font-body text-lg font-medium leading-7 text-white xl:text-2xl xl:leading-8">
               Game Configuration
             </h3>
-            <p className="font-body text-xs font-normal leading-[18px] text-white/50 lg:text-base lg:leading-6">
+            <p className="font-body text-xs font-normal leading-[18px] text-white/50 xl:text-base xl:leading-6">
               Enter game details
             </p>
           </div>

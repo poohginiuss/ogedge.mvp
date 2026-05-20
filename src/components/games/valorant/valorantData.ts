@@ -91,6 +91,7 @@ export const categories: CategoryOption[] = [
   { id: "camo", icon: "/images/icons/services/safety-outlined.svg", label: "Camo Boost" },
   { id: "boosting", icon: "/images/icons/services/crown.svg", label: "Boosting" },
   { id: "mmr", icon: "/images/icons/services/tap.svg", label: "MMR Boost" },
+  { id: "mmr-img", icon: "/images/icons/services/tap.svg", label: "MMR Boost+" },
   { id: "leveling", icon: "/images/icons/services/rocket.svg", label: "Leveling" },
 ];
 
@@ -260,10 +261,24 @@ export const currencyBenefits = [
 
 /* ── MMR Boost data ──────────────────────────────────────────── */
 
+import type { MmrRankTier } from "@/components/calculator/forms/MmrBoostCalculator";
+
 export const MMR_MIN = 0;
 export const MMR_MAX = 6500;
 export const MMR_STEP = 100;
 export const MMR_PRICE_PER_POINT = 0.03;
+
+export const mmrRankTiers: MmrRankTier[] = [
+  { label: "Iron", minMmr: 0, image: "/images/ranks/emblems/iron.png" },
+  { label: "Bronze", minMmr: 720, image: "/images/ranks/emblems/bronze.png" },
+  { label: "Silver", minMmr: 1440, image: "/images/ranks/emblems/silver.png" },
+  { label: "Gold", minMmr: 2160, image: "/images/ranks/emblems/gold.png" },
+  { label: "Platinum", minMmr: 2880, image: "/images/ranks/emblems/platinum.png" },
+  { label: "Diamond", minMmr: 3600, image: "/images/ranks/emblems/diamond.png" },
+  { label: "Ascendant", minMmr: 4320, image: "/images/ranks/emblems/emerald.png" },
+  { label: "Immortal", minMmr: 5040, image: "/images/ranks/emblems/master.png" },
+  { label: "Radiant", minMmr: 5760, image: "/images/ranks/emblems/challenger.png" },
+];
 
 export const mmrQuickSelects: MmrQuickSelect[] = [
   { id: "1-2k", label: "1k → 2k", current: 1000, desired: 2000 },

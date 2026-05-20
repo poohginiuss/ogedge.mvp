@@ -27,8 +27,12 @@ export function CalculatorPageShell({
   left,
   right,
 }: CalculatorPageShellProps) {
+  const overlap = topBanner
+    ? "-mt-[60px] md:-mt-[80px] lg:-mt-[80px]"
+    : "mt-6 md:mt-8 lg:mt-10";
+
   return (
-    <section className="relative z-20 -mt-[60px] md:-mt-[80px] lg:-mt-[80px]">
+    <section className={`relative z-20 ${overlap}`}>
       <div className="mx-auto w-full max-w-[1410px] px-4 md:px-6">
         {topBanner && <div className="mb-6">{topBanner}</div>}
 
@@ -40,7 +44,7 @@ export function CalculatorPageShell({
           <CategoryTabs options={categoryOptions} value={category} onChange={onCategoryChange} />
         </div>
 
-        <div className="mt-6 grid grid-cols-1 items-start gap-6 lg:grid-cols-[1fr_490px]">
+        <div className="mt-6 grid grid-cols-1 items-start gap-6 xl:grid-cols-[1fr_490px]">
           {left}
           {right}
         </div>

@@ -91,7 +91,7 @@ export function CurrencySliderCalculator({
 
   return (
     <div
-      className="min-w-0 rounded-3xl p-6 md:p-10 lg:px-[60px] lg:py-[50px]"
+      className="min-w-0 rounded-3xl p-6 md:p-10 xl:px-[60px] xl:py-[50px]"
       style={{ border: CALC_BORDER, background: CALC_BG, backdropFilter: "blur(7px)" }}
     >
       <div className="flex min-w-0 flex-col gap-6 font-body md:gap-8">

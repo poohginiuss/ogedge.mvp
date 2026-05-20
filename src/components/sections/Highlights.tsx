@@ -35,9 +35,9 @@ const slides: Slide[] = [
       </>
     ),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed felis vel eros eleifend fermentum. Nulla id iaculis dui. Morbi maximus placerat augue, in euismod felis facilisis sit amet. Quisque efficitur egestas magna nec posuere.",
-    image: "/images/highlights/highlights-02.png",
-    imageWidth: 643,
-    imageHeight: 675,
+    image: "/images/highlights/slide-2-img.svg",
+    imageWidth: 975,
+    imageHeight: 1024,
   },
   {
     number: "03",
@@ -47,9 +47,9 @@ const slides: Slide[] = [
       </>
     ),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed felis vel eros eleifend fermentum. Nulla id iaculis dui. Morbi maximus placerat augue, in euismod felis facilisis sit amet. Quisque efficitur egestas magna nec posuere.",
-    image: "/images/highlights/highlights-03.png",
-    imageWidth: 651,
-    imageHeight: 434,
+    image: "/images/highlights/slide-3-img.svg",
+    imageWidth: 874,
+    imageHeight: 582,
   },
   {
     number: "04",
@@ -59,9 +59,9 @@ const slides: Slide[] = [
       </>
     ),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed felis vel eros eleifend fermentum. Nulla id iaculis dui. Morbi maximus placerat augue, in euismod felis facilisis sit amet. Quisque efficitur egestas magna nec posuere.",
-    image: "/images/highlights/highlights-04.png",
-    imageWidth: 730,
-    imageHeight: 548,
+    image: "/images/highlights/slide-4-img.svg",
+    imageWidth: 1284,
+    imageHeight: 963,
   },
 ];
 

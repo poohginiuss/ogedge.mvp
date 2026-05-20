@@ -163,7 +163,7 @@ export function LevelingBoostCalculator({
 
   return (
     <div
-      className="rounded-3xl p-6 md:p-10 lg:px-[60px] lg:py-[50px]"
+      className="rounded-3xl p-6 md:p-10 xl:px-[60px] xl:py-[50px]"
       style={{
         border: "2px solid #6d6d96",
         background:
@@ -171,19 +171,19 @@ export function LevelingBoostCalculator({
         backdropFilter: "blur(7px)",
       }}
     >
-      <div className="flex flex-col gap-6 lg:gap-8">
+      <div className="flex flex-col gap-6 xl:gap-8">
         {/* Header */}
         <div className="flex flex-col gap-1">
-          <h3 className="font-body text-lg font-medium leading-7 text-white lg:text-2xl lg:leading-8">
+          <h3 className="font-body text-lg font-medium leading-7 text-white xl:text-2xl xl:leading-8">
             Select Leveling Range
           </h3>
-          <p className="font-body text-xs font-normal leading-[18px] text-white/50 lg:text-base lg:leading-6">
+          <p className="font-body text-xs font-normal leading-[18px] text-white/50 xl:text-base xl:leading-6">
             Configure your order
           </p>
         </div>
 
         {/* Current/Desired level steppers + arrow */}
-        <div className="flex flex-col items-center gap-4 lg:flex-row lg:gap-4">
+        <div className="flex flex-col items-center gap-4 xl:flex-row xl:gap-4">
           <LevelStepper
             label="Current Level"
             value={currentLevel}
@@ -196,7 +196,7 @@ export function LevelingBoostCalculator({
           <img
             src="/images/icons/services/arrow-right-sm.svg"
             alt="to"
-            className="h-5 w-5 shrink-0 rotate-180 lg:rotate-90"
+            className="h-5 w-5 shrink-0 rotate-180 xl:rotate-90"
           />
           <LevelStepper
             label="Desired Level"
@@ -237,10 +237,10 @@ export function LevelingBoostCalculator({
         {/* Game Configuration */}
         <div className="flex flex-col gap-4">
           <div>
-            <h3 className="font-body text-lg font-medium leading-7 text-white lg:text-2xl lg:leading-8">
+            <h3 className="font-body text-lg font-medium leading-7 text-white xl:text-2xl xl:leading-8">
               Game Configuration
             </h3>
-            <p className="font-body text-xs font-normal leading-[18px] text-white/50 lg:text-base lg:leading-6">
+            <p className="font-body text-xs font-normal leading-[18px] text-white/50 xl:text-base xl:leading-6">
               Enter game details
             </p>
           </div>

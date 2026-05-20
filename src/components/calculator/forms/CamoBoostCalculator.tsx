@@ -142,7 +142,7 @@ export function CamoBoostCalculator({
 
   return (
     <div
-      className="min-w-0 rounded-3xl p-6 md:p-10 lg:px-[60px] lg:py-[50px]"
+      className="min-w-0 rounded-3xl p-6 md:p-10 xl:px-[60px] xl:py-[50px]"
       style={{ border: CALC_CARD_BORDER, background: CALC_BG, backdropFilter: "blur(7px)" }}
     >
       <div className="flex min-w-0 flex-col gap-8 font-body">
@@ -152,7 +152,7 @@ export function CamoBoostCalculator({
             <h3 className="text-2xl font-medium leading-8 text-white">Game Mode</h3>
             <p className="text-base font-medium leading-6 text-white/50">Select the game mode</p>
           </div>
-          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
             {gameModes.map((mode) => {
               const active = gameMode === mode;
               return (
@@ -176,7 +176,7 @@ export function CamoBoostCalculator({
             <h3 className="text-2xl font-medium leading-8 text-white">Camo Tier</h3>
             <p className="text-base font-medium leading-6 text-white/50">Select camo tier</p>
           </div>
-          <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2 xl:grid-cols-5">
             {camoTierOptions.map((tier) => {
               const active = camoTier === tier.id;
               const ownRow = tier.id === "seasonal-bundles";
@@ -185,7 +185,7 @@ export function CamoBoostCalculator({
                   key={tier.id}
                   type="button"
                   onClick={() => setCamoTier(tier.id)}
-                  className={`flex h-[50px] items-center justify-center rounded-2xl px-2 font-semibold text-sm uppercase tracking-[0.28px] transition-all lg:col-span-1 ${ownRow ? "col-span-2 lg:col-span-1" : ""}`}
+                  className={`flex h-[50px] items-center justify-center rounded-2xl px-2 font-semibold text-sm uppercase tracking-[0.28px] transition-all xl:col-span-1 ${ownRow ? "col-span-2 xl:col-span-1" : ""}`}
                   style={active ? PILL_ACTIVE : PILL_INACTIVE}
                 >
                   {tier.label}
@@ -217,7 +217,7 @@ export function CamoBoostCalculator({
 
         {/* Weapon tiers — two-column: type list (scrollable) + weapon list (scrollable) */}
         {isWeaponTier && (
-          <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
+          <div className="flex min-w-0 flex-col gap-6 xl:flex-row xl:gap-6">
             {/* Left: Weapon Type Selection (multi-select, scrollable) */}
             <div className="flex min-w-0 flex-1 flex-col gap-3">
               <h4 className="text-xl font-medium text-white">Weapon Type Selection</h4>

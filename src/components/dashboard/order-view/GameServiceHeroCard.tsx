@@ -22,11 +22,20 @@ export function GameServiceHeroCard({ hero, statusSubLabel, className }: GameSer
           className="pointer-events-none absolute left-[41px] top-[-36px] hidden lg:block"
           style={{ width: "413px", height: "478px" }}
         >
+          {/* Dark red glow orbs behind character */}
+          <div
+            className="absolute left-1/2 top-1/3 h-[200px] w-[200px] -translate-x-1/2 rounded-full"
+            style={{ background: "rgba(160, 30, 30, 0.35)", filter: "blur(80px)" }}
+          />
+          <div
+            className="absolute left-[30%] top-[55%] h-[150px] w-[150px] rounded-full"
+            style={{ background: "rgba(120, 20, 20, 0.3)", filter: "blur(60px)" }}
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={hero.artworkSrc}
             alt=""
-            className="h-full w-full object-cover"
+            className="relative h-full w-full object-cover"
             style={{ opacity: 0.3, transform: "rotate(180deg) scaleY(-1)" }}
           />
         </div>

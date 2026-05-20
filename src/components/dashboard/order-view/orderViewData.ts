@@ -63,6 +63,8 @@ export type OrderDetailRow = {
   value: string;
   /** Render a copy-to-clipboard affordance next to the value. */
   copyable?: boolean;
+  /** Override default white text color for the value. */
+  valueColor?: string;
 };
 
 export type AccountDetailRow = {

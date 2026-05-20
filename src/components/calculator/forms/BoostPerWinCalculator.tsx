@@ -64,7 +64,7 @@ export function BoostPerWinCalculator({
 
   return (
     <div
-      className="rounded-3xl p-6 md:p-10 lg:p-[60px_50px]"
+      className="rounded-3xl p-6 md:p-10 xl:p-[60px_50px]"
       style={{
         border: "2px solid #6d6d96",
         background:
@@ -81,7 +81,7 @@ export function BoostPerWinCalculator({
               {subtitle}
             </p>
           </div>
-          <div className="grid grid-cols-5 gap-2 lg:grid-cols-9">
+          <div className="grid grid-cols-5 gap-2 xl:grid-cols-9">
             {ranks.map((rank) => (
               <RankButton
                 key={rank.key}

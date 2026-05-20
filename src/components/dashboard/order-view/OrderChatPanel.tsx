@@ -18,6 +18,8 @@ type Props = {
   view: OrderViewModel;
   /** Strip outer chrome when embedded inside a MobileDrawer. */
   inDrawer?: boolean;
+  /** "customer" shows the poaching warning + Report; "booster" shows rules warning + Rules button. */
+  role?: "customer" | "booster";
   onNotify?: () => void;
   onProfile?: () => void;
   onReport?: () => void;
@@ -151,7 +153,7 @@ function MessageBubble({ msg }: { msg: ChatMessage }) {
   return <BoosterBubble body={msg.body} />;
 }
 
-export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, onReport }: Props) {
+export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNotify, onProfile, onReport }: Props) {
   const [draft, setDraft] = useState("I want to talk about my order");
   const [messages, setMessages] = useState<ChatMessage[]>(view.messages);
   const [reportSubmitted, setReportSubmitted] = useState(false);
@@ -277,7 +279,7 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
         </div>
       </div>
 
-      {/* ─── 2. Booster-poaching warning ─────────────────────────────── */}
+      {/* ─── 2. Warning banner ─────────────────────────────────────── */}
       {view.showBoosterPoachingWarning && (
         <div
           className="flex items-center justify-between gap-4 px-6 py-2"
@@ -286,27 +288,45 @@ export function OrderChatPanel({ view, inDrawer = false, onNotify, onProfile, on
               "linear-gradient(97deg, rgba(255,151,93,0.2) 0%, rgba(255,92,0,0.2) 50%, rgba(163,45,5,0.2) 100%)",
           }}
         >
-          <p className="font-body text-[11px] leading-snug text-white/85">
-            Has a booster contacted you after your order? This violates our terms. Report it to earn
-            a <span className="font-semibold text-white">$75–$150</span> reward and help keep the
-            platform safe.
-          </p>
-          <button
-            type="button"
-            onClick={() => {
-              setReportSubmitted(true);
-              onReport?.();
-            }}
-            className="flex h-10 shrink-0 items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-colors hover:bg-[#17191f]/70"
-          >
-            <Image
-              src="/images/dashboard/orderview/icons/report-flag.svg"
-              alt=""
-              width={16}
-              height={16}
-            />
-            {reportSubmitted ? "Reported" : "Report"}
-          </button>
+          {role === "customer" ? (
+            <>
+              <p className="font-body text-[11px] leading-snug text-white/85">
+                Has a booster contacted you after your order? This violates our terms. Report it to earn
+                a <span className="font-semibold text-white">$75–$150</span> reward and help keep the
+                platform safe.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setReportSubmitted(true);
+                  onReport?.();
+                }}
+                className="flex h-10 shrink-0 items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-colors hover:bg-[#17191f]/70"
+              >
+                <Image
+                  src="/images/dashboard/orderview/icons/report-flag.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                />
+                {reportSubmitted ? "Reported" : "Report"}
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="font-body text-xs leading-snug text-white/80">
+                Respect the customer and try to finish the order on time. Do not contact the customer
+                outside the order chat, you will be heavily fined.
+              </p>
+              <button
+                type="button"
+                onClick={onReport}
+                className="flex h-10 shrink-0 items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-colors hover:bg-[#17191f]/70"
+              >
+                Rules
+              </button>
+            </>
+          )}
         </div>
       )}
 

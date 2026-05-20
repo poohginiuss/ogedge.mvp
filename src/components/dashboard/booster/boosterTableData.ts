@@ -17,6 +17,10 @@ export type BoosterTableOrder = {
   rangeLabel: string;
   details: DetailTag[];
   earning: string;
+  bonus?: string;
+  completionTime?: string;
+  employee?: string;
+  employeeRating?: number;
   tableStatus: TableOrderStatus;
   chatActive?: boolean;
   canClaim?: boolean;
@@ -42,17 +46,31 @@ const DETAIL_SETS: DetailTag[][] = [
   [TAG_NA, TAG_STREAMING, TAG_RUSH],
 ];
 
-const EARNINGS = ["$15.00", "$22.50", "$10.00", "$30.00", "$18.75"];
+const EARNINGS = ["$123.00", "$85.00", "$45.00", "$210.00", "$67.50"];
+const BONUSES = ["+$20", undefined, "+$15", undefined, "+$30"];
+const COMPLETION_TIMES = ["12h", "24h", "6h", "12h", "48h"];
+const EMPLOYEES = ["Booster John", "loremipsum", "loremipsum", "loremipsum", "loremipsum"];
 
 const AVAILABLE_STATUSES: TableOrderStatus[] = ["waiting-for-booster"];
-const MY_STATUSES: TableOrderStatus[] = ["started", "paused", "assigned-booster"];
-const COMPLETED_STATUSES: TableOrderStatus[] = ["completed"];
+const MY_STATUSES: TableOrderStatus[] = [
+  "waiting-for-booster",
+  "assigned-booster",
+  "started",
+  "paused",
+  "completed",
+];
+const COMPLETED_STATUSES: TableOrderStatus[] = [
+  "waiting-for-booster",
+  "assigned-booster",
+  "paused",
+  "completed",
+];
 
 function makeBoosterOrder(
   i: number,
   prefix: string,
   statuses: TableOrderStatus[],
-  canClaim?: boolean,
+  opts?: { canClaim?: boolean; withEmployee?: boolean },
 ): BoosterTableOrder {
   const svc = SERVICES[i % SERVICES.length];
   return {
@@ -63,18 +81,22 @@ function makeBoosterOrder(
     rangeLabel: svc.range,
     details: DETAIL_SETS[i % DETAIL_SETS.length],
     earning: EARNINGS[i % EARNINGS.length],
+    bonus: BONUSES[i % BONUSES.length],
+    completionTime: COMPLETION_TIMES[i % COMPLETION_TIMES.length],
+    employee: opts?.withEmployee ? EMPLOYEES[i % EMPLOYEES.length] : undefined,
+    employeeRating: opts?.withEmployee ? 4.9 : undefined,
     tableStatus: statuses[i % statuses.length],
     chatActive: i % 3 === 0,
-    canClaim,
+    canClaim: opts?.canClaim,
   };
 }
 
 export const boosterAvailableTableOrders: BoosterTableOrder[] = Array.from({ length: 30 }, (_, i) =>
-  makeBoosterOrder(i, "ba", AVAILABLE_STATUSES, true),
+  makeBoosterOrder(i, "ba", AVAILABLE_STATUSES, { canClaim: true }),
 );
 
 export const boosterMyTableOrders: BoosterTableOrder[] = Array.from({ length: 30 }, (_, i) =>
-  makeBoosterOrder(i + 5, "bm", MY_STATUSES),
+  makeBoosterOrder(i + 5, "bm", MY_STATUSES, { withEmployee: true }),
 );
 
 export const boosterCompletedTableOrders: BoosterTableOrder[] = Array.from({ length: 30 }, (_, i) =>

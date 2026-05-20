@@ -172,7 +172,7 @@ function CustomOfferBanner() {
       </div>
 
       <div className="relative z-[1] flex flex-col items-stretch gap-2 lg:items-center">
-        <Button href="#contact" variant="primary" size="lg" className="w-full lg:w-auto">
+        <Button href="#contact" variant="primary" size="lg" className="w-full text-center lg:w-auto">
           Request custom offer
         </Button>
         <p className="text-center font-body text-sm leading-5 text-white">

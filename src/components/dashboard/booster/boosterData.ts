@@ -11,7 +11,7 @@ export const boosterSidebarNavItems: NavItem[] = [
   {
     id: "available-orders",
     label: "Available Orders",
-    icon: "/images/dashboard/icons/nav-active-orders.svg",
+    icon: "/images/dashboard/icons/nav-available-orders.svg",
   },
   { id: "my-orders", label: "My Orders", icon: "/images/dashboard/icons/nav-active-orders.svg" },
   {
