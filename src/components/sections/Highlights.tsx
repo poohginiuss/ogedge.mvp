@@ -23,7 +23,7 @@ const slides: Slide[] = [
       </>
     ),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed felis vel eros eleifend fermentum. Nulla id iaculis dui. Morbi maximus placerat augue, in euismod felis facilisis sit amet. Quisque efficitur egestas magna nec posuere.",
-    image: "/images/highlights/highlights-01.png",
+    image: "/images/highlights/slide-1-img.webp",
     imageWidth: 727,
     imageHeight: 461,
   },
