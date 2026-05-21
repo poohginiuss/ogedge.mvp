@@ -33,7 +33,7 @@ export function FaqCategoryChip({
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className="flex h-[50px] shrink-0 items-center gap-2 rounded-2xl px-4 transition-colors"
+      className="flex h-[50px] shrink-0 cursor-pointer items-center gap-2 rounded-2xl px-4 transition-colors"
       style={{
         background: "rgba(0,0,0,0.2)",
         border: active ? "1px solid #ff975d" : "1px solid var(--dark-border)",

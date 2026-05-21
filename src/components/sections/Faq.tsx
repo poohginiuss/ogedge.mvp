@@ -69,7 +69,7 @@ export function Faq() {
               >
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 text-left"
+                  className="flex w-full cursor-pointer items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 text-left"
                   onClick={() => setOpenIndex(isOpen ? -1 : i)}
                   aria-expanded={isOpen}
                 >

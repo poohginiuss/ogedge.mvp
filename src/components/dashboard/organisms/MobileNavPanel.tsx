@@ -49,8 +49,8 @@ export function MobileNavPanel({
 
       {/* Nav panel */}
       <div
-        className="absolute left-6 right-6 top-[152px] flex flex-col rounded-3xl px-6 py-8"
-        style={{ background: "#17191f" }}
+        className="absolute left-6 right-6 top-[152px] flex flex-col rounded-3xl bg-dark-main px-6 py-8"
+        style={{ border: "1px solid var(--dark-border)" }}
       >
         {navItems.map((item) => {
           const isActive = item.id === activeId;
@@ -78,7 +78,7 @@ export function MobileNavPanel({
               />
               <span
                 className="font-body text-base font-medium"
-                style={{ color: isActive ? "#ff5c00" : "#fff" }}
+                style={{ color: isActive ? "var(--brand-light)" : "var(--dark-muted)" }}
               >
                 {item.label}
               </span>
@@ -90,7 +90,7 @@ export function MobileNavPanel({
         <button type="button" className="flex items-center gap-2 rounded-2xl p-4 transition-colors">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/nav-logout.svg" alt="" className="h-4 w-4 opacity-70" />
-          <span className="font-body text-base font-medium text-white">Log Out</span>
+          <span className="font-body text-base font-medium text-dark-muted">Log Out</span>
         </button>
       </div>
     </div>

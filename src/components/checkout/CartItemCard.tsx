@@ -102,7 +102,8 @@ export function CartItemCard({ item, onEdit, onRemove }: CartItemCardProps) {
       </div>
 
       {/* Mobile Layout */}
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-2 lg:hidden">
+        {/* Game artwork with edit/delete icons overlaid */}
         <div className="relative h-[103px] w-full overflow-hidden rounded-2xl">
           <Image src={item.gameImage} alt={item.game} fill className="object-cover" />
           <div className="absolute inset-0 bg-black/60" />
@@ -115,16 +116,40 @@ export function CartItemCard({ item, onEdit, onRemove }: CartItemCardProps) {
               className="h-auto w-[91px] object-contain"
             />
           </div>
+          <div className="absolute right-2 top-2 flex items-center gap-1">
+            <button
+              type="button"
+              onClick={onEdit}
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-[rgba(56,56,82,0.6)] transition-colors hover:bg-[rgba(56,56,82,0.9)]"
+            >
+              <Image src="/images/icons/checkout/edit.svg" alt="Edit" width={20} height={20} />
+            </button>
+            <button
+              type="button"
+              onClick={onRemove}
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-[rgba(56,56,82,0.6)] transition-colors hover:bg-[rgba(56,56,82,0.9)]"
+            >
+              <Image src="/images/icons/checkout/delete.svg" alt="Remove" width={20} height={20} />
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="font-body text-lg font-medium text-white">{item.game}</span>
-          <Image
-            src="/images/icons/checkout/windows.svg"
-            alt={item.platform}
-            width={16}
-            height={16}
-          />
+
+        {/* Game name + platform — price on right */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="font-body text-lg font-medium text-white">{item.game}</span>
+            <Image
+              src="/images/icons/checkout/windows.svg"
+              alt={item.platform}
+              width={16}
+              height={16}
+            />
+          </div>
+          <span className="font-body text-xl font-medium text-[#ff975d]">
+            €{item.price.toFixed(2)}
+          </span>
         </div>
+
         <div className="flex items-center gap-2 text-sm text-white">
           <span className="font-body font-medium">{item.service}</span>
           {item.serviceRange && (
@@ -152,27 +177,17 @@ export function CartItemCard({ item, onEdit, onRemove }: CartItemCardProps) {
           <span>Estimated Completion Time:</span>
           <span>{item.estimatedTime}</span>
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <span className="font-body text-xl font-medium text-[#ff975d]">
-              €{item.price.toFixed(2)}
-            </span>
-            {item.discountCode && (
-              <div className="flex items-center gap-1 uppercase tracking-wider">
-                <span className="font-body text-sm font-bold text-white">{item.discountCode}</span>
-                <span className="font-body text-xs text-white/80">applied</span>
-              </div>
-            )}
+
+        {/* Discount applied green banner */}
+        {item.discountCode && (
+          <div className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#34a853] bg-[rgba(52,168,83,0.2)] p-2">
+            <Image src="/images/icons/checkout/check-green.svg" alt="" width={12} height={12} />
+            <p className="font-body text-sm leading-5 text-[#34a853]">
+              <span className="font-bold">{item.discountCode.toUpperCase()}</span>{" "}
+              <span className="font-normal">Discount Code Successfully Applied!</span>
+            </p>
           </div>
-          <div className="flex items-center gap-4 font-body text-sm uppercase tracking-wider text-white/80">
-            <button type="button" onClick={onEdit} className="transition-colors hover:text-white">
-              Edit
-            </button>
-            <button type="button" onClick={onRemove} className="transition-colors hover:text-white">
-              Remove
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

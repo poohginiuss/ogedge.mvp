@@ -169,54 +169,50 @@ function ReadMoreLink({ href, asSpan = false }: { href: string; asSpan?: boolean
 
 function FeaturedBlogCard({ article }: { article: BlogArticle }) {
   return (
-    <article className="group flex flex-col gap-6 rounded-3xl p-0">
-      <Link
-        href={`/blog/${article.slug}`}
-        className="relative aspect-[430/240] overflow-hidden rounded-3xl"
-      >
-        <Image
-          src={article.image}
-          alt={article.title}
-          fill
-          priority
-          unoptimized
-          sizes="100vw"
-          className="object-cover transition-transform duration-200 group-hover:scale-[1.01]"
-        />
-      </Link>
-      <div className="flex flex-col gap-4 px-1">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <Link
-            href={`/blog/${article.slug}`}
-            className="font-body text-xl font-bold leading-8 text-white transition-colors hover:text-brand-light md:max-w-[620px] md:text-2xl"
-          >
-            {article.title}
-          </Link>
-          <span
-            className={`inline-flex self-start rounded-lg px-2 py-2 font-body text-xs font-medium ${getCategoryStyles(
-              article.category,
-            )}`}
-          >
-            {article.category}
-          </span>
+    <Link href={`/blog/${article.slug}`} className="group block rounded-3xl">
+      <article className="flex flex-col gap-6 p-0">
+        <div className="relative aspect-[430/240] overflow-hidden rounded-3xl">
+          <Image
+            src={article.image}
+            alt={article.title}
+            fill
+            priority
+            unoptimized
+            sizes="100vw"
+            className="object-cover transition-transform duration-200 group-hover:scale-[1.01]"
+          />
         </div>
-        <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">
-          {article.excerpt}
-        </p>
-        <ReadMoreLink href={`/blog/${article.slug}`} />
-      </div>
-    </article>
+        <div className="flex flex-col gap-4 px-1">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <span className="font-body text-xl font-bold leading-8 text-white transition-colors group-hover:text-brand-light md:max-w-[620px] md:text-2xl">
+              {article.title}
+            </span>
+            <span
+              className={`inline-flex self-start rounded-lg px-2 py-2 font-body text-xs font-medium ${getCategoryStyles(
+                article.category,
+              )}`}
+            >
+              {article.category}
+            </span>
+          </div>
+          <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">
+            {article.excerpt}
+          </p>
+          <ReadMoreLink href={`/blog/${article.slug}`} asSpan />
+        </div>
+      </article>
+    </Link>
   );
 }
 
 function BlogListCard({ article }: { article: BlogArticle }) {
   return (
-    <article className="group relative overflow-hidden rounded-3xl border border-[#383852] bg-transparent p-6 transition-all hover:bg-[linear-gradient(104deg,#383852_0.33%,#232330_50.72%,#17191f_101.1%)]">
-      <div className="flex flex-col gap-6 lg:flex-row">
-        <Link
-          href={`/blog/${article.slug}`}
-          className="relative h-[202px] w-full overflow-hidden rounded-2xl lg:h-auto lg:w-[350px] lg:shrink-0"
-        >
+    <Link
+      href={`/blog/${article.slug}`}
+      className="group block overflow-hidden rounded-3xl border border-[#383852] bg-transparent p-6 transition-all hover:bg-[linear-gradient(104deg,#383852_0.33%,#232330_50.72%,#17191f_101.1%)]"
+    >
+      <article className="flex flex-col gap-6 lg:flex-row">
+        <div className="relative h-[202px] w-full overflow-hidden rounded-2xl lg:h-auto lg:w-[350px] lg:shrink-0">
           <Image
             src={article.image}
             alt={article.title}
@@ -225,7 +221,7 @@ function BlogListCard({ article }: { article: BlogArticle }) {
             sizes="(max-width: 1024px) 100vw, 350px"
             className="object-cover"
           />
-        </Link>
+        </div>
         <div className="flex flex-1 flex-col gap-4">
           <span
             className={`inline-flex self-start rounded-lg px-2 py-2 font-body text-xs font-medium ${getCategoryStyles(
@@ -234,19 +230,16 @@ function BlogListCard({ article }: { article: BlogArticle }) {
           >
             {article.category}
           </span>
-          <Link
-            href={`/blog/${article.slug}`}
-            className="font-body text-lg font-bold leading-7 text-white transition-colors hover:text-brand-light md:text-2xl md:leading-8"
-          >
+          <span className="font-body text-lg font-bold leading-7 text-white transition-colors group-hover:text-brand-light md:text-2xl md:leading-8">
             {article.title}
-          </Link>
+          </span>
           <p className="font-body text-sm leading-5 text-white/80 md:text-base md:leading-6">
             {article.excerpt}
           </p>
-          <ReadMoreLink href={`/blog/${article.slug}`} />
+          <ReadMoreLink href={`/blog/${article.slug}`} asSpan />
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 }
 

@@ -24,9 +24,12 @@ export function SelectBoosterSection({
 
         {/* Status / Selected */}
         <div className="flex flex-col items-start gap-1 lg:items-end">
-          <div className="flex items-center gap-4 font-body text-base font-normal text-white">
+          <div className="group/info relative flex cursor-pointer items-center gap-4 rounded-2xl border border-transparent px-3 py-2 font-body text-base font-normal text-white transition-all duration-200 hover:border-brand-light/30 hover:shadow-[0_0_12px_rgba(255,92,0,0.15)]">
             <span>{selectedBooster ? "Booster selected" : "No specific booster selected"}</span>
-            <Image src="/images/icons/checkout/info.svg" alt="" width={16} height={16} />
+            <Image src="/images/icons/checkout/info.svg" alt="" width={16} height={16} className="transition-transform duration-200 group-hover/info:scale-110" />
+            <div className="pointer-events-none absolute right-0 top-full z-50 mt-1 w-[240px] rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/info:pointer-events-auto group-hover/info:opacity-100" style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}>
+              <p className="font-body text-sm leading-5 text-white/90">You can optionally choose a specific booster, or one will be automatically assigned.</p>
+            </div>
           </div>
 
           {selectedBooster && (

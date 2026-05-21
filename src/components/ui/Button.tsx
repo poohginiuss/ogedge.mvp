@@ -61,13 +61,13 @@ function getVariantStyle(
     return {
       ...shared,
       backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
-      border: `${state === "focus" ? 4 : 2}px solid ${state === "focus" ? "#cc794a" : "#ff975d"}`,
-      // Hover used to stack two 64px-blur shadows at 0.5/0.7 alpha which
-      // produced a very wide warm halo that bled past the button edges.
-      // We keep a single, tighter glow (32px blur, 0.55 alpha) so hover
-      // still reads as "active" without overwhelming neighbouring UI.
+      border: "2px solid #ff975d",
       boxShadow:
-        state === "hover" ? "0 4px 32px rgba(255,92,0,0.55)" : "0 4px 24px rgba(255,92,0,0.35)",
+        state === "focus"
+          ? "0 4px 24px rgba(255,92,0,0.35), 0 0 0 2px #cc794a"
+          : state === "hover"
+            ? "0 4px 32px rgba(255,92,0,0.55)"
+            : "0 4px 24px rgba(255,92,0,0.35)",
     };
   }
 
@@ -76,9 +76,13 @@ function getVariantStyle(
       ...shared,
       background: "rgba(23,25,31,0.5)",
       backdropFilter: "blur(3px)",
-      border: `${state === "focus" ? 4 : 2}px solid ${state === "focus" ? "#cc794a" : "#ff975d"}`,
+      border: "2px solid #ff975d",
       boxShadow:
-        state === "hover" ? "0 4px 34px rgba(255,92,0,0.3)" : "0 4px 34px rgba(255,92,0,0.2)",
+        state === "focus"
+          ? "0 4px 34px rgba(255,92,0,0.2), 0 0 0 2px #cc794a"
+          : state === "hover"
+            ? "0 4px 34px rgba(255,92,0,0.3)"
+            : "0 4px 34px rgba(255,92,0,0.2)",
     };
   }
 

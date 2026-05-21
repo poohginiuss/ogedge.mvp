@@ -99,6 +99,7 @@ export function FastCheckoutPanel({
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [priceOpen, setPriceOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const parsedTotal = numericTotal ?? (Number.parseFloat(totalAmount.replace(/[^0-9.]/g, "")) || 0);
   const currencyLabel = currency === "EUR" ? "EUR" : "USD";
@@ -114,6 +115,7 @@ export function FastCheckoutPanel({
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      setShowConfirmation(false);
     }
     return () => {
       document.body.style.overflow = "";
@@ -141,6 +143,10 @@ export function FastCheckoutPanel({
       >
         {/* Scrollable content */}
         <div className="flex-1 overflow-y-auto px-6 pb-4 pt-8">
+          {showConfirmation ? (
+            <FastCheckoutConfirmation onClose={onClose} />
+          ) : (
+          <>
           {/* Header: Order Summary + Valorant */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -519,9 +525,12 @@ export function FastCheckoutPanel({
               </div>
             )}
           </div>
+          </>
+          )}
         </div>
 
-        {/* Fixed bottom section */}
+        {/* Fixed bottom section — hidden when showing confirmation */}
+        {!showConfirmation && (
         <div className="border-t border-[#383852] bg-[#151724] px-6 py-6">
           <div className="flex flex-col gap-4">
             {/* Email */}
@@ -594,7 +603,8 @@ export function FastCheckoutPanel({
               <button
                 type="button"
                 disabled={isBelowMinimum}
-                className={`flex flex-1 flex-col items-center justify-center rounded-3xl border-2 px-6 py-3 transition-all ${isBelowMinimum ? "cursor-not-allowed border-[#ff975d]/40 opacity-50" : "border-[#ff975d] shadow-[0_4px_12px_rgba(255,92,0,0.3)] hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"}`}
+                onClick={() => !isBelowMinimum && setShowConfirmation(true)}
+                className={`flex flex-1 cursor-pointer flex-col items-center justify-center rounded-3xl border-2 px-6 py-3 transition-all ${isBelowMinimum ? "cursor-not-allowed border-[#ff975d]/40 opacity-50" : "border-[#ff975d] shadow-[0_4px_12px_rgba(255,92,0,0.3)] hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"}`}
                 style={{
                   backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
                 }}
@@ -624,8 +634,120 @@ export function FastCheckoutPanel({
             </p>
           </div>
         </div>
+        )}
       </div>
     </>,
     document.body,
+  );
+}
+
+const WHAT_HAPPENS_NEXT = [
+  "A booster will be assigned to your order shortly",
+  "Provide your login credentials in the order area",
+  "Track your order progress in real-time",
+  "Rate your experience",
+];
+
+function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="flex flex-col items-center">
+      {/* Success Icon */}
+      <div className="">
+        <Image
+          src="/images/icons/checkout/confirm-success.svg"
+          alt="Success"
+          width={80}
+          height={80}
+          className="h-20 w-20"
+        />
+      </div>
+
+      {/* Order Created */}
+      <h2 className="mt-0 text-center font-heading text-[30px] font-bold leading-[38px] text-white">
+        Order #1234 Created!
+      </h2>
+
+      {/* Points */}
+      <div className="mt-2 flex items-center gap-1">
+        <span className="font-heading text-xl font-bold text-white">You gained</span>
+        <span className="font-heading text-xl font-bold text-[#ff5c00]">12</span>
+        <Image
+          src="/images/icons/checkout/confirm-booster.svg"
+          alt="points"
+          width={24}
+          height={24}
+          className="h-6 w-6"
+        />
+        <span className="font-heading text-xl font-bold text-white">points</span>
+      </div>
+
+      {/* Email message */}
+      <p className="mt-6 text-center font-body text-lg font-medium leading-6 text-white">
+        Please check your email for the confirmation link to set your password to the Members area
+      </p>
+      <p className="mt-3 text-center font-body text-xs font-normal leading-[18px] text-white/60">
+        This process usually takes less a few minutes. If you don&apos;t recive a confirmation email
+        please contact us for support or use our Live Support. However, we would like to ask you
+        first to check your spam folder.
+      </p>
+
+      {/* Follow Order Button */}
+      <Link
+        href="/app/customer"
+        onClick={onClose}
+        className="mt-8 flex w-[230px] items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-5 font-body text-sm font-bold uppercase tracking-wider text-white shadow-[0_4px_12px_rgba(255,92,0,0.3)] transition-all hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
+        style={{
+          backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
+        }}
+      >
+        Follow Order
+      </Link>
+
+      {/* What happens next */}
+      <div className="mt-10 w-full">
+        <h3 className="font-heading text-xl font-medium leading-6 text-white">
+          What happens next
+        </h3>
+        <div className="mt-4 flex flex-col gap-3">
+          {WHAT_HAPPENS_NEXT.map((step) => (
+            <div key={step} className="flex items-center gap-3">
+              <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ff5c00]">
+                <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path
+                    d="M10 3L4.5 8.5L2 6"
+                    stroke="white"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <span className="font-body text-sm font-normal text-white">{step}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Character image with glow (same as /jobs hero) — breaks out of parent px-6 pb-4 */}
+      <div className="relative -mx-6 -mb-4 mt-8 flex items-end justify-center overflow-hidden">
+        <div
+          className="absolute left-1/2 top-2/3 h-[200px] w-[240px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-80 blur-[90px]"
+          aria-hidden="true"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/jobs/hero-character.png"
+          alt=""
+          className="relative z-[1] h-[320px] w-auto object-contain"
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 z-10 h-[120px]"
+          style={{
+            background: "linear-gradient(to top, rgb(23,25,31), transparent)",
+          }}
+          aria-hidden="true"
+        />
+      </div>
+    </div>
   );
 }

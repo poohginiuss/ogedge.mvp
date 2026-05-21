@@ -263,6 +263,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
                     service={service}
                     isHovered={hoveredService === service.id}
                     onHover={() => setHoveredService(service.id)}
+                    gameSlug={selectedGame!}
                   />
                 ))}
               </div>

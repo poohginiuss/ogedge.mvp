@@ -75,9 +75,11 @@ function CustomTipInput({
       {icon}
       <input
         type="text"
+        inputMode="numeric"
         value={customAmount}
         onChange={(e) => {
-          onCustomAmountChange(e.target.value);
+          const v = e.target.value.replace(/[^0-9.]/g, "");
+          onCustomAmountChange(v);
           setApplied(false);
         }}
         placeholder="Enter custom amount"

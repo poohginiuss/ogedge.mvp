@@ -618,18 +618,19 @@ export function ServiceCardDesktop({
   service,
   isHovered,
   onHover,
-}: { service: ServiceCardData; isHovered: boolean; onHover: () => void }) {
+  gameSlug,
+}: { service: ServiceCardData; isHovered: boolean; onHover: () => void; gameSlug: string }) {
   return (
-    <div
+    <Link
+      href={`/${gameSlug}`}
       onMouseEnter={onHover}
-      className={`relative flex h-[307px] max-w-[300px] min-w-[280px] flex-col gap-2 overflow-hidden rounded-3xl p-6 transition-all duration-200 ${
+      className={`relative flex h-[307px] max-w-[300px] min-w-[280px] cursor-pointer flex-col gap-2 overflow-hidden rounded-3xl p-6 transition-all duration-200 ${
         isHovered
           ? "border border-brand-light shadow-[0_0_24px_rgba(255,92,0,0.4)]"
           : "border border-transparent"
       }`}
       style={{ background: "rgba(35,35,48,0.5)", backdropFilter: "blur(5px)" }}
     >
-      {/* Emblem with warm glow - positioned behind text */}
       <div className="pointer-events-none absolute -bottom-4 -right-4">
         <div
           className="absolute inset-0 -translate-x-2 translate-y-2 scale-[2.2] rounded-full"
@@ -648,7 +649,6 @@ export function ServiceCardDesktop({
         />
       </div>
 
-      {/* Text content - above the emblem */}
       <div className="relative z-10 flex flex-col gap-2">
         <Badge
           icon={service.badgeIcon}
@@ -671,7 +671,6 @@ export function ServiceCardDesktop({
         </ul>
       </div>
 
-      {/* Hover arrow button */}
       {isHovered && (
         <div
           className="absolute bottom-5 left-6 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-brand-light/60"
@@ -681,7 +680,7 @@ export function ServiceCardDesktop({
           <img src="/images/services/icon-arrow.svg" alt="" className="h-4 w-auto" />
         </div>
       )}
-    </div>
+    </Link>
   );
 }
 

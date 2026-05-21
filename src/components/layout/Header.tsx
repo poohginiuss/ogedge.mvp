@@ -253,17 +253,17 @@ export function Header() {
             />
           </div>
 
-          {/* Cart */}
+          {/* Cart — visible on all sizes */}
           <Link
             href="/checkout"
-            className="relative hidden h-[53px] w-[53px] items-center justify-center rounded-2xl border border-dark-border min-[1440px]:inline-flex"
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-dark-border min-[1440px]:h-[53px] min-[1440px]:w-[53px] min-[1440px]:rounded-2xl"
             aria-label="Cart"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/cart.svg" alt="" className="h-6 w-6" />
+            <img src="/images/icons/cart.svg" alt="" className="h-5 w-5 min-[1440px]:h-6 min-[1440px]:w-6" />
             <span
               className="absolute flex items-center justify-center rounded-full border-2 border-dark-surface bg-brand-main font-bold leading-none text-white"
-              style={{ width: 20, height: 20, fontSize: 12, top: 4, right: 4 }}
+              style={{ width: 18, height: 18, fontSize: 11, top: 2, right: 2 }}
             >
               2
             </span>
