@@ -9,6 +9,7 @@ type SkillBadge = {
   icon: string;
   text: string;
   position: string;
+  mobilePosition: string;
 };
 
 type Slide = {
@@ -30,26 +31,31 @@ const slides: Slide[] = [
         icon: `${ICON}/align-top.svg`,
         text: "Top-tier player (high rank / proven skill)",
         position: "left-[16%] top-[20%]",
+        mobilePosition: "left-[4%] top-[7%]",
       },
       {
         icon: `${ICON}/book.svg`,
         text: "Deep game knowledge & fast adaptability",
         position: "right-[18%] top-[12%]",
+        mobilePosition: "right-[4%] top-[30%]",
       },
       {
         icon: `${ICON}/speed.svg`,
         text: "Consistent performance under pressure",
         position: "left-[20%] bottom-[40%]",
+        mobilePosition: "left-[4%] top-[50%]",
       },
       {
         icon: `${ICON}/focus.svg`,
         text: "Reliable, disciplined, and deadline-focused",
         position: "right-[6%] top-[36%]",
+        mobilePosition: "right-[4%] top-[65%]",
       },
       {
         icon: `${ICON}/achievement.svg`,
         text: "Quiet professionalism — lets results speak",
         position: "right-[12%] bottom-[30%]",
+        mobilePosition: "left-[4%] bottom-[5%]",
       },
     ],
   },
@@ -63,26 +69,31 @@ const slides: Slide[] = [
         icon: `${ICON}/align-top.svg`,
         text: "Top-tier player (high rank / proven skill)",
         position: "left-[16%] top-[14%]",
+        mobilePosition: "left-[4%] top-[7%]",
       },
       {
         icon: `${ICON}/book.svg`,
         text: "Deep game knowledge & fast adaptability",
         position: "right-[16%] top-[14%]",
+        mobilePosition: "right-[4%] top-[30%]",
       },
       {
         icon: `${ICON}/speed.svg`,
         text: "Consistent performance under pressure",
         position: "left-[12%] top-[44%]",
+        mobilePosition: "left-[4%] top-[50%]",
       },
       {
         icon: `${ICON}/focus.svg`,
         text: "Reliable, disciplined, and deadline-focused",
         position: "right-[6%] top-[32%]",
+        mobilePosition: "right-[4%] top-[65%]",
       },
       {
         icon: `${ICON}/achievement.svg`,
         text: "Quiet professionalism — lets results speak",
         position: "right-[10%] bottom-[24%]",
+        mobilePosition: "left-[4%] bottom-[5%]",
       },
     ],
   },
@@ -96,26 +107,31 @@ const slides: Slide[] = [
         icon: `${ICON}/align-top.svg`,
         text: "Clear, friendly, and professional communicator",
         position: "left-[14%] top-[20%]",
+        mobilePosition: "left-[4%] top-[7%]",
       },
       {
         icon: `${ICON}/book.svg`,
         text: "Fast responder with strong attention to detail",
         position: "right-[16%] top-[14%]",
+        mobilePosition: "right-[4%] top-[30%]",
       },
       {
         icon: `${ICON}/speed.svg`,
         text: "Calm under pressure & solution-oriented",
         position: "left-[14%] bottom-[40%]",
+        mobilePosition: "left-[4%] top-[50%]",
       },
       {
         icon: `${ICON}/focus.svg`,
         text: "Empathetic — understands player frustrations",
         position: "right-[6%] top-[36%]",
+        mobilePosition: "right-[4%] top-[65%]",
       },
       {
         icon: `${ICON}/achievement.svg`,
         text: "Organized and reliable in a fast-paced environment",
         position: "right-[10%] bottom-[26%]",
+        mobilePosition: "left-[4%] bottom-[5%]",
       },
     ],
   },
@@ -136,7 +152,7 @@ function NavArrow({
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex h-16 w-16 items-center justify-center rounded-full backdrop-blur-[3px] transition-all duration-200"
+      className="flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-[3px] transition-all duration-200 lg:h-16 lg:w-16"
       style={{
         background: hovered ? "rgba(255,255,255,0.1)" : "transparent",
         border: hovered ? "1px solid #ffa384" : "1px solid transparent",
@@ -148,7 +164,7 @@ function NavArrow({
         alt={direction === "prev" ? "Previous" : "Next"}
         width={28}
         height={56}
-        className={direction === "prev" ? "rotate-180" : ""}
+        className={`h-6 w-3 lg:h-auto lg:w-auto ${direction === "prev" ? "rotate-180" : ""}`}
       />
     </button>
   );
@@ -163,99 +179,108 @@ export function NowHiring() {
 
   return (
     <section className="relative w-full overflow-hidden bg-[#17191f] pb-[120px] pt-16">
-      <div className="relative mx-auto flex h-[700px] w-full max-w-[1920px] items-center justify-center lg:h-[985px]">
-        {/* Orange glow behind character */}
-        <div
-          className="absolute left-1/2  h-[400px] w-[300px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-60 blur-[107px] lg:h-[703px] lg:w-[291px]"
-          aria-hidden="true"
-        />
+      <div className="relative mx-auto flex w-full max-w-[1920px] flex-col items-center justify-center lg:h-[985px]">
+        {/* Mobile: "Now hiring" + title at top */}
+        <div className="relative z-20 flex flex-col items-center gap-2 lg:hidden">
+          <p className="font-heading text-[20px] font-bold text-white">
+            Now hiring
+          </p>
+          <div className="w-[90%] max-w-[400px]">
+            <Image
+              src={slide.titleImage}
+              alt=""
+              width={slide.titleWidth}
+              height={slide.titleHeight}
+              className="w-full"
+            />
+          </div>
+        </div>
 
-        {/* Character image */}
-        <div className="relative h-[500px] w-[300px] lg:h-[912px] lg:w-[514px]">
-          <Image
-            src={slide.character}
-            alt="Character"
-            fill
-            className="object-contain"
-          />
+        {/* Main character area */}
+        <div className="relative h-[550px] w-full lg:h-full">
+          {/* Orange glow behind character */}
           <div
-            className="absolute bottom-0 left-0 h-[229px] w-full"
-            style={{
-              background: "linear-gradient(to top, #17191f, transparent)",
-            }}
+            className="absolute left-1/2 top-[20%] h-[300px] w-[200px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-60 blur-[107px] lg:top-[20%] lg:h-[600px] lg:w-[291px]"
             aria-hidden="true"
           />
-        </div>
 
-        {/* Title text at bottom */}
-        <div className="absolute bottom-[60px] left-1/2 w-[80%] max-w-[1280px] -translate-x-1/2 lg:bottom-[80px]">
-          <Image
-            src={slide.titleImage}
-            alt=""
-            width={slide.titleWidth}
-            height={slide.titleHeight}
-            className="w-full"
-          />
-        </div>
-
-        {/* "Now hiring" label */}
-        <p className="absolute bottom-[100px] left-1/2 -translate-x-1/2 font-heading text-[28px] font-bold text-white lg:bottom-[140px] lg:text-[36px]">
-          Now hiring
-        </p>
-
-        {/* Floating skill badges — desktop only */}
-        {slide.badges.map((badge) => (
-          <div
-            key={badge.text}
-            className={`absolute hidden items-center gap-2 rounded-[32px] border border-[#7e7eb8] p-6 backdrop-blur-[7px] lg:flex ${badge.position}`}
-            style={{
-              backgroundImage:
-                "linear-gradient(-21deg, rgba(23, 25, 31, 0.5) 0.2%, rgba(56, 56, 82, 0.5) 100%)",
-            }}
-          >
-            <Image src={badge.icon} alt="" width={20} height={20} aria-hidden="true" />
-            <p className="whitespace-nowrap font-body text-[24px] font-medium leading-[32px] text-white">
-              {badge.text}
-            </p>
+          {/* Character image */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative h-full w-[300px] lg:h-[912px] lg:w-[514px]">
+              <Image
+                src={slide.character}
+                alt="Character"
+                fill
+                className="object-contain object-bottom"
+              />
+              <div
+                className="absolute bottom-0 left-0 h-[229px] w-full"
+                style={{
+                  background: "linear-gradient(to top, #17191f, transparent)",
+                }}
+                aria-hidden="true"
+              />
+            </div>
           </div>
-        ))}
 
-        {/* Navigation arrows */}
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 lg:left-16">
-          <NavArrow direction="prev" onClick={goPrev} />
-        </div>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 lg:right-16">
-          <NavArrow direction="next" onClick={goNext} />
-        </div>
+          {/* Mobile floating badges — positioned over the character */}
+          {slide.badges.map((badge) => (
+            <div
+              key={`mobile-${badge.text}`}
+              className={`absolute z-10 flex max-w-[180px] items-center gap-2 rounded-[20px] border border-[#7e7eb8] px-3 py-2.5 backdrop-blur-[7px] lg:hidden ${badge.mobilePosition}`}
+              style={{
+                backgroundImage:
+                  "linear-gradient(-21deg, rgba(23, 25, 31, 0.7) 0.2%, rgba(56, 56, 82, 0.7) 100%)",
+              }}
+            >
+              <Image src={badge.icon} alt="" width={16} height={16} className="shrink-0" aria-hidden="true" />
+              <p className="font-body text-[12px] font-medium leading-[16px] text-white">
+                {badge.text}
+              </p>
+            </div>
+          ))}
 
-        {/* Corner glow orbs */}
-        <div
-          className="absolute -left-[203px] -top-[201px] h-[446px] w-[446px] rounded-full bg-[#ff5c00] opacity-20 blur-[382px]"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute bottom-0 right-0 h-[446px] w-[446px] rounded-full bg-[#ff5c00] opacity-20 blur-[382px]"
-          aria-hidden="true"
-        />
-      </div>
-
-      {/* Mobile badges (stacked) */}
-      <div className="mx-auto mt-8 flex max-w-[600px] flex-col gap-3 px-6 lg:hidden">
-        {slide.badges.map((badge) => (
-          <div
-            key={badge.text}
-            className="flex items-center gap-2 rounded-[24px] border border-[#7e7eb8] p-4 backdrop-blur-[7px]"
-            style={{
-              backgroundImage:
-                "linear-gradient(-21deg, rgba(23, 25, 31, 0.5) 0.2%, rgba(56, 56, 82, 0.5) 100%)",
-            }}
-          >
-            <Image src={badge.icon} alt="" width={20} height={20} aria-hidden="true" />
-            <p className="font-body text-[16px] font-medium leading-[24px] text-white">
-              {badge.text}
-            </p>
+          {/* Desktop: Title text at bottom */}
+          <div className="absolute bottom-[80px] left-1/2 hidden w-[80%] max-w-[1280px] -translate-x-1/2 lg:block">
+            <Image
+              src={slide.titleImage}
+              alt=""
+              width={slide.titleWidth}
+              height={slide.titleHeight}
+              className="w-full"
+            />
           </div>
-        ))}
+
+          {/* Desktop: "Now hiring" label */}
+          <p className="absolute bottom-[140px] left-1/2 hidden -translate-x-1/2 font-heading text-[36px] font-bold text-white lg:block">
+            Now hiring
+          </p>
+
+          {/* Desktop floating skill badges */}
+          {slide.badges.map((badge) => (
+            <div
+              key={badge.text}
+              className={`absolute hidden items-center gap-2 rounded-[32px] border border-[#7e7eb8] p-6 backdrop-blur-[7px] lg:flex ${badge.position}`}
+              style={{
+                backgroundImage:
+                  "linear-gradient(-21deg, rgba(23, 25, 31, 0.5) 0.2%, rgba(56, 56, 82, 0.5) 100%)",
+              }}
+            >
+              <Image src={badge.icon} alt="" width={20} height={20} aria-hidden="true" />
+              <p className="whitespace-nowrap font-body text-[24px] font-medium leading-[32px] text-white">
+                {badge.text}
+              </p>
+            </div>
+          ))}
+
+          {/* Navigation arrows */}
+          <div className="absolute left-2 top-1/2 z-20 -translate-y-1/2 lg:left-16">
+            <NavArrow direction="prev" onClick={goPrev} />
+          </div>
+          <div className="absolute right-2 top-1/2 z-20 -translate-y-1/2 lg:right-16">
+            <NavArrow direction="next" onClick={goNext} />
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -48,7 +48,7 @@ function DesktopStep({ step, index }: { step: ProcessStep; index: number }) {
     return (
       <div className="flex w-full items-start justify-end gap-6">
         <div className="flex max-w-[387px] flex-col gap-4 pt-3">
-          <h3 className="font-heading text-[36px] font-bold leading-[45px] text-white">
+          <h3 className="font-heading text-[36px] font-bold leading-[45px] text-[#ff5c00]">
             {step.title}
           </h3>
           <p className="font-body text-[16px] font-normal leading-[24px] text-[#d9d9d9]">
@@ -68,7 +68,7 @@ function DesktopStep({ step, index }: { step: ProcessStep; index: number }) {
         {step.number}
       </p>
       <div className="flex max-w-[374px] flex-col gap-4 pt-9">
-        <h3 className="font-heading text-[36px] font-bold leading-[45px] text-white">
+        <h3 className="font-heading text-[36px] font-bold leading-[45px] text-[#ff5c00]">
           {step.title}
         </h3>
         <p className="font-body text-[16px] font-normal leading-[24px] text-[#d9d9d9]">
@@ -115,23 +115,26 @@ export function OrderProcess() {
           </div>
         </div>
 
-        {/* Mobile: stacked vertically */}
+        {/* Mobile: alternating zigzag */}
         <div className="flex flex-col gap-10 lg:hidden">
-          {processSteps.map((step) => (
-            <div key={step.number} className="flex items-start gap-4">
-              <p className="shrink-0 font-heading text-[80px] font-bold leading-none text-[#ff5c00] md:text-[100px]">
-                {step.number}
-              </p>
-              <div className="flex flex-col gap-2 pt-3">
-                <h3 className="font-heading text-[24px] font-bold leading-[32px] text-white md:text-[30px]">
-                  {step.title}
-                </h3>
-                <p className="font-body text-[14px] font-normal leading-[22px] text-[#d9d9d9] md:text-[16px]">
-                  {step.description}
+          {processSteps.map((step, i) => {
+            const isEven = i % 2 !== 0;
+            return (
+              <div key={step.number} className={`flex items-center gap-4 ${isEven ? "flex-row-reverse" : ""}`}>
+                <p className="shrink-0 font-heading text-[80px] font-bold leading-none text-[#ff5c00] md:text-[100px]">
+                  {step.number}
                 </p>
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-heading text-[24px] font-bold leading-[32px] text-[#ff5c00] md:text-[30px]">
+                    {step.title}
+                  </h3>
+                  <p className="font-body text-[14px] font-normal leading-[22px] text-[#d9d9d9] md:text-[16px]">
+                    {step.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

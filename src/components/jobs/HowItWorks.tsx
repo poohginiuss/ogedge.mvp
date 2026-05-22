@@ -215,12 +215,12 @@ export function HowItWorks() {
 
       <div className="relative mx-auto flex w-full max-w-[1280px] flex-col gap-14 px-6 pb-16 pt-24 md:px-12 lg:px-0">
         {/* Title */}
-        <h2 className="font-heading text-[30px] font-bold leading-[38px] text-[#d9d9d9]">
+        <h2 className="font-heading text-[16px] font-medium leading-[24px] text-[#d9d9d9] lg:text-[30px] lg:font-bold lg:leading-[38px]">
           How it Works
         </h2>
 
-        {/* Step cards row */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch">
+        {/* Desktop: Step cards row */}
+        <div className="hidden lg:flex lg:items-stretch">
           {steps.map((step, i) => (
             <div
               key={step.number}
@@ -235,7 +235,7 @@ export function HowItWorks() {
                 onMouseLeave={() => setHoveredStep(null)}
               />
               {i < steps.length - 1 && (
-                <div className="hidden shrink-0 lg:block">
+                <div className="shrink-0">
                   <Image
                     src={`${ICON}/arrow-step.svg`}
                     alt=""
@@ -250,8 +250,70 @@ export function HowItWorks() {
           ))}
         </div>
 
-        {/* Benefits row — changes when active step changes */}
-        <div className="flex flex-col gap-10 md:flex-row md:justify-between">
+        {/* Mobile: Step cards with benefits after step 01 */}
+        <div className="flex flex-col items-center gap-4 lg:hidden">
+          {steps.map((step, i) => (
+            <div key={step.number} className="flex w-full flex-col items-center gap-4">
+              {/* Compact horizontal step card */}
+              <div
+                className={`flex w-full items-center gap-4 rounded-[24px] border p-5 backdrop-blur-[7px] transition-all duration-200 ${
+                  activeStep === i ? "border-[#ff975d] shadow-[0px_4px_16px_0px_rgba(255,92,0,0.15)]" : "border-[#7e7eb8]"
+                }`}
+                style={{
+                  backgroundImage:
+                    "linear-gradient(-67.6deg, rgba(23, 25, 31, 0.5) 0.2%, rgba(56, 56, 82, 0.5) 100%)",
+                }}
+                onClick={() => setActiveStep(i)}
+              >
+                <span className={`font-heading text-[48px] font-semibold leading-none ${activeStep === i ? "text-[#ff5c00]" : "text-[#383852]"}`}>
+                  {step.number}
+                </span>
+                <div className="flex flex-col gap-0.5">
+                  <p className="font-body text-[18px] font-semibold leading-[24px] text-[#ff5c00]">
+                    {step.title}
+                  </p>
+                  <p className="font-body text-[14px] font-normal leading-[20px] text-white">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefits appear after the active step */}
+              {activeStep === i && (
+                <div className="flex w-full flex-col gap-4 py-2">
+                  {benefitsByStep[i].map((b) => (
+                    <div key={b.title} className="flex flex-col items-center gap-2 text-center">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(255,92,0,0.2)]">
+                        <Image src={b.icon} alt="" width={20} height={20} aria-hidden="true" />
+                      </div>
+                      <p className="font-body text-[14px] font-bold leading-[20px] text-[#ff5c00]">
+                        {b.title}
+                      </p>
+                      <p className="max-w-[300px] font-body text-[13px] font-normal leading-[18px] text-white">
+                        {b.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Down arrow between steps */}
+              {i < steps.length - 1 && (
+                <Image
+                  src={`${ICON}/arrow-step.svg`}
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="rotate-180"
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: Benefits row — changes when active step changes */}
+        <div className="hidden lg:flex lg:justify-between">
           {currentBenefits.map((b) => (
             <BenefitItem key={b.title} benefit={b} />
           ))}
