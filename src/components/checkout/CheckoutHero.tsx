@@ -24,7 +24,7 @@ export function CheckoutHero({ activeStep }: CheckoutHeroProps) {
         {/* Title + Trust Badges */}
         <div className="flex flex-col items-center gap-4">
           <h1 className="font-heading text-[28px] font-bold text-white lg:text-[32px]">Checkout</h1>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-4">
             {BADGES.map((badge) => (
               <div key={badge.label} className="group/badge relative">
                 <span

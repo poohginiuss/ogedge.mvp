@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { ContactMethods } from "@/components/about/ContactMethods";
 import { Faq } from "@/components/sections/Faq";
 import { TICKET_STATUS_THEME } from "../supportData";
@@ -10,6 +10,60 @@ import type { TicketMessage, TicketViewModel } from "./supportTicketViewData";
 import { sampleTicketView } from "./supportTicketViewData";
 
 const ICON = "/images/dashboard/support-view";
+
+function MobileMoreMenu() {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function close(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [open]);
+
+  return (
+    <div ref={menuRef} className="relative lg:hidden">
+      <button
+        type="button"
+        aria-label="More actions"
+        onClick={() => setOpen((p) => !p)}
+        className="flex h-9 w-9 items-center justify-center rounded-xl transition-colors"
+        style={{ background: open ? "rgba(56,56,82,0.6)" : "rgba(56,56,82,0.3)" }}
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="10" cy="4" r="1.5" fill="white" />
+          <circle cx="10" cy="10" r="1.5" fill="white" />
+          <circle cx="10" cy="16" r="1.5" fill="white" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full z-50 mt-2 w-48 overflow-hidden rounded-2xl border border-dark-border shadow-[0_4px_20px_rgba(0,0,0,0.4)]" style={{ background: "linear-gradient(-43deg, #17191f, #2a2a40)" }}>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:bg-white/5"
+          >
+            <Image src={`${ICON}/add.svg`} alt="" width={18} height={18} aria-hidden="true" />
+            New Ticket
+          </button>
+          <div className="mx-3 h-px bg-dark-border" />
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:bg-white/5"
+          >
+            <Image src={`${ICON}/check.svg`} alt="" width={18} height={18} aria-hidden="true" />
+            Close Ticket
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function TicketHeader({ view }: { view: TicketViewModel }) {
   const theme = TICKET_STATUS_THEME[view.status];
@@ -19,9 +73,8 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
 
   return (
     <div className="flex flex-col gap-4 lg:gap-0">
-      {/* Desktop: single row with back + title left, buttons right */}
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
-        <div className="flex items-center gap-6">
+      <div className="flex items-center justify-between lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+        <div className="flex items-center gap-4 lg:gap-6">
           <Link
             href="/app/customer/support"
             aria-label="Back to tickets"
@@ -68,10 +121,14 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
           </div>
         </div>
 
-        <div className="flex gap-4">
+        {/* Mobile: three-dot menu */}
+        <MobileMoreMenu />
+
+        {/* Desktop: full buttons */}
+        <div className="hidden gap-4 lg:flex">
           <button
             type="button"
-            className="flex flex-1 items-center justify-center gap-2 rounded-2xl px-6 py-3 font-body text-base font-medium text-white transition-all duration-200 lg:flex-initial lg:gap-4 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-xl lg:font-bold"
+            className="flex items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-all duration-200"
             style={{
               background: newHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
               boxShadow: newHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
@@ -84,7 +141,7 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
           </button>
           <button
             type="button"
-            className="flex flex-1 items-center justify-center gap-2 rounded-2xl px-6 py-3 font-body text-base font-medium text-white transition-all duration-200 lg:flex-initial lg:gap-4 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-xl lg:font-bold"
+            className="flex items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-all duration-200"
             style={{
               background: closeHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
               boxShadow: closeHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
@@ -329,9 +386,9 @@ export default function TicketViewContent({ ticketId: _ticketId }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
+    <div className="flex flex-col gap-8 overflow-x-clip lg:flex-row lg:items-start lg:gap-8 lg:overflow-x-visible">
       {/* Left column: fixed-height flex container — messages scroll, input stays pinned */}
-      <div className="flex h-[calc(100dvh-3rem)] max-h-[calc(100dvh-3rem)] min-w-0 flex-col lg:min-w-0 lg:flex-1 lg:h-[calc(100vh-10rem)] lg:max-h-[calc(100vh-10rem)]">
+      <div className="flex h-[calc(100svh-5rem)] max-h-[calc(100svh-5rem)] min-w-0 flex-col lg:min-w-0 lg:flex-1 lg:h-[calc(100vh-10rem)] lg:max-h-[calc(100vh-10rem)]">
         <div className="shrink-0">
           <TicketHeader view={view} />
         </div>
@@ -361,8 +418,8 @@ export default function TicketViewContent({ ticketId: _ticketId }: Props) {
         </div>
       </aside>
 
-      {/* Mobile: reuse the shared FAQ section */}
-      <div className="lg:hidden">
+      {/* Mobile: reuse the shared FAQ section — negative margins cancel the dashboard shell's padding */}
+      <div className="-mx-4 lg:hidden sm:-mx-6">
         <Faq />
       </div>
     </div>

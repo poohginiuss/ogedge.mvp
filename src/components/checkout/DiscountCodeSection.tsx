@@ -28,13 +28,13 @@ export function DiscountCodeSection({
             onChange={(e) => onCodeChange(e.target.value.toUpperCase())}
             placeholder="Enter code"
             disabled={isApplied}
-            className="h-12 w-[200px] rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-6 font-body text-xl font-medium text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] placeholder:text-white/30 focus:border-[#ff5c00]/50 focus:outline-none disabled:text-white/50 lg:w-[300px]"
+            className="h-12 min-w-0 flex-1 rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-6 font-body text-xl font-medium text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] placeholder:text-white/30 focus:border-[#ff5c00]/50 focus:outline-none disabled:text-white/50 lg:w-[300px] lg:flex-none"
           />
           <button
             type="button"
             onClick={isApplied ? undefined : onApply}
             disabled={!code.trim() && !isApplied}
-            className="flex h-12 w-[106px] items-center justify-center rounded-2xl border border-[#383852] font-body text-sm font-semibold uppercase tracking-wider text-white shadow-[0_4px_8px_rgba(0,0,0,0.15)] transition-colors disabled:opacity-40"
+            className="flex h-12 shrink-0 items-center justify-center rounded-2xl border border-[#383852] px-6 font-body text-sm font-semibold uppercase tracking-wider text-white shadow-[0_4px_8px_rgba(0,0,0,0.15)] transition-colors disabled:opacity-40 lg:w-[106px] lg:px-0"
             style={{
               backgroundImage:
                 "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(-47deg, #17191f, #383852)",
@@ -56,7 +56,7 @@ export function DiscountCodeSection({
 
         {/* Status */}
         {isApplied ? (
-          <div className="flex w-[300px] items-center justify-center gap-2 rounded-lg border border-[#34a853] bg-[rgba(52,168,83,0.2)] p-2">
+          <div className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#34a853] bg-[rgba(52,168,83,0.2)] p-2 lg:w-[300px]">
             <Image src="/images/icons/checkout/check-green.svg" alt="" width={12} height={12} />
             <span className="font-body text-sm font-bold leading-5 text-[#34a853]">
               5% discount successfully applied!

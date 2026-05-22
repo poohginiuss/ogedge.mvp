@@ -65,6 +65,7 @@ html,
 body {
   background: var(--dark-main);
   color: #ffffff;
+  overflow-x: hidden;
 }
 
 body {
