@@ -17,6 +17,7 @@ type CustomerVariantProps = {
 type BoosterVariantProps = {
   variant: "booster";
   order: BoosterOrder;
+  boosterSection?: "available" | "my-orders" | "completed";
 };
 type OrderCardProps = CustomerVariantProps | BoosterVariantProps;
 
@@ -67,7 +68,8 @@ export function OrderCard(props: OrderCardProps) {
     );
   }
 
-  const { order } = props;
+  const { order, boosterSection } = props;
+  const showViewChat = boosterSection === "my-orders" || (!boosterSection && !order.canClaim);
   return (
     <div className="flex flex-col gap-4 rounded-3xl bg-dark-surface p-4 lg:p-8">
       {/* Desktop */}
@@ -94,14 +96,16 @@ export function OrderCard(props: OrderCardProps) {
         <p className="font-body text-base font-medium text-white">{order.title}</p>
         <div className="flex items-center justify-between">
           <OrderIdRow orderId={order.orderId} idClassName="font-body text-sm text-white" />
-          <div className="flex items-center gap-1">
-            <IconButton
-              icon="/images/dashboard/icons/notification.svg"
-              aria-label="Notifications"
-            />
-            <IconButton icon="/images/dashboard/icons/open-view.svg" aria-label="View" />
-            <IconButton icon="/images/dashboard/icons/chat-icon.svg" aria-label="Chat" />
-          </div>
+          {showViewChat && (
+            <div className="flex items-center gap-1">
+              <IconButton
+                icon="/images/dashboard/icons/notification.svg"
+                aria-label="Notifications"
+              />
+              <IconButton icon="/images/dashboard/icons/open-view.svg" aria-label="View" />
+              <IconButton icon="/images/dashboard/icons/chat-icon.svg" aria-label="Chat" />
+            </div>
+          )}
         </div>
         {order.canClaim && (
           <ActionButton

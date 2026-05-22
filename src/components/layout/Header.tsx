@@ -22,7 +22,7 @@ const aboutUsLinks: NavLink[] = [
 
 const rightNav: NavLink[] = [
   { label: "Blog", href: "/blog" },
-  { label: "Support", href: "#support" },
+  { label: "Support", href: "/support" },
 ];
 
 function AboutUsDropdown() {

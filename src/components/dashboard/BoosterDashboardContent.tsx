@@ -81,7 +81,12 @@ export default function BoosterDashboardContent() {
               }
             >
               {section.orders.map((order) => (
-                <OrderCard key={order.id} variant="booster" order={order} />
+                <OrderCard
+                  key={order.id}
+                  variant="booster"
+                  order={order}
+                  boosterSection={section.view === "available-orders" ? "available" : section.view === "my-orders" ? "my-orders" : "completed"}
+                />
               ))}
             </OrderSection>
           ))}
