@@ -32,7 +32,7 @@ function ServiceCardItem({ card }: { card: ServiceCard }) {
   return (
     <Link
       href={card.href}
-      className="group relative flex h-[307px] flex-col gap-2 overflow-hidden rounded-3xl border border-transparent p-6 transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_0_24px_0_rgba(255,92,0,0.4)]"
+      className="group relative flex min-h-[200px] flex-col gap-2 overflow-hidden rounded-3xl border border-transparent p-5 transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_0_24px_0_rgba(255,92,0,0.4)] sm:h-[307px] sm:p-6"
       style={{
         background: "rgba(35,35,48,0.5)",
         backdropFilter: "blur(5px)",
@@ -190,8 +190,8 @@ export function ServicesGrid() {
        overlays the hero image (Figma `2nd SCREEN` overlap of ~150px).
        The bottom keeps a dark backdrop so the next section reads
        cleanly. */
-    <section className="relative -mt-72 w-full md:-mt-96 lg:-mt-[420px]">
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[320px] -z-10 bg-dark-main md:top-[340px] lg:top-[380px]" />
+    <section className="relative mt-8 w-full md:-mt-96 lg:-mt-[420px]">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[180px] -z-10 bg-dark-main md:top-[340px] lg:top-[380px]" />
       <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pb-16 md:px-12 lg:px-20 lg:pb-[120px]">
         <div className="flex flex-col gap-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">

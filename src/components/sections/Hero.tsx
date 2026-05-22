@@ -13,7 +13,7 @@ export function Hero({
 }: HeroProps) {
   return (
     <section className="relative w-full overflow-hidden">
-      <div className="relative h-[600px] w-full md:h-[720px] lg:h-[858px]">
+      <div className="relative h-[360px] w-full md:h-[720px] lg:h-[858px]">
         <Image
           src={backgroundImage}
           alt={title}
