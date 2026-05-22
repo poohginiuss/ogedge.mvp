@@ -103,7 +103,7 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
 
 function MessageCard({ message }: { message: TicketMessage }) {
   return (
-    <div className="rounded-3xl bg-[#232330] p-6 lg:p-8">
+    <div className="rounded-2xl bg-[#232330] p-3 lg:rounded-3xl lg:p-8">
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <Image
@@ -331,7 +331,7 @@ export default function TicketViewContent({ ticketId: _ticketId }: Props) {
   return (
     <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
       {/* Left column: fixed-height flex container — messages scroll, input stays pinned */}
-      <div className="flex h-[calc(100dvh-10rem)] max-h-[calc(100dvh-10rem)] min-w-0 flex-col lg:min-w-0 lg:flex-1 lg:h-[calc(100vh-10rem)] lg:max-h-[calc(100vh-10rem)]">
+      <div className="flex h-[calc(100dvh-3rem)] max-h-[calc(100dvh-3rem)] min-w-0 flex-col lg:min-w-0 lg:flex-1 lg:h-[calc(100vh-10rem)] lg:max-h-[calc(100vh-10rem)]">
         <div className="shrink-0">
           <TicketHeader view={view} />
         </div>
