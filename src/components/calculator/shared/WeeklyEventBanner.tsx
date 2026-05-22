@@ -48,50 +48,57 @@ export function WeeklyEventBanner({
 
   return (
     <div
-      className="relative rounded-3xl"
+      className="weekly-event-banner relative rounded-3xl"
       style={{
         border: "2px solid #ff975d",
         background: "rgba(0,0,0,0.2)",
         boxShadow: "0 4px 44px rgba(255,92,0,0.2)",
         backdropFilter: "blur(12px)",
         minHeight: "194px",
-        clipPath: "inset(-80px 0 0 0 round 24px)",
       }}
     >
+      <style jsx>{`
+        .weekly-event-banner {
+          clip-path: inset(-40px -10px 0 -10px round 24px);
+        }
+        @media (min-width: 1024px) {
+          .weekly-event-banner {
+            clip-path: inset(-80px 0 0 0 round 24px);
+          }
+        }
+      `}</style>
       <Image
         src={characterImage}
         alt=""
         width={300}
         height={310}
         unoptimized
-        className="pointer-events-none absolute z-0 select-none object-contain"
+        className="pointer-events-none absolute z-0 h-[220px] w-auto select-none object-contain lg:h-[280px]"
         style={{
           left: "-10px",
           bottom: "-10px",
-          height: "280px",
-          width: "auto",
         }}
       />
-      <div className="relative z-10 p-5 pl-[150px] md:p-8 md:pl-[280px]">
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
-          <div className="flex flex-col gap-1 md:max-w-[500px] md:gap-0">
-            <p className="font-body text-[10px] uppercase text-white md:hidden md:text-xs">
+      <div className="relative z-10 p-5 pl-[140px] lg:p-8 lg:pl-[280px]">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+          <div className="flex flex-col gap-1 lg:max-w-[500px] lg:gap-0">
+            <p className="font-body text-[10px] uppercase text-white lg:hidden">
               Event ends in
             </p>
             <p
-              className="font-heading text-2xl font-bold leading-tight text-brand-main md:hidden"
+              className="font-heading text-2xl font-bold leading-tight text-brand-main lg:hidden"
               style={{ textShadow: "0 0 16px rgba(255,92,0,0.4)" }}
             >
               {timerStr}
             </p>
-            <h3 className="font-heading text-base font-bold leading-tight text-white md:text-3xl">
+            <h3 className="font-heading text-base font-bold leading-tight text-white lg:text-3xl">
               {title}
             </h3>
-            <p className="font-body text-xs leading-relaxed text-white/90 md:mt-3 md:text-base">
+            <p className="font-body text-xs leading-relaxed text-white/90 lg:mt-3 lg:text-base">
               {description}
             </p>
           </div>
-          <div className="hidden shrink-0 text-right md:block">
+          <div className="hidden shrink-0 text-right lg:block">
             <p className="font-body text-xs uppercase text-white">Event ends in</p>
             <p
               className="font-heading text-5xl font-bold text-brand-main"

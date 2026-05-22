@@ -29,12 +29,9 @@ export function CategoryTabs({
         <p className="mb-2 font-heading text-lg font-bold text-white">{mobileLabel}</p>
         <Dropdown
           label=""
-          value={options.find((c) => c.id === value)?.label ?? ""}
-          options={options.map((c) => c.label)}
-          onChange={(label) => {
-            const found = options.find((c) => c.label === label);
-            if (found) onChange(found.id);
-          }}
+          value={value}
+          options={options.map((c) => ({ value: c.id, label: c.label, icon: c.icon }))}
+          onChange={onChange}
         />
       </div>
       {/* Desktop tabs */}

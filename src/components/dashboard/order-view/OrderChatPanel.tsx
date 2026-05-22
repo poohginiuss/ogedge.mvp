@@ -247,11 +247,11 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 lg:gap-2">
           <button
             type="button"
             onClick={onNotify}
-            className="flex h-10 items-center gap-2 rounded-xl px-3 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5"
+            className="flex h-10 items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5 lg:px-3"
           >
             <Image
               src="/images/dashboard/orderview/icons/bell-notify.svg"
@@ -260,12 +260,12 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
               height={18}
               className="h-[18px] w-[18px]"
             />
-            Notify
+            <span className="hidden lg:inline">Notify</span>
           </button>
           <button
             type="button"
             onClick={onProfile}
-            className="flex h-10 items-center gap-2 rounded-xl px-3 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5"
+            className="flex h-10 items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5 lg:px-3"
           >
             <Image
               src="/images/dashboard/orderview/icons/profile-circle.svg"
@@ -274,7 +274,7 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
               height={18}
               className="h-[18px] w-[18px]"
             />
-            Profile
+            <span className="hidden lg:inline">Profile</span>
           </button>
         </div>
       </div>

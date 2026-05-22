@@ -274,7 +274,7 @@ export function ValorantPageContent() {
   ];
 
   const topBanner = (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-[241px_1fr]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[241px_1fr]">
       <SeasonBanner title="Season 2026: Act 1" daysLeftLabel="6 days left" progressPercent={88} />
       <WeeklyEventBanner
         title="Valorant Weekly Event"
