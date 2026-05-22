@@ -281,9 +281,9 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
 
       {/* Mobile layout: fullscreen overlay */}
       <div
-        className="flex h-full w-full flex-col overflow-y-auto lg:hidden"
+        className="flex h-full w-full flex-col overflow-y-auto backdrop-blur-md lg:hidden"
         style={{
-          background: "linear-gradient(180deg,rgb(29, 29, 34) 0%,rgb(35, 35, 48) 50%,rgb(23, 25, 31) 100%)",
+          background: "linear-gradient(180deg,rgba(29,29,34,0.5) 0%,rgba(35,35,48,0.5) 50%,rgba(23,25,31,0.5) 100%)",
         }}
       >
         <div className="flex items-center gap-4 px-4 py-4">
