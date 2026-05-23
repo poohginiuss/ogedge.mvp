@@ -19,6 +19,16 @@ export const boosterSidebarNavItems: NavItem[] = [
     label: "My Completed Orders",
     icon: "/images/dashboard/icons/nav-completed-orders.svg",
   },
+  {
+    id: "rules",
+    label: "Rules",
+    icon: "/images/dashboard/icons/nav-rules.svg",
+  },
+  {
+    id: "profile",
+    label: "Profile",
+    icon: "/images/dashboard/icons/nav-profile.svg",
+  },
   { id: "support", label: "Customer Support", icon: "/images/dashboard/icons/nav-support.svg" },
 ];
 

@@ -32,13 +32,13 @@ export function DashboardReferralCard() {
             Earn <span className="text-brand-light">$10</span> per friend, give them{" "}
             <span className="text-brand-light">10% off</span>
           </p>
-          <p className="font-body text-sm text-white">
+          <p className="font-body text-xs text-white lg:text-sm">
             Share your code. They get a discount on their first order, you get rewarded right after
             they checkout.
           </p>
         </div>
 
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="flex items-center gap-6">
           <div className="h-[50px] w-px bg-dark-border" />
           <div className="flex flex-col items-center gap-1 whitespace-nowrap">
             <span
@@ -47,31 +47,13 @@ export function DashboardReferralCard() {
             >
               Your Code
             </span>
-            <span className="font-heading text-[30px] font-bold uppercase leading-[38px] text-brand-main">
+            <span className="font-heading text-2xl font-bold uppercase leading-[38px] text-brand-main lg:text-[30px]">
               {userProfile.referralCode}
             </span>
             <span className="font-body text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
               {userProfile.friendsJoined} friends joined
             </span>
           </div>
-        </div>
-      </div>
-
-      {/* Mobile referral code */}
-      <div className="flex items-center justify-between lg:hidden">
-        <div className="flex flex-col items-center gap-1">
-          <span
-            className="font-body text-xs font-bold uppercase"
-            style={{ color: "rgba(255,255,255,0.5)" }}
-          >
-            Your Code
-          </span>
-          <span className="font-heading text-2xl font-bold uppercase text-brand-main">
-            {userProfile.referralCode}
-          </span>
-          <span className="font-body text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
-            {userProfile.friendsJoined} friends joined
-          </span>
         </div>
       </div>
 

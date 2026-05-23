@@ -8,6 +8,8 @@ const CUSTOMER_ROUTE_MAP: Record<string, string> = {
   dashboard: "/app/customer",
   "active-orders": "/app/customer/active-orders",
   "completed-orders": "/app/customer/completed-orders",
+  rules: "/app/customer/rules",
+  profile: "/app/customer/profile",
   support: "/app/customer/support",
 };
 

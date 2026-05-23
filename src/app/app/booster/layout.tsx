@@ -11,6 +11,9 @@ const BOOSTER_ROUTE_MAP: Record<string, string> = {
   "available-orders": "/app/booster/available-orders",
   "my-orders": "/app/booster/my-orders",
   "completed-orders": "/app/booster/completed-orders",
+  payouts: "/app/booster/payouts",
+  rules: "/app/booster/rules",
+  profile: "/app/booster/profile",
   support: "/app/booster/support",
 };
 

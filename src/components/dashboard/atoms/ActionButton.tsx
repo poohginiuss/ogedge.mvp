@@ -16,9 +16,9 @@ type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const VARIANT_CLASSES: Record<ActionButtonVariant, string> = {
-  dark: "",
-  outline: "border border-brand-light",
-  brand: "bg-brand-main",
+  dark: "transition-opacity hover:opacity-80",
+  outline: "border border-brand-light transition-colors hover:bg-brand-light/10",
+  brand: "bg-brand-main transition-opacity hover:opacity-85",
 };
 
 export function ActionButton({
