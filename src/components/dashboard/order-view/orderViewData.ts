@@ -116,6 +116,10 @@ export type OrderViewModel = {
   description: { title: string; body: string };
   /** Pre-loaded admin messages + sample conversation history. */
   messages: ChatMessage[];
+  /** If true, show "Awaiting Payment" banner with total and action buttons. */
+  isUnpaid?: boolean;
+  /** Total amount owed for unpaid orders. */
+  unpaidTotal?: string;
 };
 
 /**
@@ -208,4 +212,16 @@ export const sampleOrderView: OrderViewModel = {
       body: "Hello!",
     },
   ],
+};
+
+export const sampleUnpaidOrderView: OrderViewModel = {
+  ...sampleOrderView,
+  orderId: "4269525",
+  isUnpaid: true,
+  unpaidTotal: "$640",
+  hero: {
+    ...sampleOrderView.hero,
+    status: "not-started",
+    countdown: undefined,
+  },
 };

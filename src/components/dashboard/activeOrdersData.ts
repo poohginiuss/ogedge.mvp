@@ -3,7 +3,8 @@ export type TableOrderStatus =
   | "assigned-booster"
   | "started"
   | "paused"
-  | "completed";
+  | "completed"
+  | "not-started";
 
 export type DetailTag = {
   label: string;
@@ -107,10 +108,25 @@ function makeOrder(i: number, prefix: string): TableOrder {
   };
 }
 
+const unpaidOrder: TableOrder = {
+  id: "t-unpaid",
+  orderId: "4269525",
+  game: "Valorant",
+  service: "Rank Boosting",
+  rangeLabel: "Silver II — Platinum III",
+  details: [TAG_EUW, TAG_STREAMING, TAG_OFFLINE, TAG_PRIORITY],
+  employeeName: "—",
+  employeeRating: 0,
+  tableStatus: "not-started",
+  chatActive: false,
+};
+
 // 60 orders → 12 pages at PAGE_SIZE=5, matching Figma pagination
-export const sampleTableOrders: TableOrder[] = Array.from({ length: 60 }, (_, i) =>
-  makeOrder(i, "t"),
-);
+export const sampleTableOrders: TableOrder[] = [
+  ...Array.from({ length: 3 }, (_, i) => makeOrder(i, "t")),
+  unpaidOrder,
+  ...Array.from({ length: 57 }, (_, i) => makeOrder(i + 3, "t")),
+];
 
 // Completed orders use same generator but start from a different offset
 // so statuses/games rotate differently

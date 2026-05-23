@@ -13,6 +13,7 @@ import {
   OrderChatPanel,
   OrderDetailsPanel,
   sampleOrderView,
+  sampleUnpaidOrderView,
 } from "../order-view";
 import { MobileDrawer } from "../organisms";
 
@@ -26,7 +27,8 @@ type Props = { orderId: string };
 export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
   const router = useRouter();
   const [chatOpen, setChatOpen] = useState(false);
-  const view = sampleOrderView;
+  const isUnpaidOrder = _orderId === "4269525";
+  const view = isUnpaidOrder ? sampleUnpaidOrderView : sampleOrderView;
 
   const profileBadges = (
     <div className="flex items-center gap-2">
@@ -75,18 +77,91 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
         onPurchaseBoost={() => router.push("/")}
       />
 
-      <GameServiceHeroCard hero={view.hero} />
+      {view.isUnpaid && (
+        <div
+          className="relative overflow-hidden rounded-3xl border-2 px-6 py-6 lg:px-8 lg:py-6"
+          style={{
+            background: "rgba(56,56,82,0.3)",
+            borderColor: "rgba(163,45,5,0.4)",
+          }}
+        >
+          {/* Decorative background money-off icon — desktop only */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 opacity-15 lg:block"
+          >
+            <div className="flex h-[118px] w-[118px] items-center justify-center">
+              <span className="absolute inset-0 rounded-full border-2 border-white/20" />
+              <span className="absolute inset-[-4px] rounded-full border border-white/10" />
+              <span
+                className="flex h-[70px] w-[70px] items-center justify-center rounded-2xl border border-white/40 shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+                style={{ background: "rgba(255,255,255,0.2)", backdropFilter: "blur(6px)" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/dashboard/orderview/icons/status-not-started.svg"
+                  alt=""
+                  className="h-[50px] w-[50px]"
+                />
+              </span>
+            </div>
+          </div>
+
+          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col gap-1">
+              <h2 className="font-heading text-2xl font-semibold text-white lg:text-[32px]">
+                Awaiting Payment
+              </h2>
+              <p className="font-body text-base text-white lg:text-lg">
+                Complete your payment to start your boosting order
+              </p>
+              <div className="mt-1 flex items-center gap-2">
+                <span className="font-body text-sm font-medium uppercase text-white">total</span>
+                <span className="font-heading text-[30px] font-bold leading-[38px] text-brand-main">
+                  {view.unpaidTotal}
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 lg:w-[300px] lg:shrink-0">
+              <button
+                type="button"
+                className="flex items-center justify-center gap-4 rounded-3xl bg-[rgba(56,56,82,0.3)] px-8 py-6 font-body text-xl font-bold text-white transition-all hover:bg-[rgba(56,56,82,0.6)] hover:shadow-[0_0_12px_rgba(255,255,255,0.05)]"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/dashboard/icons/cancel-icon.svg" alt="" className="h-6 w-6" />
+                Cancel Order
+              </button>
+              <button
+                type="button"
+                className="flex items-center justify-center gap-4 rounded-3xl border border-brand-light bg-[rgba(23,25,31,0.5)] px-8 py-6 font-body text-xl font-bold tracking-[0.4px] text-white shadow-[0_4px_44px_rgba(255,92,0,0.2)] backdrop-blur-[3px] transition-all hover:bg-[rgba(23,25,31,0.8)] hover:shadow-[0_4px_44px_rgba(255,92,0,0.4)]"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/dashboard/icons/check-all-white.svg"
+                  alt=""
+                  className="h-6 w-6"
+                />
+                Complete Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className={view.isUnpaid ? "pointer-events-none opacity-40" : ""}>
+        <GameServiceHeroCard hero={view.hero} />
+      </div>
 
       <div className="h-[600px] lg:hidden">
         <OrderChatPanel view={view} />
       </div>
 
       {/* Mobile: description right after chat, desktop: after detail panels */}
-      <div className="lg:hidden">
+      <div className={`lg:hidden ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
         <DescriptionPanel title={view.description.title} body={view.description.body} />
       </div>
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
+      <div className={`flex flex-col gap-4 lg:flex-row lg:gap-6 ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
         <div className="order-2 lg:order-1 lg:flex-1">
           <OrderDetailsPanel rows={view.orderDetails} />
         </div>
@@ -95,7 +170,7 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
         </div>
       </div>
 
-      <div className="hidden lg:block">
+      <div className={`hidden lg:block ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
         <DescriptionPanel title={view.description.title} body={view.description.body} />
       </div>
     </div>

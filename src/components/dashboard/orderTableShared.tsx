@@ -56,6 +56,13 @@ const STATUS_THEME: Record<
     textColor: "#fff",
     icon: "completed",
   },
+  "not-started": {
+    label: "Not Started",
+    bg: "#656565",
+    shadow: "0 4px 7px rgba(101,101,101,0.4)",
+    textColor: "#fff",
+    icon: "not-started",
+  },
 };
 
 function StatusIcon({ icon }: { icon: string }) {

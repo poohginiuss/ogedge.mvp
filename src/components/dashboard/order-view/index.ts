@@ -15,4 +15,4 @@ export type {
   OrderViewModel,
   RankBadge,
 } from "./orderViewData";
-export { sampleOrderView } from "./orderViewData";
+export { sampleOrderView, sampleUnpaidOrderView } from "./orderViewData";

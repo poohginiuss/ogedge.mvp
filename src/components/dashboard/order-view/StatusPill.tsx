@@ -14,7 +14,7 @@ type PillTheme = {
   glyph: PillGlyph;
 };
 
-type PillGlyph = "ring" | "clock" | "play" | "pause" | "check" | "cross" | "star" | "ship";
+type PillGlyph = "ring" | "clock" | "play" | "pause" | "check" | "cross" | "star" | "ship" | "money-off";
 
 /**
  * Pill backgrounds fade from transparent (left, blending into the hero
@@ -24,10 +24,10 @@ type PillGlyph = "ring" | "clock" | "play" | "pause" | "check" | "cross" | "star
  */
 const STATUS_PILL_THEME: Record<OrderHeroStatus, PillTheme> = {
   "not-started": {
-    label: "NOT STARTED",
+    label: "ORDER\nUNPAID",
     background:
-      "linear-gradient(90deg, rgba(66,133,244,0) 0%, rgba(66,133,244,0.45) 30%, #4285f4 100%)",
-    glyph: "ring",
+      "linear-gradient(90deg, #21222f 0%, #44444b 50%, #666 100%)",
+    glyph: "money-off",
   },
   "waiting-for-booster": {
     label: "WAITING FOR BOOSTER",
@@ -120,6 +120,13 @@ function Glyph({ kind }: { kind: PillGlyph }) {
           <path d="M9 16v3M19 16v3" />
         </g>
       );
+    case "money-off":
+      return (
+        <path
+          d="M12.5 6.9C13.92 6.9 14.63 7.44 14.89 8.3L16.96 8.3C16.68 6.49 15.49 5.56 14 5.19V3H11V5.16C10.61 5.26 10.25 5.4 9.9 5.56L11.41 7.07C11.73 6.97 12.1 6.9 12.5 6.9ZM4.77 4.62L3.4 6.03L7.5 10.13C7.5 12.22 9.06 13.24 11.41 13.68L14.92 17.19C14.58 17.68 13.87 18.1 12.5 18.1C10.86 18.1 10 17.51 9.67 16.67L7.6 16.67C7.88 18.75 9.54 19.51 11 19.83V22H14V19.85C14.99 19.64 15.84 19.3 16.47 18.73L17.98 20.24L19.39 18.83L4.77 4.62Z"
+          fill="currentColor"
+        />
+      );
   }
 }
 
@@ -166,7 +173,7 @@ export function StatusPill({ status, countdown, subLabel, className }: StatusPil
       )}
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center text-center">
-        <span className="font-body text-2xl font-bold uppercase leading-tight">{theme.label}</span>
+        <span className="whitespace-pre-line font-body text-2xl font-bold uppercase leading-tight">{theme.label}</span>
         {subLabel && (
           <div className="mt-1 flex flex-col items-center gap-0.5">
             <span className="font-body text-sm text-white">{subLabel}</span>
@@ -184,7 +191,26 @@ export function StatusPill({ status, countdown, subLabel, className }: StatusPil
         )}
       </div>
 
-      {!isPaused && (
+      {!isPaused && theme.glyph === "money-off" && (
+        <div
+          aria-hidden
+          className="absolute right-6 top-1/2 z-0 flex -translate-y-1/2 items-center justify-center"
+          style={{ width: "118px", height: "118px" }}
+        >
+          <span className="absolute inset-0 rounded-full border-2 border-white/20" />
+          <span className="absolute inset-[-4px] rounded-full border border-white/10" />
+          <span
+            className="flex h-[70px] w-[70px] items-center justify-center rounded-2xl border border-white/40 shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+            style={{ background: "rgba(255,255,255,0.2)", backdropFilter: "blur(6px)" }}
+          >
+            <svg width="50" height="50" viewBox="0 0 24 24" role="presentation" className="text-white">
+              <Glyph kind="money-off" />
+            </svg>
+          </span>
+        </div>
+      )}
+
+      {!isPaused && theme.glyph !== "money-off" && (
         <div className="relative flex h-[48px] w-[48px] shrink-0 items-center justify-center">
           <span
             aria-hidden
