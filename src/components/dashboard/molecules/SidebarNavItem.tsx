@@ -37,17 +37,17 @@ export function SidebarNavItem({ icon, label, active = false, onClick }: Sidebar
     <button
       type="button"
       onClick={onClick}
-      className="flex flex-col items-center gap-3 transition-opacity hover:opacity-80"
+      className="flex flex-col items-center gap-1.5 transition-opacity hover:opacity-80"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={icon}
         alt=""
-        className="h-8 w-8"
+        className="h-6 w-6"
         style={active ? { filter: ACTIVE_ICON_FILTER } : undefined}
       />
       <span
-        className="max-w-[75px] text-center font-body text-xs font-semibold uppercase leading-tight"
+        className="max-w-[64px] text-center font-body text-[10px] font-semibold uppercase leading-tight"
         style={{ color: active ? "var(--brand-light)" : "var(--dark-muted)" }}
       >
         {label}

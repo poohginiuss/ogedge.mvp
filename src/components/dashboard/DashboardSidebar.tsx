@@ -11,7 +11,7 @@ type DashboardSidebarProps = {
 export function DashboardSidebar({ activeId, onNavigate, navItems }: DashboardSidebarProps) {
   const items = navItems ?? sidebarNavItems;
   return (
-    <nav className="fixed left-0 top-0 z-40 hidden h-screen w-[100px] flex-col items-center justify-between border-r border-dark-border bg-dark-main pb-8 pt-35 lg:flex">
+    <nav className="fixed left-0 top-0 z-40 hidden h-screen w-[80px] flex-col items-center justify-between border-r border-dark-border bg-dark-main pb-8 pt-35 lg:flex">
       <div className="flex flex-col gap-6">
         {items.map((item) => (
           <SidebarNavItem

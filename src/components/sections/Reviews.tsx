@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 type Review = {
@@ -131,8 +132,9 @@ export function Reviews() {
               What our players are saying
             </h2>
 
-            <div
-              className="inline-flex flex-wrap items-center gap-3 rounded-3xl px-8 py-6 self-start"
+            <Link
+              href="/reviews"
+              className="inline-flex flex-wrap items-center gap-3 rounded-3xl px-8 py-6 self-start transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_54px_rgba(255,92,0,0.5)]"
               style={{
                 background: "rgba(23,25,31,0.5)",
                 border: "2px solid #ff975d",
@@ -150,10 +152,7 @@ export function Reviews() {
               </span>
               <span className="font-body text-lg text-white">10k Reviews</span>
               <span className="text-white/50">|</span>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 font-body text-lg font-bold uppercase tracking-[0.4px] text-white"
-              >
+              <span className="inline-flex items-center gap-2 font-body text-lg font-bold uppercase tracking-[0.4px] text-white">
                 See all
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -162,8 +161,8 @@ export function Reviews() {
                   loading="lazy"
                   className="h-5 w-5 rotate-90"
                 />
-              </button>
-            </div>
+              </span>
+            </Link>
           </div>
         </div>
 
@@ -173,8 +172,9 @@ export function Reviews() {
             What our players are saying
           </h2>
 
-          <div
-            className="mt-4 inline-flex flex-wrap items-center justify-center gap-3 rounded-3xl px-5 py-4"
+          <Link
+            href="/reviews"
+            className="mt-4 inline-flex flex-wrap items-center justify-center gap-3 rounded-3xl px-5 py-4 transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_54px_rgba(255,92,0,0.5)]"
             style={{
               background: "rgba(23,25,31,0.5)",
               border: "2px solid #ff975d",
@@ -192,10 +192,7 @@ export function Reviews() {
             </span>
             <span className="font-body text-sm text-white">10k Reviews</span>
             <span className="text-white/50">|</span>
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 font-body text-sm font-bold uppercase tracking-[0.4px] text-white"
-            >
+            <span className="inline-flex items-center gap-2 font-body text-sm font-bold uppercase tracking-[0.4px] text-white">
               See all
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -204,8 +201,8 @@ export function Reviews() {
                 loading="lazy"
                 className="h-5 w-5 rotate-90"
               />
-            </button>
-          </div>
+            </span>
+          </Link>
 
           {/* Character image */}
           <div className="relative mt-6 w-full flex justify-center">

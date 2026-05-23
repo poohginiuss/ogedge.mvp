@@ -81,7 +81,7 @@ export function DashboardShell({
     <>
       <Header />
       <DashboardSidebar activeId={resolvedActive} onNavigate={handleNavigate} navItems={navItems} />
-      <main className="min-h-screen bg-dark-main lg:ml-[100px]">
+      <main className="min-h-screen bg-dark-main lg:ml-[80px]">
         {/* Mobile page title bar — sticky below the site header, nav toggle on right */}
         <div className="sticky top-[80px] z-40 flex items-center gap-3 bg-dark-main px-6 py-3 sm:top-[82px] md:top-[86px] lg:hidden">
           <span className="flex-1 font-body text-lg font-bold capitalize text-white">
