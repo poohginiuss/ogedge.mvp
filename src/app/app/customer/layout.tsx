@@ -11,6 +11,7 @@ const CUSTOMER_ROUTE_MAP: Record<string, string> = {
   rules: "/app/customer/rules",
   profile: "/app/customer/profile",
   support: "/app/customer/support",
+  notification: "/app/customer/notification",
 };
 
 export default function CustomerDashboardLayout({ children }: { children: ReactNode }) {

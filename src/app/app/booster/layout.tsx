@@ -15,6 +15,7 @@ const BOOSTER_ROUTE_MAP: Record<string, string> = {
   rules: "/app/booster/rules",
   profile: "/app/booster/profile",
   support: "/app/booster/support",
+  notification: "/app/booster/notification",
 };
 
 export default function BoosterDashboardLayout({ children }: { children: ReactNode }) {
