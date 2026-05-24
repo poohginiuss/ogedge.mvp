@@ -651,20 +651,6 @@ export function FastCheckoutPanel({
                 <span className="font-body text-xs font-normal text-white">({totalAmount})</span>
               </button>
             </div>
-
-            {/* Footer text */}
-            <p className="text-center font-body text-sm font-normal text-white/80">
-              {"By placing an order at "}
-              <span className="font-bold">ogedge.com</span>
-              {" you're agreeing to our "}
-              <Link href="/terms" className="font-bold underline">
-                Terms of Use
-              </Link>
-              {" and "}
-              <Link href="/privacy" className="font-bold underline">
-                Privacy Policy
-              </Link>
-            </p>
           </div>
         </div>
         )}
@@ -684,97 +670,97 @@ const WHAT_HAPPENS_NEXT = [
 function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex min-h-full flex-col items-center">
-      {/* Success Icon */}
-      <div>
-        <Image
-          src="/images/icons/checkout/confirm-success.svg"
-          alt="Success"
-          width={64}
-          height={64}
-          className="h-16 w-16"
-        />
-      </div>
+      {/* Stretching content area — distributes blocks evenly when extra vertical space is available */}
+      <div className="flex w-full flex-1 flex-col items-center justify-between gap-6">
+        {/* Top group: Icon + Title + Points */}
+        <div className="flex flex-col items-center">
+          <Image
+            src="/images/icons/checkout/confirm-success.svg"
+            alt="Success"
+            width={64}
+            height={64}
+            className="h-16 w-16"
+          />
+          <h2 className="mt-1 text-center font-heading text-[26px] font-bold leading-[34px] text-white">
+            Order #1234 Created!
+          </h2>
+          <div className="mt-1 flex items-center gap-1">
+            <span className="font-heading text-lg font-bold text-white">You gained</span>
+            <span className="font-heading text-lg font-bold text-[#ff5c00]">12</span>
+            <Image
+              src="/images/icons/checkout/confirm-booster.svg"
+              alt="points"
+              width={22}
+              height={22}
+              className="h-[22px] w-[22px]"
+            />
+            <span className="font-heading text-lg font-bold text-white">points</span>
+          </div>
+        </div>
 
-      {/* Order Created */}
-      <h2 className="mt-1 text-center font-heading text-[26px] font-bold leading-[34px] text-white">
-        Order #1234 Created!
-      </h2>
+        {/* Middle group: Description + Button */}
+        <div className="flex flex-col items-center">
+          <p className="text-center font-body text-base font-medium leading-5 text-white">
+            Please check your email for the confirmation link to set your password to the Members
+            area
+          </p>
+          <p className="mt-2 text-center font-body text-xs font-normal leading-[18px] text-white/60">
+            This process usually takes less a few minutes. If you don&apos;t recive a confirmation
+            email please contact us for support or use our Live Support. However, we would like to
+            ask you first to check your spam folder.
+          </p>
+          <Link
+            href="/app/customer"
+            onClick={onClose}
+            className="mt-5 flex w-[230px] items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-4 font-body text-sm font-bold uppercase tracking-wider text-white shadow-[0_4px_12px_rgba(255,92,0,0.3)] transition-all hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
+            style={{
+              backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
+            }}
+          >
+            Follow Order
+          </Link>
+        </div>
 
-      {/* Points */}
-      <div className="mt-1 flex items-center gap-1">
-        <span className="font-heading text-lg font-bold text-white">You gained</span>
-        <span className="font-heading text-lg font-bold text-[#ff5c00]">12</span>
-        <Image
-          src="/images/icons/checkout/confirm-booster.svg"
-          alt="points"
-          width={22}
-          height={22}
-          className="h-[22px] w-[22px]"
-        />
-        <span className="font-heading text-lg font-bold text-white">points</span>
-      </div>
-
-      {/* Email message */}
-      <p className="mt-4 text-center font-body text-base font-medium leading-5 text-white">
-        Please check your email for the confirmation link to set your password to the Members area
-      </p>
-      <p className="mt-2 text-center font-body text-xs font-normal leading-[18px] text-white/60">
-        This process usually takes less a few minutes. If you don&apos;t recive a confirmation email
-        please contact us for support or use our Live Support. However, we would like to ask you
-        first to check your spam folder.
-      </p>
-
-      {/* Follow Order Button */}
-      <Link
-        href="/app/customer"
-        onClick={onClose}
-        className="mt-5 flex w-[230px] items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-4 font-body text-sm font-bold uppercase tracking-wider text-white shadow-[0_4px_12px_rgba(255,92,0,0.3)] transition-all hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
-        style={{
-          backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
-        }}
-      >
-        Follow Order
-      </Link>
-
-      {/* What happens next */}
-      <div className="mt-6 w-full">
-        <h3 className="font-heading text-lg font-medium leading-6 text-white">
-          What happens next
-        </h3>
-        <div className="mt-3 flex flex-col gap-2">
-          {WHAT_HAPPENS_NEXT.map((step) => (
-            <div key={step} className="flex items-center gap-3">
-              <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ff5c00]">
-                <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                  <path
-                    d="M10 3L4.5 8.5L2 6"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+        {/* Bottom group: What happens next */}
+        <div className="w-full">
+          <h3 className="font-heading text-lg font-medium leading-6 text-white">
+            What happens next
+          </h3>
+          <div className="mt-3 flex flex-col gap-2">
+            {WHAT_HAPPENS_NEXT.map((step) => (
+              <div key={step} className="flex items-center gap-3">
+                <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ff5c00]">
+                  <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path
+                      d="M10 3L4.5 8.5L2 6"
+                      stroke="white"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                <span className="font-body text-sm font-normal text-white">{step}</span>
               </div>
-              <span className="font-body text-sm font-normal text-white">{step}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Character image with glow — pinned to bottom, stretches full width */}
-      <div className="relative -mx-10 -mb-4 mt-auto flex w-[calc(100%+5rem)] items-end justify-center overflow-hidden pt-4">
+      <div className="relative -mx-10 -mb-4 mt-4 flex w-[calc(100%+5rem)] items-end justify-center overflow-hidden pt-4">
         <div
-          className="absolute left-1/2 top-2/3 h-[160px] w-[200px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-80 blur-[90px]"
+          className="absolute left-1/2 top-2/3 h-[200px] w-[260px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-80 blur-[90px] lg:h-[240px] lg:w-[300px]"
           aria-hidden="true"
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/jobs/hero-character.png"
           alt=""
-          className="relative z-[1] h-[240px] w-auto object-contain"
+          className="relative z-[1] h-[260px] w-auto object-contain lg:h-[340px]"
         />
         <div
-          className="absolute inset-x-0 bottom-0 z-10 h-[110px]"
+          className="absolute inset-x-0 bottom-0 z-10 h-[120px] lg:h-[140px]"
           style={{
             background: "linear-gradient(to top, rgb(23,25,31), transparent)",
           }}
