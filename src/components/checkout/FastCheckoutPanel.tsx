@@ -152,7 +152,7 @@ export function FastCheckoutPanel({
 
       {/* Panel: bottom sheet on mobile, side panel on desktop */}
       <div
-        className={`fixed z-[10000] flex flex-col overscroll-contain transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0 lg:translate-x-0 lg:translate-y-0" : "translate-y-full lg:translate-x-full lg:translate-y-0"} bottom-0 left-0 right-0 h-[98dvh] rounded-t-2xl lg:bottom-auto lg:left-auto lg:right-0 lg:top-0 lg:h-full lg:w-full lg:max-w-[440px] lg:rounded-none lg:rounded-tl-2xl`}
+        className={`fixed z-[10000] flex flex-col overscroll-contain transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0 lg:translate-x-0 lg:translate-y-0" : "translate-y-full lg:translate-x-full lg:translate-y-0"} bottom-0 left-0 right-0 h-[98dvh] rounded-t-2xl lg:bottom-auto lg:left-auto lg:right-0 lg:top-0 lg:h-full lg:w-full lg:max-w-[440px] lg:rounded-none`}
         style={{
           backgroundImage:
             "linear-gradient(125deg, rgb(56,56,82) 0%, rgb(43,45,77) 50%, rgb(13,15,21) 100%)",
@@ -174,7 +174,7 @@ export function FastCheckoutPanel({
         </div>
 
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto overscroll-contain px-5 pb-4 pt-4 lg:px-6 lg:pt-8">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-5 pb-4 pt-4 lg:px-6 lg:pt-5">
           {showConfirmation ? (
             <FastCheckoutConfirmation onClose={onClose} />
           ) : (
@@ -683,42 +683,42 @@ const WHAT_HAPPENS_NEXT = [
 
 function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex min-h-full flex-col items-center">
       {/* Success Icon */}
-      <div className="">
+      <div>
         <Image
           src="/images/icons/checkout/confirm-success.svg"
           alt="Success"
-          width={80}
-          height={80}
-          className="h-20 w-20"
+          width={64}
+          height={64}
+          className="h-16 w-16"
         />
       </div>
 
       {/* Order Created */}
-      <h2 className="mt-0 text-center font-heading text-[30px] font-bold leading-[38px] text-white">
+      <h2 className="mt-1 text-center font-heading text-[26px] font-bold leading-[34px] text-white">
         Order #1234 Created!
       </h2>
 
       {/* Points */}
-      <div className="mt-2 flex items-center gap-1">
-        <span className="font-heading text-xl font-bold text-white">You gained</span>
-        <span className="font-heading text-xl font-bold text-[#ff5c00]">12</span>
+      <div className="mt-1 flex items-center gap-1">
+        <span className="font-heading text-lg font-bold text-white">You gained</span>
+        <span className="font-heading text-lg font-bold text-[#ff5c00]">12</span>
         <Image
           src="/images/icons/checkout/confirm-booster.svg"
           alt="points"
-          width={24}
-          height={24}
-          className="h-6 w-6"
+          width={22}
+          height={22}
+          className="h-[22px] w-[22px]"
         />
-        <span className="font-heading text-xl font-bold text-white">points</span>
+        <span className="font-heading text-lg font-bold text-white">points</span>
       </div>
 
       {/* Email message */}
-      <p className="mt-6 text-center font-body text-lg font-medium leading-6 text-white">
+      <p className="mt-4 text-center font-body text-base font-medium leading-5 text-white">
         Please check your email for the confirmation link to set your password to the Members area
       </p>
-      <p className="mt-3 text-center font-body text-xs font-normal leading-[18px] text-white/60">
+      <p className="mt-2 text-center font-body text-xs font-normal leading-[18px] text-white/60">
         This process usually takes less a few minutes. If you don&apos;t recive a confirmation email
         please contact us for support or use our Live Support. However, we would like to ask you
         first to check your spam folder.
@@ -728,7 +728,7 @@ function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
       <Link
         href="/app/customer"
         onClick={onClose}
-        className="mt-8 flex w-[230px] items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-5 font-body text-sm font-bold uppercase tracking-wider text-white shadow-[0_4px_12px_rgba(255,92,0,0.3)] transition-all hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
+        className="mt-5 flex w-[230px] items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-4 font-body text-sm font-bold uppercase tracking-wider text-white shadow-[0_4px_12px_rgba(255,92,0,0.3)] transition-all hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
         style={{
           backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
         }}
@@ -737,11 +737,11 @@ function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
       </Link>
 
       {/* What happens next */}
-      <div className="mt-10 w-full">
-        <h3 className="font-heading text-xl font-medium leading-6 text-white">
+      <div className="mt-6 w-full">
+        <h3 className="font-heading text-lg font-medium leading-6 text-white">
           What happens next
         </h3>
-        <div className="mt-4 flex flex-col gap-3">
+        <div className="mt-3 flex flex-col gap-2">
           {WHAT_HAPPENS_NEXT.map((step) => (
             <div key={step} className="flex items-center gap-3">
               <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ff5c00]">
@@ -761,20 +761,20 @@ function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
         </div>
       </div>
 
-      {/* Character image with glow (same as /jobs hero) — breaks out of parent px-6 pb-4 */}
-      <div className="relative -mx-6 -mb-4 mt-8 flex items-end justify-center overflow-hidden">
+      {/* Character image with glow — pinned to bottom, stretches full width */}
+      <div className="relative -mx-10 -mb-4 mt-auto flex w-[calc(100%+5rem)] items-end justify-center overflow-hidden pt-4">
         <div
-          className="absolute left-1/2 top-2/3 h-[200px] w-[240px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-80 blur-[90px]"
+          className="absolute left-1/2 top-2/3 h-[160px] w-[200px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-80 blur-[90px]"
           aria-hidden="true"
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/jobs/hero-character.png"
           alt=""
-          className="relative z-[1] h-[320px] w-auto object-contain"
+          className="relative z-[1] h-[240px] w-auto object-contain"
         />
         <div
-          className="absolute inset-x-0 bottom-0 z-10 h-[120px]"
+          className="absolute inset-x-0 bottom-0 z-10 h-[110px]"
           style={{
             background: "linear-gradient(to top, rgb(23,25,31), transparent)",
           }}
