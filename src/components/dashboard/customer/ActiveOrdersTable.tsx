@@ -20,14 +20,14 @@ import {
 // ─── Column config ────────────────────────────────────────────────────────────
 
 const COLS = [
-  { label: "ID", width: "w-[120px]", align: "" },
-  { label: "Game", width: "w-[250px]", align: "" },
-  { label: "Service", width: "w-[250px]", align: "" },
-  { label: "Details", width: "w-[350px]", align: "" },
-  { label: "Employee", width: "w-[120px]", align: "text-center" },
-  { label: "Status", width: "w-[230px]", align: "text-center" },
-  { label: "Chat", width: "w-[170px]", align: "text-center" },
-  { label: "Actions", width: "w-[170px]", align: "text-center" },
+  { label: "ID", width: "w-[7%]", cls: "pl-6" },
+  { label: "Game", width: "w-[10%]", cls: "pl-6" },
+  { label: "Service", width: "w-[14%]", cls: "pl-6" },
+  { label: "Details", width: "min-w-[200px] flex-1", cls: "pl-6" },
+  { label: "Employee", width: "w-[8%]", cls: "text-center" },
+  { label: "Status", width: "w-[15%]", cls: "text-center" },
+  { label: "Chat", width: "w-[7%]", cls: "text-center" },
+  { label: "Actions", width: "w-[7%]", cls: "text-center" },
 ] as const;
 
 // ─── Desktop row ──────────────────────────────────────────────────────────────
@@ -35,7 +35,7 @@ const COLS = [
 function DesktopRow({ order }: { order: TableOrder }) {
   return (
     <RowShell>
-      <div className="w-[120px] shrink-0 pl-6">
+      <div className="w-[7%] pl-6">
         <span className="flex items-center gap-1.5">
           <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
             {order.orderId}
@@ -47,33 +47,33 @@ function DesktopRow({ order }: { order: TableOrder }) {
         </span>
       </div>
 
-      <div className="w-[250px] shrink-0 pl-6">
+      <div className="w-[10%] pl-6">
         <span className="font-body text-base font-semibold text-white">{order.game}</span>
       </div>
 
-      <div className="w-[250px] shrink-0 pl-6">
+      <div className="w-[14%] pl-6">
         <p className="font-body text-base font-semibold text-white">{order.service}</p>
         <p className="font-body text-sm font-bold text-white">{order.rangeLabel}</p>
       </div>
 
-      <div className="w-[350px] shrink-0 pl-6">
+      <div className="min-w-[200px] flex-1 pl-6">
         <DetailTags tags={order.details} />
       </div>
 
-      <div className="flex w-[120px] shrink-0 flex-col items-center gap-2">
+      <div className="flex w-[8%] flex-col items-center gap-2">
         <span className="font-body text-base text-white">{order.employeeName}</span>
         <StarRating rating={order.employeeRating} />
       </div>
 
-      <div className="flex w-[230px] shrink-0 items-center justify-center">
+      <div className="flex w-[15%] items-center justify-center">
         <StatusPill status={order.tableStatus} />
       </div>
 
-      <div className="flex w-[170px] shrink-0 items-center justify-center p-6">
+      <div className="flex w-[7%] items-center justify-center p-6">
         <ChatIcon active={order.chatActive} />
       </div>
 
-      <div className="flex w-[170px] shrink-0 items-center justify-center px-8">
+      <div className="flex w-[7%] items-center justify-center px-8">
         <ViewLink orderId={order.orderId} />
       </div>
     </RowShell>
@@ -128,11 +128,11 @@ export function ActiveOrdersTable({ orders, onPurchaseBoost, onSupport }: Props)
 
       {/* Desktop table — scrolls horizontally when narrower than column total */}
       <div className="hidden overflow-x-auto lg:block">
-        <div className="flex w-max flex-col gap-0">
+        <div className="flex min-w-[900px] w-full flex-col gap-0">
           {/* Header */}
-          <div className="flex items-center">
+          <div className="flex w-full items-center">
             {COLS.map((col) => (
-              <div key={col.label} className={`${col.width} shrink-0 py-1 pl-6 ${col.align}`}>
+              <div key={col.label} className={`${col.width} py-1 ${col.cls}`}>
                 <span className="font-body text-sm font-bold text-white/80">{col.label}</span>
               </div>
             ))}

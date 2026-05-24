@@ -60,26 +60,26 @@ const VARIANT_CONFIG: Record<BoosterTableVariant, VariantConfig> = {
 function getColumns(variant: BoosterTableVariant) {
   const cfg = VARIANT_CONFIG[variant];
   const cols: { label: string; cls: string }[] = [
-    { label: "ID", cls: "w-[100px] shrink-0" },
-    { label: "Game", cls: "w-[120px] shrink-0" },
-    { label: "Service", cls: "w-[200px] shrink-0" },
-    { label: "Details", cls: "min-w-[220px] flex-1" },
+    { label: "ID", cls: "w-[7%] pl-6" },
+    { label: "Game", cls: "w-[8%] pl-2" },
+    { label: "Service", cls: "w-[14%] pl-2" },
+    { label: "Details", cls: "min-w-[180px] flex-1 pl-2" },
   ];
   if (cfg.showEmployee) {
-    cols.push({ label: "Employee", cls: "w-[140px] shrink-0" });
+    cols.push({ label: "Employee", cls: "w-[8%] text-center" });
   }
   if (cfg.showCompletionTime) {
-    cols.push({ label: "Completion Time", cls: "w-[140px] shrink-0" });
+    cols.push({ label: "Completion Time", cls: "w-[12%] text-center" });
   }
-  cols.push({ label: cfg.earningLabel, cls: "w-[120px] shrink-0" });
+  cols.push({ label: cfg.earningLabel, cls: "w-[7%] text-center" });
   if (variant !== "available") {
-    cols.push({ label: "Status", cls: "w-[200px] shrink-0" });
+    cols.push({ label: "Status", cls: "w-[13%] text-center" });
   }
   if (cfg.showChat) {
-    cols.push({ label: "Chat", cls: "w-[60px] shrink-0" });
+    cols.push({ label: "Chat", cls: "w-[5%] text-center" });
   }
   if (cfg.showClaim || cfg.showView) {
-    cols.push({ label: "Actions", cls: "w-[140px] shrink-0" });
+    cols.push({ label: "Actions", cls: "w-[7%] text-center" });
   }
   return cols;
 }
@@ -188,7 +188,7 @@ function DesktopRow({
   const cfg = VARIANT_CONFIG[variant];
   return (
     <RowShell>
-      <div className="flex w-[100px] shrink-0 items-center justify-center">
+      <div className="flex w-[7%] items-center pl-6">
         <span className="flex items-center gap-1.5">
           <span className="font-body text-base font-semibold text-[#ff975d]">
             {order.orderId}
@@ -200,21 +200,21 @@ function DesktopRow({
         </span>
       </div>
 
-      <div className="flex w-[120px] shrink-0 items-center justify-center">
+      <div className="flex w-[8%] items-center pl-2">
         <span className="font-body text-base font-semibold text-white">{order.game}</span>
       </div>
 
-      <div className="flex w-[200px] shrink-0 flex-col items-center justify-center text-center">
+      <div className="flex w-[14%] flex-col justify-center pl-2">
         <p className="font-body text-base font-semibold text-white">{order.service}</p>
         <p className="font-body text-sm font-bold text-white/70">{order.rangeLabel}</p>
       </div>
 
-      <div className="flex min-w-[220px] flex-1 items-center justify-center">
+      <div className="flex min-w-[180px] flex-1 items-center pl-2">
         <DetailTags tags={order.details} />
       </div>
 
       {cfg.showEmployee && (
-        <div className="flex w-[140px] shrink-0 flex-col items-center justify-center text-center">
+        <div className="flex w-[8%] flex-col items-center justify-center text-center">
           <span className="font-body text-sm font-semibold text-white">
             {order.employee ?? "—"}
           </span>
@@ -227,25 +227,25 @@ function DesktopRow({
       )}
 
       {cfg.showCompletionTime && (
-        <div className="flex w-[140px] shrink-0 items-center justify-center">
+        <div className="flex w-[12%] items-center justify-center">
           <span className="font-body text-base font-semibold text-white">
             {order.completionTime ?? "—"}
           </span>
         </div>
       )}
 
-      <div className="flex w-[120px] shrink-0 items-center justify-center">
+      <div className="flex w-[7%] items-center justify-center">
         <PayoutCell earning={order.earning} bonus={order.bonus} />
       </div>
 
       {variant !== "available" && (
-        <div className="flex w-[200px] shrink-0 items-center justify-center">
+        <div className="flex w-[13%] items-center justify-center">
           <StatusPill status={order.tableStatus} />
         </div>
       )}
 
       {cfg.showChat && (
-        <div className="flex w-[60px] shrink-0 items-center justify-center">
+        <div className="flex w-[5%] items-center justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={
@@ -260,7 +260,7 @@ function DesktopRow({
       )}
 
       {(cfg.showClaim || cfg.showView) && (
-        <div className="flex w-[140px] shrink-0 items-center justify-center gap-3">
+        <div className="flex w-[7%] items-center justify-center gap-3">
           {cfg.showClaim && order.canClaim && (
             <ClaimButton onClaim={() => onClaim(order)} />
           )}
@@ -444,7 +444,7 @@ export function BoosterOrdersTable({ variant, orders, onSupport }: Props) {
         <div className="flex min-w-[1020px] w-full flex-col gap-0">
           <div className="flex w-full items-center">
             {cols.map((col) => (
-              <div key={col.label} className={`${col.cls} py-1 text-center`}>
+              <div key={col.label} className={`${col.cls} py-1`}>
                 <span className="font-body text-sm font-bold text-white/80">{col.label}</span>
               </div>
             ))}

@@ -24,7 +24,7 @@ export default function BoosterDashboardLayout({ children }: { children: ReactNo
     <DashboardShell
       navItems={boosterSidebarNavItems}
       routeMap={BOOSTER_ROUTE_MAP}
-      contentClassName="flex flex-col gap-6 p-6 lg:gap-8 lg:p-8 xl:p-16"
+      contentClassName="flex flex-col gap-6 p-6 lg:gap-8 lg:px-8 lg:py-6 xl:px-16 xl:py-8"
       mobileHeaderRight={
         <ActionMenuButton
           items={[

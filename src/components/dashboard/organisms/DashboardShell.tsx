@@ -48,7 +48,7 @@ export function DashboardShell({
   initialActiveId = "dashboard",
   children,
   mobileDrawer,
-  contentClassName = "flex flex-col gap-6 p-6 lg:gap-8 lg:p-8 xl:p-16",
+  contentClassName = "flex flex-col gap-6 p-6 lg:gap-8 lg:px-8 lg:py-6 xl:px-16 xl:py-8",
   mobileHeaderRight,
   routeMap,
   activeView,
@@ -81,7 +81,7 @@ export function DashboardShell({
     <>
       <Header />
       <DashboardSidebar activeId={resolvedActive} onNavigate={handleNavigate} navItems={navItems} />
-      <main className="min-h-screen bg-dark-main lg:ml-[80px]">
+      <main className="bg-dark-main lg:ml-[80px]">
         {/* Mobile page title bar — sticky below the site header, nav toggle on right */}
         <div className="sticky top-[80px] z-40 flex items-center gap-3 bg-dark-main px-6 py-3 sm:top-[82px] md:top-[86px] lg:hidden">
           <span className="flex-1 font-body text-lg font-bold capitalize text-white">

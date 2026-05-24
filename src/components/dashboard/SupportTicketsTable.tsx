@@ -44,13 +44,13 @@ function ChatBadge({ status }: { status: ChatStatus }) {
 }
 
 const COLS = [
-  { label: "ID", width: "w-[150px]" },
-  { label: "Title", width: "w-[400px]" },
-  { label: "Status", width: "w-[330px]" },
-  { label: "Last Updated", width: "w-[250px]" },
-  { label: "Date Created", width: "w-[250px]", align: "text-center" as const },
-  { label: "Chat", width: "w-[150px]", align: "text-center" as const },
-  { label: "Actions", width: "flex-1", align: "text-center" as const },
+  { label: "ID", width: "w-[8%]", cls: "pl-6" },
+  { label: "Title", width: "w-[20%]", cls: "pl-6" },
+  { label: "Status", width: "w-[10%]", cls: "pl-6" },
+  { label: "Last Updated", width: "w-[18%]", cls: "pl-6" },
+  { label: "Date Created", width: "w-[16%]", cls: "text-center" },
+  { label: "Chat", width: "w-[8%]", cls: "text-center" },
+  { label: "Actions", width: "flex-1", cls: "text-center" },
 ];
 
 function DesktopRow({ ticket }: { ticket: SupportTicket }) {
@@ -62,28 +62,28 @@ function DesktopRow({ ticket }: { ticket: SupportTicket }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="w-[150px] shrink-0 pl-6">
+      <div className="w-[8%] pl-6">
         <span className="font-body text-base font-semibold text-[#ff975d]">{ticket.ticketId}</span>
       </div>
 
-      <div className="w-[400px] shrink-0 pl-6">
+      <div className="w-[20%] pl-6">
         <p className="font-body text-base font-semibold text-white">{ticket.title}</p>
         <p className="font-body text-sm font-bold text-white">{ticket.subtitle}</p>
       </div>
 
-      <div className="w-[330px] shrink-0 pl-6">
+      <div className="w-[10%] pl-6">
         <TicketStatusBadge status={ticket.status} />
       </div>
 
-      <div className="w-[250px] shrink-0">
+      <div className="w-[18%] pl-6">
         <span className="font-body text-base font-normal text-white">{ticket.lastUpdated}</span>
       </div>
 
-      <div className="flex w-[250px] shrink-0 items-center justify-center">
+      <div className="flex w-[16%] items-center justify-center">
         <span className="font-body text-base font-normal text-white">{ticket.dateCreated}</span>
       </div>
 
-      <div className="flex w-[150px] shrink-0 items-center justify-center p-6">
+      <div className="flex w-[8%] items-center justify-center">
         <ChatBadge status={ticket.chatStatus} />
       </div>
 
@@ -258,11 +258,11 @@ export function SupportTicketsTable({
 
       {/* Desktop table */}
       <div className="hidden overflow-x-auto lg:block">
-        <div className="flex w-max flex-col gap-0">
+        <div className="flex min-w-[900px] w-full flex-col gap-0">
           {/* Column headers */}
-          <div className="flex items-center">
+          <div className="flex w-full items-center">
             {COLS.map((col) => (
-              <div key={col.label} className={`${col.width} shrink-0 py-1 pl-6 ${col.align ?? ""}`}>
+              <div key={col.label} className={`${col.width} py-1 ${col.cls}`}>
                 <span className="font-body text-sm font-bold text-white/80">{col.label}</span>
               </div>
             ))}
