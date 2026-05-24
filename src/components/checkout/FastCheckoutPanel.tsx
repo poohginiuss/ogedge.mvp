@@ -112,13 +112,30 @@ export function FastCheckoutPanel({
 
   useEffect(() => {
     if (isOpen) {
+      const scrollY = window.scrollY;
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
     } else {
+      const top = document.body.style.top;
       document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      if (top) window.scrollTo(0, -parseInt(top, 10));
       setShowConfirmation(false);
     }
     return () => {
+      const top = document.body.style.top;
       document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      if (top) window.scrollTo(0, -parseInt(top, 10));
     };
   }, [isOpen]);
 
@@ -135,14 +152,29 @@ export function FastCheckoutPanel({
 
       {/* Panel: bottom sheet on mobile, side panel on desktop */}
       <div
-        className={`fixed z-[10000] flex flex-col transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0 lg:translate-x-0 lg:translate-y-0" : "translate-y-full lg:translate-x-full lg:translate-y-0"} bottom-0 left-0 right-0 h-[90dvh] rounded-t-2xl lg:bottom-auto lg:left-auto lg:right-0 lg:top-0 lg:h-full lg:w-full lg:max-w-[440px] lg:rounded-none lg:rounded-tl-2xl`}
+        className={`fixed z-[10000] flex flex-col overscroll-contain transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0 lg:translate-x-0 lg:translate-y-0" : "translate-y-full lg:translate-x-full lg:translate-y-0"} bottom-0 left-0 right-0 h-[98dvh] rounded-t-2xl lg:bottom-auto lg:left-auto lg:right-0 lg:top-0 lg:h-full lg:w-full lg:max-w-[440px] lg:rounded-none lg:rounded-tl-2xl`}
         style={{
           backgroundImage:
             "linear-gradient(125deg, rgb(56,56,82) 0%, rgb(43,45,77) 50%, rgb(13,15,21) 100%)",
         }}
       >
+        {/* Fixed top bar with close button (mobile) */}
+        <div className="flex items-center justify-between border-b border-[#383852] px-5 py-3 lg:hidden">
+          <span className="font-body text-base font-semibold text-white">Fast Checkout</span>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-[rgba(255,255,255,0.1)] transition-opacity hover:opacity-80"
+            aria-label="Close"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M1 1l12 12M13 1L1 13" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto px-6 pb-4 pt-8">
+        <div className="flex-1 overflow-y-auto overscroll-contain px-5 pb-4 pt-4 lg:px-6 lg:pt-8">
           {showConfirmation ? (
             <FastCheckoutConfirmation onClose={onClose} />
           ) : (
@@ -184,36 +216,37 @@ export function FastCheckoutPanel({
           </div>
 
           {/* Summary rows */}
-          <div className="mt-4 flex flex-col gap-2">
+          <div className="mt-3 flex flex-col gap-1 lg:mt-4 lg:gap-2">
             {summaryRows.map((row, i) => (
               <div
                 key={row.label}
-                className="flex items-center justify-between rounded-lg px-2 py-1 transition-colors hover:bg-[rgba(255,255,255,0.05)]"
+                className="flex items-center justify-between rounded-lg px-2 py-0.5 transition-colors hover:bg-[rgba(255,255,255,0.05)] lg:py-1"
                 style={{
                   background: i % 2 === 1 ? "rgba(0,0,0,0.2)" : "transparent",
                 }}
               >
-                <span className="font-body text-sm font-normal text-white/80">{row.label}</span>
-                <span className="font-body text-base font-semibold text-white">{row.value}</span>
+                <span className="font-body text-xs font-normal text-white/80 lg:text-sm">{row.label}</span>
+                <span className="font-body text-sm font-semibold text-white lg:text-base">{row.value}</span>
               </div>
             ))}
           </div>
 
           {/* Addons */}
           {addons.length > 0 && (
-            <div className="mt-2 flex items-center gap-4 rounded-lg px-2 py-1">
+            <div className="mt-1 flex items-center gap-3 rounded-lg px-2 py-0.5 lg:mt-2 lg:gap-4 lg:py-1">
               {addons.map((addon) => (
                 <div
                   key={addon.label}
-                  className="flex items-center gap-2 transition-colors hover:text-white"
+                  className="flex items-center gap-1.5 transition-colors hover:text-white lg:gap-2"
                 >
                   <Image
                     src="/images/icons/checkout/fast-addon.svg"
                     alt=""
                     width={16}
                     height={16}
+                    className="h-3.5 w-3.5 lg:h-4 lg:w-4"
                   />
-                  <span className="font-body text-base font-normal text-white/90">
+                  <span className="font-body text-sm font-normal text-white/90 lg:text-base">
                     {addon.label}
                   </span>
                 </div>
@@ -221,17 +254,17 @@ export function FastCheckoutPanel({
             </div>
           )}
 
-          <div className="my-4 h-px w-full bg-[#383852]" />
+          <div className="my-3 h-px w-full bg-[#383852] lg:my-4" />
 
           {/* Coupon */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 lg:gap-4">
             <div className="flex items-center gap-2">
-              <div className="flex flex-1 items-center rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-6 py-3 shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
+              <div className="flex flex-1 items-center rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 py-2 shadow-[0_4px_16px_rgba(0,0,0,0.15)] lg:px-6 lg:py-3">
                 <input
                   type="text"
                   value={coupon}
                   onChange={(e) => setCoupon(e.target.value)}
-                  className="w-full bg-transparent font-body text-xl font-medium text-white/50 outline-none placeholder:text-white/30"
+                  className="w-full bg-transparent font-body text-base font-medium text-white/50 outline-none placeholder:text-white/30 lg:text-xl"
                   placeholder="Promo code"
                 />
               </div>
@@ -275,10 +308,10 @@ export function FastCheckoutPanel({
             )}
           </div>
 
-          <div className="my-4 h-px w-full bg-[#383852]" />
+          <div className="my-3 h-px w-full bg-[#383852] lg:my-4" />
 
           {/* Payment Currency */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 lg:gap-4">
             <div className="flex items-center gap-2">
               <Image src="/images/icons/checkout/fast-currency.svg" alt="" width={24} height={24} />
               <span className="font-body text-base font-semibold text-white">Payment Currency</span>
@@ -350,7 +383,7 @@ export function FastCheckoutPanel({
           </div>
 
           {/* Payment Method */}
-          <div className="mt-4 flex flex-col gap-4">
+          <div className="mt-3 flex flex-col gap-3 lg:mt-4 lg:gap-4">
             <div className="flex items-center gap-2">
               <Image src="/images/icons/checkout/fast-payment.svg" alt="" width={24} height={24} />
               <span className="font-body text-base font-semibold text-white">Payment Method</span>
@@ -406,7 +439,7 @@ export function FastCheckoutPanel({
                     key={method.id}
                     type="button"
                     onClick={() => setSelectedMethod(method.id)}
-                    className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.2)] p-6 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
+                    className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.2)] p-4 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)] lg:p-6"
                     style={{
                       borderColor: isSelected ? "#ff975d" : "#383852",
                     }}
@@ -453,7 +486,7 @@ export function FastCheckoutPanel({
           </div>
 
           {/* Price Breakdown */}
-          <div className="mt-4 flex flex-col gap-6">
+          <div className="mt-3 flex flex-col gap-3 lg:mt-4 lg:gap-6">
             <button
               type="button"
               onClick={() => setPriceOpen(!priceOpen)}
@@ -495,7 +528,7 @@ export function FastCheckoutPanel({
               </div>
             )}
 
-            <div className="flex items-center justify-between rounded-2xl bg-[rgba(0,0,0,0.2)] p-6">
+            <div className="flex items-center justify-between rounded-2xl bg-[rgba(0,0,0,0.2)] p-4 lg:p-6">
               <span className="font-body text-sm font-normal text-white/80">Total Amount</span>
               <span className="font-body text-[23px] font-semibold text-[#ff975d]">
                 {totalAmount}
@@ -531,8 +564,8 @@ export function FastCheckoutPanel({
 
         {/* Fixed bottom section — hidden when showing confirmation */}
         {!showConfirmation && (
-        <div className="border-t border-[#383852] bg-[#151724] px-6 py-6">
-          <div className="flex flex-col gap-4">
+        <div className="border-t border-[#383852] bg-[#151724] px-5 py-4 lg:px-6 lg:py-6">
+          <div className="flex flex-col gap-3 lg:gap-4">
             {/* Email */}
             <div className="flex flex-col gap-2">
               <label

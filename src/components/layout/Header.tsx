@@ -2,6 +2,7 @@
 
 import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
 import { GameSelector } from "@/components/layout/GameSelector";
+import { LoginPopup } from "@/components/popups/LoginPopup";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
@@ -356,8 +357,10 @@ export function Header() {
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   return (
+  <>
     <header
       className="sticky top-0 z-50 w-full bg-dark-surface/80 backdrop-blur-md"
       style={{ backdropFilter: "blur(12px)" }}
@@ -464,7 +467,7 @@ export function Header() {
 
           {/* Login button */}
           <div className="hidden min-[1440px]:block">
-            <Button href="#login" variant="primary" size="sm">
+            <Button onClick={() => setLoginOpen(true)} variant="primary" size="sm">
               Login
             </Button>
           </div>
@@ -516,7 +519,7 @@ export function Header() {
               />
               Notifications
             </Link>
-            <Button href="#login" variant="primary" size="sm" className="mt-2 w-full">
+            <Button onClick={() => { setMobileMenuOpen(false); setLoginOpen(true); }} variant="primary" size="sm" className="mt-2 w-full">
               Login
             </Button>
           </nav>
@@ -532,5 +535,7 @@ export function Header() {
         </div>
       )}
     </header>
+    <LoginPopup isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
+  </>
   );
 }

@@ -14,3 +14,4 @@ export { AccountLoginPopup } from "./AccountLoginPopup";
 export { CustomOrderRequestPopup } from "./CustomOrderRequestPopup";
 export { RequestCreatedPopup } from "./RequestCreatedPopup";
 export { TicketCreatedPopup } from "./TicketCreatedPopup";
+export { LoginPopup } from "./LoginPopup";
