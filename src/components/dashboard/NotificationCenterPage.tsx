@@ -152,14 +152,14 @@ function NotifCard({ notif }: { notif: Notification }) {
         {notif.action && (
           <button
             type="button"
-            className="flex items-center gap-2 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-70 lg:text-base"
+            className="group flex cursor-pointer items-center gap-2 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-main lg:text-base"
           >
             {notif.action.label}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/dashboard/icons/notif-action-arrow.svg"
               alt=""
-              className="h-5 w-5 rotate-90 lg:h-6 lg:w-6"
+              className="h-5 w-5 rotate-90 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)] lg:h-6 lg:w-6"
             />
           </button>
         )}
@@ -342,10 +342,10 @@ export default function NotificationCenterPage() {
         </h1>
         <button
           type="button"
-          className="flex items-center gap-2 rounded-2xl bg-dark-surface px-4 py-3 font-body text-sm font-medium text-white transition-opacity hover:opacity-70 lg:px-6 lg:py-4 lg:text-base"
+          className="group flex cursor-pointer items-center gap-2 rounded-2xl bg-dark-surface px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:text-brand-main lg:px-6 lg:py-4 lg:text-base"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/notif-check-all.svg" alt="" className="h-3.5 w-3.5" />
+          <img src="/images/dashboard/icons/notif-check-all.svg" alt="" className="h-3.5 w-3.5 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" />
           Mark all as read
         </button>
       </div>

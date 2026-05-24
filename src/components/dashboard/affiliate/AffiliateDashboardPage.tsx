@@ -156,14 +156,14 @@ function PayoutHistory() {
         </h2>
         <Link
           href="/app/affiliate/payouts"
-          className="inline-flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light"
+          className="group inline-flex cursor-pointer items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-main"
         >
           See all
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/dashboard/icons/arrow-right-duotone.svg"
             alt=""
-            className="h-5 w-5 rotate-90"
+            className="h-5 w-5 rotate-90 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]"
           />
         </Link>
       </div>
@@ -295,11 +295,11 @@ export default function AffiliateDashboardPage() {
         </div>
         <button
           type="button"
-          className="hidden items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-opacity hover:opacity-80 lg:flex"
+          className="group hidden cursor-pointer items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-colors hover:text-brand-main lg:flex"
           style={{ background: "rgba(56,56,82,0.3)" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-6 w-6" />
+          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-6 w-6 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" />
           Request Payout
         </button>
       </div>

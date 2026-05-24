@@ -347,11 +347,11 @@ function PayoutSidebar() {
         </div>
         <button
           type="button"
-          className="flex items-center gap-3 rounded-3xl px-5 py-4 font-body text-base font-bold text-white transition-opacity hover:opacity-80"
+          className="group flex cursor-pointer items-center gap-3 rounded-3xl px-5 py-4 font-body text-base font-bold text-white transition-colors hover:text-brand-main"
           style={{ background: "rgba(56,56,82,0.3)" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-5 w-5" />
+          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-5 w-5 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" />
           Request Payout
         </button>
       </div>
@@ -382,7 +382,7 @@ function PayoutSidebar() {
           </div>
           <div className="flex items-center gap-2">
             <span className="font-body text-sm text-white">4gamers@ogedge.com</span>
-            <button type="button" className="transition-opacity hover:opacity-70">
+            <button type="button" className="cursor-pointer transition-opacity hover:opacity-70">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/dashboard/icons/edit-pencil-icon.svg"
@@ -404,14 +404,14 @@ function PayoutSidebar() {
           </div>
           <Link
             href="/app/affiliate/payouts"
-            className="inline-flex items-center gap-2 font-body text-sm text-white transition-colors hover:text-brand-light"
+            className="group inline-flex cursor-pointer items-center gap-2 font-body text-sm text-white transition-colors hover:text-brand-main"
           >
             See all
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/dashboard/icons/arrow-right-duotone.svg"
               alt=""
-              className="h-4 w-4 rotate-90"
+              className="h-4 w-4 rotate-90 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]"
             />
           </Link>
         </div>

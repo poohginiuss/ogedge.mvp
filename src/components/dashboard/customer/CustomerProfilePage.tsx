@@ -41,15 +41,15 @@ function SectionHeader({
         <button
           type="button"
           onClick={onEdit}
-          className="flex items-center gap-2 transition-opacity hover:opacity-70"
+          className="group flex cursor-pointer items-center gap-2 transition-colors hover:text-brand-main"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/dashboard/icons/edit-icon.svg"
             alt=""
-            className="h-4 w-4"
+            className="h-4 w-4 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]"
           />
-          <span className="font-body text-sm font-bold uppercase tracking-[0.56px] text-white lg:text-lg lg:tracking-[0.72px]">
+          <span className="font-body text-sm font-bold uppercase tracking-[0.56px] lg:text-lg lg:tracking-[0.72px]">
             Edit
           </span>
         </button>
@@ -106,7 +106,7 @@ function ChangePasswordButton() {
     >
       <button
         type="button"
-        className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-brand-light px-6 py-5 transition-colors hover:bg-brand-light/10"
+        className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-brand-light px-6 py-5 transition-all hover:border-brand-main hover:bg-brand-main/20 hover:shadow-[0_0_20px_rgba(255,92,0,0.2)]"
         style={{ background: "rgba(23,25,31,0.5)" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}

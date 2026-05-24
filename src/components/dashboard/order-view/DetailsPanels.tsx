@@ -70,7 +70,7 @@ function CopyButton({ value }: { value: string }) {
           /* silent */
         }
       }}
-      className="flex h-4 w-4 shrink-0 items-center justify-center transition-opacity hover:opacity-70"
+      className="flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center transition-opacity hover:opacity-70"
     >
       {copied ? (
         <svg width="14" height="14" viewBox="0 0 14 14" role="img" aria-label="Copied">
@@ -102,7 +102,7 @@ function EditButton({
       type="button"
       aria-label={active ? `Save ${label}` : `Edit ${label}`}
       onClick={onClick}
-      className="flex h-4 w-4 shrink-0 items-center justify-center transition-opacity hover:opacity-70"
+      className="flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center transition-opacity hover:opacity-70"
     >
       {active ? (
         <svg width="14" height="14" viewBox="0 0 14 14" role="img" aria-label="Save">

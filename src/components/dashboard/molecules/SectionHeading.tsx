@@ -18,15 +18,15 @@ export function SectionHeading({
     <div className={className}>
       <h2 className={titleClassName}>{title}</h2>
       {onSeeAll && (
-        <button type="button" onClick={onSeeAll} className="flex items-center gap-2">
-          <span className="font-body text-base font-bold uppercase tracking-wide text-white">
+        <button type="button" onClick={onSeeAll} className="group flex cursor-pointer items-center gap-2 transition-colors hover:text-brand-main">
+          <span className="font-body text-base font-bold uppercase tracking-wide">
             {seeAllLabel}
           </span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/dashboard/icons/arrow-right-duotone.svg"
             alt=""
-            className="h-6 w-6 rotate-90"
+            className="h-6 w-6 rotate-90 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]"
           />
         </button>
       )}

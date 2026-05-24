@@ -98,7 +98,7 @@ function ChangePasswordButton() {
     >
       <button
         type="button"
-        className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-brand-light px-6 py-5 transition-colors hover:bg-brand-light/10"
+        className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-brand-light px-6 py-5 transition-all hover:border-brand-main hover:bg-brand-main/20 hover:shadow-[0_0_20px_rgba(255,92,0,0.2)]"
         style={{ background: "rgba(23,25,31,0.5)" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}

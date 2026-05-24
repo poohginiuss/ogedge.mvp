@@ -37,7 +37,7 @@ export function SidebarNavItem({ icon, label, active = false, onClick }: Sidebar
     <button
       type="button"
       onClick={onClick}
-      className="flex flex-col items-center gap-1.5 transition-opacity hover:opacity-80"
+      className="flex cursor-pointer flex-col items-center gap-1.5 transition-opacity hover:opacity-80"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

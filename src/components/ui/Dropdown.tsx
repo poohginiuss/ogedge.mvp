@@ -51,7 +51,7 @@ export function Dropdown({ label, value, options, onChange, className = "" }: Dr
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex h-14 items-center justify-between rounded-2xl px-4 transition-colors"
+        className="flex h-14 cursor-pointer items-center justify-between rounded-2xl px-4 transition-colors"
         style={{
           background: "linear-gradient(-20deg, #17191f 0%, #383852 100%)",
           border: "1px solid #383852",
@@ -94,7 +94,7 @@ export function Dropdown({ label, value, options, onChange, className = "" }: Dr
                 }}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="flex h-[53px] w-full items-center gap-2 px-4 text-left transition-colors"
+                className="flex h-[53px] w-full cursor-pointer items-center gap-2 px-4 text-left transition-colors"
                 style={{
                   background: hoveredIndex === i ? "rgba(0,0,0,0.2)" : "transparent",
                 }}

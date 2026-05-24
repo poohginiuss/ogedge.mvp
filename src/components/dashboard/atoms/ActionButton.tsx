@@ -16,8 +16,8 @@ type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const VARIANT_CLASSES: Record<ActionButtonVariant, string> = {
-  dark: "transition-opacity hover:opacity-80",
-  outline: "border border-brand-light transition-colors hover:bg-brand-light/10",
+  dark: "group transition-colors hover:text-brand-main",
+  outline: "group border border-brand-light transition-all hover:border-brand-main hover:bg-brand-main/15",
   brand: "bg-brand-main transition-opacity hover:opacity-85",
 };
 
@@ -32,14 +32,19 @@ export function ActionButton({
   ...rest
 }: ActionButtonProps) {
   const variantStyle = variant === "brand" ? undefined : { background: "rgba(0,0,0,0.2)" };
+  const tintOnHover = variant !== "brand";
   const iconEl = icon && (
     /* eslint-disable-next-line @next/next/no-img-element */
-    <img src={icon} alt="" className={`shrink-0 ${iconClassName}`} />
+    <img
+      src={icon}
+      alt=""
+      className={`shrink-0 ${tintOnHover ? "transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" : ""} ${iconClassName}`}
+    />
   );
   return (
     <button
       type="button"
-      className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 ${VARIANT_CLASSES[variant]} ${className}`}
+      className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-3 ${VARIANT_CLASSES[variant]} ${className}`}
       style={variantStyle}
       {...rest}
     >

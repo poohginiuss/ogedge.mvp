@@ -236,7 +236,7 @@ export function Pagination({
   total: number;
   onPage: (p: number) => void;
 }) {
-  const BTN = "flex h-10 w-10 items-center justify-center rounded-lg font-body text-base font-bold";
+  const BTN = "flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg font-body text-base font-bold";
   const INACTIVE = "border border-dark-border bg-black/20 text-white/50";
   const ACTIVE = "bg-brand-main text-white";
   const NAV = "border border-dark-border bg-black/20";
@@ -324,7 +324,7 @@ export function ActionMenuButton({ items }: { items: ActionMenuItem[] }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label="More actions"
-        className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-2xl"
+        className="flex h-[44px] w-[44px] shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-opacity hover:opacity-80"
         style={{ background: "rgba(56,56,82,0.3)" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -352,7 +352,7 @@ export function ActionMenuButton({ items }: { items: ActionMenuItem[] }) {
                 item.onClick?.();
                 setOpen(false);
               }}
-              className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-white/5"
+              className="flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-white/5"
             >
               {item.icon && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -390,11 +390,11 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onSupport}
-            className="flex h-[48px] items-center gap-3 rounded-2xl border border-[#6d6d96] px-10 font-body text-base font-bold capitalize text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.2)]"
+            className="group flex h-[48px] cursor-pointer items-center gap-3 rounded-2xl border border-[#6d6d96] px-10 font-body text-base font-bold capitalize text-white transition-all hover:border-brand-light hover:text-brand-main hover:shadow-[0_0_12px_rgba(255,92,0,0.2)]"
             style={{ background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/dashboard/icons/support-icon.svg" alt="" className="h-5 w-5" />
+            <img src="/images/dashboard/icons/support-icon.svg" alt="" className="h-5 w-5 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" />
             Support
           </button>
         )}
@@ -402,7 +402,7 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onPurchaseBoost}
-            className="flex h-[48px] items-center rounded-2xl border border-brand-light px-10 font-body text-base font-bold uppercase tracking-wide text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)]"
+            className="flex h-[48px] cursor-pointer items-center rounded-2xl border border-brand-light px-10 font-body text-base font-bold uppercase tracking-wide text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)] transition-opacity hover:opacity-90"
             style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
           >
             PURCHASE BOOST
@@ -417,7 +417,7 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onPurchaseBoost}
-            className="flex h-[44px] flex-1 items-center justify-center whitespace-nowrap rounded-2xl border border-brand-light font-body text-sm font-bold uppercase text-white"
+            className="flex h-[44px] flex-1 cursor-pointer items-center justify-center whitespace-nowrap rounded-2xl border border-brand-light font-body text-sm font-bold uppercase text-white transition-opacity hover:opacity-90"
             style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
           >
             Purchase Boost

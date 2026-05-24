@@ -615,7 +615,7 @@ function OrderHistory() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="font-body text-base text-white/60">{order.id}</span>
-                <button type="button" className="opacity-50 transition-opacity hover:opacity-100">
+                <button type="button" className="cursor-pointer opacity-50 transition-opacity hover:opacity-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/images/dashboard/icons/copy-icon.svg" alt="Copy" className="h-4 w-4" />
                 </button>

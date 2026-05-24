@@ -17,7 +17,7 @@ export function CopyButton({
   className = "",
 }: CopyButtonProps) {
   return (
-    <button type="button" onClick={onCopy} aria-label={ariaLabel} className={className}>
+    <button type="button" onClick={onCopy} aria-label={ariaLabel} className={`cursor-pointer transition-opacity hover:opacity-70 ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={icon} alt="" className={iconClassName} />
     </button>
