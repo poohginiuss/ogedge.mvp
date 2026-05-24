@@ -641,7 +641,7 @@ function SeasonalAndInvite() {
             <button
               type="button"
               onClick={handleCopy}
-              className="absolute bottom-2 left-[270px] hidden items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 xl:flex"
+              className="absolute bottom-6 left-[270px] hidden items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 xl:flex"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/dashboard/icons/copy-icon.svg" alt="" className="h-6 w-6" />

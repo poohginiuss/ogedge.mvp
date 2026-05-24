@@ -10,6 +10,7 @@ const CUSTOMER_ROUTE_MAP: Record<string, string> = {
   "completed-orders": "/app/customer/completed-orders",
   rules: "/app/customer/rules",
   profile: "/app/customer/profile",
+  rewards: "/app/customer/rewards",
   support: "/app/customer/support",
   notification: "/app/customer/notification",
 };

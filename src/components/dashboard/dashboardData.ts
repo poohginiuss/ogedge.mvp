@@ -32,6 +32,7 @@ export const sidebarNavItems: NavItem[] = [
     label: "Profile",
     icon: "/images/dashboard/icons/nav-profile.svg",
   },
+  { id: "rewards", label: "Rewards", icon: "/images/dashboard/icons/nav-rewards.svg" },
   { id: "support", label: "Customer Support", icon: "/images/dashboard/icons/nav-support.svg" },
 ];
 

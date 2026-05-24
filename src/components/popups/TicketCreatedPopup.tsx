@@ -1,0 +1,53 @@
+"use client";
+
+import { PopupOverlay } from "./PopupOverlay";
+import {
+  ActionButtonsRow,
+  CancelButton,
+  PrimaryButton,
+  ResponseTimeRow,
+  SuccessBadge,
+} from "./PopupShared";
+
+interface TicketCreatedPopupProps {
+  isOpen: boolean;
+  onClose: () => void;
+  ticketId?: string;
+  onSeeTicket?: () => void;
+}
+
+export function TicketCreatedPopup({
+  isOpen,
+  onClose,
+  ticketId = "12345",
+  onSeeTicket,
+}: TicketCreatedPopupProps) {
+  return (
+    <PopupOverlay
+      isOpen={isOpen}
+      onClose={onClose}
+      maxWidth="max-w-[693px]"
+      paddingClassName="p-[60px]"
+    >
+      <div className="flex flex-col items-center gap-8">
+        <SuccessBadge />
+
+        <h2 className="text-center font-heading text-4xl font-semibold text-white">
+          Ticket #{ticketId} created
+        </h2>
+
+        <p className="text-center font-body text-lg text-white">
+          Your request has been received. A support agent will be with you
+          shortly. Check your email or dashboard for updates.
+        </p>
+
+        <ResponseTimeRow label="Average response time" value="2 hours" />
+
+        <ActionButtonsRow>
+          <CancelButton onClick={onClose}>Close</CancelButton>
+          <PrimaryButton onClick={onSeeTicket}>See Ticket</PrimaryButton>
+        </ActionButtonsRow>
+      </div>
+    </PopupOverlay>
+  );
+}
