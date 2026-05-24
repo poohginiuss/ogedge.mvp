@@ -453,7 +453,7 @@ export function Header() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/dashboard/icons/notification.svg"
+                src="/images/dashboard/icons/notification-bell.svg"
                 alt=""
                 className="h-6 w-6"
               />
@@ -513,7 +513,7 @@ export function Header() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/dashboard/icons/notification.svg"
+                src="/images/dashboard/icons/notification-bell.svg"
                 alt=""
                 className="h-5 w-5"
               />

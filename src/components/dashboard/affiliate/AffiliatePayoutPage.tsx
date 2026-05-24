@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Dropdown } from "../../ui/Dropdown";
 import {
   PAGE_SIZE,
@@ -74,28 +74,28 @@ function DesktopRow({ row }: { row: Conversion }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex h-[100px] shrink-0 cursor-default items-center rounded-3xl transition-all duration-150"
+      className="flex h-[80px] shrink-0 cursor-default items-center rounded-3xl transition-all duration-150"
       style={{ backgroundImage: hovered ? ROW_BG_HOVER : ROW_BG_DEFAULT }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="w-[180px] shrink-0 pl-6">
-        <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
+      <div className="w-[18%] shrink-0 pl-6">
+        <span className="font-body text-sm font-semibold" style={{ color: "#ff975d" }}>
           {row.customer}
         </span>
       </div>
-      <div className="w-[240px] shrink-0 pl-6">
-        <span className="font-body text-base font-semibold text-white">{row.date}</span>
+      <div className="w-[28%] shrink-0 pl-4">
+        <span className="font-body text-sm font-semibold text-white">{row.date}</span>
       </div>
-      <div className="w-[160px] shrink-0 pl-6">
-        <span className="font-body text-base font-semibold text-white">{row.orderValue}</span>
+      <div className="w-[16%] shrink-0 pl-4">
+        <span className="font-body text-sm font-semibold text-white">{row.orderValue}</span>
       </div>
-      <div className="w-[200px] shrink-0 pl-6">
-        <span className="font-body text-base font-semibold text-white">
+      <div className="w-[22%] shrink-0 pl-4">
+        <span className="font-body text-sm font-semibold text-white">
           {row.commissionEarned}
         </span>
       </div>
-      <div className="flex flex-1 items-center justify-center">
+      <div className="flex w-[16%] items-center justify-center">
         <ConversionStatusBadge status={row.status} />
       </div>
     </div>
@@ -138,22 +138,52 @@ function MobileConversionCard({ row }: { row: Conversion }) {
   );
 }
 
+type SortKey = "customer" | "date" | "value" | "commission" | "status";
+type SortDir = "asc" | "desc";
+
+const COLS: { label: string; width: string; key: SortKey; center?: boolean }[] = [
+  { label: "Customer", width: "w-[18%]", key: "customer" },
+  { label: "Date", width: "w-[28%]", key: "date" },
+  { label: "Order Value", width: "w-[16%]", key: "value" },
+  { label: "Commission Earned", width: "w-[22%]", key: "commission" },
+  { label: "Status", width: "w-[16%]", key: "status", center: true },
+];
+
+function sortConversions(data: Conversion[], key: SortKey, dir: SortDir): Conversion[] {
+  const sorted = [...data].sort((a, b) => {
+    switch (key) {
+      case "customer": return a.customer.localeCompare(b.customer);
+      case "date": return new Date(a.date).getTime() - new Date(b.date).getTime();
+      case "value": return parseFloat(a.orderValue.replace(/[^0-9.]/g, "")) - parseFloat(b.orderValue.replace(/[^0-9.]/g, ""));
+      case "commission": return parseFloat(a.commissionEarned.replace(/[^0-9.]/g, "")) - parseFloat(b.commissionEarned.replace(/[^0-9.]/g, ""));
+      case "status": return a.status.localeCompare(b.status);
+      default: return 0;
+    }
+  });
+  return dir === "desc" ? sorted.reverse() : sorted;
+}
+
 function ConversionsTable() {
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState("date");
-  const totalPages = Math.ceil(sampleConversions.length / PAGE_SIZE);
-  const visible = sampleConversions.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const [sortKey, setSortKey] = useState<SortKey>("date");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
 
-  const COLS = [
-    { label: "Customer", width: "w-[180px]" },
-    { label: "Date", width: "w-[240px]", sort: true },
-    { label: "Order Value", width: "w-[160px]" },
-    { label: "Commission Earned", width: "w-[200px]" },
-    { label: "Status", width: "flex-1", center: true },
-  ];
+  const sorted = useMemo(() => sortConversions(sampleConversions, sortKey, sortDir), [sortKey, sortDir]);
+  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
+  const visible = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  function handleSort(key: SortKey) {
+    if (key === sortKey) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir("desc");
+    }
+    setPage(1);
+  }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-0.5">
           <h2 className="font-body text-xl font-bold text-white">Conversions</h2>
@@ -165,13 +195,13 @@ function ConversionsTable() {
           <span className="font-body text-xs text-white">Sort by</span>
           <Dropdown
             label=""
-            value={sortBy}
+            value={sortKey}
             options={[
               { value: "date", label: "Date" },
               { value: "value", label: "Order Value" },
               { value: "commission", label: "Commission" },
             ]}
-            onChange={setSortBy}
+            onChange={(v) => { setSortKey(v as SortKey); setPage(1); }}
             className="w-[150px]"
           />
         </div>
@@ -180,25 +210,29 @@ function ConversionsTable() {
       {/* Desktop table */}
       <div className="hidden flex-col gap-4 lg:flex">
         <div className="overflow-x-auto">
-          <div className="min-w-[900px]">
+          <div>
             <div className="flex items-center px-6 pb-2">
               {COLS.map((col) => (
-                <div
+                <button
+                  type="button"
                   key={col.label}
-                  className={`${col.width} ${col.center ? "text-center" : ""} shrink-0 font-body text-sm font-bold text-white/80`}
+                  onClick={() => handleSort(col.key)}
+                  className={`${col.width} ${col.center ? "text-center" : ""} shrink-0 cursor-pointer font-body text-sm font-bold text-white/80 transition-colors hover:text-white`}
                 >
                   <span className="inline-flex items-center gap-1">
                     {col.label}
-                    {col.sort && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src="/images/dashboard/icons/sort-arrow-down.svg"
-                        alt=""
-                        className="h-4 w-4"
-                      />
-                    )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/dashboard/icons/sort-arrow-down.svg"
+                      alt=""
+                      className="h-4 w-4 transition-transform"
+                      style={{
+                        opacity: sortKey === col.key ? 1 : 0.4,
+                        transform: sortKey === col.key && sortDir === "asc" ? "rotate(180deg)" : undefined,
+                      }}
+                    />
                   </span>
-                </div>
+                </button>
               ))}
             </div>
             <div className="flex flex-col gap-4">
@@ -212,7 +246,7 @@ function ConversionsTable() {
       </div>
 
       {/* Mobile cards */}
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-3 lg:hidden">
         {visible.map((row) => (
           <MobileConversionCard key={row.id} row={row} />
         ))}
@@ -232,17 +266,17 @@ function AffiliateReferralCard() {
   };
 
   return (
-    <div className="flex flex-col gap-4 rounded-3xl bg-dark-surface p-6 lg:p-8">
-      <div className="flex items-center gap-6">
-        <div className="flex flex-1 flex-col gap-1">
-          <div className="flex items-center gap-2.5">
+    <div className="flex flex-col gap-3 rounded-3xl bg-dark-surface p-4 lg:p-5">
+      <div className="flex items-center gap-4">
+        <div className="flex flex-1 flex-col gap-0.5">
+          <div className="flex items-center gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/dashboard/icons/referral-icon.svg" alt="" className="h-6 w-6" />
+            <img src="/images/dashboard/icons/referral-icon.svg" alt="" className="h-5 w-5" />
             <span className="font-body text-xs font-bold uppercase text-brand-light">
               Affiliate Program
             </span>
           </div>
-          <p className="font-body text-lg font-bold leading-7 text-white lg:text-xl lg:tracking-[-0.4px]">
+          <p className="font-body text-base font-bold leading-6 text-white lg:text-lg lg:tracking-[-0.4px]">
             Earn <span className="text-brand-light">10%</span> off every{" "}
             <span className="text-brand-light">conversion</span>, give them{" "}
             <span className="text-brand-light">15% off</span>
@@ -253,9 +287,9 @@ function AffiliateReferralCard() {
           </p>
         </div>
 
-        <div className="h-[50px] w-px bg-dark-border" />
+        <div className="h-[40px] w-px bg-dark-border" />
 
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-0.5">
           <span className="font-body text-xs font-bold uppercase text-white/50">
             <span className="hidden lg:inline">Your Affiliate Code</span>
             <span className="lg:hidden">Your Code</span>
@@ -271,7 +305,7 @@ function AffiliateReferralCard() {
       </div>
 
       <div
-        className="flex items-center gap-4 rounded-2xl px-4 py-3 lg:gap-6 lg:px-6 lg:py-4"
+        className="flex items-center gap-3 rounded-2xl px-4 py-2.5 lg:gap-4 lg:px-5 lg:py-3"
         style={{ background: "rgba(0,0,0,0.2)" }}
       >
         <span className="flex-1 break-all font-mono text-xs text-white lg:truncate lg:text-sm">
@@ -280,7 +314,7 @@ function AffiliateReferralCard() {
         <button
           type="button"
           onClick={handleCopy}
-          className="flex shrink-0 items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 lg:text-base"
+          className="flex shrink-0 items-center gap-2 rounded-lg bg-brand-main px-3 py-2.5 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 lg:text-base"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/copy-icon.svg" alt="" className="h-6 w-6" />
@@ -296,21 +330,28 @@ function PayoutSidebar() {
   const latestCfg = PAYOUT_STATUS[latestPayout.status];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       {/* Payout header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <h2 className="font-body text-xl font-bold text-white">Payout</h2>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/info-icon.svg" alt="" className="h-6 w-6" />
+          <div className="group relative">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/dashboard/icons/info-icon.svg" alt="" className="h-6 w-6 cursor-pointer" />
+            <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 w-[220px] -translate-x-1/2 rounded-xl border border-[#383852] bg-[#1a1c2e] px-4 py-3 opacity-0 shadow-lg transition-opacity group-hover:pointer-events-auto group-hover:opacity-100">
+              <p className="font-body text-xs leading-5 text-white/90">
+                Request a payout once your confirmed balance meets the minimum threshold. Payouts are processed within 1–3 business days.
+              </p>
+            </div>
+          </div>
         </div>
         <button
           type="button"
-          className="flex items-center gap-4 rounded-3xl px-6 py-5 font-body text-xl font-bold text-white transition-opacity hover:opacity-80"
+          className="flex items-center gap-3 rounded-3xl px-5 py-4 font-body text-base font-bold text-white transition-opacity hover:opacity-80"
           style={{ background: "rgba(56,56,82,0.3)" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-6 w-6" />
+          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-5 w-5" />
           Request Payout
         </button>
       </div>
@@ -425,14 +466,14 @@ export default function AffiliatePayoutPage() {
       </div>
 
       {/* Main content: Table + Sidebar */}
-      <div className="flex flex-col gap-8 xl:flex-row xl:items-start xl:gap-8">
+      <div className="flex flex-col gap-6 xl:flex-row xl:items-stretch xl:gap-6">
         {/* Left: Conversions table (desktop only at first) */}
-        <div className="hidden flex-1 xl:block">
+        <div className="hidden min-w-0 flex-1 xl:block">
           <ConversionsTable />
         </div>
 
         {/* Right sidebar */}
-        <div className="flex flex-col gap-6 xl:w-[420px] xl:shrink-0">
+        <div className="flex flex-col gap-2 xl:w-[440px] xl:shrink-0">
           <AffiliateReferralCard />
           <PayoutSidebar />
         </div>
