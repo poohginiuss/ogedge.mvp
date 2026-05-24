@@ -174,7 +174,7 @@ export function FastCheckoutPanel({
         </div>
 
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-5 pb-4 pt-4 lg:px-6 lg:pt-5">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-5 pb-4 pt-1 lg:px-6 lg:pt-1">
           {showConfirmation ? (
             <FastCheckoutConfirmation onClose={onClose} />
           ) : (
@@ -677,9 +677,9 @@ function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
           <Image
             src="/images/icons/checkout/confirm-success.svg"
             alt="Success"
-            width={64}
-            height={64}
-            className="h-16 w-16"
+            width={96}
+            height={96}
+            className="h-20 w-20 lg:h-24 lg:w-24"
           />
           <h2 className="mt-1 text-center font-heading text-[26px] font-bold leading-[34px] text-white">
             Order #1234 Created!
