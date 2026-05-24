@@ -45,7 +45,7 @@ function AboutUsDropdown() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2 text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light"
+        className="inline-flex cursor-pointer items-center gap-2 text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-light"
       >
         About Us
         <ChevronDownIcon
@@ -114,8 +114,8 @@ function CurrencyDropdown({ selected, onSelect, variant = "desktop" }: CurrencyD
 
   const isMobile = variant === "mobile";
   const triggerClass = isMobile
-    ? "flex w-full items-center gap-3 px-6 py-4 text-left"
-    : "inline-flex h-[53px] items-center gap-2 rounded-2xl border border-dark-border px-4";
+    ? "flex w-full cursor-pointer items-center gap-3 px-6 py-4 text-left"
+    : "inline-flex h-[53px] cursor-pointer items-center gap-2 rounded-2xl border border-dark-border px-4 transition-colors hover:border-brand-light";
   const popoverClass = isMobile
     ? "absolute bottom-[calc(100%+8px)] left-6 right-6 z-50 overflow-hidden rounded-2xl py-1"
     : "absolute right-0 top-[calc(100%+8px)] z-50 w-[200px] overflow-hidden rounded-2xl py-1";
@@ -169,7 +169,7 @@ function CurrencyDropdown({ selected, onSelect, variant = "desktop" }: CurrencyD
                 onSelect(c);
                 setOpen(false);
               }}
-              className={`flex h-[44px] w-full items-center gap-3 px-4 text-left transition-colors hover:bg-black/20 ${
+              className={`flex h-[44px] w-full cursor-pointer items-center gap-3 px-4 text-left transition-colors hover:bg-black/20 ${
                 selected.code === c.code ? "text-brand-light" : "text-white"
               }`}
             >
@@ -263,7 +263,7 @@ function NotificationsDropdown({
         <span className="font-body text-base font-medium text-white">Notifications</span>
         <button
           type="button"
-          className="flex items-center gap-2 font-body text-sm font-medium text-white transition-opacity hover:opacity-70"
+          className="flex cursor-pointer items-center gap-2 font-body text-sm font-medium text-white transition-opacity hover:opacity-70"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/notif-check-all.svg" alt="" className="h-3.5 w-3.5" />
@@ -307,7 +307,7 @@ function NotificationsDropdown({
           <button
             key={item.id}
             type="button"
-            className="relative flex items-center gap-2 overflow-hidden rounded-2xl p-4 transition-colors hover:bg-[rgba(56,56,82,0.7)]"
+            className="relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-2xl p-4 transition-colors hover:bg-[rgba(56,56,82,0.7)]"
             style={{ background: "rgba(56,56,82,0.5)" }}
           >
             {item.unread && (
@@ -447,7 +447,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setNotifOpen((v) => !v)}
-              className="relative inline-flex h-[53px] w-[53px] items-center justify-center rounded-2xl border border-dark-border"
+              className="relative inline-flex h-[53px] w-[53px] cursor-pointer items-center justify-center rounded-2xl border border-dark-border transition-colors hover:border-brand-light"
               aria-label="Notifications"
               aria-expanded={notifOpen}
             >
@@ -475,7 +475,7 @@ export function Header() {
           {/* Hamburger for < 1440px */}
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-xl border border-dark-border p-2 text-white min-[1440px]:hidden"
+            className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-dark-border p-2 text-white min-[1440px]:hidden"
             aria-label="Menu"
             onClick={() => setMobileMenuOpen((v) => !v)}
           >
