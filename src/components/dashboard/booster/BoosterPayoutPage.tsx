@@ -34,26 +34,68 @@ type Payout = {
 
 // ─── Sample Data ─────────────────────────────────────────────────────────────
 
+const EARNING_GAMES = ["Valorant", "League of Legends", "CS2", "Overwatch 2", "Apex Legends"];
+const EARNING_SERVICES = ["Rank Boosting", "Win Boosting", "Placement Matches", "Coaching", "Duo Queue"];
+const EARNING_RANGES = [
+  "Silver II — Platinum III",
+  "Gold I — Diamond II",
+  "Bronze III — Silver I",
+  "Platinum I — Ascendant II",
+  "Diamond III — Immortal I",
+];
+const EARNING_AMOUNTS = ["$24.00", "$37.50", "$52.75", "$74.50", "$89.00", "$115.25", "$142.00", "$198.50", "$210.00", "$325.00"];
+const EARNING_DATES = [
+  "Jan 5, 2026, 3:20 PM",
+  "Jan 18, 2026, 9:45 AM",
+  "Feb 2, 2026, 7:12 PM",
+  "Feb 14, 2026, 11:30 AM",
+  "Feb 28, 2026, 5:00 PM",
+  "Mar 7, 2026, 1:15 PM",
+  "Mar 15, 2026, 8:40 AM",
+  "Mar 20, 2026, 11:57 PM",
+  "Apr 3, 2026, 10:22 AM",
+  "Apr 12, 2026, 6:55 PM",
+];
+
 const sampleEarnings: Earning[] = Array.from({ length: 60 }, (_, i) => ({
   id: `e-${i}`,
-  orderId: "4269522",
-  game: "Valorant",
-  service: "Rank Boosting",
-  serviceRange: "Silver II — Platinum III",
-  earned: "$74.50",
-  date: "Mar 20, 2026, 11:57 PM",
+  orderId: `${4269000 + i * 7}`,
+  game: EARNING_GAMES[i % EARNING_GAMES.length],
+  service: EARNING_SERVICES[i % EARNING_SERVICES.length],
+  serviceRange: EARNING_RANGES[i % EARNING_RANGES.length],
+  earned: EARNING_AMOUNTS[i % EARNING_AMOUNTS.length],
+  date: EARNING_DATES[i % EARNING_DATES.length],
   status: i % 3 === 1 ? ("unpaid" as const) : ("paid" as const),
 }));
 
-const PAYOUT_NOTE =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur..";
+const PAYOUT_AMOUNTS = ["$31.50", "$56.80", "$81.95", "$120.00", "$175.40", "$210.75", "$298.00", "$350.25", "$425.00", "$510.90"];
+const PAYOUT_METHODS = ["CRYPTO", "PAYPAL", "CRYPTO", "PAYPAL", "CRYPTO"];
+const PAYOUT_NOTES = [
+  "Bi-weekly payout for completed rank boosting orders. Thank you for your service.",
+  "Monthly bonus payout for top performer in Valorant boosting category.",
+  "Standard payout for completed coaching sessions and duo queue orders.",
+  "Payout for win boosting and placement match orders. Keep up the great work.",
+  "Bi-weekly payout including overtime bonus for rush order completions.",
+];
+const PAYOUT_DATES = [
+  "Jan 10, 2026, 12:00 PM",
+  "Jan 24, 2026, 12:00 PM",
+  "Feb 7, 2026, 12:00 PM",
+  "Feb 21, 2026, 12:00 PM",
+  "Mar 7, 2026, 12:00 PM",
+  "Mar 20, 2026, 11:57 PM",
+  "Apr 4, 2026, 12:00 PM",
+  "Apr 18, 2026, 12:00 PM",
+  "May 2, 2026, 12:00 PM",
+  "May 16, 2026, 12:00 PM",
+];
 
 const samplePayouts: Payout[] = Array.from({ length: 60 }, (_, i) => ({
   id: `p-${i}`,
-  amount: "$81.95",
-  paymentMethod: "CRYPTO",
-  note: PAYOUT_NOTE,
-  date: "Mar 20, 2026, 11:57 PM",
+  amount: PAYOUT_AMOUNTS[i % PAYOUT_AMOUNTS.length],
+  paymentMethod: PAYOUT_METHODS[i % PAYOUT_METHODS.length],
+  note: PAYOUT_NOTES[i % PAYOUT_NOTES.length],
+  date: PAYOUT_DATES[i % PAYOUT_DATES.length],
 }));
 
 const STATUS_CFG: Record<EarningStatus, { bg: string; color: string; label: string }> = {
@@ -66,6 +108,18 @@ const STAT_CARDS = [
   { icon: "/images/dashboard/icons/stat-wallet.svg", label: "Total Earned", value: "$1234" },
   { icon: "/images/dashboard/icons/stat-paidout.svg", label: "Total Paid Out", value: "$900" },
 ];
+
+// ─── Sort Helpers ─────────────────────────────────────────────────────────────
+
+type SortDir = "asc" | "desc";
+
+function parseDollar(v: string): number {
+  return parseFloat(v.replace(/[^0-9.\-]/g, "")) || 0;
+}
+
+function parseDate(v: string): number {
+  return new Date(v).getTime() || 0;
+}
 
 // ─── Shared Helpers ──────────────────────────────────────────────────────────
 
@@ -218,32 +272,32 @@ function EarningDesktopRow({ row }: { row: Earning }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex h-[100px] shrink-0 cursor-default items-center rounded-3xl transition-all duration-150"
+      className="flex h-[100px] cursor-default items-center rounded-3xl transition-all duration-150"
       style={{ backgroundImage: hovered ? ROW_BG_HOVER : ROW_BG_DEFAULT }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="w-[120px] shrink-0 pl-6">
+      <div className="w-[8%] pl-6">
         <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
           {row.orderId}
         </span>
       </div>
-      <div className="w-[350px] shrink-0 pl-6">
+      <div className="w-[15%] pl-2">
         <span className="font-body text-base font-semibold text-white">{row.game}</span>
       </div>
-      <div className="w-[350px] shrink-0 pl-6">
+      <div className="min-w-[200px] flex-1 pl-2">
         <div className="flex flex-col text-white">
           <span className="font-body text-base font-semibold">{row.service}</span>
           <span className="font-body text-sm font-bold">{row.serviceRange}</span>
         </div>
       </div>
-      <div className="w-[290px] shrink-0 pl-6">
+      <div className="w-[12%] pl-2">
         <span className="font-body text-base font-semibold text-white">{row.earned}</span>
       </div>
-      <div className="flex w-[310px] shrink-0 items-center justify-center">
+      <div className="flex w-[18%] items-center justify-center">
         <span className="font-body text-base font-semibold text-white">{row.date}</span>
       </div>
-      <div className="flex w-[200px] shrink-0 items-center justify-center">
+      <div className="flex w-[10%] items-center justify-center">
         <StatusBadge status={row.status} />
       </div>
     </div>
@@ -280,41 +334,64 @@ function MobileEarningCard({ row }: { row: Earning }) {
 
 function EarningsTable({ filter }: { filter: string }) {
   const [page, setPage] = useState(1);
+  const [sortKey, setSortKey] = useState<"earned" | "date" | null>(null);
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
 
   const filtered =
     filter === "all" ? sampleEarnings : sampleEarnings.filter((e) => e.status === filter);
 
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-  const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const sorted = [...filtered].sort((a, b) => {
+    if (!sortKey) return 0;
+    let cmp = 0;
+    if (sortKey === "earned") cmp = parseDollar(a.earned) - parseDollar(b.earned);
+    else cmp = parseDate(a.date) - parseDate(b.date);
+    return sortDir === "asc" ? cmp : -cmp;
+  });
 
-  const COLS = [
-    { label: "Order #", width: "w-[120px]" },
-    { label: "Game", width: "w-[350px]" },
-    { label: "Service", width: "w-[350px]" },
-    { label: "Earned", width: "w-[290px]", sort: true },
-    { label: "Date", width: "w-[310px]", sort: true, center: true },
-    { label: "Status", width: "w-[200px]", center: true },
+  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
+  const visible = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  function handleSort(key: "earned" | "date") {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir("desc");
+    }
+    setPage(1);
+  }
+
+  const COLS: { label: string; cls: string; sortField?: "earned" | "date" }[] = [
+    { label: "Order #", cls: "w-[8%] pl-6" },
+    { label: "Game", cls: "w-[15%] pl-2" },
+    { label: "Service", cls: "min-w-[200px] flex-1 pl-2" },
+    { label: "Earned", cls: "w-[12%] pl-2", sortField: "earned" },
+    { label: "Date", cls: "w-[18%] text-center", sortField: "date" },
+    { label: "Status", cls: "w-[10%] text-center" },
   ];
 
   return (
     <div className="flex flex-col gap-6">
       <div className="hidden flex-col gap-4 lg:flex">
         <div className="overflow-x-auto">
-          <div className="min-w-[1200px]">
-            <div className="flex items-center px-6 pb-2">
+          <div className="w-full min-w-[900px]">
+            <div className="flex items-center pb-2">
               {COLS.map((col) => (
                 <div
                   key={col.label}
-                  className={`${col.width} ${col.center ? "text-center" : ""} shrink-0 font-body text-sm font-bold text-white/80`}
+                  className={`${col.cls} font-body text-sm font-bold text-white/80`}
                 >
-                  <span className="inline-flex items-center gap-1">
+                  <span
+                    className={`inline-flex items-center gap-1 ${col.sortField ? "cursor-pointer select-none hover:text-white" : ""}`}
+                    onClick={col.sortField ? () => handleSort(col.sortField!) : undefined}
+                  >
                     {col.label}
-                    {col.sort && (
+                    {col.sortField && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src="/images/dashboard/icons/sort-arrow-down.svg"
                         alt=""
-                        className="h-4 w-4"
+                        className={`h-4 w-4 transition-transform ${sortKey === col.sortField && sortDir === "asc" ? "rotate-180" : ""}`}
                       />
                     )}
                   </span>
@@ -346,25 +423,25 @@ function PayoutDesktopRow({ row }: { row: Payout }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex min-h-[100px] shrink-0 cursor-default items-center rounded-3xl py-6 transition-all duration-150"
+      className="flex min-h-[100px] cursor-default items-center rounded-3xl py-6 transition-all duration-150"
       style={{ backgroundImage: hovered ? ROW_BG_HOVER : ROW_BG_DEFAULT }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="w-[200px] shrink-0 pl-6">
+      <div className="w-[12%] pl-6">
         <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
           {row.amount}
         </span>
       </div>
-      <div className="w-[250px] shrink-0 pl-6">
+      <div className="w-[15%] pl-2">
         <span className="font-body text-base font-semibold text-white">
           {row.paymentMethod}
         </span>
       </div>
-      <div className="min-w-0 flex-1 pl-6 pr-6">
+      <div className="min-w-[200px] flex-1 pl-2 pr-6">
         <p className="line-clamp-3 font-body text-base text-white">{row.note}</p>
       </div>
-      <div className="w-[250px] shrink-0 pr-6 text-right">
+      <div className="w-[18%] pr-6 text-right">
         <span className="font-body text-base font-semibold text-white">{row.date}</span>
       </div>
     </div>
@@ -394,36 +471,59 @@ function MobilePayoutCard({ row }: { row: Payout }) {
 
 function PayoutsTable() {
   const [page, setPage] = useState(1);
+  const [sortKey, setSortKey] = useState<"amount" | "date" | null>(null);
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
 
-  const totalPages = Math.ceil(samplePayouts.length / PAGE_SIZE);
-  const visible = samplePayouts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const sorted = [...samplePayouts].sort((a, b) => {
+    if (!sortKey) return 0;
+    let cmp = 0;
+    if (sortKey === "amount") cmp = parseDollar(a.amount) - parseDollar(b.amount);
+    else cmp = parseDate(a.date) - parseDate(b.date);
+    return sortDir === "asc" ? cmp : -cmp;
+  });
 
-  const COLS = [
-    { label: "Amount", width: "w-[200px]", sort: true },
-    { label: "Payment Method", width: "w-[250px]" },
-    { label: "Note", width: "flex-1" },
-    { label: "Date", width: "w-[250px]", sort: true, right: true },
+  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
+  const visible = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  function handleSort(key: "amount" | "date") {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir("desc");
+    }
+    setPage(1);
+  }
+
+  const COLS: { label: string; cls: string; sortField?: "amount" | "date" }[] = [
+    { label: "Amount", cls: "w-[12%] pl-6", sortField: "amount" },
+    { label: "Payment Method", cls: "w-[15%] pl-2" },
+    { label: "Note", cls: "min-w-[200px] flex-1 pl-2" },
+    { label: "Date", cls: "w-[18%] pr-6 text-right", sortField: "date" },
   ];
 
   return (
     <div className="flex flex-col gap-6">
       <div className="hidden flex-col gap-4 lg:flex">
         <div className="overflow-x-auto">
-          <div className="min-w-[900px]">
-            <div className="flex items-center px-6 pb-2">
+          <div className="w-full min-w-[900px]">
+            <div className="flex items-center pb-2">
               {COLS.map((col) => (
                 <div
                   key={col.label}
-                  className={`${col.width} ${col.right ? "text-right pr-6" : ""} shrink-0 font-body text-sm font-bold text-white/80`}
+                  className={`${col.cls} font-body text-sm font-bold text-white/80`}
                 >
-                  <span className="inline-flex items-center gap-1">
+                  <span
+                    className={`inline-flex items-center gap-1 ${col.sortField ? "cursor-pointer select-none hover:text-white" : ""}`}
+                    onClick={col.sortField ? () => handleSort(col.sortField!) : undefined}
+                  >
                     {col.label}
-                    {col.sort && (
+                    {col.sortField && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src="/images/dashboard/icons/sort-arrow-down.svg"
                         alt=""
-                        className="h-4 w-4"
+                        className={`h-4 w-4 transition-transform ${sortKey === col.sortField && sortDir === "asc" ? "rotate-180" : ""}`}
                       />
                     )}
                   </span>

@@ -141,12 +141,12 @@ function MobileConversionCard({ row }: { row: Conversion }) {
 type SortKey = "customer" | "date" | "value" | "commission" | "status";
 type SortDir = "asc" | "desc";
 
-const COLS: { label: string; width: string; key: SortKey; center?: boolean }[] = [
-  { label: "Customer", width: "w-[18%]", key: "customer" },
-  { label: "Date", width: "w-[28%]", key: "date" },
-  { label: "Order Value", width: "w-[16%]", key: "value" },
-  { label: "Commission Earned", width: "w-[22%]", key: "commission" },
-  { label: "Status", width: "w-[16%]", key: "status", center: true },
+const COLS: { label: string; cls: string; key: SortKey }[] = [
+  { label: "Customer", cls: "w-[18%] pl-6 text-left", key: "customer" },
+  { label: "Date", cls: "w-[28%] pl-4 text-left", key: "date" },
+  { label: "Order Value", cls: "w-[16%] pl-4 text-left", key: "value" },
+  { label: "Commission Earned", cls: "w-[22%] pl-4 text-left", key: "commission" },
+  { label: "Status", cls: "w-[16%] text-center", key: "status" },
 ];
 
 function sortConversions(data: Conversion[], key: SortKey, dir: SortDir): Conversion[] {
@@ -211,13 +211,13 @@ function ConversionsTable() {
       <div className="hidden flex-col gap-4 lg:flex">
         <div className="overflow-x-auto">
           <div>
-            <div className="flex items-center px-6 pb-2">
+            <div className="flex items-center pb-2">
               {COLS.map((col) => (
                 <button
                   type="button"
                   key={col.label}
                   onClick={() => handleSort(col.key)}
-                  className={`${col.width} ${col.center ? "text-center" : ""} shrink-0 cursor-pointer font-body text-sm font-bold text-white/80 transition-colors hover:text-white`}
+                  className={`${col.cls} cursor-pointer font-body text-sm font-bold text-white/80 transition-colors hover:text-white`}
                 >
                   <span className="inline-flex items-center gap-1">
                     {col.label}
