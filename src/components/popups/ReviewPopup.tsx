@@ -15,7 +15,7 @@ export function ReviewPopup({ isOpen, onClose }: ReviewPopupProps) {
   const [review, setReview] = useState("");
 
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-5 py-6 lg:p-6" maxWidth="max-w-[460px] lg:max-w-[560px]">
+    <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-5 py-6 lg:p-10">
       <div className="flex flex-col items-center gap-5">
         {/* Character Illustration */}
         <div className="relative flex items-center justify-center">
@@ -37,8 +37,8 @@ export function ReviewPopup({ isOpen, onClose }: ReviewPopupProps) {
         </div>
 
         {/* Text Content */}
-        <div className="flex flex-col items-center gap-1.5 lg:gap-2">
-          <h2 className="max-w-[282px] text-center font-body text-xl font-bold text-white lg:max-w-[380px] lg:font-heading lg:text-2xl lg:font-semibold">
+        <div className="flex flex-col items-center gap-1.5 lg:gap-5">
+          <h2 className="max-w-[282px] text-center font-body text-xl font-bold text-white lg:max-w-[489px] lg:font-heading lg:text-[28px] lg:font-semibold">
             How was your experience with Booster?
           </h2>
           <p className="text-center font-body text-base text-white lg:text-base">

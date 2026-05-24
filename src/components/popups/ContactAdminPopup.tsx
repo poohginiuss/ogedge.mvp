@@ -18,14 +18,14 @@ export function ContactAdminPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-6"
+      paddingClassName="p-6 lg:p-10"
     >
-      <div className="flex flex-col items-center gap-5">
-        <h2 className="text-center font-heading text-2xl font-semibold text-white">
+      <div className="flex flex-col items-center gap-1 lg:gap-5">
+        <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">
           Contact Admin
         </h2>
 
-        <p className="text-center font-body text-sm text-white">
+        <p className="text-center font-body text-sm text-white lg:text-base">
           Contact the managers on discord: .lonelystar and OGEdge
         </p>
 

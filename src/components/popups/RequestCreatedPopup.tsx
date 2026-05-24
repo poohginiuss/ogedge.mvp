@@ -26,16 +26,16 @@ export function RequestCreatedPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-6"
+      paddingClassName="p-6 lg:p-10"
     >
-      <div className="flex flex-col items-center gap-5">
+      <div className="flex flex-col items-center gap-1 lg:gap-5">
         <SuccessBadge />
 
-        <h2 className="text-center font-heading text-2xl font-semibold text-white">
+        <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">
           Request #{requestId} created
         </h2>
 
-        <p className="text-center font-body text-sm text-white">
+        <p className="text-center font-body text-sm text-white lg:text-base">
           Your request has been received. A support agent will be with you
           shortly. Check your email or dashboard for updates.
         </p>

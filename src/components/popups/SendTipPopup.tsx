@@ -40,7 +40,7 @@ export function SendTipPopup({
   const displayAmount = isCustom ? Number(customAmount) || 0 : selectedAmount;
 
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose} maxWidth="max-w-[460px] lg:max-w-[560px]">
+    <PopupOverlay isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
           <Image
@@ -50,11 +50,11 @@ export function SendTipPopup({
             height={48}
             className="size-[48px] shrink-0 rounded-full object-cover"
           />
-          <div className="flex flex-col gap-1">
-            <h2 className="font-heading text-xl font-medium leading-7 text-white">
+          <div className="flex flex-col gap-1 lg:gap-5">
+            <h2 className="font-heading text-xl font-medium leading-7 text-white lg:text-[28px]">
               Send a Tip to {boosterName}
             </h2>
-            <p className="font-body text-sm font-normal leading-5 text-white">
+            <p className="font-body text-sm font-normal leading-5 text-white lg:text-base">
               Choose or enter the amount you want to send as a tip
             </p>
           </div>

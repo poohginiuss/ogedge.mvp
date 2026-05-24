@@ -20,15 +20,14 @@ export function ExtraPaymentPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-6"
-      maxWidth="max-w-[460px] lg:max-w-[560px]"
+      paddingClassName="p-6 lg:p-10"
     >
       <div className="flex flex-col items-center gap-5">
-        <div className="flex flex-col items-center gap-2">
-          <h2 className="text-center font-heading text-2xl font-semibold text-white">
+        <div className="flex flex-col items-center gap-1 lg:gap-5">
+          <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">
             Extra Payment
           </h2>
-          <p className="text-center font-body text-sm text-white">
+          <p className="text-center font-body text-sm text-white lg:text-base">
             Send additional payment on the order (e.g., wrong LP/LP Gain, extra
             wins/divisions, extra options) or send tip/gift for your booster.
           </p>

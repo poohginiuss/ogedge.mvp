@@ -20,7 +20,7 @@ export function OrderCompletedPopup({
   const [review, setReview] = useState("");
 
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-5 py-6 lg:p-8" maxWidth="max-w-[460px] lg:max-w-[560px]">
+    <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-5 py-6 lg:p-10">
       <div className="flex flex-col items-center gap-5">
         {/* Character Illustration */}
         <div className="relative flex items-center justify-center">
@@ -42,11 +42,11 @@ export function OrderCompletedPopup({
         </div>
 
         {/* Text Content */}
-        <div className="flex flex-col items-center gap-1 lg:gap-3">
+        <div className="flex flex-col items-center gap-1 lg:gap-5">
           <p className="font-body text-xs font-bold uppercase text-[#ff5c00] lg:text-sm">
             Review us!
           </p>
-          <h2 className="text-center font-body text-xl font-bold text-white lg:font-heading lg:text-2xl lg:font-semibold">
+          <h2 className="text-center font-body text-xl font-bold text-white lg:font-heading lg:text-[28px] lg:font-semibold">
             Order {orderId} Completed
           </h2>
           <p className="text-center font-body text-sm leading-5 text-white lg:text-base lg:leading-normal">

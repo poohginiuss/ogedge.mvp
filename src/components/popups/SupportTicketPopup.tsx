@@ -31,11 +31,11 @@ export function SupportTicketPopup({
   return (
     <PopupOverlay isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <h2 className="font-heading text-xl font-semibold text-white">
+        <div className="flex flex-col gap-1 lg:gap-5">
+          <h2 className="font-heading text-xl font-semibold text-white lg:text-[28px]">
             Create Support Ticket
           </h2>
-          <p className="font-body text-sm font-normal leading-5 text-white">
+          <p className="font-body text-sm font-normal leading-5 text-white lg:text-base">
             Please describe your issue below, we will assist you shortly
           </p>
         </div>
