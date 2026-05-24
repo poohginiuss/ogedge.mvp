@@ -68,7 +68,7 @@ export function CustomOrderForm() {
               alt=""
               width={20}
               height={20}
-              className={`transition-transform ${gameOpen ? "rotate-180" : ""}`}
+              className={`transition-transform ${gameOpen ? "" : "rotate-180"}`}
             />
           </button>
           {gameOpen && (
@@ -123,7 +123,7 @@ export function CustomOrderForm() {
               onChange={(e) =>
                 setAmount(Math.max(1, Number.parseInt(e.target.value) || 1))
               }
-              className="w-20 bg-transparent text-center font-body text-xl font-bold leading-[30px] text-white outline-none"
+              className="w-20 appearance-none bg-transparent text-center font-body text-xl font-bold leading-[30px] text-white outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
             />
           </div>
           <button

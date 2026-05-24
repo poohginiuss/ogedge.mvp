@@ -69,7 +69,7 @@ export function Dropdown({ label, value, options, onChange, className = "" }: Dr
         <img
           src="/images/icons/services/arrow-up.svg"
           alt=""
-          className={`h-5 w-5 opacity-80 transition-transform duration-200 ${open ? "" : "rotate-180"}`}
+          className={`h-5 w-5 opacity-80 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
