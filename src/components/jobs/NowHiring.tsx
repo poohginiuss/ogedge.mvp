@@ -213,10 +213,11 @@ export function NowHiring() {
                 fill
                 className="object-contain object-bottom"
               />
+              {/* Orb glow at bottom of character */}
               <div
-                className="absolute bottom-0 left-0 h-[229px] w-full"
+                className="absolute -bottom-[35%] left-1/2 h-[300px] w-[600px] -translate-x-1/2 rounded-full lg:h-[400px] lg:w-[900px]"
                 style={{
-                  background: "linear-gradient(to top, #17191f, transparent)",
+                  background: "radial-gradient(ellipse at center, #17191f 0%, #17191f 50%, transparent 70%)",
                 }}
                 aria-hidden="true"
               />
