@@ -18,20 +18,19 @@ export function CompleteOrderPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      maxWidth="max-w-[693px]"
-      paddingClassName="p-[60px]"
+      paddingClassName="p-6"
     >
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col items-center gap-4">
-          <h2 className="text-center font-heading text-4xl font-medium text-white">
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-center gap-2">
+          <h2 className="text-center font-heading text-2xl font-medium text-white">
             Complete order
           </h2>
-          <p className="text-center font-body text-lg text-white">
+          <p className="text-center font-body text-sm text-white">
             Please make sure that you have checked all mandatory
           </p>
         </div>
 
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-3">
           <li className="flex items-start gap-3">
             <span className="mt-2 size-2 shrink-0 rounded-full bg-[#ff975d]" />
             <span className="font-body text-base text-white">

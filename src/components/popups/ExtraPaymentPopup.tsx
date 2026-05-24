@@ -1,7 +1,7 @@
 "use client";
 
 import { PopupOverlay } from "./PopupOverlay";
-import { ActionButtonsRow, OutlineButton } from "./PopupShared";
+import { OutlineButton } from "./PopupShared";
 
 interface ExtraPaymentPopupProps {
   isOpen: boolean;
@@ -20,24 +20,24 @@ export function ExtraPaymentPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      maxWidth="max-w-[693px]"
-      paddingClassName="p-[60px]"
+      paddingClassName="p-6"
+      maxWidth="max-w-[460px] lg:max-w-[560px]"
     >
-      <div className="flex flex-col items-center gap-8">
-        <div className="flex flex-col items-center gap-4">
-          <h2 className="text-center font-heading text-4xl font-semibold text-white">
+      <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col items-center gap-2">
+          <h2 className="text-center font-heading text-2xl font-semibold text-white">
             Extra Payment
           </h2>
-          <p className="text-center font-body text-lg text-white">
+          <p className="text-center font-body text-sm text-white">
             Send additional payment on the order (e.g., wrong LP/LP Gain, extra
             wins/divisions, extra options) or send tip/gift for your booster.
           </p>
         </div>
 
-        <ActionButtonsRow>
+        <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4">
           <OutlineButton onClick={onAddOnPayment}>Add-on Payment</OutlineButton>
           <OutlineButton onClick={onSendTip}>Send Tip for Booster</OutlineButton>
-        </ActionButtonsRow>
+        </div>
       </div>
     </PopupOverlay>
   );

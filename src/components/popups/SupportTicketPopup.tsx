@@ -30,17 +30,17 @@ export function SupportTicketPopup({
 
   return (
     <PopupOverlay isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <h2 className="font-heading text-2xl font-semibold text-white">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <h2 className="font-heading text-xl font-semibold text-white">
             Create Support Ticket
           </h2>
-          <p className="font-body text-base font-normal leading-6 text-white">
+          <p className="font-body text-sm font-normal leading-5 text-white">
             Please describe your issue below, we will assist you shortly
           </p>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           <FormField label="Title*">
             <FormInput
               value={title}
@@ -66,7 +66,7 @@ export function SupportTicketPopup({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Please describe your issue in detail, so we can assist you as soon as possible."
-              className="h-[120px] w-full resize-none rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-4 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d]"
+              className="h-[80px] w-full resize-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d]"
             />
             <AttachmentButtons />
           </FormField>

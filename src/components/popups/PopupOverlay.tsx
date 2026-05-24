@@ -15,8 +15,8 @@ export function PopupOverlay({
   isOpen,
   onClose,
   children,
-  maxWidth = "max-w-[693px]",
-  paddingClassName = "p-8",
+  maxWidth = "max-w-[460px]",
+  paddingClassName = "p-5",
 }: PopupOverlayProps) {
   useEffect(() => {
     if (isOpen) {
@@ -35,7 +35,7 @@ export function PopupOverlay({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
       <div
-        className={`relative w-[90%] ${maxWidth} rounded-[24px] backdrop-blur-[8px] ${paddingClassName}`}
+        className={`relative w-[90%] ${maxWidth} max-h-[94vh] overflow-y-auto rounded-[20px] backdrop-blur-[8px] lg:max-h-none lg:overflow-visible ${paddingClassName}`}
         style={{
           backgroundImage:
             "linear-gradient(110deg, rgba(56, 56, 82, 0.8) 0%, rgba(35, 35, 48, 0.8) 50%, rgba(23, 25, 31, 0.8) 100%)",
@@ -44,7 +44,7 @@ export function PopupOverlay({
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-8 top-8 cursor-pointer transition-opacity hover:opacity-80"
+          className="absolute right-5 top-5 cursor-pointer transition-opacity hover:opacity-80"
           aria-label="Close"
         >
           <Image

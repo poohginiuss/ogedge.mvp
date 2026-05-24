@@ -25,7 +25,8 @@ export const fifaDivisions: DropdownOption[] = Array.from({ length: 10 }, (_, i)
 export const fifaCategories: CategoryOption[] = [
   { id: "rank", icon: "/images/icons/services/safety-outlined.svg", label: "Rank Boost" },
   { id: "placement", icon: "/images/icons/services/rocket.svg", label: "Placement Boost" },
-  { id: "win", icon: "/images/icons/services/crown.svg", label: "Boost per Win" },
+  { id: "win", icon: "/images/icons/services/crown.svg", label: "Boost per Win with Image" },
+  { id: "camo", icon: "/images/icons/services/safety-outlined.svg", label: "Camo Boost" },
   { id: "coins", icon: "/images/icons/services/cash.svg", label: "Coins Boost" },
 ];
 
@@ -137,4 +138,127 @@ export const fifaVolumeDiscountTiers: VolumeDiscountTier[] = [
   { minAmount: 200, discountPercent: 5 },
   { minAmount: 350, discountPercent: 10 },
   { minAmount: 500, discountPercent: 18 },
+];
+
+/* ── Camo Boost (Tabbed Card Calculator) data ──────────────── */
+
+import type { CardTab } from "@/components/calculator/forms/TabbedCardSelectorCalculator";
+
+export const camoCardTabs: CardTab[] = [
+  {
+    id: "objectives",
+    label: "Objectives",
+    cards: [
+      {
+        id: "obj-leviathan",
+        name: "Leviathan",
+        description: "Base camo — all standard categories",
+        price: 12.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "obj-leviathan-gold",
+        name: "Leviathan Gold",
+        description: "Gold tier — 100 headshots required",
+        price: 24.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "obj-leviathan-platinum",
+        name: "Leviathan Platinum",
+        description: "Platinum — Gold on all in category",
+        price: 39.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "obj-leviathan-diamond",
+        name: "Leviathan Diamond",
+        description: "Diamond — Platinum all categories",
+        price: 24.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+    ],
+  },
+  {
+    id: "items",
+    label: "Items",
+    cards: [
+      {
+        id: "item-m15-mod0",
+        name: "M15 Mod 0",
+        description: "Assault Rifle — Base camo unlock",
+        price: 14.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "item-ak-27",
+        name: "AK-27",
+        description: "Assault Rifle — Base camo unlock",
+        price: 14.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "item-ds20-mirage",
+        name: "DS20 Mirage",
+        description: "Assault Rifle — Base camo unlock",
+        price: 14.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "item-x9-maverick",
+        name: "X9 Maverick",
+        description: "SMG — Base camo unlock",
+        price: 12.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "item-thunder-12",
+        name: "Thunder-12",
+        description: "Shotgun — Base camo unlock",
+        price: 12.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "item-rpk-bolt",
+        name: "RPK Bolt",
+        description: "LMG — Base camo unlock",
+        price: 14.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+    ],
+  },
+  {
+    id: "bundles",
+    label: "Bundles",
+    cards: [
+      {
+        id: "bundle-leviathan-diamond",
+        name: "Leviathan Diamond",
+        description: "Complete — Platinum all categories",
+        price: 24.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+      {
+        id: "bundle-leviathan-platinum",
+        name: "Leviathan Platinum",
+        description: "Platinum — Gold on all in category",
+        price: 39.99,
+        image: "/images/camo-boost/weapon.png",
+      },
+    ],
+  },
+];
+
+export const camoRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const camoBenefits = [
+  "3 Placement Wins on your account.",
+  "Progression towards your final placement division.",
+  "A detailed match history with performance overview.",
+  "Optional match replays upon request.",
 ];

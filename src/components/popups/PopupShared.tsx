@@ -39,7 +39,7 @@ export function AmountOption({ label, selected, onClick }: AmountOptionProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex h-[60px] cursor-pointer items-center justify-center rounded-2xl border font-body text-xl font-bold transition-all ${
+      className={`relative flex h-[44px] cursor-pointer items-center justify-center rounded-xl border font-body text-base font-bold transition-all ${
         selected
           ? "border-[#ff975d] text-[#ff975d] drop-shadow-[0px_4px_7px_rgba(255,92,0,0.3)]"
           : "border-[#383852] bg-[rgba(0,0,0,0.2)] text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)]"
@@ -87,7 +87,7 @@ export function CustomAmountInput({
       onChange={(e) => onChange(e.target.value)}
       onFocus={onFocus}
       placeholder={placeholder}
-      className="col-span-2 h-[60px] rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 text-center font-body text-xl font-bold text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)] outline-none placeholder:text-white/50 focus:border-[#ff975d]"
+      className="col-span-2 h-[44px] rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 text-center font-body text-base font-bold text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)] outline-none placeholder:text-white/50 focus:border-[#ff975d]"
     />
   );
 }
@@ -173,7 +173,7 @@ export function PaymentMethodSection({
           Payment Method
         </span>
       </div>
-      <div className="flex gap-2.5">
+      <div className="flex flex-col gap-2.5 lg:flex-row">
         {PAYMENT_METHODS.map((method) => {
           const isActive = selected === method.id;
           return (
@@ -181,7 +181,7 @@ export function PaymentMethodSection({
               key={method.id}
               type="button"
               onClick={() => onSelect(method.id)}
-              className={`flex h-[120px] flex-1 cursor-pointer flex-col gap-4 rounded-2xl border bg-[rgba(0,0,0,0.2)] px-4 py-6 transition-colors ${
+              className={`flex cursor-pointer flex-row items-center gap-3 rounded-xl border bg-[rgba(0,0,0,0.2)] px-3 py-3 transition-colors lg:h-[90px] lg:flex-1 lg:flex-col lg:gap-3 lg:py-4 ${
                 isActive ? "border-[#ff975d]" : "border-[#383852]"
               }`}
             >
@@ -209,7 +209,7 @@ export function PaymentMethodSection({
                 />
               </div>
               {method.cards.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-1 px-2">
+                <div className="ml-auto flex flex-wrap gap-1 lg:ml-0 lg:justify-center lg:px-2">
                   {method.cards.map((card, idx) => (
                     <Image
                       key={`${card}-${idx}`}
@@ -257,7 +257,7 @@ export function PopupTextarea({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`h-[79px] w-full resize-none rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-4 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d] ${className ?? ""}`}
+        className={`h-[56px] w-full resize-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d] ${className ?? ""}`}
       />
     </div>
   );
@@ -265,9 +265,9 @@ export function PopupTextarea({
 
 export function TotalAmountRow({ amount }: { amount: string }) {
   return (
-    <div className="flex items-center justify-between rounded-2xl bg-[rgba(0,0,0,0.2)] p-6">
+    <div className="flex items-center justify-between rounded-xl bg-[rgba(0,0,0,0.2)] p-4">
       <span className="font-body text-sm text-white/80">Total Amount</span>
-      <span className="font-body text-[23px] font-semibold text-[#ff975d]">
+      <span className="font-body text-lg font-semibold text-[#ff975d]">
         {amount}
       </span>
     </div>
@@ -285,7 +285,7 @@ export function CancelButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex-1 cursor-pointer rounded-3xl border border-[#ff975d] px-8 py-6 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
+      className="flex-1 cursor-pointer rounded-2xl border border-[#ff975d] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
     >
       {children}
     </button>
@@ -306,7 +306,7 @@ export function PrimaryButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex h-[67px] flex-1 cursor-pointer items-center justify-center rounded-3xl border border-[#ff975d] bg-gradient-to-r from-[#ff5c00] to-[#a32d05] px-8 font-body text-base font-bold uppercase tracking-wider text-white drop-shadow-[0px_4px_12px_rgba(255,92,0,0.4)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+      className="flex flex-1 cursor-pointer items-center justify-center rounded-2xl border border-[#ff975d] bg-gradient-to-r from-[#ff5c00] to-[#a32d05] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white drop-shadow-[0px_4px_12px_rgba(255,92,0,0.4)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
     >
       {children}
     </button>
@@ -326,7 +326,7 @@ export function OutlineButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex-1 cursor-pointer rounded-3xl border border-[#ff975d] px-8 py-6 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90 ${className ?? ""}`}
+      className={`flex-1 cursor-pointer rounded-2xl border border-[#ff975d] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90 ${className ?? ""}`}
     >
       {children}
     </button>
@@ -334,7 +334,7 @@ export function OutlineButton({
 }
 
 export function ActionButtonsRow({ children }: { children: React.ReactNode }) {
-  return <div className="flex gap-6">{children}</div>;
+  return <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4">{children}</div>;
 }
 
 export function FormField({
@@ -369,7 +369,7 @@ export function FormInput({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.7)] px-4 py-4 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d]"
+      className="w-full rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] px-4 py-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d]"
     />
   );
 }
@@ -390,7 +390,7 @@ export function FormSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full cursor-pointer appearance-none rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.7)] px-4 py-4 font-body text-sm text-white/80 outline-none focus:border-[#ff975d]"
+        className="w-full cursor-pointer appearance-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] px-4 py-3 font-body text-sm text-white/80 outline-none focus:border-[#ff975d]"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -508,14 +508,13 @@ export function StarRating({
 
 export function SuccessBadge() {
   return (
-    <div className="relative mx-auto flex size-[260px] items-center justify-center">
-      <div className="absolute inset-0 rounded-full bg-[#ff5c00]/20 blur-3xl" />
+    <div className="relative mx-auto flex size-[160px] items-center justify-center">
       <Image
-        src="/images/popups/success-badge.png"
+        src="/images/popups/success-badge.svg"
         alt=""
-        width={160}
-        height={160}
-        className="relative size-40 object-contain"
+        width={260}
+        height={260}
+        className="size-full object-contain"
       />
     </div>
   );
@@ -523,9 +522,9 @@ export function SuccessBadge() {
 
 export function ResponseTimeRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex w-full items-center justify-between rounded-2xl bg-[rgba(0,0,0,0.2)] p-6">
+    <div className="flex w-full items-center justify-between rounded-xl bg-[rgba(0,0,0,0.2)] p-4">
       <span className="font-body text-sm text-white/80">{label}</span>
-      <span className="font-body text-[23px] font-semibold text-[#ff975d]">
+      <span className="font-body text-lg font-semibold text-[#ff975d]">
         {value}
       </span>
     </div>

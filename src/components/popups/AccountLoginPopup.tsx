@@ -30,18 +30,18 @@ export function AccountLoginPopup({
 
   return (
     <PopupOverlay isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <h2 className="font-heading text-2xl font-medium leading-8 text-white">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <h2 className="font-heading text-xl font-medium leading-7 text-white">
             Account Login Information
           </h2>
-          <p className="font-body text-base font-normal leading-6 text-white">
+          <p className="font-body text-sm font-normal leading-5 text-white">
             Please add your account login information, alternatively ask for the
             booster to login with a QR code and skip this step.
           </p>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           <FormField label="Username">
             <FormInput
               value={username}

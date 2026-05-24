@@ -44,7 +44,7 @@ export function CalculatorPageShell({
           <CategoryTabs options={categoryOptions} value={category} onChange={onCategoryChange} />
         </div>
 
-        <div className="mt-6 grid grid-cols-1 items-start gap-6 xl:grid-cols-[1fr_490px]">
+        <div className="mt-6 grid min-w-0 grid-cols-1 items-start gap-6 xl:grid-cols-[1fr_490px]">
           {left}
           {right}
         </div>

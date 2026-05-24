@@ -1,8 +1,10 @@
 "use client";
 
+import { BoostPerWinImage } from "@/components/calculator/forms/BoostPerWinImage";
 import { CalculatorPageShell } from "@/components/calculator/CalculatorPageShell";
 import { CurrencySliderCalculator } from "@/components/calculator/forms/CurrencySliderCalculator";
 import { RankBoostingImage } from "@/components/calculator/forms/RankBoostingImage";
+import { TabbedCardSelectorCalculator } from "@/components/calculator/forms/TabbedCardSelectorCalculator";
 import { OrderSummary } from "@/components/calculator/shared/OrderSummary";
 import { Articles } from "@/components/sections/Articles";
 import { BottomText } from "@/components/sections/BottomText";
@@ -16,6 +18,9 @@ import { useState } from "react";
 
 import {
   benefits,
+  camoBenefits,
+  camoCardTabs,
+  camoRequirements,
   coinsBenefits,
   coinsRequirements,
   coinsTiers,
@@ -47,6 +52,15 @@ export function FifaPageContent() {
   /* ── Coins Boost state ── */
   const [selectedCoinsAmount, setSelectedCoinsAmount] = useState(coinsTiers[0]?.amount ?? 0);
 
+  /* ── Camo Boost state ── */
+  const [camoTab, setCamoTab] = useState(camoCardTabs[0]?.id ?? "objectives");
+  const [selectedCamoCards, setSelectedCamoCards] = useState<string[]>([]);
+
+  /* ── Boost per Win state ── */
+  const [winRank, setWinRank] = useState("fut-champions");
+  const [winDivision, setWinDivision] = useState("1");
+  const [wins, setWins] = useState(3);
+
   /* ── Shared state ── */
   const [platform, setPlatform] = useState("PlayStation");
   const [server, setServer] = useState("Europe");
@@ -54,6 +68,8 @@ export function FifaPageContent() {
 
   const platformLabel = platformOptions.find((p) => p.id === platform)?.label ?? platform;
   const isCoins = category === "coins";
+  const isCamo = category === "camo";
+  const isWin = category === "win";
 
   /* ── Summary rows ── */
   let summaryTitle = "Rank Boost";
@@ -87,6 +103,26 @@ export function FifaPageContent() {
     } else {
       summaryRows = [{ label: "Pack", value: "—" }];
     }
+  } else if (isCamo) {
+    summaryTitle = "Camo Boost";
+    const allCamoCards = camoCardTabs.flatMap((t) => t.cards);
+    const selectedItems = allCamoCards.filter((c) => selectedCamoCards.includes(c.id));
+    numericSubtotal = selectedItems.reduce((sum, c) => sum + c.price, 0);
+    totalAmount = `$${numericSubtotal.toFixed(2)}`;
+    summaryRows = [
+      { label: "Items Selected", value: String(selectedItems.length) },
+      { label: "Platform", value: platformLabel },
+    ];
+  } else if (isWin) {
+    summaryTitle = "Boost per Win";
+    numericSubtotal = wins * 25;
+    totalAmount = `€${numericSubtotal.toFixed(2)}`;
+    summaryRows = [
+      { label: "Rank", value: getLabel(fifaRankCategories, winRank) },
+      { label: "Division", value: winDivision },
+      { label: "Wins", value: String(wins) },
+      { label: "Platform", value: platformLabel },
+    ];
   } else {
     summaryRows = [
       {
@@ -123,6 +159,47 @@ export function FifaPageContent() {
         setPlatform={setPlatform}
         requirements={coinsRequirements}
         benefits={coinsBenefits}
+      />
+    );
+  } else if (isCamo) {
+    form = (
+      <TabbedCardSelectorCalculator
+        title="Configure Order"
+        subtitle="Select option"
+        tabs={camoCardTabs}
+        activeTab={camoTab}
+        onTabChange={setCamoTab}
+        selectedCardIds={selectedCamoCards}
+        onToggleCard={(id) =>
+          setSelectedCamoCards((prev) =>
+            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+          )
+        }
+        onRemoveCard={(id) => setSelectedCamoCards((prev) => prev.filter((x) => x !== id))}
+        onRemoveAll={() => setSelectedCamoCards([])}
+        platformOptions={platformOptions}
+        platform={platform}
+        setPlatform={setPlatform}
+        requirements={camoRequirements}
+        benefits={camoBenefits}
+      />
+    );
+  } else if (isWin) {
+    form = (
+      <BoostPerWinImage
+        rankOptions={fifaRankCategories}
+        divisionOptions={fifaDivisions}
+        selectedRank={winRank}
+        setSelectedRank={setWinRank}
+        selectedDivision={winDivision}
+        setSelectedDivision={setWinDivision}
+        wins={wins}
+        setWins={setWins}
+        platform={platform}
+        setPlatform={setPlatform}
+        platformOptions={platformOptions}
+        requirements={requirements}
+        benefits={benefits}
       />
     );
   } else {
