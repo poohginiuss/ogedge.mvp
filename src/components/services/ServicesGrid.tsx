@@ -190,7 +190,7 @@ export function ServicesGrid() {
        overlays the hero image (Figma `2nd SCREEN` overlap of ~150px).
        The bottom keeps a dark backdrop so the next section reads
        cleanly. */
-    <section className="relative mt-8 w-full md:-mt-96 lg:-mt-[420px]">
+    <section className="relative -mt-6 w-full md:-mt-48 lg:-mt-[280px]">
       <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[180px] -z-10 bg-dark-main md:top-[340px] lg:top-[380px]" />
       <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pb-16 md:px-12 lg:px-20 lg:pb-[120px]">
         <div className="flex flex-col gap-8">

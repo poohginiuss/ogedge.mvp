@@ -22,10 +22,11 @@ export function ServicesPageContent() {
     <>
       <Header />
       <main className="bg-dark-main">
-        {/* The /services hero is copy-less per the latest comp: only the
-            character lineup background renders, and the cards from
-            <ServicesGrid> overlap the hero's bottom edge. */}
-        <Hero title="" subtitle="" backgroundImage="/images/services/services-hero-bg.png" />
+        <Hero
+          title="Our Services"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          backgroundImage="/images/services/services-hero-bg.png"
+        />
         <ServicesGrid />
         <OrderProcess />
         <Reviews />
