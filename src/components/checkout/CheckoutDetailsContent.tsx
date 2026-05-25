@@ -169,7 +169,7 @@ function DetailsForm({
           <button
             type="button"
             onClick={() => setAgreeTerms(!agreeTerms)}
-            className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-[#d4d4d4] bg-[#f7f7f7] transition-colors"
+            className="mt-0.5 flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded border border-[#d4d4d4] bg-[#f7f7f7] transition-all hover:border-[#ff975d] active:scale-90"
             style={
               agreeTerms
                 ? {
@@ -355,7 +355,7 @@ export function CheckoutDetailsContent() {
                 <button
                   type="button"
                   onClick={() => setApplyCredit(!applyCredit)}
-                  className="flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[#fa4609]"
+                  className="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-[#fa4609] transition-all hover:opacity-80 active:scale-90"
                   style={{
                     background: applyCredit ? "#feece6" : "rgba(0,0,0,0.2)",
                   }}

@@ -101,7 +101,7 @@ export function BoostPerWinCalculator({
                   key={div}
                   type="button"
                   onClick={() => setSelectedDivision(i)}
-                  className="relative flex h-14 items-center justify-center gap-[10px] rounded-2xl px-4 transition-all"
+                  className="relative flex h-14 cursor-pointer items-center justify-center gap-[10px] rounded-2xl px-4 transition-all hover:border-[#ff975d] active:scale-[0.97]"
                   style={{
                     border: active ? "1px solid #ff975d" : "1px solid #383852",
                     background: active

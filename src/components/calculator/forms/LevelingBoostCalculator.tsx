@@ -65,7 +65,7 @@ function LevelStepper({
             onClick={() => onChange(Math.max(min, value - step))}
             disabled={value <= min}
             aria-label={`Decrease ${label}`}
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all disabled:opacity-40"
+            className="flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:border-[#ff975d] active:scale-95 disabled:opacity-40"
             style={{
               border: "1px solid #383852",
               background: STEPPER_BG,
@@ -109,7 +109,7 @@ function LevelStepper({
             onClick={() => onChange(Math.min(max, value + step))}
             disabled={value >= max}
             aria-label={`Increase ${label}`}
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all disabled:opacity-40"
+            className="flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:border-[#ff975d] active:scale-95 disabled:opacity-40"
             style={{
               border: "1px solid #383852",
               background: STEPPER_BG,

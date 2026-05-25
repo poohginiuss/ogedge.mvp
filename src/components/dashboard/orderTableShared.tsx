@@ -236,10 +236,10 @@ export function Pagination({
   total: number;
   onPage: (p: number) => void;
 }) {
-  const BTN = "flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg font-body text-base font-bold";
-  const INACTIVE = "border border-dark-border bg-black/20 text-white/50";
+  const BTN = "flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg font-body text-base font-bold transition-all active:scale-90";
+  const INACTIVE = "border border-dark-border bg-black/20 text-white/50 hover:border-brand-light/50 hover:text-white";
   const ACTIVE = "bg-brand-main text-white";
-  const NAV = "border border-dark-border bg-black/20";
+  const NAV = "border border-dark-border bg-black/20 hover:border-brand-light/50";
 
   const items = buildPageItems(page, total);
 
@@ -469,6 +469,7 @@ export function MobileCardShell({
             type="button"
             aria-label="Copy order ID"
             onClick={() => navigator.clipboard.writeText(order.orderId)}
+            className="cursor-pointer transition-opacity hover:opacity-70 active:scale-90"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

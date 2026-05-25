@@ -26,7 +26,7 @@ function TipChip({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-[50px] min-w-0 flex-1 items-center justify-center rounded-2xl border px-2 py-3 font-body text-base font-medium leading-7 text-white transition-all lg:p-4 lg:text-lg"
+      className="flex h-[50px] min-w-0 flex-1 cursor-pointer items-center justify-center rounded-2xl border px-2 py-3 font-body text-base font-medium leading-7 text-white transition-all hover:border-[#ff975d] active:scale-[0.97] lg:p-4 lg:text-lg"
       style={{
         borderColor: isSelected ? "#ff975d" : "#383852",
         background: isSelected
@@ -90,7 +90,7 @@ function CustomTipInput({
         onClick={() => {
           if (hasValue) setApplied(true);
         }}
-        className="absolute right-2 flex items-center justify-center gap-1 rounded-xl px-3 py-1.5 font-body text-xs font-bold uppercase tracking-wide text-white transition-all"
+        className="absolute right-2 flex cursor-pointer items-center justify-center gap-1 rounded-xl px-3 py-1.5 font-body text-xs font-bold uppercase tracking-wide text-white transition-all hover:opacity-80 active:scale-95"
         style={
           applied
             ? {

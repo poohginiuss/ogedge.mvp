@@ -28,7 +28,7 @@ export function PlatformSelector({
             key={opt.id}
             type="button"
             onClick={() => onChange(opt.id)}
-            className="relative flex h-[50px] items-center justify-center gap-[10px] rounded-2xl px-4 transition-all"
+            className="relative flex h-[50px] cursor-pointer items-center justify-center gap-[10px] rounded-2xl px-4 transition-all hover:border-[#ff975d] active:scale-[0.97]"
             style={{
               border: active ? "1px solid #ff975d" : "1px solid #383852",
               backgroundImage: active

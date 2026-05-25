@@ -112,7 +112,7 @@ function PaymentForm() {
           <button
             type="button"
             onClick={() => setCurrency("EUR")}
-            className="flex h-[50px] flex-1 items-center justify-center gap-2 rounded-2xl border px-4 lg:flex-initial"
+            className="flex h-[50px] flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 transition-all hover:border-[#ff975d] active:scale-[0.97] lg:flex-initial"
             style={{
               borderColor: currency === "EUR" ? "#ff975d" : "#383852",
               background: "rgba(0,0,0,0.2)",
@@ -141,7 +141,7 @@ function PaymentForm() {
           <button
             type="button"
             onClick={() => setCurrency("USD")}
-            className="flex h-[50px] flex-1 items-center justify-center gap-2 rounded-2xl border px-4 lg:flex-initial"
+            className="flex h-[50px] flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 transition-all hover:border-[#ff975d] active:scale-[0.97] lg:flex-initial"
             style={{
               borderColor: currency === "USD" ? "#ff975d" : "#383852",
               background: "rgba(0,0,0,0.2)",
@@ -179,7 +179,7 @@ function PaymentForm() {
               key={method.id}
               type="button"
               onClick={() => setSelectedMethod(method.id)}
-              className="flex flex-col gap-3 rounded-2xl border p-6 transition-all lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:p-8"
+              className="flex cursor-pointer flex-col gap-3 rounded-2xl border p-6 transition-all hover:border-[#ff975d] active:scale-[0.99] lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:p-8"
               style={{
                 borderColor: isSelected ? "#ff975d" : "#383852",
                 boxShadow: isSelected ? "0 4px 14px rgba(255,92,0,0.3)" : undefined,
@@ -264,7 +264,7 @@ function PaymentForm() {
         <button
           type="button"
           onClick={() => setAgreeTerms(!agreeTerms)}
-          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-[#d4d4d4] bg-[#f7f7f7] transition-colors"
+          className="mt-0.5 flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded border border-[#d4d4d4] bg-[#f7f7f7] transition-all hover:border-[#ff975d] active:scale-90"
           style={
             agreeTerms
               ? {
@@ -426,7 +426,7 @@ export function CheckoutPaymentContent() {
                 <button
                   type="button"
                   onClick={() => setApplyCredit(!applyCredit)}
-                  className="flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[#fa4609]"
+                  className="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-[#fa4609] transition-all hover:opacity-80 active:scale-90"
                   style={{
                     background: applyCredit ? "#feece6" : "rgba(0,0,0,0.2)",
                   }}

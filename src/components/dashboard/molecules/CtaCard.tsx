@@ -27,7 +27,7 @@ export function CtaCard({
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center rounded-2xl ${layoutCls} ${className}`}
+      className={`flex cursor-pointer items-center rounded-2xl transition-all hover:bg-[rgba(0,0,0,0.35)] active:scale-[0.97] ${layoutCls} ${className}`}
       style={{ background: "rgba(0,0,0,0.2)" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

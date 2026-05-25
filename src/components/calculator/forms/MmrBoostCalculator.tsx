@@ -105,7 +105,7 @@ function MmrStepper({
             onClick={() => onChange(Math.max(min, value - step))}
             disabled={value <= min}
             aria-label={`Decrease ${label}`}
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all disabled:opacity-40"
+            className="flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:border-[#ff975d] active:scale-95 disabled:opacity-40"
             style={{
               border: "1px solid #383852",
               background: STEPPER_BG,
@@ -149,7 +149,7 @@ function MmrStepper({
             onClick={() => onChange(Math.min(max, value + step))}
             disabled={value >= max}
             aria-label={`Increase ${label}`}
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all disabled:opacity-40"
+            className="flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:border-[#ff975d] active:scale-95 disabled:opacity-40"
             style={{
               border: "1px solid #383852",
               background: STEPPER_BG,
@@ -183,7 +183,7 @@ function MmrQuickButton({ label, selected, onClick }: MmrQuickButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`flex flex-1 items-center justify-center gap-2 rounded-2xl px-3 py-3 transition-all ${
+      className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl px-3 py-3 transition-all hover:border-[#ff975d] active:scale-[0.97] ${
         selected
           ? "border border-[#ff975d] shadow-[0_4px_7px_rgba(255,92,0,0.3)]"
           : "border border-[#383852] shadow-[0_4px_16px_rgba(0,0,0,0.15)]"

@@ -93,7 +93,7 @@ function ClaimButton({ onClaim }: { onClaim: () => void }) {
       onClick={onClaim}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex items-center gap-2 rounded-3xl px-6 py-3 font-body text-sm font-bold uppercase tracking-wide text-white transition-all duration-200"
+      className="flex cursor-pointer items-center gap-2 rounded-3xl px-6 py-3 font-body text-sm font-bold uppercase tracking-wide text-white transition-all duration-200 active:scale-95"
       style={{
         background: hovered
           ? "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)"
@@ -154,7 +154,7 @@ function ClaimConfirmDialog({
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 rounded-2xl border border-[#6d6d96] py-3 font-body text-sm font-bold uppercase text-white transition-colors hover:border-white/50"
+            className="flex-1 cursor-pointer rounded-2xl border border-[#6d6d96] py-3 font-body text-sm font-bold uppercase text-white transition-all hover:border-white/50 active:scale-95"
             style={{ background: "rgba(23,25,31,0.5)" }}
           >
             Cancel
@@ -162,7 +162,7 @@ function ClaimConfirmDialog({
           <button
             type="button"
             onClick={onConfirm}
-            className="flex-1 rounded-2xl py-3 font-body text-sm font-bold uppercase text-white transition-all"
+            className="flex-1 cursor-pointer rounded-2xl py-3 font-body text-sm font-bold uppercase text-white transition-all hover:opacity-90 active:scale-95"
             style={{
               background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
               border: "1px solid #ff975d",
@@ -368,7 +368,7 @@ function MobileCard({
             <button
               type="button"
               onClick={() => onClaim(order)}
-              className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-3 font-body text-base font-bold uppercase text-white"
+              className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl py-3 font-body text-base font-bold uppercase text-white transition-all hover:opacity-90 active:scale-[0.97]"
               style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
             >
               <Image src="/images/dashboard/icons/check-all.svg" alt="" width={20} height={20} />

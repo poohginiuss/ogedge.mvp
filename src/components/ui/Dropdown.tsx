@@ -51,7 +51,7 @@ export function Dropdown({ label, value, options, onChange, className = "" }: Dr
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex h-14 cursor-pointer items-center justify-between rounded-2xl px-4 transition-colors"
+        className="flex h-14 cursor-pointer items-center justify-between rounded-2xl px-4 transition-all hover:border-[#ff975d] active:scale-[0.98]"
         style={{
           background: "linear-gradient(-20deg, #17191f 0%, #383852 100%)",
           border: "1px solid #383852",

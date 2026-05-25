@@ -179,7 +179,7 @@ function PaymentMethodSelector({
       <button
         type="button"
         onClick={() => onSelect("paypal")}
-        className={`flex items-center gap-3 rounded-2xl border px-4 py-6 transition-all ${
+        className={`flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-6 transition-all hover:border-brand-light active:scale-[0.98] ${
           selected === "paypal"
             ? "border-brand-light bg-[rgba(0,0,0,0.2)]"
             : "border-dark-border bg-[rgba(0,0,0,0.2)]"
@@ -201,7 +201,7 @@ function PaymentMethodSelector({
       <button
         type="button"
         onClick={() => onSelect("crypto")}
-        className={`flex items-center gap-3 rounded-2xl border px-4 py-6 transition-all ${
+        className={`flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-6 transition-all hover:border-brand-light active:scale-[0.98] ${
           selected === "crypto"
             ? "border-brand-light bg-[rgba(0,0,0,0.2)]"
             : "border-dark-border bg-[rgba(0,0,0,0.2)]"
@@ -245,7 +245,7 @@ function TabSelector({
             key={tab.key}
             type="button"
             onClick={() => onTabChange(tab.key)}
-            className={`flex h-[50px] items-center justify-center gap-2 rounded-2xl border px-4 font-body text-base font-medium transition-all lg:px-6 ${
+            className={`flex h-[50px] cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 font-body text-base font-medium transition-all hover:border-brand-light active:scale-[0.97] lg:px-6 ${
               active
                 ? "border-brand-light bg-[rgba(0,0,0,0.2)] text-brand-main shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
                 : "border-dark-border bg-[rgba(0,0,0,0.2)] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)]"

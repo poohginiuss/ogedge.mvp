@@ -15,7 +15,7 @@ export function QuickSelectButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-2xl border py-3 text-white transition-all ${
+      className={`flex flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-2xl border py-3 text-white transition-all hover:border-[#ff975d] active:scale-[0.97] ${
         selected
           ? "border-[#ff975d] drop-shadow-[0_4px_7px_rgba(255,92,0,0.3)]"
           : "border-[#383852] shadow-[0_4px_8px_rgba(0,0,0,0.15)]"

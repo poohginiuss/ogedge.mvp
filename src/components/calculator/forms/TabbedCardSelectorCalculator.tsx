@@ -109,7 +109,7 @@ export function TabbedCardSelectorCalculator({
                   key={tab.id}
                   type="button"
                   onClick={() => onTabChange(tab.id)}
-                  className="flex h-[44px] items-center justify-center gap-1.5 rounded-xl px-2 font-semibold text-[11px] uppercase tracking-[0.2px] transition-all xl:h-[50px] xl:flex-1 xl:gap-2.5 xl:rounded-2xl xl:px-4 xl:text-sm xl:tracking-[0.28px]"
+                  className="flex h-[44px] cursor-pointer items-center justify-center gap-1.5 rounded-xl px-2 font-semibold text-[11px] uppercase tracking-[0.2px] transition-all hover:border-[#ff975d] active:scale-[0.97] xl:h-[50px] xl:flex-1 xl:gap-2.5 xl:rounded-2xl xl:px-4 xl:text-sm xl:tracking-[0.28px]"
                   style={isActive ? TAB_ACTIVE : TAB_INACTIVE}
                 >
                   <span className={isActive ? "text-[#ff975d]" : "text-white"}>

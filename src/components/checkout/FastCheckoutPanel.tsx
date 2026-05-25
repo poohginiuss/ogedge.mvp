@@ -272,7 +272,7 @@ export function FastCheckoutPanel({
                 <button
                   type="button"
                   onClick={() => setCouponApplied(!couponApplied)}
-                  className="flex h-full items-center justify-center rounded-2xl border border-[#383852] px-8 py-3 font-body text-sm font-semibold tracking-wide text-white opacity-50"
+                  className="flex h-full cursor-pointer items-center justify-center rounded-2xl border border-[#383852] px-8 py-3 font-body text-sm font-semibold tracking-wide text-white opacity-50 transition-all hover:border-[#ff975d] active:scale-95"
                   style={{
                     backgroundImage:
                       "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(-47deg, #17191f 0%, #383852 100%)",
@@ -282,7 +282,7 @@ export function FastCheckoutPanel({
                 </button>
                 <button
                   type="button"
-                  className="flex items-center justify-center rounded-2xl bg-[rgba(250,70,9,0.2)] p-3 shadow-[0_4px_16px_rgba(0,0,0,0.15)]"
+                  className="flex cursor-pointer items-center justify-center rounded-2xl bg-[rgba(250,70,9,0.2)] p-3 shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all hover:bg-[rgba(250,70,9,0.3)] active:scale-95"
                 >
                   <Image
                     src="/images/icons/checkout/fast-delete.svg"
@@ -320,7 +320,7 @@ export function FastCheckoutPanel({
               <button
                 type="button"
                 onClick={() => setCurrency("EUR")}
-                className="flex h-[50px] items-center gap-2 rounded-2xl border px-4 transition-all hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
+                className="flex h-[50px] cursor-pointer items-center gap-2 rounded-2xl border px-4 transition-all hover:border-[#ff975d] hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)] active:scale-[0.97]"
                 style={{
                   borderColor: currency === "EUR" ? "#ff975d" : "#383852",
                   background: "rgba(0,0,0,0.2)",
@@ -351,7 +351,7 @@ export function FastCheckoutPanel({
               <button
                 type="button"
                 onClick={() => setCurrency("USD")}
-                className="flex h-[50px] items-center gap-2 rounded-2xl border px-4 transition-all hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
+                className="flex h-[50px] cursor-pointer items-center gap-2 rounded-2xl border px-4 transition-all hover:border-[#ff975d] hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)] active:scale-[0.97]"
                 style={{
                   borderColor: currency === "USD" ? "#ff975d" : "#383852",
                   background: "rgba(0,0,0,0.2)",
@@ -393,7 +393,7 @@ export function FastCheckoutPanel({
             <button
               type="button"
               onClick={() => setSelectedMethod("gpay")}
-              className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.6)] px-6 py-4 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)]"
+              className="flex cursor-pointer items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.6)] px-6 py-4 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)] active:scale-[0.99]"
               style={{
                 borderColor: selectedMethod === "gpay" ? "#ff975d" : "#383852",
               }}
@@ -439,7 +439,7 @@ export function FastCheckoutPanel({
                     key={method.id}
                     type="button"
                     onClick={() => setSelectedMethod(method.id)}
-                    className="flex items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.2)] p-4 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)] lg:p-6"
+                    className="flex cursor-pointer items-center justify-between rounded-2xl border bg-[rgba(0,0,0,0.2)] p-4 transition-all hover:border-[#ff975d]/60 hover:shadow-[0_2px_12px_rgba(255,92,0,0.15)] active:scale-[0.99] lg:p-6"
                     style={{
                       borderColor: isSelected ? "#ff975d" : "#383852",
                     }}
@@ -490,7 +490,7 @@ export function FastCheckoutPanel({
             <button
               type="button"
               onClick={() => setPriceOpen(!priceOpen)}
-              className="flex items-center justify-between"
+              className="flex cursor-pointer items-center justify-between transition-opacity hover:opacity-80 active:opacity-70"
             >
               <span className="font-body text-base font-semibold text-white">Price Breakdown</span>
               <Image
@@ -589,7 +589,7 @@ export function FastCheckoutPanel({
               <button
                 type="button"
                 onClick={() => setAgreeTerms(!agreeTerms)}
-                className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-[#d4d4d4] bg-[#f7f7f7] transition-colors"
+                className="mt-0.5 flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded border border-[#d4d4d4] bg-[#f7f7f7] transition-all hover:border-[#ff975d] active:scale-90"
                 style={
                   agreeTerms
                     ? {

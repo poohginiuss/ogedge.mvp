@@ -363,7 +363,7 @@ export default function NotificationCenterPage() {
                   key={tab.key}
                   type="button"
                   onClick={() => setFilter(tab.key)}
-                  className={`flex h-[50px] items-center justify-center gap-2 rounded-2xl border px-4 font-body text-base font-medium transition-all lg:px-6 ${
+                  className={`flex h-[50px] cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 font-body text-base font-medium transition-all hover:border-brand-light active:scale-[0.97] lg:px-6 ${
                     active
                       ? "border-brand-light bg-[rgba(0,0,0,0.2)] text-brand-main shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
                       : "border-dark-border bg-[rgba(0,0,0,0.2)] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)]"

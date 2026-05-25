@@ -91,7 +91,7 @@ export function DashboardShell({
           <button
             type="button"
             onClick={() => setMobileNavOpen(true)}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+            className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl transition-opacity hover:opacity-80 active:scale-95"
             style={{ background: "rgba(56,56,82,0.3)" }}
             aria-label="Open navigation"
           >

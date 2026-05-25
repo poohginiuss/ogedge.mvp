@@ -40,7 +40,7 @@ export function MobileNavPanel({
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="absolute right-6 top-[88px] z-10 flex h-12 w-12 items-center justify-center rounded-2xl"
+        className="absolute right-6 top-[88px] z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-2xl transition-opacity hover:opacity-80 active:scale-95"
         style={{ background: "#232330" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -59,7 +59,7 @@ export function MobileNavPanel({
               key={item.id}
               type="button"
               onClick={() => handlePick(item.id)}
-              className="flex items-center gap-2 rounded-2xl p-4 transition-colors"
+              className="flex cursor-pointer items-center gap-2 rounded-2xl p-4 transition-all hover:bg-white/5 active:opacity-80"
               style={isActive ? { background: "#232330" } : undefined}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -87,7 +87,7 @@ export function MobileNavPanel({
         })}
 
         {/* Log Out */}
-        <button type="button" className="flex items-center gap-2 rounded-2xl p-4 transition-colors">
+        <button type="button" className="flex cursor-pointer items-center gap-2 rounded-2xl p-4 transition-all hover:bg-white/5 active:opacity-80">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/nav-logout.svg" alt="" className="h-4 w-4 opacity-70" />
           <span className="font-body text-base font-medium text-dark-muted">Log Out</span>

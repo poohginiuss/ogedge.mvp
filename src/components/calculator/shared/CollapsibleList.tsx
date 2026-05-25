@@ -21,7 +21,7 @@ export function CollapsibleList({ title, items }: CollapsibleListProps) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between px-5 py-4 text-left"
+        className="flex w-full cursor-pointer items-center justify-between px-5 py-4 text-left transition-opacity hover:opacity-80 active:opacity-70"
         aria-expanded={open}
       >
         <span className="font-body text-base font-medium text-white">{title}</span>

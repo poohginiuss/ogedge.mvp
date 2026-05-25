@@ -219,7 +219,7 @@ export function CurrencyRangeSlider({
                   key={`label-${snapPoints[i]?.label ?? i}`}
                   type="button"
                   onClick={() => (onChange as (v: number) => void)(amt)}
-                  className={`absolute -translate-x-1/2 cursor-pointer rounded-lg px-2 py-1 font-body text-xs font-medium leading-normal text-white transition-colors ${
+                  className={`absolute -translate-x-1/2 cursor-pointer rounded-lg px-2 py-1 font-body text-xs font-medium leading-normal text-white transition-all hover:opacity-80 active:scale-95 ${
                     isActive ? "bg-[#10a83c] font-bold" : "border border-[#383852] bg-[#13151e]"
                   }`}
                   style={{ left: `${pct}%` }}
@@ -238,7 +238,7 @@ export function CurrencyRangeSlider({
                   key={`label-${point.label}`}
                   type="button"
                   onClick={() => (onChange as (v: number) => void)(i)}
-                  className={`cursor-pointer rounded-lg px-2 py-1 font-body text-xs font-medium leading-normal text-white transition-colors ${
+                  className={`cursor-pointer rounded-lg px-2 py-1 font-body text-xs font-medium leading-normal text-white transition-all hover:opacity-80 active:scale-95 ${
                     isActive
                       ? "bg-[#10a83c] font-bold"
                       : labelVariant === "orange"

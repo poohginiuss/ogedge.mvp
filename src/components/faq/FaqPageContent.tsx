@@ -125,7 +125,7 @@ export function FaqPageContent() {
                       type="button"
                       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                       disabled={currentPage === 1}
-                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-dark-border transition-colors hover:border-brand-light disabled:opacity-30"
+                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-dark-border transition-all hover:border-brand-light active:scale-90 disabled:opacity-30"
                       aria-label="Previous page"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -140,7 +140,7 @@ export function FaqPageContent() {
                         key={`faq-page-${i + 1}`}
                         type="button"
                         onClick={() => setCurrentPage(i + 1)}
-                        className="flex h-10 w-10 items-center justify-center rounded-lg font-body text-base font-medium transition-colors"
+                        className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg font-body text-base font-medium transition-all hover:border hover:border-brand-light/50 active:scale-90"
                         style={{
                           background: currentPage === i + 1 ? "var(--brand-main)" : "transparent",
                           color: "white",
@@ -154,7 +154,7 @@ export function FaqPageContent() {
                       type="button"
                       onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                       disabled={currentPage === totalPages}
-                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-dark-border transition-colors hover:border-brand-light disabled:opacity-30"
+                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-dark-border transition-all hover:border-brand-light active:scale-90 disabled:opacity-30"
                       aria-label="Next page"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}

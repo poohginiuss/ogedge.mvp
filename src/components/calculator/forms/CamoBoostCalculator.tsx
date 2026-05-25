@@ -160,7 +160,7 @@ export function CamoBoostCalculator({
                   key={mode}
                   type="button"
                   onClick={() => setGameMode(mode)}
-                  className="flex h-[50px] items-center justify-center rounded-2xl px-2 font-semibold text-sm uppercase tracking-[0.28px] transition-all"
+                  className="flex h-[50px] cursor-pointer items-center justify-center rounded-2xl px-2 font-semibold text-sm uppercase tracking-[0.28px] transition-all hover:border-[#ff975d] active:scale-[0.97]"
                   style={active ? PILL_ACTIVE : PILL_INACTIVE}
                 >
                   {mode}
@@ -185,7 +185,7 @@ export function CamoBoostCalculator({
                   key={tier.id}
                   type="button"
                   onClick={() => setCamoTier(tier.id)}
-                  className={`flex h-[50px] items-center justify-center rounded-2xl px-2 font-semibold text-sm uppercase tracking-[0.28px] transition-all xl:col-span-1 ${ownRow ? "col-span-2 xl:col-span-1" : ""}`}
+                  className={`flex h-[50px] cursor-pointer items-center justify-center rounded-2xl px-2 font-semibold text-sm uppercase tracking-[0.28px] transition-all hover:border-[#ff975d] active:scale-[0.97] xl:col-span-1 ${ownRow ? "col-span-2 xl:col-span-1" : ""}`}
                   style={active ? PILL_ACTIVE : PILL_INACTIVE}
                 >
                   {tier.label}
@@ -233,7 +233,7 @@ export function CamoBoostCalculator({
                         key={t.id}
                         type="button"
                         onClick={() => onToggleWeaponType(t.id)}
-                        className="flex w-full items-center gap-2 px-6 py-3 text-left transition-all"
+                        className="flex w-full cursor-pointer items-center gap-2 px-6 py-3 text-left transition-all hover:bg-white/5 active:opacity-80"
                         style={{
                           background: active ? WEAPON_TYPE_ACTIVE_BG : "transparent",
                         }}
@@ -295,7 +295,7 @@ export function CamoBoostCalculator({
                         <button
                           type="button"
                           onClick={() => onToggleAllBase(type.id)}
-                          className="flex w-full items-center gap-2 px-6 py-3 text-left transition-all"
+                          className="flex w-full cursor-pointer items-center gap-2 px-6 py-3 text-left transition-all hover:bg-white/5 active:opacity-80"
                           style={{
                             background: baseRowSel ? WEAPON_ROW_SELECTED_BG : "transparent",
                           }}
@@ -326,7 +326,7 @@ export function CamoBoostCalculator({
                               type="button"
                               disabled={disabled}
                               onClick={() => onToggleWeapon(w, type.id)}
-                              className={`flex w-full items-center gap-2 px-6 py-3 text-left transition-all ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
+                              className={`flex w-full items-center gap-2 px-6 py-3 text-left transition-all ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-white/5 active:opacity-80"}`}
                               style={{
                                 background: sel ? WEAPON_ROW_SELECTED_BG : "transparent",
                               }}
@@ -366,7 +366,7 @@ export function CamoBoostCalculator({
                 selectedSingularityItem === singularity.id ? null : singularity.id,
               )
             }
-            className="relative rounded-2xl p-5 text-left transition-all"
+            className="relative cursor-pointer rounded-2xl p-5 text-left transition-all hover:border-[#ff975d] active:scale-[0.98]"
             style={{
               border:
                 selectedSingularityItem === singularity.id

@@ -105,7 +105,7 @@ function DivisionGrid({
             key={div}
             type="button"
             onClick={() => onSelect(i)}
-            className="relative flex h-14 items-center justify-center rounded-2xl px-4 transition-all"
+            className="relative flex h-14 cursor-pointer items-center justify-center rounded-2xl px-4 transition-all hover:border-[#ff975d] active:scale-[0.97]"
             style={{
               border: active ? "1px solid #ff975d" : "1px solid #383852",
               background: active ? SELECTED_BG : "rgba(0,0,0,0.2)",
@@ -152,7 +152,7 @@ function LpStepper({
       <button
         type="button"
         onClick={() => onChange(Math.max(LP_MIN, value - LP_STEP))}
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all"
+        className="flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:border-[#ff975d] active:scale-95"
         style={{
           border: "1px solid #383852",
           background:
@@ -186,7 +186,7 @@ function LpStepper({
       <button
         type="button"
         onClick={() => onChange(Math.min(LP_MAX, value + LP_STEP))}
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition-all"
+        className="flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:border-[#ff975d] active:scale-95"
         style={{
           border: "1px solid #383852",
           background:

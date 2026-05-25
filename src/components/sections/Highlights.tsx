@@ -86,7 +86,7 @@ function DotIndicators({
             type="button"
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => onSelect(i)}
-            className={`relative h-0.5 overflow-hidden rounded-full transition-[width] duration-300 ${
+            className={`relative h-0.5 cursor-pointer overflow-hidden rounded-full transition-[width] duration-300 hover:bg-brand-light/50 ${
               active ? "w-20 bg-dark-border" : "w-5 bg-dark-border"
             }`}
           >

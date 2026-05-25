@@ -45,7 +45,7 @@ export function ContactMethods({ showEmail = true }: { showEmail?: boolean } = {
           <button
             type="button"
             onClick={handleCopy}
-            className="flex w-full items-center gap-2 rounded-lg px-4 py-2 transition-colors"
+            className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-4 py-2 transition-all hover:opacity-80 active:scale-[0.98]"
             style={{
               background: copied ? "rgba(26,173,25,0.15)" : "rgba(23,25,31,0.3)",
               border: copied ? "1px solid rgba(26,173,25,0.4)" : "1px solid transparent",

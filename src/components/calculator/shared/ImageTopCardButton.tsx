@@ -40,7 +40,7 @@ export function ImageTopCardButton({
       disabled={locked}
       onClick={onClick}
       className={`relative flex w-full flex-col overflow-hidden rounded-2xl text-left transition-all ${
-        locked ? "cursor-not-allowed" : "cursor-pointer"
+        locked ? "cursor-not-allowed" : "cursor-pointer hover:border-[#ff975d] active:scale-[0.97]"
       }`}
       style={{
         background: "#132934",

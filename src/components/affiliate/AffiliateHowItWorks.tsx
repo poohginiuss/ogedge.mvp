@@ -189,7 +189,7 @@ export function AffiliateHowItWorks() {
                     key={step.label}
                     type="button"
                     onClick={() => setActiveStep(i)}
-                    className={`flex w-[280px] cursor-pointer items-center gap-2 rounded-[32px] p-6 text-left backdrop-blur-[7px] transition-all duration-300 ${
+                    className={`flex w-[280px] cursor-pointer items-center gap-2 rounded-[32px] p-6 text-left backdrop-blur-[7px] transition-all duration-300 hover:border-dark-light/50 active:scale-[0.98] ${
                       i === activeStep
                         ? "border border-dark-light"
                         : "border border-transparent"
@@ -262,7 +262,7 @@ export function AffiliateHowItWorks() {
                   <button
                     type="button"
                     onClick={() => setActiveStep(i)}
-                    className={`flex w-[70%] items-center gap-3 rounded-[24px] p-4 text-left backdrop-blur-[7px] transition-all duration-300 ${
+                    className={`flex w-[70%] cursor-pointer items-center gap-3 rounded-[24px] p-4 text-left backdrop-blur-[7px] transition-all duration-300 hover:border-dark-light/50 active:scale-[0.98] ${
                       isActive
                         ? "border border-dark-light"
                         : "border border-transparent"

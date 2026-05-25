@@ -26,7 +26,7 @@ export function SelectableCardButton({
       type="button"
       disabled={locked}
       onClick={onClick}
-      className={`relative overflow-hidden rounded-2xl p-3 text-left transition-all ${locked ? "cursor-not-allowed" : "cursor-pointer"}`}
+      className={`relative overflow-hidden rounded-2xl p-3 text-left transition-all ${locked ? "cursor-not-allowed" : "cursor-pointer hover:border-[#ff975d] active:scale-[0.97]"}`}
       style={{
         background: "#132934",
         border: selected ? "1px solid #ffa384" : "1px solid #383852",

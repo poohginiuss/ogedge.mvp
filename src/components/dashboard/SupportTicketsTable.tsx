@@ -118,6 +118,7 @@ function MobileCard({ ticket }: { ticket: SupportTicket }) {
             type="button"
             aria-label="Copy ticket ID"
             onClick={() => navigator.clipboard.writeText(ticket.ticketId)}
+            className="cursor-pointer transition-opacity hover:opacity-70 active:scale-90"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -204,7 +205,7 @@ export function SupportTicketsTable({
           </Link>
           <button
             type="button"
-            className="flex items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white"
+            className="flex cursor-pointer items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-all hover:bg-[rgba(56,56,82,0.5)] active:scale-[0.98]"
             style={{ background: "rgba(56,56,82,0.3)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -213,7 +214,7 @@ export function SupportTicketsTable({
           </button>
           <button
             type="button"
-            className="flex items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white"
+            className="flex cursor-pointer items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-all hover:bg-[rgba(56,56,82,0.5)] active:scale-[0.98]"
             style={{ background: "rgba(56,56,82,0.3)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -236,7 +237,7 @@ export function SupportTicketsTable({
           <div className="flex flex-col gap-2">
             <button
               type="button"
-              className="flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 font-body text-base font-medium text-white"
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl px-4 py-3 font-body text-base font-medium text-white transition-all hover:bg-[rgba(56,56,82,0.5)] active:scale-[0.98]"
               style={{ background: "rgba(56,56,82,0.3)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -245,7 +246,7 @@ export function SupportTicketsTable({
             </button>
             <button
               type="button"
-              className="flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 font-body text-base font-medium text-white"
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl px-4 py-3 font-body text-base font-medium text-white transition-all hover:bg-[rgba(56,56,82,0.5)] active:scale-[0.98]"
               style={{ background: "rgba(56,56,82,0.3)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

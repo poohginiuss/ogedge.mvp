@@ -39,7 +39,7 @@ export function AmountOption({ label, selected, onClick }: AmountOptionProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex h-[44px] cursor-pointer items-center justify-center rounded-xl border font-body text-base font-bold transition-all ${
+      className={`relative flex h-[44px] cursor-pointer items-center justify-center rounded-xl border font-body text-base font-bold transition-all hover:border-[#ff975d] active:scale-[0.97] ${
         selected
           ? "border-[#ff975d] text-[#ff975d] drop-shadow-[0px_4px_7px_rgba(255,92,0,0.3)]"
           : "border-[#383852] bg-[rgba(0,0,0,0.2)] text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)]"
@@ -181,7 +181,7 @@ export function PaymentMethodSection({
               key={method.id}
               type="button"
               onClick={() => onSelect(method.id)}
-              className={`flex cursor-pointer flex-row items-center gap-3 rounded-xl border bg-[rgba(0,0,0,0.2)] px-3 py-3 transition-colors lg:h-[90px] lg:flex-1 lg:flex-col lg:gap-3 lg:py-4 ${
+              className={`flex cursor-pointer flex-row items-center gap-3 rounded-xl border bg-[rgba(0,0,0,0.2)] px-3 py-3 transition-all hover:border-[#ff975d] active:scale-[0.98] lg:h-[90px] lg:flex-1 lg:flex-col lg:gap-3 lg:py-4 ${
                 isActive ? "border-[#ff975d]" : "border-[#383852]"
               }`}
             >
