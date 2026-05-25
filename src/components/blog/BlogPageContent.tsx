@@ -132,7 +132,7 @@ function FilterChip({
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`inline-flex h-[50px] items-center gap-2 rounded-2xl border bg-black/20 px-4 shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all hover:border-[#ff975d]/70 hover:bg-[#232330] ${styles.border}`}
+      className={`inline-flex h-[50px] cursor-pointer items-center gap-2 rounded-2xl border bg-black/20 px-4 shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all hover:border-[#ff975d]/70 hover:bg-[#232330] active:scale-[0.97] ${styles.border}`}
     >
       <FilterIcon label={label} active={active} />
       <span className={`font-body text-sm font-medium md:text-base ${styles.text}`}>{label}</span>
@@ -370,7 +370,7 @@ export function BlogPageContent() {
                     type="button"
                     disabled={selectedPage === 1}
                     onClick={() => setSelectedPage((page) => Math.max(1, page - 1))}
-                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#383852] bg-black/20 text-white/50 transition-colors disabled:opacity-30"
+                    className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[#383852] bg-black/20 text-white/50 transition-all hover:border-brand-light/50 active:scale-90 disabled:opacity-30"
                   >
                     <ArrowRightIcon size={16} className="rotate-180" />
                   </button>
@@ -380,7 +380,7 @@ export function BlogPageContent() {
                         key={item}
                         type="button"
                         onClick={() => setSelectedPage(item)}
-                        className={`flex h-10 w-10 items-center justify-center rounded-lg border transition-colors ${
+                        className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border transition-all active:scale-90 ${
                           selectedPage === item
                             ? "border-brand-main bg-brand-main text-white"
                             : "border-[#383852] bg-black/20 text-white/50 hover:bg-[#232330] hover:text-white"
@@ -403,7 +403,7 @@ export function BlogPageContent() {
                     type="button"
                     disabled={selectedPage === 12}
                     onClick={() => setSelectedPage((page) => Math.min(12, page + 1))}
-                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#383852] bg-black/20 text-white/50 transition-colors hover:bg-[#232330] hover:text-white disabled:opacity-30"
+                    className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[#383852] bg-black/20 text-white/50 transition-all hover:border-brand-light/50 hover:bg-[#232330] hover:text-white active:scale-90 disabled:opacity-30"
                   >
                     <ArrowRightIcon size={16} />
                   </button>
@@ -430,7 +430,7 @@ export function BlogPageContent() {
                         key={game.label}
                         type="button"
                         onClick={() => setSelectedGame(game.label)}
-                        className={`flex items-center gap-2 rounded-lg px-2 py-2 text-left transition-colors hover:bg-[#383852] ${
+                        className={`flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-left transition-colors hover:bg-[#383852] active:opacity-80 ${
                           selectedGame === game.label ? "bg-[#383852]" : ""
                         }`}
                       >

@@ -44,7 +44,7 @@ export function RankButton({
       onMouseLeave={() => setHovered(false)}
       disabled={disabled}
       className={`relative flex items-center justify-center rounded-2xl p-4 transition-all ${
-        disabled ? "cursor-not-allowed opacity-40" : ""
+        disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer active:scale-[0.97]"
       } ${className}`}
       style={{
         border: active ? "1px solid #ff975d" : "1px solid #383852",

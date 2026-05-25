@@ -429,7 +429,8 @@ export function Header() {
           {/* Cart — visible on all sizes */}
           <Link
             href="/checkout"
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-dark-border min-[1440px]:h-[53px] min-[1440px]:w-[53px] min-[1440px]:rounded-2xl"
+            data-cart-icon
+            className="relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-dark-border transition-colors hover:border-brand-light min-[1440px]:h-[53px] min-[1440px]:w-[53px] min-[1440px]:rounded-2xl"
             aria-label="Cart"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

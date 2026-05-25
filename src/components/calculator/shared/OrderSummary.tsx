@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { FastCheckoutPanel } from "@/components/checkout/FastCheckoutPanel";
 import { Toggle } from "@/components/ui/Toggle";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InfoTooltip } from "./InfoTooltip";
 
 export type SummaryRow = {
@@ -139,8 +139,21 @@ function VolumeDiscountBanners({
   maxDiscountReached?: boolean;
 }) {
   const hasVolumeTiers = tiers && tiers.length > 0 && subtotal != null;
-
   const vol = hasVolumeTiers ? getVolumeDiscountState(tiers, subtotal) : null;
+
+  const prevPercent = useRef(0);
+  const displayPercent = vol?.progressPercent ?? 0;
+
+  useEffect(() => {
+    if (displayPercent > prevPercent.current) {
+      prevPercent.current = displayPercent;
+    }
+    if (displayPercent < prevPercent.current - 30) {
+      prevPercent.current = displayPercent;
+    }
+  }, [displayPercent]);
+
+  const smoothPercent = Math.max(displayPercent, prevPercent.current);
 
   const showProgress = vol && vol.nextTier && vol.amountToNext > 0;
   const showApplied = vol ? vol.activeTier !== null : !!discountMessage;
@@ -167,11 +180,12 @@ function VolumeDiscountBanners({
           }}
         >
           <div
-            className="absolute inset-y-0 left-0 rounded transition-all duration-700 ease-out"
+            className="absolute inset-y-0 left-0 rounded"
             style={{
-              width: `${vol.progressPercent}%`,
+              width: `${smoothPercent}%`,
               background: `linear-gradient(90deg, ${color.fill} 0%, ${color.fill}99 100%)`,
               boxShadow: `0 0 16px ${color.glow}`,
+              transition: "width 1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
           <span
@@ -196,6 +210,7 @@ function VolumeDiscountBanners({
             style={{
               width: "100%",
               background: `linear-gradient(90deg, ${color.fill}40 0%, ${color.fill}20 100%)`,
+              transition: "width 1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
           <span
@@ -260,6 +275,21 @@ export function OrderSummary({
   const [couponCode, setCouponCode] = useState(defaultCoupon);
   const [couponApplied, setCouponApplied] = useState(false);
   const [fastCheckoutOpen, setFastCheckoutOpen] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const cartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleAddToCart = () => {
+    setAddedToCart(true);
+    if (cartTimerRef.current) clearTimeout(cartTimerRef.current);
+    cartTimerRef.current = setTimeout(() => setAddedToCart(false), 2000);
+
+    const cartIcon = document.querySelector("[data-cart-icon]");
+    if (cartIcon) {
+      cartIcon.classList.remove("animate-cart-bounce");
+      void (cartIcon as HTMLElement).offsetWidth;
+      cartIcon.classList.add("animate-cart-bounce");
+    }
+  };
 
   return (
     <>
@@ -367,7 +397,7 @@ export function OrderSummary({
                 if (couponCode.trim()) setCouponApplied(true);
               }}
               disabled={!couponCode.trim()}
-              className="h-10 shrink-0 rounded-xl px-3 font-body text-xs font-bold uppercase text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.25)] disabled:opacity-40 sm:h-12 sm:rounded-2xl sm:px-4 sm:text-sm"
+              className="h-10 shrink-0 cursor-pointer rounded-xl px-3 font-body text-xs font-bold uppercase text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.25)] active:scale-95 disabled:opacity-40 sm:h-12 sm:rounded-2xl sm:px-4 sm:text-sm"
               style={{
                 background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
                 border: "1px solid #383852",
@@ -383,7 +413,7 @@ export function OrderSummary({
               setCouponCode("");
               setCouponApplied(false);
             }}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] sm:h-12 sm:w-12 sm:rounded-2xl"
+            className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-95 sm:h-12 sm:w-12 sm:rounded-2xl"
             style={{
               background: "rgba(255,92,0,0.15)",
               border: "1px solid rgba(255,92,0,0.4)",
@@ -474,8 +504,22 @@ export function OrderSummary({
         </div>
 
         <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
-          <Button variant="secondary" size="sm" className="w-full">
-            Add to cart
+          <Button
+            variant={addedToCart ? "primary" : "secondary"}
+            size="sm"
+            className="w-full"
+            onClick={handleAddToCart}
+          >
+            {addedToCart ? (
+              <span className="inline-flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Added!
+              </span>
+            ) : (
+              "Add to cart"
+            )}
           </Button>
           <Button
             variant="primary"

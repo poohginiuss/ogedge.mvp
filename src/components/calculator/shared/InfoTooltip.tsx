@@ -20,7 +20,7 @@ export function InfoTooltip({
       <button
         type="button"
         aria-label={label}
-        className="inline-flex rounded-full text-white/70 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-light/70"
+        className="inline-flex cursor-pointer rounded-full text-white/70 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-light/70"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

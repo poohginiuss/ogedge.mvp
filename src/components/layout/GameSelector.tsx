@@ -198,7 +198,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
             <button
               type="button"
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center text-white transition-colors hover:text-brand-light"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center text-white transition-colors hover:text-brand-light active:scale-90"
               aria-label="Close games menu"
             >
               <CloseIcon size={24} />
@@ -215,7 +215,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
                 onClick={() => handleGameClick(game.slug)}
                 onMouseEnter={() => handleGameHover(game.slug)}
                 onMouseLeave={handleGameHoverLeave}
-                className={`group relative flex h-[100px] items-center justify-center overflow-hidden rounded-2xl border-2 transition-all duration-200 ${
+                className={`group relative flex h-[100px] cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 transition-all duration-200 active:scale-[0.97] ${
                   selectedGame === game.slug
                     ? "border-[#ffa182] shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
                     : hoveredGame === game.slug
@@ -272,7 +272,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
         ) : (
           <button
             type="button"
-            className="flex-1 bg-black/70 backdrop-blur-sm"
+            className="flex-1 cursor-pointer bg-black/70 backdrop-blur-sm"
             onClick={onClose}
             aria-label="Close games menu"
           />
@@ -290,7 +290,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
           <button
             type="button"
             onClick={onClose}
-            className="flex h-10 w-10 items-center justify-center text-white transition-colors hover:text-brand-light"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center text-white transition-colors hover:text-brand-light active:scale-90"
             aria-label="Close games menu"
           >
             <CloseIcon size={24} />
@@ -306,7 +306,7 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
               type="button"
               key={game.slug}
               onClick={() => handleGameClick(game.slug)}
-              className={`group relative flex aspect-[6/4] items-center justify-center overflow-hidden rounded-2xl border-2 transition-all duration-200 ${
+              className={`group relative flex aspect-[6/4] cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 transition-all duration-200 active:scale-[0.97] ${
                 selectedGame === game.slug
                   ? "border-[#ffa182] shadow-[0_4px_12px_rgba(255,92,0,0.3)]"
                   : "border-transparent"

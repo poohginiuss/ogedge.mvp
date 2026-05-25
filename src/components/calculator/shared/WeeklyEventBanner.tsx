@@ -61,7 +61,7 @@ export function WeeklyEventBanner({
         .weekly-event-banner {
           clip-path: inset(-40px -10px 0 -10px round 24px);
         }
-        @media (min-width: 1024px) {
+        @media (min-width: 1280px) {
           .weekly-event-banner {
             clip-path: inset(-80px 0 0 0 round 24px);
           }
@@ -73,32 +73,32 @@ export function WeeklyEventBanner({
         width={300}
         height={310}
         unoptimized
-        className="pointer-events-none absolute z-0 h-[220px] w-auto select-none object-contain lg:h-[280px]"
+        className="pointer-events-none absolute z-0 h-[220px] w-auto select-none object-contain xl:h-[280px]"
         style={{
           left: "-10px",
           bottom: "-10px",
         }}
       />
-      <div className="relative z-10 p-5 pl-[140px] lg:p-8 lg:pl-[280px]">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
-          <div className="flex flex-col gap-1 lg:max-w-[500px] lg:gap-0">
-            <p className="font-body text-[10px] uppercase text-white lg:hidden">
+      <div className="relative z-10 p-5 pl-[140px] xl:p-8 xl:pl-[280px]">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between xl:gap-6">
+          <div className="flex flex-col gap-1 xl:max-w-[500px] xl:gap-0">
+            <p className="font-body text-[10px] uppercase text-white xl:hidden">
               Event ends in
             </p>
             <p
-              className="font-heading text-2xl font-bold leading-tight text-brand-main lg:hidden"
+              className="font-heading text-2xl font-bold leading-tight text-brand-main xl:hidden"
               style={{ textShadow: "0 0 16px rgba(255,92,0,0.4)" }}
             >
               {timerStr}
             </p>
-            <h3 className="font-heading text-base font-bold leading-tight text-white lg:text-3xl">
+            <h3 className="font-heading text-base font-bold leading-tight text-white xl:text-3xl">
               {title}
             </h3>
-            <p className="font-body text-xs leading-relaxed text-white/90 lg:mt-3 lg:text-base">
+            <p className="font-body text-xs leading-relaxed text-white/90 xl:mt-3 xl:text-base">
               {description}
             </p>
           </div>
-          <div className="hidden shrink-0 text-right lg:block">
+          <div className="hidden shrink-0 text-right xl:block">
             <p className="font-body text-xs uppercase text-white">Event ends in</p>
             <p
               className="font-heading text-5xl font-bold text-brand-main"

@@ -43,7 +43,7 @@ export function CategoryTabs({
               key={id}
               type="button"
               onClick={() => onChange(id)}
-              className={`inline-flex items-center gap-2 rounded-2xl px-4 py-3 transition-colors ${
+              className={`inline-flex cursor-pointer items-center gap-2 rounded-2xl px-4 py-3 transition-all active:scale-[0.97] ${
                 active ? "" : "hover:border-brand-light/60"
               }`}
               style={{
