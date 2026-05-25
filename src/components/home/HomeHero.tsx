@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 export function HomeHero() {
   return (
@@ -40,16 +40,9 @@ export function HomeHero() {
           <span className="font-body text-lg font-medium text-white md:text-xl">10k Reviews</span>
         </div>
 
-        <Link
-          href="#games"
-          className="mt-10 inline-flex items-center justify-center rounded-3xl border-2 border-brand-light px-8 py-6 font-body text-lg font-bold uppercase tracking-[0.4px] text-white md:text-xl"
-          style={{
-            background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
-            boxShadow: "0 4px 32px rgba(255,92,0,0.7)",
-          }}
-        >
+        <Button href="#games" variant="primary" size="lg" className="mt-10">
           Get Started Now
-        </Link>
+        </Button>
       </div>
     </section>
   );

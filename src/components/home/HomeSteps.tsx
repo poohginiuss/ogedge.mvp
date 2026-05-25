@@ -74,7 +74,7 @@ export function HomeSteps() {
 
         <button
           type="button"
-          className="mt-12 flex items-center gap-6"
+          className="mt-12 flex cursor-pointer items-center gap-6 transition-opacity hover:opacity-80"
           aria-label="Watch the video"
           onClick={() => setVideoOpen(true)}
         >
@@ -82,7 +82,7 @@ export function HomeSteps() {
           <img
             src="/images/home/steps/play-icon.svg"
             alt=""
-            className="h-[100px] w-[100px]"
+            className="h-[100px] w-[100px] transition-transform hover:scale-105"
             loading="lazy"
           />
           <span className="font-body text-xl font-semibold leading-none text-white">
@@ -125,7 +125,7 @@ export function HomeSteps() {
 
         <button
           type="button"
-          className="flex items-center gap-8"
+          className="flex cursor-pointer items-center gap-8 transition-opacity hover:opacity-80"
           aria-label="Watch the video"
           onClick={() => setVideoOpen(true)}
         >

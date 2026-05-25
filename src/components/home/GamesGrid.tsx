@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -213,17 +214,13 @@ export function GamesGrid() {
         </div>
 
         <div className="relative z-10 mt-8 flex justify-center">
-          <button
-            type="button"
+          <Button
+            variant="secondary"
+            size="lg"
             onClick={() => setShowAll((prev) => !prev)}
-            className="inline-flex items-center justify-center rounded-3xl border-2 border-brand-light px-8 py-6 font-body text-lg font-bold uppercase tracking-[0.4px] text-white transition-all hover:shadow-[0_4px_22px_rgba(255,92,0,0.3)] md:text-xl"
-            style={{
-              background: "rgba(23,25,31,0.5)",
-              backdropFilter: "blur(3px)",
-            }}
           >
             {showAll ? "Show Less" : `Show All ${games.length} Games`}
-          </button>
+          </Button>
         </div>
       </div>
     </section>

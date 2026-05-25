@@ -220,7 +220,7 @@ export function Highlights() {
         type="button"
         aria-label="Previous highlight"
         onClick={goPrev}
-        className="absolute left-8 top-1/2 z-20 hidden h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:flex"
+        className="absolute left-8 top-1/2 z-20 hidden h-16 w-16 cursor-pointer -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:flex"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -234,7 +234,7 @@ export function Highlights() {
         type="button"
         aria-label="Next highlight"
         onClick={goNext}
-        className="absolute right-8 top-1/2 z-20 hidden h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:flex"
+        className="absolute right-8 top-1/2 z-20 hidden h-16 w-16 cursor-pointer -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)] hover:backdrop-blur-[3px] lg:flex"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

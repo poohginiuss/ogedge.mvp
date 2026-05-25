@@ -230,7 +230,7 @@ export function Reviews() {
             type="button"
             aria-label="Previous reviews"
             onClick={() => scrollByCard(-1)}
-            className="hidden lg:flex h-16 w-16 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:backdrop-blur-[3px] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)]"
+            className="hidden cursor-pointer lg:flex h-16 w-16 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:backdrop-blur-[3px] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -330,7 +330,7 @@ export function Reviews() {
             type="button"
             aria-label="Next reviews"
             onClick={() => scrollByCard(1)}
-            className="hidden lg:flex h-16 w-16 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:backdrop-blur-[3px] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)]"
+            className="hidden cursor-pointer lg:flex h-16 w-16 items-center justify-center rounded-full border border-transparent bg-transparent transition-all duration-200 hover:border-[#ffa384] hover:bg-[rgba(255,255,255,0.1)] hover:backdrop-blur-[3px] hover:shadow-[0_4px_8px_rgba(250,70,9,0.32)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
