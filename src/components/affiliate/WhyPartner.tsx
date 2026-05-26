@@ -42,14 +42,14 @@ const features = [
 export function WhyPartner() {
   return (
     <section className="w-full bg-dark-main">
-      <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-12 lg:px-0 lg:py-[120px]">
+      <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-12 xl:px-0 xl:py-[120px]">
         <div className="flex flex-col gap-8">
-          <h2 className="font-heading text-3xl font-bold text-white lg:text-[36px]">
+          <h2 className="font-heading text-3xl font-bold text-white xl:text-[36px]">
             Why Partner with{" "}
             <span className="text-brand-main">OGEdge</span>
           </h2>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {features.map((feature) => (
               <div
                 key={feature.title}
@@ -67,7 +67,7 @@ export function WhyPartner() {
                     height={24}
                     className="mb-1"
                   />
-                  <h3 className="font-body text-lg font-medium leading-6 text-brand-main lg:text-xl">
+                  <h3 className="font-body text-lg font-medium leading-6 text-brand-main xl:text-xl">
                     {feature.title}
                   </h3>
                 </div>

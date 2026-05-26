@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
 
 const platforms = [
   {
@@ -44,11 +43,22 @@ export function AffiliateApplyForm() {
     tiktok: "",
     instagram: "",
   });
+  const [submitted, setSubmitted] = useState(false);
+
+  const isFormReady =
+    form.nickname.trim() !== "" &&
+    form.discord.trim() !== "" &&
+    form.email.trim() !== "" &&
+    form.about.trim() !== "";
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = () => {
+    if (isFormReady) setSubmitted(true);
   };
 
   return (
@@ -64,11 +74,11 @@ export function AffiliateApplyForm() {
         <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      <div className="relative mx-auto max-w-[1280px] px-6 py-16 md:px-12 lg:px-0 lg:py-16">
+      <div className="relative mx-auto max-w-[1280px] px-6 py-16 md:px-12 xl:px-0 xl:py-16">
         <div className="flex flex-col gap-8">
           {/* Title */}
           <div className="flex flex-col gap-4">
-            <h2 className="font-heading text-3xl font-bold text-white lg:text-[36px]">
+            <h2 className="font-heading text-3xl font-bold text-white xl:text-[36px]">
               Tell us about <span className="text-brand-main">Yourself</span>
             </h2>
             <p className="max-w-[394px] font-body text-base leading-6 text-white">
@@ -78,7 +88,7 @@ export function AffiliateApplyForm() {
 
           {/* Form fields */}
           <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-16 lg:flex-row">
+            <div className="flex flex-col gap-16 xl:flex-row">
               {/* Left column: About fields */}
               <div className="flex flex-1 flex-col gap-6">
                 <div className="flex flex-col gap-4 sm:flex-row">
@@ -91,8 +101,9 @@ export function AffiliateApplyForm() {
                       name="nickname"
                       value={form.nickname}
                       onChange={handleChange}
+                      disabled={submitted}
                       placeholder="Enter your nickname"
-                      className="h-14 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-base text-white placeholder:text-white/50 focus:border-brand-light focus:outline-none"
+                      className="h-14 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-base text-white placeholder:text-white/50 focus:border-brand-light focus:outline-none disabled:opacity-60"
                     />
                   </div>
                   <div className="flex flex-1 flex-col gap-2">
@@ -104,8 +115,9 @@ export function AffiliateApplyForm() {
                       name="discord"
                       value={form.discord}
                       onChange={handleChange}
+                      disabled={submitted}
                       placeholder="Enter your Discord"
-                      className="h-14 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-base text-white placeholder:text-white/50 focus:border-brand-light focus:outline-none"
+                      className="h-14 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-base text-white placeholder:text-white/50 focus:border-brand-light focus:outline-none disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -119,8 +131,9 @@ export function AffiliateApplyForm() {
                     name="email"
                     value={form.email}
                     onChange={handleChange}
+                    disabled={submitted}
                     placeholder="Start typing..."
-                    className="h-14 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-sm text-white placeholder:text-white/80 focus:border-brand-light focus:outline-none"
+                    className="h-14 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-sm text-white placeholder:text-white/80 focus:border-brand-light focus:outline-none disabled:opacity-60"
                   />
                 </div>
 
@@ -132,9 +145,10 @@ export function AffiliateApplyForm() {
                     name="about"
                     value={form.about}
                     onChange={handleChange}
+                    disabled={submitted}
                     placeholder="Start typing..."
                     rows={6}
-                    className="resize-none rounded-2xl border border-dark-border bg-black/70 px-[18px] py-4 font-body text-sm text-white placeholder:text-white/80 focus:border-brand-light focus:outline-none"
+                    className="resize-none rounded-2xl border border-dark-border bg-black/70 px-[18px] py-4 font-body text-sm text-white placeholder:text-white/80 focus:border-brand-light focus:outline-none disabled:opacity-60"
                   />
                 </div>
               </div>
@@ -162,20 +176,57 @@ export function AffiliateApplyForm() {
                       name={platform.name}
                       value={form[platform.name as keyof typeof form]}
                       onChange={handleChange}
+                      disabled={submitted}
                       placeholder={platform.placeholder}
-                      className="h-14 flex-1 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-base text-white placeholder:text-white focus:border-brand-light focus:outline-none"
+                      className="h-14 flex-1 rounded-2xl border border-dark-border bg-black/70 px-[18px] font-body text-base text-white placeholder:text-white focus:border-brand-light focus:outline-none disabled:opacity-60"
                     />
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Submit button */}
+            {/* Submit — 3 states: inactive, ready, submitted */}
             <div className="flex justify-center">
-              <Button
-                variant="primary"
-                size="lg"
-                icon={
+              {submitted ? (
+                <button
+                  type="button"
+                  disabled
+                  className="flex w-full max-w-[400px] cursor-default items-center justify-center gap-[11px] rounded-[16px] px-8 py-5 font-body text-[16px] font-bold uppercase tracking-[0.32px] text-white"
+                  style={{
+                    background: "#34a853",
+                    boxShadow: "0 4px 12px rgba(255,92,0,0.3)",
+                    backdropFilter: "blur(3px)",
+                  }}
+                >
+                  <Image
+                    src="/images/jobs/icons/check-all.svg"
+                    alt=""
+                    width={16}
+                    height={16}
+                  />
+                  Application Submitted
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={!isFormReady}
+                  onClick={handleSubmit}
+                  className={`flex w-full max-w-[400px] cursor-pointer items-center justify-center gap-2 rounded-3xl px-8 py-6 font-body text-xl font-bold uppercase tracking-[0.4px] text-white transition-all ${
+                    isFormReady
+                      ? "hover:shadow-[0_4px_32px_rgba(255,92,0,0.55)] active:scale-[0.97]"
+                      : "cursor-not-allowed opacity-50"
+                  }`}
+                  style={{
+                    backgroundImage: isFormReady
+                      ? "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)"
+                      : "linear-gradient(90deg, rgba(255,92,0,0.4) 0%, rgba(163,45,5,0.4) 100%)",
+                    border: "2px solid #ff975d",
+                    boxShadow: isFormReady
+                      ? "0 4px 24px rgba(255,92,0,0.35)"
+                      : "none",
+                  }}
+                >
+                  Submit Application
                   <Image
                     src="/images/affiliate/icon-arrow.svg"
                     alt=""
@@ -183,10 +234,8 @@ export function AffiliateApplyForm() {
                     height={24}
                     className="rotate-90"
                   />
-                }
-              >
-                Submit Application
-              </Button>
+                </button>
+              )}
             </div>
           </div>
         </div>

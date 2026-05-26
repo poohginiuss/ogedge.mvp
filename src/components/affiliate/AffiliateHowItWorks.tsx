@@ -157,16 +157,19 @@ export function AffiliateHowItWorks() {
 
   return (
     <section className="w-full bg-dark-main">
-      <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-12 lg:px-0 lg:py-[120px]">
+      <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-12 xl:px-0 xl:py-[120px]">
         {/* ── DESKTOP LAYOUT ── */}
-        <div className="hidden lg:flex lg:items-center lg:gap-16">
+        <div className="hidden xl:flex xl:items-center xl:gap-16">
           {/* Left: Character illustration */}
           <div className="relative h-[660px] w-[500px] shrink-0">
             <div
-              className="gpu-blur absolute left-[32%] top-[38%] h-[256px] w-[290px] rounded-[128px] opacity-60 blur-[107px] transition-colors duration-500"
-              style={{ backgroundColor: current.glowColor }}
+              className="absolute left-[32%] top-[38%] h-[256px] w-[290px] rounded-full transition-colors duration-500"
+              style={{ backgroundColor: current.glowColor, filter: "blur(107px)", opacity: 0.6 }}
             />
-            <div className="absolute bottom-[25px] left-[32%] h-[100px] w-[320px] bg-black blur-[32px]" />
+            <div
+              className="absolute bottom-[25px] left-[32%] h-[100px] w-[320px]"
+              style={{ background: "#000", filter: "blur(32px)" }}
+            />
             <Image
               src={current.image}
               alt="How it works"
@@ -234,12 +237,12 @@ export function AffiliateHowItWorks() {
         </div>
 
         {/* ── MOBILE LAYOUT (accordion) ── */}
-        <div className="flex flex-col gap-6 lg:hidden">
+        <div className="flex flex-col gap-6 xl:hidden">
           {/* Character image */}
           <div className="relative mx-auto h-[280px] w-full max-w-[340px]">
             <div
-              className="gpu-blur absolute left-[28%] top-[40%] h-[160px] w-[180px] rounded-[90px] opacity-50 blur-[70px] transition-colors duration-500"
-              style={{ backgroundColor: current.glowColor }}
+              className="absolute left-[28%] top-[40%] h-[160px] w-[180px] rounded-full transition-colors duration-500"
+              style={{ backgroundColor: current.glowColor, filter: "blur(70px)", opacity: 0.5 }}
             />
             <Image
               src={current.image}
