@@ -258,40 +258,64 @@ export function FastCheckoutPanel({
 
           {/* Coupon */}
           <div className="flex flex-col gap-3 lg:gap-4">
-            <div className="flex items-center gap-2">
-              <div className="flex flex-1 items-center rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 py-2 shadow-[0_4px_16px_rgba(0,0,0,0.15)] lg:px-6 lg:py-3">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <div
+                className="flex h-10 min-w-0 flex-1 items-center rounded-xl px-3 transition-colors sm:h-12 sm:rounded-2xl sm:px-4"
+                style={{
+                  border: couponApplied ? "1px solid rgba(26,173,25,0.5)" : "1px solid #383852",
+                  background: couponApplied ? "rgba(26,173,25,0.08)" : "rgba(0,0,0,0.2)",
+                }}
+              >
                 <input
                   type="text"
                   value={coupon}
                   onChange={(e) => setCoupon(e.target.value)}
-                  className="w-full bg-transparent font-body text-base font-medium text-white/50 outline-none placeholder:text-white/30 lg:text-xl"
-                  placeholder="Promo code"
+                  readOnly={couponApplied}
+                  className="min-w-0 flex-1 bg-transparent font-body text-xs text-white outline-none placeholder:text-white/40 sm:text-sm"
+                  placeholder="Enter promo code"
                 />
               </div>
-              <div className="flex h-full items-center gap-1">
+              {couponApplied ? (
+                <span className="flex h-10 shrink-0 items-center rounded-xl px-3 font-body text-xs font-bold text-[#1aad19] sm:h-12 sm:rounded-2xl sm:px-4 sm:text-sm">
+                  Applied
+                </span>
+              ) : (
                 <button
                   type="button"
-                  onClick={() => setCouponApplied(!couponApplied)}
-                  className="flex h-full cursor-pointer items-center justify-center rounded-2xl border border-[#383852] px-8 py-3 font-body text-sm font-semibold tracking-wide text-white opacity-50 transition-all hover:border-[#ff975d] active:scale-95"
+                  onClick={() => {
+                    if (coupon.trim()) setCouponApplied(true);
+                  }}
+                  disabled={!coupon.trim()}
+                  className="h-10 shrink-0 cursor-pointer rounded-xl px-3 font-body text-xs font-bold uppercase text-white transition-all hover:border-brand-light hover:shadow-[0_0_12px_rgba(255,92,0,0.25)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:h-12 sm:rounded-2xl sm:px-4 sm:text-sm"
                   style={{
-                    backgroundImage:
-                      "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), linear-gradient(-47deg, #17191f 0%, #383852 100%)",
+                    background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+                    border: "1px solid #383852",
                   }}
                 >
-                  APPLIED
+                  Apply
                 </button>
-                <button
-                  type="button"
-                  className="flex cursor-pointer items-center justify-center rounded-2xl bg-[rgba(250,70,9,0.2)] p-3 shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all hover:bg-[rgba(250,70,9,0.3)] active:scale-95"
-                >
-                  <Image
-                    src="/images/icons/checkout/fast-delete.svg"
-                    alt="Remove"
-                    width={24}
-                    height={24}
-                  />
-                </button>
-              </div>
+              )}
+              <button
+                type="button"
+                aria-label="Remove coupon"
+                onClick={() => {
+                  setCoupon("");
+                  setCouponApplied(false);
+                }}
+                className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-95 sm:h-12 sm:w-12 sm:rounded-2xl"
+                style={{
+                  background: "rgba(255,92,0,0.15)",
+                  border: "1px solid rgba(255,92,0,0.4)",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/icons/services/delete.svg"
+                  alt=""
+                  loading="lazy"
+                  className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
+                />
+              </button>
             </div>
             {couponApplied && (
               <div className="flex items-center justify-center gap-2 rounded-lg border border-[#34a853] bg-[rgba(52,168,83,0.2)] p-2">
@@ -503,13 +527,14 @@ export function FastCheckoutPanel({
             </button>
 
             {priceOpen && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 {priceRows.map((row) => (
                   <div
                     key={row.label}
-                    className="flex items-center justify-between rounded-lg bg-[rgba(0,0,0,0.2)] px-2 py-1 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+                    className="flex items-center justify-between rounded-xl px-4 py-1"
+                    style={{ background: "rgba(0,0,0,0.2)" }}
                   >
-                    <span className="font-body text-sm font-normal text-white/80">{row.label}</span>
+                    <span className="font-body text-sm text-white/80">{row.label}</span>
                     <span
                       className="font-body text-base font-semibold"
                       style={{
@@ -517,7 +542,7 @@ export function FastCheckoutPanel({
                           row.color === "orange"
                             ? "#ff975d"
                             : row.color === "green"
-                              ? "#34a853"
+                              ? "#1aad19"
                               : "white",
                       }}
                     >
@@ -525,6 +550,15 @@ export function FastCheckoutPanel({
                     </span>
                   </div>
                 ))}
+                {couponApplied && coupon.trim() && (
+                  <div
+                    className="flex items-center justify-between rounded-xl px-4 py-1"
+                    style={{ background: "rgba(0,0,0,0.2)" }}
+                  >
+                    <span className="font-body text-sm text-white/80">Promo Code ({coupon})</span>
+                    <span className="font-body text-base font-semibold text-[#ff975d]">-5%</span>
+                  </div>
+                )}
               </div>
             )}
 
@@ -669,50 +703,48 @@ const WHAT_HAPPENS_NEXT = [
 
 function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
   return (
-    <div className="flex min-h-full flex-col items-center">
-      {/* Stretching content area — distributes blocks evenly when extra vertical space is available */}
-      <div className="flex w-full flex-1 flex-col items-center justify-between gap-6">
+    <div className="flex min-h-full flex-col items-center pt-2 lg:pt-4">
+      <div className="flex w-full flex-1 flex-col items-center gap-5 lg:gap-6">
         {/* Top group: Icon + Title + Points */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-2">
           <Image
             src="/images/icons/checkout/confirm-success.svg"
             alt="Success"
-            width={96}
-            height={96}
-            className="h-20 w-20 lg:h-24 lg:w-24"
+            width={120}
+            height={120}
+            className="h-[80px] w-[80px] lg:h-[110px] lg:w-[110px]"
           />
-          <h2 className="mt-1 text-center font-heading text-[26px] font-bold leading-[34px] text-white">
+          <h2 className="text-center font-heading text-2xl font-bold leading-tight text-white lg:text-[30px] lg:leading-[38px]">
             Order #1234 Created!
           </h2>
-          <div className="mt-1 flex items-center gap-1">
-            <span className="font-heading text-lg font-bold text-white">You gained</span>
-            <span className="font-heading text-lg font-bold text-[#ff5c00]">12</span>
-            <Image
-              src="/images/icons/checkout/confirm-booster.svg"
-              alt="points"
-              width={22}
-              height={22}
-              className="h-[22px] w-[22px]"
+          <div className="flex items-center gap-1.5">
+            <span className="font-heading text-lg font-bold text-white lg:text-xl">You gained</span>
+            <span className="font-heading text-lg font-bold text-[#ff5c00] lg:text-xl">12</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/dashboard/icons/og-point-coin.png"
+              alt="OG"
+              className="h-4 w-auto object-contain lg:h-4.5"
             />
-            <span className="font-heading text-lg font-bold text-white">points</span>
+            <span className="font-heading text-lg font-bold text-white lg:text-xl">points</span>
           </div>
         </div>
 
         {/* Middle group: Description + Button */}
-        <div className="flex flex-col items-center">
-          <p className="text-center font-body text-base font-medium leading-5 text-white">
+        <div className="flex flex-col items-center gap-3 px-2">
+          <p className="text-center font-body text-sm font-medium leading-5 text-white lg:text-base lg:leading-6">
             Please check your email for the confirmation link to set your password to the Members
             area
           </p>
-          <p className="mt-2 text-center font-body text-xs font-normal leading-[18px] text-white/60">
-            This process usually takes less a few minutes. If you don&apos;t recive a confirmation
+          <p className="text-center font-body text-xs font-normal leading-[18px] text-white/60 lg:text-sm lg:leading-5">
+            This process usually takes less a few minutes. If you don&apos;t receive a confirmation
             email please contact us for support or use our Live Support. However, we would like to
             ask you first to check your spam folder.
           </p>
           <Link
             href="/app/customer"
             onClick={onClose}
-            className="mt-5 flex w-[230px] items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-4 font-body text-sm font-bold uppercase tracking-wider text-white shadow-[0_4px_12px_rgba(255,92,0,0.3)] transition-all hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)]"
+            className="mt-2 flex w-[230px] cursor-pointer items-center justify-center rounded-3xl border-2 border-[#ff975d] px-6 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-white shadow-[0_4px_12px_rgba(255,92,0,0.3)] transition-all hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)] lg:py-4"
             style={{
               backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)",
             }}
@@ -723,14 +755,14 @@ function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
 
         {/* Bottom group: What happens next */}
         <div className="w-full">
-          <h3 className="font-heading text-lg font-medium leading-6 text-white">
+          <h3 className="font-heading text-base font-medium leading-6 text-white lg:text-lg">
             What happens next
           </h3>
-          <div className="mt-3 flex flex-col gap-2">
+          <div className="mt-2 flex flex-col gap-1.5 lg:mt-3 lg:gap-2">
             {WHAT_HAPPENS_NEXT.map((step) => (
               <div key={step} className="flex items-center gap-3">
-                <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ff5c00]">
-                  <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ff5c00]">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                     <path
                       d="M10 3L4.5 8.5L2 6"
                       stroke="white"
@@ -740,7 +772,7 @@ function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
                     />
                   </svg>
                 </div>
-                <span className="font-body text-sm font-normal text-white">{step}</span>
+                <span className="font-body text-sm font-normal text-white lg:text-base">{step}</span>
               </div>
             ))}
           </div>
@@ -748,19 +780,19 @@ function FastCheckoutConfirmation({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Character image with glow — pinned to bottom, stretches full width */}
-      <div className="relative -mx-10 -mb-4 mt-4 flex w-[calc(100%+5rem)] items-end justify-center overflow-hidden pt-4">
+      <div className="relative -mx-10 -mb-4 mt-3 flex w-[calc(100%+5rem)] items-end justify-center overflow-hidden pt-2 lg:mt-4 lg:pt-4">
         <div
-          className="absolute left-1/2 top-2/3 h-[200px] w-[260px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-80 blur-[90px] lg:h-[240px] lg:w-[300px]"
+          className="absolute left-1/2 top-2/3 h-[180px] w-[240px] -translate-x-1/2 rounded-full bg-[#ff5c00] opacity-80 blur-[90px] lg:h-[240px] lg:w-[300px]"
           aria-hidden="true"
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/jobs/hero-character.png"
           alt=""
-          className="relative z-[1] h-[260px] w-auto object-contain lg:h-[340px]"
+          className="relative z-[1] h-[200px] w-auto object-contain lg:h-[280px]"
         />
         <div
-          className="absolute inset-x-0 bottom-0 z-10 h-[120px] lg:h-[140px]"
+          className="absolute inset-x-0 bottom-0 z-10 h-[100px] lg:h-[120px]"
           style={{
             background: "linear-gradient(to top, rgb(23,25,31), transparent)",
           }}

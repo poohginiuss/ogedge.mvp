@@ -47,7 +47,7 @@ export function DiscountCodeSection({
             <button
               type="button"
               onClick={onRemove}
-              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[rgba(250,70,9,0.2)] shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-colors hover:bg-[rgba(250,70,9,0.3)]"
+              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-2xl bg-[rgba(250,70,9,0.2)] shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all hover:bg-[rgba(250,70,9,0.3)] active:scale-95"
             >
               <Image src="/images/icons/checkout/delete.svg" alt="Remove" width={24} height={24} />
             </button>

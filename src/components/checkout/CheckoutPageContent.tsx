@@ -92,7 +92,7 @@ export function CheckoutPageContent() {
           <button
             type="button"
             onClick={handleEmptyCart}
-            className="flex items-center gap-1 rounded-2xl bg-[rgba(250,70,9,0.2)] py-2 pl-4 pr-2 font-body text-sm text-[#ff5c00] transition-colors hover:bg-[rgba(250,70,9,0.3)]"
+            className="flex cursor-pointer items-center gap-1 rounded-2xl bg-[rgba(250,70,9,0.2)] py-2 pl-4 pr-2 font-body text-sm text-[#ff5c00] transition-all hover:bg-[rgba(250,70,9,0.3)] active:scale-[0.97]"
           >
             Empty Cart
             <Image

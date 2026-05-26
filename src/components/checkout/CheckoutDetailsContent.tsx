@@ -275,7 +275,7 @@ export function CheckoutDetailsContent() {
                 <h3 className="font-heading text-2xl font-semibold text-white">Your Cart</h3>
                 <Link
                   href="/checkout"
-                  className="flex items-center gap-2 font-body text-base font-normal uppercase tracking-wider text-white/80 transition-colors hover:text-white"
+                  className="flex cursor-pointer items-center gap-2 font-body text-base font-normal uppercase tracking-wider text-white/80 transition-colors hover:text-[#ff975d]"
                 >
                   <Image
                     src="/images/icons/checkout/arrow-back.svg"
@@ -317,11 +317,14 @@ export function CheckoutDetailsContent() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center justify-center gap-2">
+                <div className="group/info relative flex cursor-pointer items-center justify-center gap-2">
                   <span className="font-body text-base font-normal text-white">
                     No specific booster selected
                   </span>
-                  <Image src="/images/icons/checkout/info.svg" alt="" width={16} height={16} />
+                  <Image src="/images/icons/checkout/info.svg" alt="" width={16} height={16} className="transition-transform duration-200 group-hover/info:scale-110" />
+                  <div className="pointer-events-none absolute right-0 top-full z-50 mt-1 w-[240px] rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/info:pointer-events-auto group-hover/info:opacity-100" style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}>
+                    <p className="font-body text-sm leading-5 text-white/90">You can optionally choose a specific booster, or one will be automatically assigned.</p>
+                  </div>
                 </div>
               )}
 

@@ -44,7 +44,7 @@ export function SelectBoosterSection({
               <button
                 type="button"
                 onClick={() => onBoosterChange(null)}
-                className="ml-1 transition-opacity hover:opacity-70"
+                className="ml-1 cursor-pointer transition-opacity hover:opacity-70 active:scale-90"
               >
                 <Image src="/images/icons/checkout/close.svg" alt="Remove" width={24} height={24} />
               </button>
