@@ -152,7 +152,7 @@ function NavArrow({
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-[3px] transition-all duration-200 lg:h-16 lg:w-16"
+      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full backdrop-blur-[3px] transition-all duration-200 active:scale-90 lg:h-16 lg:w-16"
       style={{
         background: hovered ? "rgba(255,255,255,0.1)" : "transparent",
         border: hovered ? "1px solid #ffa384" : "1px solid transparent",

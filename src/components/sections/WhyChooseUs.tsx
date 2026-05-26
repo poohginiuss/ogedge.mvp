@@ -79,7 +79,7 @@ export function WhyChooseUs() {
       {/* Orange blur orb - desktop right side, mobile top center */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[8%] -z-10 h-[260px] w-[190px] -translate-x-1/2 rounded-full opacity-70 xl:left-auto xl:right-[4%] xl:top-[30%] xl:h-[400px] xl:w-[250px] xl:translate-x-0 xl:opacity-100"
+        className="pointer-events-none absolute left-1/2 top-[22%] -z-10 h-[100px] w-[100px] -translate-x-1/2 rounded-full opacity-90 xl:left-auto xl:right-[4%] xl:top-[30%] xl:h-[400px] xl:w-[250px] xl:translate-x-0 xl:opacity-100"
         style={{
           background: "#ff5c00",
           filter: "blur(107px)",
