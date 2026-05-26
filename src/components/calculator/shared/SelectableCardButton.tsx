@@ -74,14 +74,18 @@ export function SelectableCardButton({
         />
       )}
 
-      {/* Lock icon */}
+      {/* Lock overlay — centered with semi-transparent backdrop */}
       {locked && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src="/images/icons/services/lock.svg"
-          alt=""
-          className="absolute right-[11px] top-[11px] h-6 w-6"
-        />
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-[rgba(19,41,52,0.6)]">
+          <div className="flex flex-col items-center gap-1">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/icons/services/lock.svg"
+              alt=""
+              className="h-8 w-8"
+            />
+          </div>
+        </div>
       )}
     </button>
   );
