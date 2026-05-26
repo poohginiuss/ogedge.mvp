@@ -20,6 +20,7 @@ export function CustomOrderForm() {
   const [game, setGame] = useState("");
   const [gameOpen, setGameOpen] = useState(false);
   const [amount, setAmount] = useState(20);
+  const [amountInput, setAmountInput] = useState("20");
   const [currency, setCurrency] = useState<"USD" | "EUR">("EUR");
   const [paymentMethod, setPaymentMethod] = useState<
     "card" | "paypal" | "crypto"
@@ -107,7 +108,11 @@ export function CustomOrderForm() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={() => setAmount((a) => Math.max(1, a - 1))}
+            onClick={() => {
+              const next = Math.max(1, amount - 1);
+              setAmount(next);
+              setAmountInput(String(next));
+            }}
             className="flex size-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl border border-[#383852] shadow-[0px_4px_8px_rgba(0,0,0,0.15)] transition-colors hover:border-[#ff975d]/40"
             style={{
               backgroundImage:
@@ -118,17 +123,30 @@ export function CustomOrderForm() {
           </button>
           <div className="flex flex-1 items-center justify-center rounded-2xl border border-[#383852] bg-[rgba(0,0,0,0.2)] py-3 shadow-[0px_4px_16px_rgba(0,0,0,0.15)]">
             <input
-              type="number"
-              value={amount}
-              onChange={(e) =>
-                setAmount(Math.max(1, Number.parseInt(e.target.value) || 1))
-              }
-              className="w-20 appearance-none bg-transparent text-center font-body text-xl font-bold leading-[30px] text-white outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
+              type="text"
+              inputMode="numeric"
+              value={amountInput}
+              onChange={(e) => {
+                const raw = e.target.value.replace(/[^0-9]/g, "");
+                setAmountInput(raw);
+                const parsed = Number.parseInt(raw);
+                if (!Number.isNaN(parsed)) setAmount(parsed);
+              }}
+              onBlur={() => {
+                const clamped = Math.max(1, amount || 1);
+                setAmount(clamped);
+                setAmountInput(String(clamped));
+              }}
+              className="w-20 bg-transparent text-center font-body text-xl font-bold leading-[30px] text-white outline-none"
             />
           </div>
           <button
             type="button"
-            onClick={() => setAmount((a) => a + 1)}
+            onClick={() => {
+              const next = amount + 1;
+              setAmount(next);
+              setAmountInput(String(next));
+            }}
             className="flex size-14 shrink-0 cursor-pointer items-center justify-center rounded-2xl border border-[#383852] shadow-[0px_4px_8px_rgba(0,0,0,0.15)] transition-colors hover:border-[#ff975d]/40"
             style={{
               backgroundImage:
