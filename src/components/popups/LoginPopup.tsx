@@ -97,14 +97,14 @@ export function LoginPopup({ isOpen, onClose }: LoginPopupProps) {
           <div className="flex gap-5">
             <button
               type="button"
-              className="flex flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-2xl bg-[#232330] px-5 py-3 transition-opacity hover:opacity-90"
+              className="flex flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-2xl border border-transparent bg-[#232330] px-5 py-3 transition-all hover:border-[#ff975d]/50 hover:shadow-[0_0_16px_rgba(255,92,0,0.2)] active:scale-[0.97]"
             >
               <Image src="/images/popups/logo-facebook.svg" alt="Facebook" width={24} height={24} className="size-6" />
               <span className="font-body text-base font-semibold text-white">Facebook</span>
             </button>
             <button
               type="button"
-              className="flex flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-2xl bg-[#232330] px-5 py-3 transition-opacity hover:opacity-90"
+              className="flex flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-2xl border border-transparent bg-[#232330] px-5 py-3 transition-all hover:border-[#ff975d]/50 hover:shadow-[0_0_16px_rgba(255,92,0,0.2)] active:scale-[0.97]"
             >
               <Image src="/images/popups/logo-google.svg" alt="Google" width={24} height={24} className="size-6" />
               <span className="font-body text-base font-semibold text-white">Google</span>
@@ -116,7 +116,7 @@ export function LoginPopup({ isOpen, onClose }: LoginPopupProps) {
             <button
               type="button"
               onClick={() => setView("guest")}
-              className="flex w-full cursor-pointer items-center justify-center rounded-3xl bg-[#232330] px-6 py-4 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
+              className="flex w-full cursor-pointer items-center justify-center rounded-3xl border border-transparent bg-[#232330] px-6 py-4 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:border-[#ff975d]/50 hover:shadow-[0_0_16px_rgba(255,92,0,0.2)] active:scale-[0.97]"
             >
               Continue as a Guest
             </button>
