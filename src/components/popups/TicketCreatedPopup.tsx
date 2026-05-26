@@ -28,7 +28,7 @@ export function TicketCreatedPopup({
       onClose={onClose}
       paddingClassName="p-6 lg:p-10"
     >
-      <div className="flex flex-col items-center gap-1 lg:gap-5">
+      <div className="flex flex-col items-center gap-4 lg:gap-5">
         <SuccessBadge />
 
         <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">

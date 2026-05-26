@@ -22,10 +22,10 @@ export function CompleteOrderPopup({
     >
       <div className="flex flex-col gap-5">
         <div className="flex flex-col items-center gap-1 lg:gap-5">
-          <h2 className="text-center font-heading text-2xl font-medium text-white lg:text-[28px]">
+          <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">
             Complete order
           </h2>
-          <p className="text-center font-body text-sm text-white lg:text-base">
+          <p className="text-center font-body text-sm leading-5 text-white lg:text-base lg:leading-normal">
             Please make sure that you have checked all mandatory
           </p>
         </div>

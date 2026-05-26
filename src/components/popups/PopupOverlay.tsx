@@ -15,27 +15,30 @@ export function PopupOverlay({
   isOpen,
   onClose,
   children,
-  maxWidth = "max-w-[460px] lg:max-w-[693px]",
+  maxWidth = "max-w-[460px] lg:max-w-[650px]",
   paddingClassName = "p-5 lg:p-10",
 }: PopupOverlayProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overscroll-none" onTouchMove={(e) => e.stopPropagation()}>
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
       <div
-        className={`relative w-[90%] ${maxWidth} max-h-[94vh] overflow-y-auto rounded-[20px] backdrop-blur-[8px] lg:max-h-none lg:overflow-visible ${paddingClassName}`}
+        className={`relative w-[90%] ${maxWidth} max-h-[94vh] overflow-y-auto overscroll-contain rounded-[20px] backdrop-blur-[8px] ${paddingClassName}`}
         style={{
           backgroundImage:
             "linear-gradient(110deg, rgba(56, 56, 82, 0.8) 0%, rgba(35, 35, 48, 0.8) 50%, rgba(23, 25, 31, 0.8) 100%)",

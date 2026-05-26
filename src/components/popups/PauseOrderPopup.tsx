@@ -60,7 +60,6 @@ export function PauseOrderPopup({ isOpen, onClose }: PauseOrderPopupProps) {
             onClick={() => setIsCustom(true)}
           />
           <CustomAmountInput
-            type="text"
             value={customHours}
             onChange={(value) => {
               setCustomHours(value);

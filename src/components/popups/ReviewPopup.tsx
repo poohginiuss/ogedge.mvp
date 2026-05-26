@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Button } from "@/components/ui/Button";
 
 import { PopupOverlay } from "./PopupOverlay";
 
@@ -88,13 +89,9 @@ export function ReviewPopup({ isOpen, onClose }: ReviewPopupProps) {
 
         {/* Submit Button */}
         <div className="flex w-full items-center lg:justify-center">
-          <button
-            type="button"
-            disabled={rating === 0}
-            className="w-full cursor-pointer rounded-xl border border-[#ff975d] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40 lg:w-auto lg:rounded-2xl lg:py-3.5"
-          >
+          <Button variant="secondary" size="xs" disabled={rating === 0} className="w-full lg:w-auto">
             Submit Review
-          </button>
+          </Button>
         </div>
       </div>
     </PopupOverlay>

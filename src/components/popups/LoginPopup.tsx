@@ -19,11 +19,14 @@ export function LoginPopup({ isOpen, onClose }: LoginPopupProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -37,10 +40,10 @@ export function LoginPopup({ isOpen, onClose }: LoginPopupProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overscroll-none" onTouchMove={(e) => e.stopPropagation()}>
       <div className="absolute inset-0 bg-black/70" onClick={resetAndClose} />
       <div
-        className="relative w-[90%] max-w-[542px] max-h-[94vh] overflow-y-auto rounded-3xl border border-[#383852] backdrop-blur-[12px]"
+        className="relative w-[90%] max-w-[542px] max-h-[94vh] overflow-y-auto overscroll-contain rounded-3xl border border-[#383852] backdrop-blur-[12px]"
         style={{
           backgroundImage:
             "linear-gradient(136deg, rgba(56,56,82,0.5) 0%, rgba(35,35,48,0.5) 50%, rgba(23,25,31,0.5) 100%)",

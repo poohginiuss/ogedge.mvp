@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Button } from "@/components/ui/Button";
 
 export function InfoBox({ children }: { children: React.ReactNode }) {
   return (
@@ -19,11 +20,22 @@ export function InfoBox({ children }: { children: React.ReactNode }) {
 
 export function WarningBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl bg-[#232330] p-4">
-      <span className="mt-0.5 shrink-0 text-base leading-none" aria-hidden>
-        ⚠️
-      </span>
-      <p className="font-body text-sm text-white/90">{children}</p>
+    <div className="flex flex-col gap-2.5 rounded-2xl bg-[#232330] p-4">
+      <div className="flex items-center gap-2">
+        <Image
+          src="/images/popups/duo-info-icon.svg"
+          alt=""
+          width={20}
+          height={20}
+          className="size-5 shrink-0"
+        />
+        <span className="font-body text-base font-medium text-white">
+          Important
+        </span>
+      </div>
+      <div className="pl-7">
+        <p className="font-body text-sm leading-5 text-white/90">{children}</p>
+      </div>
     </div>
   );
 }
@@ -72,19 +84,21 @@ export function CustomAmountInput({
   onChange,
   onFocus,
   placeholder = "0",
-  type = "number",
 }: {
   value: string;
   onChange: (value: string) => void;
   onFocus?: () => void;
   placeholder?: string;
-  type?: "number" | "text";
 }) {
   return (
     <input
-      type={type}
+      type="text"
+      inputMode="numeric"
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => {
+        const raw = e.target.value.replace(/[^0-9]/g, "");
+        onChange(raw);
+      }}
       onFocus={onFocus}
       placeholder={placeholder}
       className="col-span-2 h-[44px] rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 text-center font-body text-base font-bold text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)] outline-none placeholder:text-white/50 focus:border-[#ff975d]"
@@ -282,13 +296,9 @@ export function CancelButton({
   onClick?: () => void;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex-1 cursor-pointer rounded-2xl border border-[#ff975d] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
-    >
+    <Button variant="secondary" size="xs" onClick={onClick} className="flex-1">
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -302,14 +312,9 @@ export function PrimaryButton({
   disabled?: boolean;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      className="flex flex-1 cursor-pointer items-center justify-center rounded-2xl border border-[#ff975d] bg-gradient-to-r from-[#ff5c00] to-[#a32d05] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white drop-shadow-[0px_4px_12px_rgba(255,92,0,0.4)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-    >
+    <Button variant="primary" size="xs" onClick={onClick} disabled={disabled} className="flex-1">
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -323,13 +328,9 @@ export function OutlineButton({
   className?: string;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`flex-1 cursor-pointer rounded-2xl border border-[#ff975d] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90 ${className ?? ""}`}
-    >
+    <Button variant="secondary" size="xs" onClick={onClick} className={`flex-1 ${className ?? ""}`}>
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -399,67 +400,46 @@ export function FormSelect({
           </option>
         ))}
       </select>
-      <svg
-        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
-        width="12"
-        height="8"
-        viewBox="0 0 12 8"
-        fill="none"
+      <Image
+        src="/images/popups/eva-arrow-down.svg"
+        alt=""
+        width={20}
+        height={20}
+        className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 -scale-y-100"
         aria-hidden
-      >
-        <path
-          d="M1 1.5L6 6.5L11 1.5"
-          stroke="#ff975d"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
+      />
     </div>
   );
 }
 
 export function AttachmentButtons() {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-1">
       <button
         type="button"
-        className="flex size-10 cursor-pointer items-center justify-center rounded-xl border border-[#383852] transition-colors hover:border-[#ff975d]"
-        aria-label="Attach image"
+        className="flex cursor-pointer items-center rounded-lg bg-[#383852] p-2 transition-opacity hover:opacity-80"
+        aria-label="Add emoji"
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-          <rect
-            x="2"
-            y="2"
-            width="12"
-            height="12"
-            rx="2"
-            stroke="white"
-            strokeOpacity="0.6"
-          />
-          <circle cx="5.5" cy="5.5" r="1.5" fill="white" fillOpacity="0.6" />
-          <path d="M2 12L6 8L10 12L14 6" stroke="white" strokeOpacity="0.6" />
-        </svg>
+        <Image
+          src="/images/popups/emoji-icon.svg"
+          alt=""
+          width={16}
+          height={16}
+          className="size-4"
+        />
       </button>
       <button
         type="button"
-        className="flex size-10 cursor-pointer items-center justify-center rounded-xl border border-[#383852] transition-colors hover:border-[#ff975d]"
-        aria-label="Upload file"
+        className="flex cursor-pointer items-center rounded-lg bg-[#383852] p-2 transition-opacity hover:opacity-80"
+        aria-label="Attach image"
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-          <path
-            d="M14 10L14 12C14 13.1046 13.1046 14 12 14L4 14C2.89543 14 2 13.1046 2 12L2 10"
-            stroke="white"
-            strokeOpacity="0.6"
-            strokeLinecap="round"
-          />
-          <path
-            d="M8 2L8 10M8 10L5 7M8 10L11 7"
-            stroke="white"
-            strokeOpacity="0.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Image
+          src="/images/popups/image-upload-icon.svg"
+          alt=""
+          width={16}
+          height={16}
+          className="size-4"
+        />
       </button>
     </div>
   );
@@ -508,7 +488,7 @@ export function StarRating({
 
 export function SuccessBadge() {
   return (
-    <div className="relative mx-auto flex size-[160px] items-center justify-center">
+    <div className="relative mx-auto flex size-[180px] items-center justify-center lg:-my-6 lg:size-[200px]">
       <Image
         src="/images/popups/success-badge.svg"
         alt=""

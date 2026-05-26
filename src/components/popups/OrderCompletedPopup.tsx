@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Button } from "@/components/ui/Button";
 
 import { PopupOverlay } from "./PopupOverlay";
 
@@ -36,17 +37,17 @@ export function OrderCompletedPopup({
             alt="Order Completed Characters"
             width={573}
             height={302}
-            className="relative h-auto w-[240px] object-contain lg:w-[380px]"
+            className="relative h-auto w-[200px] object-contain lg:w-[380px]"
             priority
           />
         </div>
 
         {/* Text Content */}
         <div className="flex flex-col items-center gap-1 lg:gap-5">
-          <p className="font-body text-xs font-bold uppercase text-[#ff5c00] lg:text-sm">
+          <p className="font-body text-sm font-bold uppercase text-[#ff5c00] lg:text-base">
             Review us!
           </p>
-          <h2 className="text-center font-body text-xl font-bold text-white lg:font-heading lg:text-[28px] lg:font-semibold">
+          <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">
             Order {orderId} Completed
           </h2>
           <p className="text-center font-body text-sm leading-5 text-white lg:text-base lg:leading-normal">
@@ -95,21 +96,14 @@ export function OrderCompletedPopup({
 
         {/* Action Buttons */}
         <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4">
-          <button
-            type="button"
-            onClick={onClose}
-            className="w-full cursor-pointer rounded-xl border border-[#ff975d] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90 lg:flex-1 lg:rounded-2xl lg:py-3.5"
-          >
+          <Button variant="secondary" size="xs" onClick={onClose} className="w-full lg:flex-1">
             <span className="lg:hidden">Skip</span>
             <span className="hidden lg:inline">Skip & Confirm</span>
-          </button>
-          <button
-            type="button"
-            className="w-full cursor-pointer rounded-xl border border-[#ff975d] bg-gradient-to-r from-[#ff5c00] to-[#a32d05] px-6 py-3 font-body text-base font-bold uppercase tracking-wider text-white drop-shadow-[0px_4px_12px_rgba(255,92,0,0.4)] transition-opacity hover:opacity-90 lg:flex-1 lg:rounded-2xl lg:py-3.5"
-          >
+          </Button>
+          <Button variant="primary" size="xs" className="w-full lg:flex-1">
             <span className="lg:hidden">Confirm</span>
             <span className="hidden lg:inline">Review & Confirm</span>
-          </button>
+          </Button>
         </div>
       </div>
     </PopupOverlay>

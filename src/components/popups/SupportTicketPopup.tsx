@@ -62,13 +62,17 @@ export function SupportTicketPopup({
           </FormField>
 
           <FormField label="Describe issue*">
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Please describe your issue in detail, so we can assist you as soon as possible."
-              className="h-[80px] w-full resize-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d]"
-            />
-            <AttachmentButtons />
+            <div className="flex flex-col rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] focus-within:border-[#ff975d]">
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Please describe your issue in detail, so we can assist you as soon as possible."
+                className="h-[80px] w-full resize-none bg-transparent p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80"
+              />
+              <div className="flex gap-2 px-3 pb-2">
+                <AttachmentButtons />
+              </div>
+            </div>
           </FormField>
         </div>
 
