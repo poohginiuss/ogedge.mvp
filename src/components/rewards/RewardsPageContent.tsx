@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { ArrowRightIcon } from "@/components/icons";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Faq } from "@/components/sections/Faq";
@@ -12,12 +13,12 @@ import { Button } from "@/components/ui/Button";
 /* ─── Hero feature pills ──────────────────────────────────────────────── */
 
 const heroFeatures = [
-  { icon: "/images/rewards/icon-discount.svg", label: "Lifetime Discounts" },
-  { icon: "/images/rewards/icon-cashback.svg", label: "Seasonal Cashback" },
-  { icon: "/images/rewards/icon-lock.svg", label: "Exclusive Drops" },
-  { icon: "/images/rewards/icon-support.svg", label: "Faster Support" },
-  { icon: "/images/rewards/icon-money.svg", label: "Referral Bonuses" },
-  { icon: "/images/rewards/icon-ranking.svg", label: "Rank Never Resets" },
+  { icon: "/images/rewards/icon-discount.svg", label: "Lifetime Discounts", tooltip: "Permanent discounts that grow with every rank" },
+  { icon: "/images/rewards/icon-cashback.svg", label: "Seasonal Cashback", tooltip: "Earn cashback each season based on your spend" },
+  { icon: "/images/rewards/icon-lock.svg", label: "Exclusive Drops", tooltip: "Access limited offers and VIP-only items" },
+  { icon: "/images/rewards/icon-support.svg", label: "Faster Support", tooltip: "Higher ranks get priority response times" },
+  { icon: "/images/rewards/icon-money.svg", label: "Referral Bonuses", tooltip: "Earn rewards when friends join through your link" },
+  { icon: "/images/rewards/icon-ranking.svg", label: "Rank Never Resets", tooltip: "Your lifetime progress is permanent" },
 ];
 
 /* ─── How it Works steps ──────────────────────────────────────────────── */
@@ -97,6 +98,36 @@ const seasonTiers = [
   { tier: 5, spend: "$680", goal: "$3,000", cashback: "$300", status: "locked" as const, progress: 22 },
 ];
 
+/* ─── Feature Pill with tooltip ─────────────────────────────────────── */
+
+function FeaturePill({ icon, label, tooltip }: { icon: string; label: string; tooltip: string }) {
+  const [showTip, setShowTip] = useState(false);
+
+  return (
+    <div className="group/pill relative shrink-0">
+      <button
+        type="button"
+        className="flex h-10 cursor-pointer items-center gap-2 rounded-3xl border border-transparent px-4 py-3 font-body text-sm font-medium text-white transition-all duration-200 hover:border-brand-light/40 hover:shadow-[0_0_16px_rgba(255,92,0,0.25)]"
+        style={{
+          backgroundImage: "linear-gradient(-30deg, rgb(23,25,31) 0%, rgb(56,56,82) 100%)",
+        }}
+        onClick={() => setShowTip((p) => !p)}
+        onBlur={() => setShowTip(false)}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={icon} alt="" className="h-5 w-5 opacity-70" />
+        {label}
+      </button>
+      <div
+        className={`pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 transition-opacity duration-200 xl:opacity-0 xl:group-hover/pill:pointer-events-auto xl:group-hover/pill:opacity-100 ${showTip ? "pointer-events-auto opacity-100" : "opacity-0"}`}
+        style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}
+      >
+        <p className="font-body text-sm leading-5 text-white/90">{tooltip}</p>
+      </div>
+    </div>
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════════════════ */
 /*  Hero Section                                                          */
 /* ═══════════════════════════════════════════════════════════════════════ */
@@ -163,10 +194,10 @@ function Hero() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1280px] bg-[#121419] px-6 pb-20 pt-8 md:px-12 xl:bg-transparent xl:px-16 xl:pb-[120px] xl:pt-[230px]">
-        <div className="flex flex-col gap-6 xl:gap-8">
-          {/* Title */}
-          <div className="flex flex-col gap-2">
+      <div className="relative mx-auto w-full max-w-[1280px] bg-[#121419] px-6 pb-20 pt-8 md:px-12 xl:bg-transparent xl:px-0 xl:pb-[120px] xl:pt-[230px]">
+        <div className="flex flex-col gap-6 xl:gap-12">
+          {/* Title + subtitle */}
+          <div className="flex flex-col gap-1">
             <h1 className="font-heading text-[36px] font-bold leading-[1.1] tracking-[-0.03em] text-brand-main md:text-[48px] xl:text-[64px] xl:leading-[70px]">
               Loyalty Has its Perks
             </h1>
@@ -176,26 +207,21 @@ function Hero() {
             </p>
           </div>
 
-          {/* Feature pills */}
-          <div className="flex max-w-[608px] flex-wrap gap-4">
+          {/* Feature pills — horizontal scroll on mobile, wrap on desktop */}
+          <div className="flex gap-3 overflow-x-auto pb-2 xl:max-w-[608px] xl:flex-wrap xl:gap-4 xl:overflow-visible xl:pb-0">
             {heroFeatures.map((f) => (
-              <span
-                key={f.label}
-                className="flex h-10 items-center gap-2 rounded-3xl px-4 py-3 font-body text-sm font-medium text-white"
-                style={{
-                  backgroundImage: "linear-gradient(-30deg, rgb(23,25,31) 0%, rgb(56,56,82) 100%)",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={f.icon} alt="" className="h-5 w-5" />
-                {f.label}
-              </span>
+              <FeaturePill key={f.label} icon={f.icon} label={f.label} tooltip={f.tooltip} />
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA — secondary button with arrow */}
           <div>
-            <Button href="/custom-order" variant="primary" size="lg">
+            <Button
+              href="/custom-order"
+              variant="secondary"
+              size="lg"
+              icon={<ArrowRightIcon size={20} />}
+            >
               Create Account
             </Button>
           </div>
@@ -211,7 +237,7 @@ function Hero() {
 
 function HowItWorksSection() {
   return (
-    <section className="bg-[#121419] px-6 py-16 md:px-12 xl:px-16 xl:py-0 xl:pb-24">
+    <section className="bg-[#121419] px-6 py-16 md:px-12 xl:py-0 xl:pb-24">
       <div className="mx-auto max-w-[1280px]">
         <h2 className="mb-8 font-heading text-[30px] font-bold leading-[38px] text-[#d9d9d9]">
           How it Works
@@ -222,7 +248,7 @@ function HowItWorksSection() {
           {howItWorksSteps.map((step, i) => (
             <div key={step.num} className="flex flex-1 items-center gap-6">
               <div
-                className="flex flex-1 flex-col gap-1 rounded-[32px] p-8"
+                className="flex flex-1 cursor-pointer flex-col gap-1 rounded-[32px] p-8 transition-all hover:border-[#ff975d] hover:shadow-[0_0_20px_rgba(255,92,0,0.15)] active:scale-[0.97]"
                 style={{
                   border: "1px solid #7e7eb8",
                   backgroundImage: "linear-gradient(-60deg, rgba(23,25,31,0.5) 0%, rgba(56,56,82,0.5) 100%)",
@@ -259,7 +285,7 @@ function HowItWorksSection() {
           {howItWorksSteps.map((step, i) => (
             <div key={step.num} className="flex w-full flex-col items-center gap-3">
               <div
-                className="flex w-full items-center gap-4 rounded-3xl p-5"
+                className="flex w-full cursor-pointer items-center gap-4 rounded-3xl p-5 transition-all hover:border-[#ff975d] active:scale-[0.97]"
                 style={{
                   border: "1px solid #7e7eb8",
                   backgroundImage: "linear-gradient(-60deg, rgba(23,25,31,0.5) 0%, rgba(56,56,82,0.5) 100%)",
@@ -303,7 +329,7 @@ function TierCard({ t }: { t: Tier }) {
     <>
       {/* Desktop: vertical centered layout */}
       <div
-        className="hidden overflow-hidden rounded-[32px] p-8 xl:flex xl:flex-col xl:items-center xl:gap-3 xl:text-center"
+        className="hidden cursor-pointer overflow-hidden rounded-[32px] p-8 transition-all hover:shadow-[0_0_24px_rgba(255,92,0,0.2)] active:scale-[0.97] xl:flex xl:flex-col xl:items-center xl:gap-3 xl:text-center"
         style={{
           background: t.bgColor,
           border: `2px solid ${t.color}`,
@@ -354,7 +380,7 @@ function TierCard({ t }: { t: Tier }) {
 
       {/* Mobile: horizontal layout — badge left, info right */}
       <div
-        className="flex gap-5 overflow-hidden rounded-[24px] p-5 xl:hidden"
+        className="flex cursor-pointer gap-5 overflow-hidden rounded-[24px] p-5 transition-all active:scale-[0.97] xl:hidden"
         style={{
           background: t.bgColor,
           border: `2px solid ${t.color}`,
@@ -454,10 +480,6 @@ function SeasonalAndInvite() {
       <div
         className="pointer-events-none absolute rounded-[128px]"
         style={{ right: -60, top: 180, width: 256, height: 256, background: "rgba(255,92,0,0.2)", filter: "blur(107px)" }}
-      />
-      <div
-        className="pointer-events-none absolute rounded-[128px]"
-        style={{ left: "40%", top: -71, width: 256, height: 256, background: "rgba(255,92,0,0.2)", filter: "blur(107px)" }}
       />
 
       <div className="relative mx-auto flex max-w-[1280px] flex-col gap-16 xl:gap-16">
@@ -618,7 +640,7 @@ function SeasonalAndInvite() {
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="flex shrink-0 items-center gap-2 rounded-lg bg-brand-main px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85"
+                  className="flex shrink-0 cursor-pointer items-center gap-2 rounded-lg bg-brand-main px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 active:scale-95"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/images/dashboard/icons/copy-icon.svg" alt="" className="h-6 w-6" />
@@ -641,7 +663,7 @@ function SeasonalAndInvite() {
             <button
               type="button"
               onClick={handleCopy}
-              className="absolute bottom-6 left-[270px] hidden items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 xl:flex"
+              className="absolute bottom-6 left-[270px] hidden cursor-pointer items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 active:scale-95 xl:flex"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/dashboard/icons/copy-icon.svg" alt="" className="h-6 w-6" />
@@ -661,7 +683,7 @@ function SeasonalAndInvite() {
               </p>
               <a
                 href="/custom-order"
-                className="flex items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-80"
+                className="flex cursor-pointer items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-80"
               >
                 Create Account to Unlock Referrals
                 <span className="text-lg">→</span>
@@ -700,10 +722,10 @@ function FeaturedBenefits() {
         }}
       />
 
-      {/* Orange blur orb — desktop right side, mobile top center */}
+      {/* Orange blur orb — smaller on mobile, full on desktop */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[8%] -z-10 h-[260px] w-[190px] -translate-x-1/2 rounded-full opacity-70 xl:left-auto xl:right-[4%] xl:top-[30%] xl:h-[400px] xl:w-[250px] xl:translate-x-0 xl:opacity-100"
+        className="pointer-events-none absolute left-1/2 top-[22%] -z-10 h-[100px] w-[100px] -translate-x-1/2 rounded-full opacity-50 xl:left-auto xl:right-[4%] xl:top-[30%] xl:h-[400px] xl:w-[250px] xl:translate-x-0 xl:opacity-100"
         style={{ background: "#ff5c00", filter: "blur(107px)" }}
       />
 
