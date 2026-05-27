@@ -7,12 +7,12 @@ import {
   DetailTags,
   MobileCardShell,
   MobileDetailRow,
-  PAGE_SIZE,
   Pagination,
   RowShell,
   StatusPill,
   TablePageHeader,
   ViewLink,
+  usePageSize,
 } from "../orderTableShared";
 
 // ─── Column config ────────────────────────────────────────────────────────────
@@ -106,9 +106,10 @@ function MobileCard({ order }: { order: TableOrder }) {
 type Props = { orders: TableOrder[]; onPurchaseBoost: () => void; onSupport?: () => void };
 
 export function CompletedOrdersTable({ orders, onPurchaseBoost, onSupport }: Props) {
+  const pageSize = usePageSize();
   const [page, setPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(orders.length / PAGE_SIZE));
-  const visible = orders.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const totalPages = Math.max(1, Math.ceil(orders.length / pageSize));
+  const visible = orders.slice((page - 1) * pageSize, page * pageSize);
 
   return (
     <div className="flex flex-col gap-8">

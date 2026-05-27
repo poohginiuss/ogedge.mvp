@@ -8,13 +8,13 @@ import {
   DetailTags,
   MobileCardShell,
   MobileDetailRow,
-  PAGE_SIZE,
   Pagination,
   RowShell,
   StarRating,
   StatusPill,
   TablePageHeader,
   ViewLink,
+  usePageSize,
 } from "../orderTableShared";
 
 // ─── Column config ────────────────────────────────────────────────────────────
@@ -118,12 +118,13 @@ function MobileCard({ order }: { order: TableOrder }) {
 type Props = { orders: TableOrder[]; onPurchaseBoost: () => void; onSupport?: () => void };
 
 export function ActiveOrdersTable({ orders, onPurchaseBoost, onSupport }: Props) {
+  const pageSize = usePageSize();
   const [page, setPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(orders.length / PAGE_SIZE));
-  const visible = orders.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const totalPages = Math.max(1, Math.ceil(orders.length / pageSize));
+  const visible = orders.slice((page - 1) * pageSize, page * pageSize);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-1 flex-col gap-8">
       <TablePageHeader title="My Orders" onPurchaseBoost={onPurchaseBoost} onSupport={onSupport} />
 
       {/* Desktop table — scrolls horizontally when narrower than column total */}

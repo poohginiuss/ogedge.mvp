@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { DetailTag, TableOrder, TableOrderStatus } from "./activeOrdersData";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -14,6 +14,28 @@ export const MOBILE_CARD_BG =
   "linear-gradient(158.03deg, rgba(56,56,82,0.2) 0%, rgba(43,45,77,0.2) 50%, rgba(13,15,21,0.2) 100%)";
 
 export const PAGE_SIZE = 5;
+
+const BASE_ROWS = PAGE_SIZE;
+const BASE_HEIGHT = 900;
+const ROW_STEP = 116;
+
+export function usePageSize() {
+  const [size, setSize] = useState(PAGE_SIZE);
+  const compute = useCallback(() => {
+    if (typeof window === "undefined") return BASE_ROWS;
+    const extra = Math.max(0, window.innerHeight - BASE_HEIGHT);
+    return BASE_ROWS + Math.floor(extra / ROW_STEP);
+  }, []);
+
+  useEffect(() => {
+    setSize(compute());
+    const onResize = () => setSize(compute());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [compute]);
+
+  return size;
+}
 
 // ─── Status pill ──────────────────────────────────────────────────────────────
 
@@ -150,7 +172,7 @@ export function RowShell({ children }: { children: React.ReactNode }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex h-[100px] shrink-0 cursor-default items-center rounded-3xl transition-all duration-150"
+      className="flex min-h-[100px] shrink-0 cursor-default items-center rounded-3xl py-4 transition-all duration-150"
       style={{ backgroundImage: hovered ? ROW_BG_HOVER : ROW_BG_DEFAULT }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -166,7 +188,7 @@ export function ViewLink({ orderId }: { orderId: string }) {
   return (
     <Link
       href={`/app/customer/orders/${orderId}`}
-      className="font-body text-base font-bold uppercase tracking-wide text-white transition-colors hover:text-brand-light"
+      className="font-body text-base font-bold uppercase tracking-wide text-white transition-all hover:text-[#ff975d] active:scale-90 active:text-[#ff975d]"
     >
       VIEW
     </Link>
@@ -177,16 +199,21 @@ export function ViewLink({ orderId }: { orderId: string }) {
 
 export function ChatIcon({ active }: { active?: boolean }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={
-        active
-          ? "/images/dashboard/orderview/icons/chat-refresh.svg"
-          : "/images/dashboard/orderview/icons/chat-bubble.svg"
-      }
-      alt="Chat"
-      className="h-6 w-6"
-    />
+    <span className={`relative inline-flex ${active ? "animate-chat-pulse" : ""}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={
+          active
+            ? "/images/dashboard/orderview/icons/chat-refresh.svg"
+            : "/images/dashboard/orderview/icons/chat-bubble.svg"
+        }
+        alt="Chat"
+        className={`h-6 w-6 ${active ? "[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" : ""}`}
+      />
+      {active && (
+        <span className="absolute -right-0.5 -top-0.5 size-2.5 animate-ping rounded-full bg-[#ff975d]" />
+      )}
+    </span>
   );
 }
 
@@ -390,11 +417,13 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onSupport}
-            className="group flex h-[48px] cursor-pointer items-center gap-3 rounded-2xl border border-[#6d6d96] px-10 font-body text-base font-bold capitalize text-white transition-all hover:border-brand-light hover:text-brand-main hover:shadow-[0_0_12px_rgba(255,92,0,0.2)]"
-            style={{ background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)" }}
+            className="group flex cursor-pointer items-center gap-3 rounded-3xl border border-[#ff975d] px-8 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+            style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/dashboard/icons/support-icon.svg" alt="" className="h-5 w-5 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" />
+            <img src="/images/dashboard/icons/support-icon-white.svg" alt="" className="h-5 w-5 transition-opacity group-hover:hidden" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/dashboard/icons/support-icon.svg" alt="" className="hidden h-5 w-5 group-hover:block" />
             Support
           </button>
         )}
@@ -402,8 +431,8 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onPurchaseBoost}
-            className="flex h-[48px] cursor-pointer items-center rounded-2xl border border-brand-light px-10 font-body text-base font-bold uppercase tracking-wide text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)] transition-opacity hover:opacity-90"
-            style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
+            className="flex cursor-pointer items-center rounded-3xl border-2 border-[#ff975d] px-8 py-3 font-body text-base font-bold uppercase tracking-wider text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)] transition-all hover:shadow-[0_4px_32px_rgba(255,92,0,0.55)] active:scale-[0.97]"
+            style={{ backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
           >
             PURCHASE BOOST
           </button>
@@ -494,7 +523,7 @@ export function MobileCardShell({
       {/* VIEW button — full-width at bottom */}
       <Link
         href={`/app/customer/orders/${order.orderId}`}
-        className="mt-4 flex items-center justify-center rounded-2xl py-3 font-body text-base font-bold uppercase tracking-wide text-white transition-all hover:shadow-[0_0_12px_rgba(255,92,0,0.3)]"
+        className="mt-4 flex items-center justify-center rounded-2xl py-3 font-body text-base font-bold uppercase tracking-wide text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-[0.97] active:border-[#ff975d]"
         style={{
           background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
           border: "1px solid #6d6d96",

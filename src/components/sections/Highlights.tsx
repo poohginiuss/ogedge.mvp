@@ -249,8 +249,6 @@ export function Highlights() {
         {/* Mobile layout — fixed height container with dots pinned at bottom */}
         <div
           className="relative flex h-[660px] flex-col sm:h-[730px] lg:hidden"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
         >
           <div
             className={`flex flex-1 flex-col gap-6 overflow-hidden pb-8 transition-all duration-300 ease-in-out ${animClass}`}

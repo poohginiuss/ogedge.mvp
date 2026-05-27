@@ -16,7 +16,7 @@ type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const VARIANT_CLASSES: Record<ActionButtonVariant, string> = {
-  dark: "group transition-colors hover:text-brand-main",
+  dark: "group transition-colors",
   outline: "group border border-brand-light transition-all hover:border-brand-main hover:bg-brand-main/15",
   brand: "bg-brand-main transition-opacity hover:opacity-85",
 };
@@ -38,9 +38,10 @@ export function ActionButton({
     <img
       src={icon}
       alt=""
-      className={`shrink-0 ${tintOnHover ? "transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" : ""} ${iconClassName}`}
+      className={`shrink-0 ${tintOnHover ? "transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" : ""} ${iconClassName}`}
     />
   );
+  const hoverTextCls = tintOnHover ? "group-hover:text-[#ff975d]" : "";
   return (
     <button
       type="button"
@@ -49,7 +50,7 @@ export function ActionButton({
       {...rest}
     >
       {iconPosition === "leading" && iconEl}
-      <span className={textClassName}>{children}</span>
+      <span className={`${textClassName} transition-colors ${hoverTextCls}`}>{children}</span>
       {iconPosition === "trailing" && iconEl}
     </button>
   );

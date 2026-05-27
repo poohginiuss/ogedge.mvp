@@ -49,6 +49,36 @@ export default function CustomerDashboardContent() {
         <DashboardReferralCard />
       </div>
 
+      {/* Mobile: Loyalty & Seasonal cards right after referral */}
+      <div className="flex flex-col gap-6 xl:hidden">
+        <button
+          type="button"
+          onClick={openOnMobile("loyalty")}
+          className="block w-full text-left lg:cursor-default"
+        >
+          <DashboardPanel header={<LoyaltyHeader />} hideBodyOnMobile>
+            <LoyaltyTierList />
+          </DashboardPanel>
+        </button>
+
+        <button
+          type="button"
+          onClick={openOnMobile("seasonal")}
+          className="block w-full text-left lg:cursor-default"
+        >
+          <DashboardPanel
+            header={<SeasonalHeader />}
+            hideBodyOnMobile
+            className="overflow-hidden rounded-3xl border border-brand-light"
+            style={{ background: SEASONAL_GRADIENT }}
+            headerBorderClassName=""
+            headerBorderStyle={SEASONAL_HEADER_BORDER}
+          >
+            <SeasonalTierList />
+          </DashboardPanel>
+        </button>
+      </div>
+
       <div className="flex flex-col gap-8 xl:flex-row xl:items-start xl:justify-between">
         <OrderSection
           title="Active Orders"
@@ -63,29 +93,24 @@ export default function CustomerDashboardContent() {
           ))}
         </OrderSection>
 
-        <div className="flex flex-col gap-6 xl:w-[490px] xl:shrink-0">
-          <div className="hidden xl:block">
-            <DashboardReferralCard />
-          </div>
+        <div className="hidden xl:flex xl:w-[490px] xl:shrink-0 xl:flex-col xl:gap-6">
+          <DashboardReferralCard />
 
           <button
             type="button"
-            onClick={openOnMobile("loyalty")}
-            className="block w-full text-left lg:cursor-default"
+            className="block w-full text-left"
           >
-            <DashboardPanel header={<LoyaltyHeader />} hideBodyOnMobile>
+            <DashboardPanel header={<LoyaltyHeader />}>
               <LoyaltyTierList />
             </DashboardPanel>
           </button>
 
           <button
             type="button"
-            onClick={openOnMobile("seasonal")}
-            className="block w-full text-left lg:cursor-default"
+            className="block w-full text-left"
           >
             <DashboardPanel
               header={<SeasonalHeader />}
-              hideBodyOnMobile
               className="overflow-hidden rounded-3xl border border-brand-light"
               style={{ background: SEASONAL_GRADIENT }}
               headerBorderClassName=""
