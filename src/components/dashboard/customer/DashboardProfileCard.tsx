@@ -13,6 +13,8 @@ type DashboardProfileCardProps = {
   onNewOrder?: () => void;
   /** Called when the user taps the "Customer Support" CTA. */
   onSupport?: () => void;
+  /** Called when the user taps the profile avatar. */
+  onProfileClick?: () => void;
 };
 
 function ProfileBadges(): ReactNode {
@@ -38,7 +40,7 @@ function ProfileBadges(): ReactNode {
   );
 }
 
-export function DashboardProfileCard({ onNewOrder, onSupport }: DashboardProfileCardProps = {}) {
+export function DashboardProfileCard({ onNewOrder, onSupport, onProfileClick }: DashboardProfileCardProps = {}) {
   return (
     <div
       className="flex flex-col gap-6 overflow-hidden rounded-3xl px-4 py-6 lg:px-8"
@@ -55,6 +57,7 @@ export function DashboardProfileCard({ onNewOrder, onSupport }: DashboardProfile
           nameClassName="font-heading text-[32px] font-semibold leading-none"
           meta={<ProfileBadges />}
           groupWelcomeName
+          onAvatarClick={onProfileClick}
         />
 
         <div className="flex items-center gap-6">
@@ -84,6 +87,7 @@ export function DashboardProfileCard({ onNewOrder, onSupport }: DashboardProfile
           nameClassName="font-body text-base font-bold leading-6 text-white"
           meta={<ProfileBadges />}
           groupWelcomeName
+          onAvatarClick={onProfileClick}
         />
 
         <div className="flex items-center gap-2">

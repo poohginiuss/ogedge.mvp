@@ -20,7 +20,7 @@ export function CtaCard({
   className = "",
 }: CtaCardProps) {
   const isLarge = size === "lg";
-  const layoutCls = isLarge ? "gap-4 p-8" : "h-12 flex-1 justify-center gap-4 px-6 py-2";
+  const layoutCls = isLarge ? "justify-center gap-4 p-8" : "h-12 flex-1 justify-center gap-4 px-6 py-2";
   const iconCls = isLarge ? "h-[54px] w-[54px]" : "h-6 w-6";
 
   return (

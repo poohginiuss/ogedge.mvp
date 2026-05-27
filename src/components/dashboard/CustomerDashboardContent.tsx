@@ -39,11 +39,12 @@ export default function CustomerDashboardContent() {
 
   const handleNewOrder = () => router.push("/");
   const handleSupport = () => router.push("/app/customer/support");
+  const handleProfile = () => router.push("/app/customer/profile");
   const activeOrders = sampleOrders.filter(isActive);
 
   return (
     <>
-      <DashboardProfileCard onNewOrder={handleNewOrder} onSupport={handleSupport} />
+      <DashboardProfileCard onNewOrder={handleNewOrder} onSupport={handleSupport} onProfileClick={handleProfile} />
 
       <div className="xl:hidden">
         <DashboardReferralCard />

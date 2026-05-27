@@ -417,7 +417,7 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onSupport}
-            className="group flex cursor-pointer items-center gap-3 rounded-3xl border border-[#ff975d] px-8 py-3 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+            className="group flex cursor-pointer items-center gap-3 rounded-3xl border border-[#ff975d] px-12 py-4 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
             style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -431,7 +431,7 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onPurchaseBoost}
-            className="flex cursor-pointer items-center rounded-3xl border-2 border-[#ff975d] px-8 py-3 font-body text-base font-bold uppercase tracking-wider text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)] transition-all hover:shadow-[0_4px_32px_rgba(255,92,0,0.55)] active:scale-[0.97]"
+            className="flex cursor-pointer items-center rounded-3xl border-2 border-[#ff975d] px-12 py-4 font-body text-base font-bold uppercase tracking-wider text-white drop-shadow-[0_4px_12px_rgba(255,92,0,0.4)] transition-all hover:shadow-[0_4px_32px_rgba(255,92,0,0.55)] active:scale-[0.97]"
             style={{ backgroundImage: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
           >
             PURCHASE BOOST

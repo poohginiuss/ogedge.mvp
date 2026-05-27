@@ -41,9 +41,11 @@ function ProfileBadges() {
 function DesktopSidebar({
   onNewOrder,
   onSupport,
+  onProfileClick,
 }: {
   onNewOrder: () => void;
   onSupport: () => void;
+  onProfileClick: () => void;
 }) {
   return (
     <div className="flex flex-col gap-6">
@@ -60,6 +62,7 @@ function DesktopSidebar({
           nameClassName="font-heading text-[32px] font-semibold leading-none"
           meta={<ProfileBadges />}
           groupWelcomeName
+          onAvatarClick={onProfileClick}
         />
 
         <div className="flex flex-col gap-2">
@@ -85,6 +88,7 @@ export default function RulesPage() {
   const router = useRouter();
   const handleNewOrder = () => router.push("/");
   const handleSupport = () => router.push("/app/customer/support");
+  const handleProfile = () => router.push("/app/customer/profile");
 
   return (
     <>
@@ -100,6 +104,7 @@ export default function RulesPage() {
             nameClassName="font-body text-base font-bold leading-6 text-white"
             meta={<ProfileBadges />}
             groupWelcomeName
+            onAvatarClick={handleProfile}
           />
         </div>
 
@@ -107,20 +112,20 @@ export default function RulesPage() {
           <button
             type="button"
             onClick={handleNewOrder}
-            className="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-[#21222f] p-4"
+            className="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-[#21222f] p-4 transition-all active:scale-[0.97]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/dashboard/icons/pen-new-order.svg" alt="" className="h-8 w-8" />
+            <img src="/images/dashboard/icons/pen-new-order.svg" alt="" className="h-8 w-8 [filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
             <span className="font-body text-base font-bold uppercase text-white">New Order</span>
             <span className="font-body text-sm text-white">Get Started</span>
           </button>
           <button
             type="button"
             onClick={handleSupport}
-            className="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-[#21222f] p-4"
+            className="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-[#21222f] p-4 transition-all active:scale-[0.97]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/dashboard/icons/support-icon.svg" alt="" className="h-8 w-8" />
+            <img src="/images/dashboard/icons/support-icon.svg" alt="" className="h-8 w-8 [filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
             <span className="font-body text-base font-bold uppercase text-white">Support</span>
             <span className="font-body text-sm text-white">Create Ticket</span>
           </button>
@@ -158,7 +163,7 @@ export default function RulesPage() {
 
         {/* Right: Desktop sidebar with profile + CTAs */}
         <div className="hidden xl:block xl:w-[490px] xl:shrink-0">
-          <DesktopSidebar onNewOrder={handleNewOrder} onSupport={handleSupport} />
+          <DesktopSidebar onNewOrder={handleNewOrder} onSupport={handleSupport} onProfileClick={handleProfile} />
         </div>
       </div>
     </>
