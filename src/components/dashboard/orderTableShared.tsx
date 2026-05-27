@@ -149,13 +149,13 @@ export function StarRating({ rating }: { rating: number }) {
 
 // ─── Detail tags ──────────────────────────────────────────────────────────────
 
-export function DetailTags({ tags }: { tags: DetailTag[] }) {
+export function DetailTags({ tags, compact }: { tags: DetailTag[]; compact?: boolean }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className={`flex flex-wrap ${compact ? "gap-1.5" : "gap-2"}`}>
       {tags.map((tag) => (
         <span
           key={tag.label}
-          className="rounded-lg px-2 py-1 font-body text-sm font-semibold uppercase leading-none"
+          className={`rounded-lg font-body font-semibold uppercase leading-none ${compact ? "px-1.5 py-0.5 text-xs" : "px-2 py-1 text-sm"}`}
           style={{ background: tag.bg, color: tag.color }}
         >
           {tag.label}
@@ -417,7 +417,7 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onSupport}
-            className="group flex cursor-pointer items-center gap-3 rounded-3xl border border-[#ff975d] px-12 py-4 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+            className="group flex cursor-pointer items-center justify-center gap-3 rounded-3xl border border-[#ff975d] px-24 py-4 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
             style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

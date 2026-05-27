@@ -7,11 +7,11 @@ import { CopyButton } from "../atoms";
 import {
   DetailTags,
   MOBILE_CARD_BG,
-  PAGE_SIZE,
   Pagination,
   RowShell,
   StatusPill,
   TablePageHeader,
+  usePageSize,
 } from "../orderTableShared";
 import type { BoosterTableOrder } from "./boosterTableData";
 
@@ -62,24 +62,24 @@ function getColumns(variant: BoosterTableVariant) {
   const cols: { label: string; cls: string }[] = [
     { label: "ID", cls: "w-[7%] pl-6" },
     { label: "Game", cls: "w-[8%] pl-2" },
-    { label: "Service", cls: "w-[14%] pl-2" },
-    { label: "Details", cls: "min-w-[180px] flex-1 pl-2" },
+    { label: "Service", cls: "w-[12%] pl-2" },
+    { label: "Details", cls: "flex-1 pl-2" },
   ];
   if (cfg.showEmployee) {
     cols.push({ label: "Employee", cls: "w-[8%] text-center" });
   }
   if (cfg.showCompletionTime) {
-    cols.push({ label: "Completion Time", cls: "w-[12%] text-center" });
+    cols.push({ label: "Completion Time", cls: "w-[11%] text-center" });
   }
   cols.push({ label: cfg.earningLabel, cls: "w-[7%] text-center" });
   if (variant !== "available") {
-    cols.push({ label: "Status", cls: "w-[13%] text-center" });
+    cols.push({ label: "Status", cls: "w-[15%] text-center pr-4" });
   }
   if (cfg.showChat) {
     cols.push({ label: "Chat", cls: "w-[5%] text-center" });
   }
   if (cfg.showClaim || cfg.showView) {
-    cols.push({ label: "Actions", cls: "w-[7%] text-center" });
+    cols.push({ label: "Actions", cls: "w-[12%] text-center pr-4" });
   }
   return cols;
 }
@@ -93,7 +93,7 @@ function ClaimButton({ onClaim }: { onClaim: () => void }) {
       onClick={onClaim}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex cursor-pointer items-center gap-2 rounded-3xl px-6 py-3 font-body text-sm font-bold uppercase tracking-wide text-white transition-all duration-200 active:scale-95"
+      className="flex cursor-pointer items-center gap-2 rounded-3xl px-8 py-3.5 font-body text-sm font-bold uppercase tracking-wide text-white transition-all duration-200 active:scale-95"
       style={{
         background: hovered
           ? "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)"
@@ -114,9 +114,9 @@ function ClaimButton({ onClaim }: { onClaim: () => void }) {
 function PayoutCell({ earning, bonus }: { earning: string; bonus?: string }) {
   return (
     <div className="flex flex-col items-center">
-      <span className="font-body text-base font-semibold text-[#ff975d]">{earning}</span>
+      <span className="font-body text-sm font-semibold text-[#ff975d]">{earning}</span>
       {bonus && (
-        <span className="font-body text-sm font-semibold text-[#34a853]">{bonus}</span>
+        <span className="font-body text-xs font-semibold text-[#34a853]">{bonus}</span>
       )}
     </div>
   );
@@ -190,7 +190,7 @@ function DesktopRow({
     <RowShell>
       <div className="flex w-[7%] items-center pl-6">
         <span className="flex items-center gap-1.5">
-          <span className="font-body text-base font-semibold text-[#ff975d]">
+          <span className="font-body text-sm font-semibold text-[#ff975d]">
             {order.orderId}
           </span>
           <CopyButton
@@ -201,16 +201,16 @@ function DesktopRow({
       </div>
 
       <div className="flex w-[8%] items-center pl-2">
-        <span className="font-body text-base font-semibold text-white">{order.game}</span>
+        <span className="font-body text-sm font-semibold text-white">{order.game}</span>
       </div>
 
-      <div className="flex w-[14%] flex-col justify-center pl-2">
-        <p className="font-body text-base font-semibold text-white">{order.service}</p>
-        <p className="font-body text-sm font-bold text-white/70">{order.rangeLabel}</p>
+      <div className="flex w-[12%] flex-col justify-center pl-2">
+        <p className="font-body text-sm font-semibold text-white">{order.service}</p>
+        <p className="font-body text-xs font-bold text-white/70">{order.rangeLabel}</p>
       </div>
 
-      <div className="flex min-w-[180px] flex-1 items-center pl-2">
-        <DetailTags tags={order.details} />
+      <div className="flex flex-1 items-center pl-2">
+        <DetailTags tags={order.details} compact />
       </div>
 
       {cfg.showEmployee && (
@@ -227,8 +227,8 @@ function DesktopRow({
       )}
 
       {cfg.showCompletionTime && (
-        <div className="flex w-[12%] items-center justify-center">
-          <span className="font-body text-base font-semibold text-white">
+        <div className="flex w-[11%] items-center justify-center">
+          <span className="font-body text-sm font-semibold text-white">
             {order.completionTime ?? "—"}
           </span>
         </div>
@@ -239,7 +239,7 @@ function DesktopRow({
       </div>
 
       {variant !== "available" && (
-        <div className="flex w-[13%] items-center justify-center">
+        <div className="flex w-[15%] items-center justify-center pr-4">
           <StatusPill status={order.tableStatus} />
         </div>
       )}
@@ -265,14 +265,14 @@ function DesktopRow({
       )}
 
       {(cfg.showClaim || cfg.showView) && (
-        <div className="flex w-[7%] items-center justify-center gap-3">
+        <div className="flex w-[12%] items-center justify-center gap-3 pr-4">
           {cfg.showClaim && order.canClaim && (
             <ClaimButton onClaim={() => onClaim(order)} />
           )}
           {cfg.showView && (
             <Link
               href={`/app/booster/orders/${order.orderId}`}
-              className="font-body text-base font-bold uppercase tracking-wide text-white transition-all hover:text-[#ff975d] active:scale-95"
+              className="font-body text-sm font-bold uppercase tracking-wide text-white transition-all hover:text-[#ff975d] active:scale-95"
             >
               VIEW ORDER
             </Link>
@@ -432,8 +432,9 @@ type Props = {
 export function BoosterOrdersTable({ variant, orders, onSupport }: Props) {
   const [page, setPage] = useState(1);
   const [claimOrder, setClaimOrder] = useState<BoosterTableOrder | null>(null);
-  const totalPages = Math.max(1, Math.ceil(orders.length / PAGE_SIZE));
-  const visible = orders.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageSize = usePageSize();
+  const totalPages = Math.max(1, Math.ceil(orders.length / pageSize));
+  const visible = orders.slice((page - 1) * pageSize, page * pageSize);
   const cfg = VARIANT_CONFIG[variant];
   const cols = getColumns(variant);
 
@@ -446,12 +447,12 @@ export function BoosterOrdersTable({ variant, orders, onSupport }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-1 flex-col gap-8">
       <TablePageHeader title={cfg.title} onSupport={onSupport} />
 
       {/* Desktop table */}
       <div className="hidden overflow-x-auto lg:block">
-        <div className="flex min-w-[1020px] w-full flex-col gap-0">
+        <div className="flex min-w-[1280px] w-full flex-col gap-0">
           <div className="flex w-full items-center">
             {cols.map((col) => (
               <div key={col.label} className={`${col.cls} py-1`}>
