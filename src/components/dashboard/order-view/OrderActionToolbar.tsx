@@ -23,10 +23,11 @@ function ToolbarButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-[72px] flex-1 items-center justify-center gap-3 rounded-2xl bg-dark-surface px-6 transition-colors hover:bg-[#2d2d40]"
+      className="group flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-3 rounded-3xl border border-[#ff975d] px-6 transition-all hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+      style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)" }}
     >
-      <Image src={icon} alt="" width={28} height={28} className="h-7 w-7 shrink-0" />
-      <span className="whitespace-nowrap font-body text-xl font-semibold text-white">{label}</span>
+      <Image src={icon} alt="" width={28} height={28} className="h-7 w-7 shrink-0 transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
+      <span className="whitespace-nowrap font-body text-xl font-semibold text-white transition-colors group-hover:text-[#ff975d]">{label}</span>
     </button>
   );
 }

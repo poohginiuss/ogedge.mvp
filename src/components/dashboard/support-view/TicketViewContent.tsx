@@ -45,7 +45,7 @@ function MobileMoreMenu() {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:bg-white/5"
+            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:text-[#ff975d] active:scale-[0.97]"
           >
             <Image src={`${ICON}/add.svg`} alt="" width={18} height={18} aria-hidden="true" />
             New Ticket
@@ -54,7 +54,7 @@ function MobileMoreMenu() {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:bg-white/5"
+            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:text-[#ff975d] active:scale-[0.97]"
           >
             <Image src={`${ICON}/check.svg`} alt="" width={18} height={18} aria-hidden="true" />
             Close Ticket
@@ -67,9 +67,6 @@ function MobileMoreMenu() {
 
 function TicketHeader({ view }: { view: TicketViewModel }) {
   const theme = TICKET_STATUS_THEME[view.status];
-  const [backHovered, setBackHovered] = useState(false);
-  const [newHovered, setNewHovered] = useState(false);
-  const [closeHovered, setCloseHovered] = useState(false);
 
   return (
     <div className="flex flex-col gap-4 lg:gap-0">
@@ -78,12 +75,7 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
           <Link
             href="/app/customer/support"
             aria-label="Back to tickets"
-            className="rounded-lg p-1 transition-all duration-200"
-            style={{
-              background: backHovered ? "rgba(56,56,82,0.5)" : "transparent",
-            }}
-            onMouseEnter={() => setBackHovered(true)}
-            onMouseLeave={() => setBackHovered(false)}
+            className="rounded-lg p-1 transition-all duration-200 hover:bg-[rgba(56,56,82,0.5)]"
           >
             <Image
               src={`${ICON}/back.svg`}
@@ -128,26 +120,16 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
         <div className="hidden gap-4 lg:flex">
           <button
             type="button"
-            className="flex items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-all duration-200"
-            style={{
-              background: newHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
-              boxShadow: newHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
-            }}
-            onMouseEnter={() => setNewHovered(true)}
-            onMouseLeave={() => setNewHovered(false)}
+            className="flex cursor-pointer items-center gap-4 rounded-3xl border border-transparent px-8 py-6 font-body text-xl font-bold text-white transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
+            style={{ background: "rgba(56,56,82,0.3)" }}
           >
             <Image src={`${ICON}/add.svg`} alt="" width={24} height={24} aria-hidden="true" />
             <span>New Ticket</span>
           </button>
           <button
             type="button"
-            className="flex items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-all duration-200"
-            style={{
-              background: closeHovered ? "rgba(56,56,82,0.5)" : "rgba(56,56,82,0.3)",
-              boxShadow: closeHovered ? "0 2px 12px rgba(255,92,0,0.15)" : "none",
-            }}
-            onMouseEnter={() => setCloseHovered(true)}
-            onMouseLeave={() => setCloseHovered(false)}
+            className="flex cursor-pointer items-center gap-4 rounded-3xl border border-transparent px-8 py-6 font-body text-xl font-bold text-white transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
+            style={{ background: "rgba(56,56,82,0.3)" }}
           >
             <Image src={`${ICON}/check.svg`} alt="" width={24} height={24} aria-hidden="true" />
             <span>Close Ticket</span>
@@ -318,7 +300,6 @@ function MessageInput({ onSend }: { onSend: (text: string) => void }) {
 }
 
 function NeedAnswersFastCard() {
-  const [hovered, setHovered] = useState(false);
   return (
     <div className="rounded-3xl p-8" style={{ background: "rgba(56,56,82,0.3)" }}>
       <div className="flex flex-col gap-6">
@@ -330,10 +311,7 @@ function NeedAnswersFastCard() {
         </div>
         <Link
           href="/faq"
-          className="flex items-center gap-2 font-body text-base font-bold uppercase tracking-wide transition-colors duration-200"
-          style={{ color: hovered ? "#ff975d" : "#ffffff" }}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+          className="flex items-center gap-2 font-body text-base font-bold uppercase tracking-wide text-white transition-colors duration-200 hover:text-[#ff975d]"
         >
           View FAQ
           <Image

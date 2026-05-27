@@ -70,7 +70,7 @@ function CopyButton({ value }: { value: string }) {
           /* silent */
         }
       }}
-      className="flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center transition-opacity hover:opacity-70"
+      className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-md transition-all hover:bg-[rgba(255,151,93,0.15)] hover:shadow-[0_0_8px_rgba(255,92,0,0.2)] hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)] active:scale-90"
     >
       {copied ? (
         <svg width="14" height="14" viewBox="0 0 14 14" role="img" aria-label="Copied">
@@ -102,7 +102,7 @@ function EditButton({
       type="button"
       aria-label={active ? `Save ${label}` : `Edit ${label}`}
       onClick={onClick}
-      className="flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center transition-opacity hover:opacity-70"
+      className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-md transition-all hover:bg-[rgba(255,151,93,0.15)] hover:shadow-[0_0_8px_rgba(255,92,0,0.2)] hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)] active:scale-90"
     >
       {active ? (
         <svg width="14" height="14" viewBox="0 0 14 14" role="img" aria-label="Save">

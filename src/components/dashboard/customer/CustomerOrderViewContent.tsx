@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { IconChip } from "../atoms";
 import { userProfile } from "../dashboardData";
 import { ProfileIdentity } from "../molecules";
 import {
@@ -17,39 +16,53 @@ import {
 } from "../order-view";
 import { MobileDrawer } from "../organisms";
 
-const TIER_CHIP_BG = "rgba(255,92,0,0.2)";
-const TIER_CHIP_COLOR = "#ff5c00";
-const WALLET_CHIP_BG = "rgba(52,168,83,0.2)";
-const WALLET_CHIP_COLOR = "#34a853";
-
 type Props = { orderId: string };
+
+function ChallengerBadge({ size = "lg", id = "desktop" }: { size?: "sm" | "lg"; id?: string }) {
+  const isLg = size === "lg";
+  const gradId = `hex-challenger-${id}`;
+  const hexW = isLg ? 48 : 28;
+  const hexH = isLg ? 48 : 28;
+  const iconSz = isLg ? "h-[28px] w-[28px]" : "h-[16px] w-[16px]";
+  const glowSz = isLg ? 50 : 30;
+  return (
+    <div className={`flex items-center ${isLg ? "flex-col gap-0.5" : "flex-row gap-2"}`}>
+      <div className="relative flex items-center justify-center">
+        <div
+          aria-hidden
+          className="animate-orb-breathe pointer-events-none absolute rounded-full"
+          style={{
+            width: glowSz,
+            height: glowSz,
+            background: "#658dda",
+            filter: `blur(${isLg ? 18 : 14}px)`,
+            "--orb-opacity": "0.4",
+          } as React.CSSProperties}
+        />
+        <svg width={hexW} height={hexH} viewBox="0 0 80 92" className="relative z-10" fill="none">
+          <defs>
+            <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#7ba0e0" />
+              <stop offset="100%" stopColor="#4a6aaa" />
+            </linearGradient>
+          </defs>
+          <polygon points="40,0 77.32,20 77.32,72 40,92 2.68,72 2.68,20" fill={`url(#${gradId})`} />
+        </svg>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/rewards/tier-bolt.svg" alt="" className={`absolute z-20 ${iconSz}`} />
+      </div>
+      <span className={`relative z-10 font-body font-bold text-white ${isLg ? "text-sm" : "text-xs"}`}>
+        Challenger
+      </span>
+    </div>
+  );
+}
 
 export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
   const router = useRouter();
   const [chatOpen, setChatOpen] = useState(false);
   const isUnpaidOrder = _orderId === "4269525";
   const view = isUnpaidOrder ? sampleUnpaidOrderView : sampleOrderView;
-
-  const profileBadges = (
-    <div className="flex items-center gap-2">
-      <IconChip
-        background={TIER_CHIP_BG}
-        color={TIER_CHIP_COLOR}
-        icon="/images/dashboard/icons/medal-star-orange.svg"
-      >
-        {userProfile.tierName}
-      </IconChip>
-      <IconChip
-        background={WALLET_CHIP_BG}
-        color={WALLET_CHIP_COLOR}
-        icon="/images/dashboard/icons/wallet-green.svg"
-        size="sm"
-        weight="semibold"
-      >
-        {userProfile.walletBalance}
-      </IconChip>
-    </div>
-  );
 
   const leftColumn = (
     <div className="flex min-w-0 flex-1 flex-col gap-4 lg:gap-6">
@@ -64,10 +77,11 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
           welcomeClassName="font-body text-xs leading-[18px] text-white lg:text-base"
           name={userProfile.username}
           nameClassName="font-body text-base font-bold leading-6 text-white lg:font-heading lg:text-2xl"
-          meta={<div className="lg:hidden">{profileBadges}</div>}
+          meta={<div className="lg:hidden"><ChallengerBadge size="sm" id="mobile" /></div>}
           groupWelcomeName
+          onAvatarClick={() => router.push("/app/customer/profile")}
         />
-        <div className="hidden lg:block">{profileBadges}</div>
+        <div className="hidden lg:block"><ChallengerBadge size="lg" /></div>
       </div>
 
       <OrderActionToolbar
@@ -152,9 +166,32 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
         <GameServiceHeroCard hero={view.hero} />
       </div>
 
-      <div className="h-[600px] lg:hidden">
-        <OrderChatPanel view={view} />
+      <div className="h-[510px] lg:hidden">
+        <OrderChatPanel view={view} hideWarningBanner />
       </div>
+
+      {/* Mobile: report warning below chat to save vertical space */}
+      {view.showBoosterPoachingWarning && (
+        <div
+          className="flex items-center justify-between gap-4 rounded-2xl px-5 py-3 lg:hidden"
+          style={{
+            background:
+              "linear-gradient(97deg, rgba(255,151,93,0.2) 0%, rgba(255,92,0,0.2) 50%, rgba(163,45,5,0.2) 100%)",
+          }}
+        >
+          <p className="font-body text-[11px] leading-snug text-white/85">
+            Has a booster contacted you after your order? This violates our terms. Report it to earn
+            a <span className="font-semibold text-white">$75–$150</span> reward and help keep the
+            platform safe.
+          </p>
+          <button
+            type="button"
+            className="group flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-all hover:text-[#ff975d] active:scale-[0.97]"
+          >
+            Report
+          </button>
+        </div>
+      )}
 
       {/* Mobile: description right after chat, desktop: after detail panels */}
       <div className={`lg:hidden ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>

@@ -20,6 +20,8 @@ type Props = {
   inDrawer?: boolean;
   /** "customer" shows the poaching warning + Report; "booster" shows rules warning + Rules button. */
   role?: "customer" | "booster";
+  /** Hide the warning banner (e.g. on mobile where it's rendered outside the chat). */
+  hideWarningBanner?: boolean;
   onNotify?: () => void;
   onProfile?: () => void;
   onReport?: () => void;
@@ -153,7 +155,7 @@ function MessageBubble({ msg }: { msg: ChatMessage }) {
   return <BoosterBubble body={msg.body} />;
 }
 
-export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNotify, onProfile, onReport }: Props) {
+export function OrderChatPanel({ view, inDrawer = false, role = "customer", hideWarningBanner = false, onNotify, onProfile, onReport }: Props) {
   const [draft, setDraft] = useState("I want to talk about my order");
   const [messages, setMessages] = useState<ChatMessage[]>(view.messages);
   const [reportSubmitted, setReportSubmitted] = useState(false);
@@ -200,21 +202,13 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
       {/* ─── 1. Booster header ───────────────────────────────────────── */}
       <div className="flex items-center justify-between gap-3 px-5 py-4">
         <div className="flex items-center gap-3">
-          <div className="relative">
-            {/* Orange ring around the avatar (Figma uses a 2px solid ring) */}
-            <span
-              aria-hidden
-              className="absolute inset-0 -m-[2px] rounded-full"
-              style={{ border: "2px solid #ff5c00" }}
-            />
-            <Image
-              src={view.boosterAvatar}
-              alt={view.boosterName}
-              width={36}
-              height={36}
-              className="relative h-9 w-9 rounded-full object-cover"
-            />
-          </div>
+          <Image
+            src={view.boosterAvatar}
+            alt={view.boosterName}
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-full object-cover"
+          />
           <div className="flex flex-col gap-0.5">
             <span className="font-body text-sm font-semibold text-white">{view.boosterName}</span>
             <div className="flex items-center gap-2 text-xs text-white/70">
@@ -251,28 +245,28 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
           <button
             type="button"
             onClick={onNotify}
-            className="flex h-10 items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5 lg:px-3"
+            className="group flex h-10 cursor-pointer items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white transition-all hover:text-[#ff975d] active:scale-[0.97] lg:px-3"
           >
             <Image
               src="/images/dashboard/orderview/icons/bell-notify.svg"
               alt=""
               width={18}
               height={18}
-              className="h-[18px] w-[18px]"
+              className="h-[18px] w-[18px] transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
             />
             <span className="hidden lg:inline">Notify</span>
           </button>
           <button
             type="button"
             onClick={onProfile}
-            className="flex h-10 items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white transition-colors hover:bg-white/5 lg:px-3"
+            className="group flex h-10 cursor-pointer items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white/70 transition-colors hover:text-white lg:px-3"
           >
             <Image
               src="/images/dashboard/orderview/icons/profile-circle.svg"
               alt=""
               width={18}
               height={18}
-              className="h-[18px] w-[18px]"
+              className="h-[18px] w-[18px] opacity-70 transition-opacity group-hover:opacity-100"
             />
             <span className="hidden lg:inline">Profile</span>
           </button>
@@ -280,7 +274,7 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
       </div>
 
       {/* ─── 2. Warning banner ─────────────────────────────────────── */}
-      {view.showBoosterPoachingWarning && (
+      {view.showBoosterPoachingWarning && !hideWarningBanner && (
         <div
           className="flex items-center justify-between gap-4 px-6 py-2"
           style={{
@@ -301,13 +295,14 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
                   setReportSubmitted(true);
                   onReport?.();
                 }}
-                className="flex h-10 shrink-0 items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-colors hover:bg-[#17191f]/70"
+                className="group flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-all hover:text-[#ff975d] active:scale-[0.97]"
               >
                 <Image
                   src="/images/dashboard/orderview/icons/report-flag.svg"
                   alt=""
                   width={16}
                   height={16}
+                  className="transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
                 />
                 {reportSubmitted ? "Reported" : "Report"}
               </button>
@@ -321,7 +316,7 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
               <button
                 type="button"
                 onClick={onReport}
-                className="flex h-10 shrink-0 items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-colors hover:bg-[#17191f]/70"
+                className="flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-all hover:text-[#ff975d] active:scale-[0.97]"
               >
                 Rules
               </button>
@@ -360,7 +355,7 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
             <button
               type="button"
               aria-label="Add emoji"
-              className="grid h-8 w-8 place-items-center rounded-lg bg-[#383852] transition-colors hover:bg-[#444466]"
+              className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg bg-[#383852] transition-colors hover:bg-[#444466]"
             >
               <Image
                 src="/images/dashboard/orderview/icons/emoji.svg"
@@ -372,7 +367,7 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
             <button
               type="button"
               aria-label="Attach image"
-              className="grid h-8 w-8 place-items-center rounded-lg bg-[#383852] transition-colors hover:bg-[#444466]"
+              className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg bg-[#383852] transition-colors hover:bg-[#444466]"
             >
               <Image
                 src="/images/dashboard/orderview/icons/image-attach.svg"
@@ -392,13 +387,13 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", onNo
               }
             }}
             placeholder="Write a message…"
-            className="min-w-0 flex-1 bg-transparent font-body text-sm text-white placeholder:text-white/40 focus:outline-none"
+            className="min-w-0 flex-1 cursor-text bg-transparent font-body text-sm text-white placeholder:text-white/40 focus:outline-none"
           />
           <button
             type="button"
             aria-label="Send"
             onClick={handleSend}
-            className="grid h-9 w-9 place-items-center rounded-lg bg-[#ff5c00] transition-opacity hover:opacity-90"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg bg-[#ff5c00] transition-opacity hover:opacity-90"
           >
             <Image src="/images/dashboard/orderview/icons/send.svg" alt="" width={20} height={20} />
           </button>
