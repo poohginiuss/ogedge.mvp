@@ -102,8 +102,12 @@ export function OrderCard(props: OrderCardProps) {
                 icon="/images/dashboard/icons/notification.svg"
                 aria-label="Notifications"
               />
-              <IconButton icon="/images/dashboard/icons/open-view.svg" aria-label="View" />
-              <IconButton icon="/images/dashboard/icons/chat-icon.svg" aria-label="Chat" />
+              <IconButton icon="/images/dashboard/icons/open-view.svg" aria-label="View Order" />
+              <IconButton
+                icon="/images/dashboard/icons/chat-icon.svg"
+                aria-label="Chat"
+                className={order.hasNotification ? "animate-chat-pulse" : ""}
+              />
             </div>
           )}
         </div>

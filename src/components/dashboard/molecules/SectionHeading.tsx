@@ -18,7 +18,7 @@ export function SectionHeading({
     <div className={className}>
       <h2 className={titleClassName}>{title}</h2>
       {onSeeAll && (
-        <button type="button" onClick={onSeeAll} className="group flex cursor-pointer items-center gap-2 text-[#ff975d] transition-colors hover:text-[#ff975d]">
+        <button type="button" onClick={onSeeAll} className="group flex cursor-pointer items-center gap-2 text-[#ff975d] transition-colors hover:text-[#ff975d] active:scale-[0.97]">
           <span className="font-body text-base font-bold uppercase tracking-wide">
             {seeAllLabel}
           </span>

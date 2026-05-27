@@ -33,9 +33,13 @@ export function OrderActionGroup({
         }
       />
       <ActionButton icon="/images/dashboard/icons/open-view.svg" onClick={onView}>
-        View
+        View Order
       </ActionButton>
-      <ActionButton icon="/images/dashboard/icons/chat-icon.svg" onClick={onChat}>
+      <ActionButton
+        icon="/images/dashboard/icons/chat-icon.svg"
+        onClick={onChat}
+        className={hasNotification ? "animate-chat-pulse" : ""}
+      >
         Chat
       </ActionButton>
       {canClaim && (

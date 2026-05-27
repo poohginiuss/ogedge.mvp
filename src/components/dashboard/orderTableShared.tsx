@@ -351,8 +351,8 @@ export function ActionMenuButton({ items }: { items: ActionMenuItem[] }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label="More actions"
-        className="flex h-[44px] w-[44px] shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-opacity hover:opacity-80"
-        style={{ background: "rgba(56,56,82,0.3)" }}
+        className="flex h-[44px] w-[44px] shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:border-[#ff975d] hover:shadow-[0_0_12px_rgba(255,92,0,0.15)] active:scale-[0.95]"
+        style={{ background: "rgba(56,56,82,0.3)", border: "1px solid transparent" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -379,13 +379,13 @@ export function ActionMenuButton({ items }: { items: ActionMenuItem[] }) {
                 item.onClick?.();
                 setOpen(false);
               }}
-              className="flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-white/5"
+              className="group flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-all hover:text-[#ff975d] active:scale-[0.97]"
             >
               {item.icon && (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={item.icon} alt="" className="h-5 w-5 shrink-0" />
+                <img src={item.icon} alt="" className="h-6 w-6 shrink-0 transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
               )}
-              <span className="font-body text-base font-medium text-white">{item.label}</span>
+              <span className="font-body text-base font-medium text-white transition-colors group-hover:text-[#ff975d]">{item.label}</span>
             </button>
           ))}
         </div>

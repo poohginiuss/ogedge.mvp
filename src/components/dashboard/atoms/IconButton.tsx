@@ -30,12 +30,12 @@ export function IconButton({
   return (
     <button
       type="button"
-      className={`relative flex shrink-0 cursor-pointer items-center justify-center rounded-lg transition-opacity hover:opacity-80 active:scale-95 ${variantClasses} ${className}`}
+      className={`group relative flex shrink-0 cursor-pointer items-center justify-center rounded-lg transition-all hover:shadow-[0_0_8px_rgba(255,92,0,0.15)] active:scale-95 ${variantClasses} ${className}`}
       style={variantStyle}
       {...rest}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={icon} alt="" className={iconClassName} />
+      <img src={icon} alt="" className={`${iconClassName} transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]`} />
       {overlay}
       {children}
     </button>

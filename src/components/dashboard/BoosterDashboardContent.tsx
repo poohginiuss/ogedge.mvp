@@ -51,7 +51,7 @@ export default function BoosterDashboardContent() {
             <button
               type="button"
               onClick={() => setReviewsOpen(true)}
-              className="block w-full text-left"
+              className="block w-full cursor-pointer text-left transition-transform active:scale-[0.98]"
             >
               <div className="overflow-hidden rounded-3xl border-b border-dark-border bg-dark-surface">
                 <PanelHeader
