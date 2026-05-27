@@ -13,7 +13,7 @@ import { useMemo, useState } from "react";
  */
 const MAX_QUESTIONS_ON_HOME = 6;
 
-export function Faq() {
+export function Faq({ compact }: { compact?: boolean } = {}) {
   // Default to the most product-relevant category for the marketing
   // page. The previous hard-coded `"boosting"` tab still works because
   // it matches the `boosting` id from the shared `faqCategories`.
@@ -26,8 +26,8 @@ export function Faq() {
   );
 
   return (
-    <section className="w-full bg-dark-main">
-      <div className="mx-auto w-full max-w-[1280px] px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]">
+    <section className={`w-full ${compact ? "" : "bg-dark-main"}`}>
+      <div className={`mx-auto w-full max-w-[1280px] ${compact ? "py-8" : "px-6 py-20 md:px-12 lg:px-20 lg:py-[120px]"}`}>
         <h2 className="text-center font-heading text-3xl md:text-4xl font-bold text-white">
           Frequently Asked Questions
         </h2>

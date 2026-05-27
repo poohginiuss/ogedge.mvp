@@ -149,7 +149,7 @@ function StatCards() {
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {/* Current Rank */}
       <div
-        className="flex items-center gap-4 rounded-3xl px-8 py-6"
+        className="flex items-center gap-4 rounded-3xl px-8 py-6 transition-transform duration-200 hover:-translate-y-0.5"
         style={{
           background: "rgba(255,92,0,0.1)",
           border: "1px solid #ff975d",
@@ -176,7 +176,7 @@ function StatCards() {
       </div>
 
       {/* OG Points */}
-      <div className="flex flex-col justify-center gap-1 rounded-3xl px-8 py-6" style={{ background: "rgba(56,56,82,0.3)" }}>
+      <div className="flex flex-col justify-center gap-1 rounded-3xl px-8 py-6 transition-transform duration-200 hover:-translate-y-0.5" style={{ background: "rgba(56,56,82,0.3)" }}>
         <span className="font-body text-sm font-medium uppercase text-white">OG Points</span>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1">
@@ -202,7 +202,7 @@ function StatCards() {
       </div>
 
       {/* To Next Rank */}
-      <div className="flex flex-col justify-between gap-3 rounded-3xl px-8 py-6" style={{ background: "rgba(56,56,82,0.3)" }}>
+      <div className="flex flex-col justify-between gap-3 rounded-3xl px-8 py-6 transition-transform duration-200 hover:-translate-y-0.5" style={{ background: "rgba(56,56,82,0.3)" }}>
         <div className="flex flex-col">
           <span className="font-body text-sm font-medium uppercase text-white">To Next Rank</span>
           <div className="flex items-center gap-2">
@@ -218,7 +218,7 @@ function StatCards() {
       </div>
 
       {/* Season Cashback */}
-      <div className="flex flex-col justify-between gap-3 rounded-3xl px-8 py-6" style={{ background: "rgba(56,56,82,0.3)" }}>
+      <div className="flex flex-col justify-between gap-3 rounded-3xl px-8 py-6 transition-transform duration-200 hover:-translate-y-0.5" style={{ background: "rgba(56,56,82,0.3)" }}>
         <div className="flex flex-col">
           <span className="font-body text-sm font-medium uppercase text-white">Season Cashback</span>
           <div className="flex items-center gap-2">
@@ -261,10 +261,7 @@ function LifetimeRankProgression() {
     <div className="flex flex-col gap-8 rounded-3xl bg-[#232330] p-8">
       {/* Header */}
       <div className="flex flex-col gap-0.5">
-        <div className="flex items-center justify-between">
-          <h2 className="font-body text-xl font-bold text-white">Lifetime Rank Progression</h2>
-          <span className="hidden font-body text-base text-white xl:block">placeholder perks - pending review</span>
-        </div>
+        <h2 className="font-body text-xl font-bold text-white">Lifetime Rank Progression</h2>
         <p className="font-body text-base text-white">Every dollar spent = permanent progress. Highest rank never drops</p>
       </div>
 
@@ -280,8 +277,8 @@ function LifetimeRankProgression() {
             const barIsCompleted = i < currentTierIdx;
             const barIsCurrent = i === currentTierIdx;
             return (
-              <div key={i} className="flex flex-1 items-center">
-                <div className="relative z-10 flex h-[80px] w-[80px] shrink-0 items-center justify-center">
+              <div key={i} className={`flex items-center ${barAfter ? "flex-1" : ""}`}>
+                <div className="relative z-10 flex h-[80px] w-[80px] shrink-0 items-center justify-center transition-transform duration-200 hover:scale-105">
                   <svg width="80" height="80" viewBox="0 0 80 92" className="relative" fill="none">
                     {isActive && (
                       <defs>
@@ -314,14 +311,21 @@ function LifetimeRankProgression() {
             );
           })}
         </div>
-        <div className="flex w-full">
-          {progressionLabels.map((l, i) => (
-            <div key={i} className="flex flex-1 flex-col items-center text-center">
-              <span className="font-body text-xs uppercase tracking-wider text-white">{l.tier}</span>
-              <span className="font-body text-xl font-bold text-white">{l.name}</span>
-              <span className="font-body text-sm text-white">{l.amount}</span>
-            </div>
-          ))}
+        <div className="flex w-full items-start">
+          {progressionLabels.map((l, i) => {
+            const hasBar = i < 5;
+            const isLast = i === 5;
+            return (
+              <div key={i} className={`flex items-start ${hasBar ? "flex-1" : ""}`}>
+                <div className="flex w-[80px] shrink-0 flex-col items-center text-center">
+                  <span className="font-body text-xs uppercase tracking-wider text-white">{l.tier}</span>
+                  <span className={`font-body text-xl font-bold text-white ${isLast ? "text-right" : ""}`}>{l.name}</span>
+                  <span className="font-body text-sm text-white">{l.amount}</span>
+                </div>
+                {hasBar && <div className="mx-[-8px] flex-1" />}
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -387,17 +391,20 @@ function LifetimeRankProgression() {
                 </div>
               </div>
 
-              {/* Labels for current and next tier */}
-              <div className="flex items-start justify-between px-2">
-                <div className="flex flex-col">
+              {/* Labels — same flex structure as icon row so they align */}
+              <div className="flex items-start">
+                <div className="flex w-[80px] shrink-0 flex-col items-center text-center">
                   <span className="font-body text-xs uppercase tracking-wider text-white/70">{currentLabel.tier}</span>
                   <span className="font-body text-xl font-bold text-white">{currentLabel.name}</span>
                   <span className="font-body text-sm text-white/70">{currentLabel.amount}</span>
                 </div>
-                <div className="flex flex-col items-end text-right">
-                  <span className="font-body text-xs uppercase tracking-wider text-white/70">{nextLabel.tier}</span>
-                  <span className="font-body text-xl font-bold text-white">{nextLabel.name}</span>
-                  <span className="font-body text-sm text-white/70">{nextLabel.amount}</span>
+                <div className="mx-[-6px] flex-1" />
+                <div className="flex shrink-0 items-start" style={{ width: 130 }}>
+                  <div className="flex w-[80px] shrink-0 flex-col items-center text-center">
+                    <span className="font-body text-xs uppercase tracking-wider text-white/70">{nextLabel.tier}</span>
+                    <span className="font-body text-xl font-bold text-white">{nextLabel.name}</span>
+                    <span className="font-body text-sm text-white/70">{nextLabel.amount}</span>
+                  </div>
                 </div>
               </div>
             </>
@@ -412,21 +419,24 @@ function LifetimeRankProgression() {
 /*  Tier Detail Cards (3x2 grid)                                          */
 /* ═══════════════════════════════════════════════════════════════════════ */
 
-function HexBadge({ icon, color, isCurrent, tier }: { icon: string; color: string; isCurrent?: boolean; tier: number }) {
+function HexBadge({ icon, color, isCurrent, tier, compact }: { icon: string; color: string; isCurrent?: boolean; tier: number; compact?: boolean }) {
   const gradId = `hex-detail-${tier}`;
+  const orbSize = compact ? 80 : 120;
+  const orbBlur = compact ? 30 : 45;
   return (
     <div className="relative flex items-center justify-center">
       {/* Orb glow behind badge */}
       <div
         aria-hidden
-        className="pointer-events-none absolute rounded-full"
+        className="animate-orb-breathe pointer-events-none absolute rounded-full"
         style={{
-          width: 120,
-          height: 120,
+          width: orbSize,
+          height: orbSize,
           background: color,
-          filter: "blur(45px)",
-          opacity: isCurrent ? 0.7 : 0.35,
-        }}
+          filter: `blur(${orbBlur}px)`,
+          "--orb-opacity": isCurrent ? "0.7" : "0.35",
+          animationDelay: `${(tier % 6) * 0.5}s`,
+        } as React.CSSProperties}
       />
       {/* Hexagonal polygon with gradient */}
       <svg width="80" height="80" viewBox="0 0 80 92" className="relative z-10" fill="none">
@@ -469,16 +479,9 @@ function TierDetailGrid() {
       {/* Desktop: 3-col centered card grid */}
       <div className="hidden grid-cols-3 gap-6 xl:grid">
         {rankTiers.map((t) => (
-          <div
-            key={t.tier}
-            className="relative flex flex-col items-center gap-4 rounded-3xl px-8 pb-8 pt-10 text-center"
-            style={{
-              background: "#232330",
-              border: t.current ? "1px solid #ff975d" : "1px solid transparent",
-            }}
-          >
+          <div key={t.tier} className="relative transition-all duration-200 hover:scale-[1.01]">
             <span
-              className="absolute left-1/2 top-3 z-20 -translate-x-1/2 -translate-y-1/2 rounded-b-lg px-2 py-1 font-body text-xs font-bold uppercase whitespace-nowrap"
+              className="absolute left-1/2 top-3 z-30 -translate-x-1/2 -translate-y-1/2 rounded-b-lg px-2 py-1 font-body text-xs font-bold uppercase whitespace-nowrap"
               style={
                 t.current
                   ? { background: "#ff5c00", color: "#fff" }
@@ -487,6 +490,13 @@ function TierDetailGrid() {
             >
               {t.current ? "Current Tier" : "Locked"}
             </span>
+            <div
+              className="flex h-full flex-col items-center gap-4 overflow-hidden rounded-3xl px-8 pb-8 pt-10 text-center"
+              style={{
+                background: "#232330",
+                border: t.current ? "1px solid #ff975d" : "1px solid transparent",
+              }}
+            >
 
             <HexBadge icon={t.icon} color={t.color} isCurrent={t.current} tier={t.tier} />
 
@@ -518,6 +528,7 @@ function TierDetailGrid() {
                 </div>
               ))}
             </div>
+            </div>
           </div>
         ))}
       </div>
@@ -525,17 +536,10 @@ function TierDetailGrid() {
       {/* Mobile: horizontal layout cards */}
       <div className="flex flex-col gap-6 xl:hidden">
         {rankTiers.map((t) => (
-          <div
-            key={t.tier}
-            className="relative flex flex-col gap-4 rounded-3xl px-6 pb-6 pt-8"
-            style={{
-              background: "#232330",
-              border: t.current ? "1px solid #ff975d" : "1px solid transparent",
-            }}
-          >
-            {/* Status tag — sticky to top border */}
+          <div key={t.tier} className="relative">
+            {/* Status tag — outside overflow-hidden so it's never clipped */}
             <span
-              className="absolute left-1/2 top-4.5 z-20 -translate-x-1/2 -translate-y-1/2 rounded-b-xl px-5 py-2 font-body text-sm font-bold uppercase tracking-wide whitespace-nowrap"
+              className="absolute left-1/2 top-3 z-30 -translate-x-1/2 -translate-y-1/2 rounded-b-lg px-2 py-1 font-body text-xs font-bold uppercase whitespace-nowrap"
               style={
                 t.current
                   ? { background: "#ff5c00", color: "#fff" }
@@ -545,6 +549,13 @@ function TierDetailGrid() {
               {t.current ? "Current Tier" : "Locked"}
             </span>
 
+            <div
+              className="flex flex-col gap-4 overflow-hidden rounded-3xl px-6 pb-6 pt-8"
+              style={{
+                background: "#232330",
+                border: t.current ? "1px solid #ff975d" : "1px solid transparent",
+              }}
+            >
             {/* Top row: badge + info left, discount right */}
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-4">
@@ -574,6 +585,7 @@ function TierDetailGrid() {
                   <span className="font-body text-sm font-bold text-white">{perk}</span>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         ))}
@@ -699,7 +711,7 @@ function SeasonalRewardsSidebar() {
           return (
             <div
               key={t.tier}
-              className="flex flex-col gap-4 rounded-2xl p-4"
+              className="flex flex-col gap-4 rounded-2xl p-4 transition-all duration-200 hover:shadow-[0_0_16px_rgba(255,92,0,0.12)]"
               style={{
                 background: isLocked ? "#383852" : "#232330",
                 border: isLocked ? "1px solid #383852" : "1px solid #ff975d",
@@ -779,13 +791,13 @@ function SeasonalRewardsSidebar() {
         </div>
 
         {/* URL + Copy */}
-        <div className="flex items-center gap-6 rounded-2xl px-6 py-4" style={{ background: "rgba(0,0,0,0.2)" }}>
-          <span className="flex-1 font-mono text-sm text-white" style={{ fontFamily: "'Azeret Mono', monospace" }}>
+        <div className="flex min-w-0 items-center gap-4 rounded-2xl px-4 py-3 sm:gap-6 sm:px-6 sm:py-4" style={{ background: "rgba(0,0,0,0.2)" }}>
+          <span className="min-w-0 flex-1 truncate font-mono text-sm text-white" style={{ fontFamily: "'Azeret Mono', monospace" }}>
             https://ogedge.com/en/login?referral=I28H0T
           </span>
           <button
             type="button"
-            className="flex shrink-0 items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3.5 font-body text-base font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
+            className="flex shrink-0 items-center gap-2 rounded-lg bg-brand-main px-3 py-2.5 font-body text-sm font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90 sm:gap-2.5 sm:px-4 sm:py-3.5 sm:text-base"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/dashboard/icons/copy-icon.svg" alt="" className="h-6 w-6" />
@@ -803,7 +815,7 @@ function SeasonalRewardsSidebar() {
 
 export default function CustomerRewardsPage() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-1 flex-col gap-8">
       {/* Title Row */}
       <div className="flex items-center justify-between">
         <h1 className="font-heading text-[32px] font-bold leading-[45px] text-white">Rewards</h1>
@@ -815,28 +827,41 @@ export default function CustomerRewardsPage() {
       {/* Stat Cards */}
       <StatCards />
 
-      {/* Two-column layout: left content + right sidebar */}
+      {/* Mobile-only: jump to seasonal rewards */}
+      <div className="xl:hidden">
+        <button
+          type="button"
+          onClick={() => {
+            const el = document.getElementById("seasonal-rewards");
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
+          className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#ff975d] bg-[rgba(255,92,0,0.1)] px-6 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-brand-light transition-all active:scale-[0.97]"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0">
+            <path d="M8 2v12M8 14l-4-4M8 14l4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Jump to Seasonal Rewards
+        </button>
+      </div>
+
+      {/* Single layout — components with SVG gradients render once to avoid duplicate IDs */}
       <div className="flex flex-col gap-8 xl:flex-row xl:items-start">
         {/* Left column */}
         <div className="flex flex-1 flex-col gap-8">
           <LifetimeRankProgression />
           <TierDetailGrid />
-          <OrderHistory />
-          {/* FAQ — desktop only here, mobile renders below sidebar */}
-          <div className="hidden xl:block">
-            <Faq />
+          {/* Mobile-only: seasonal rewards appears after tiers, before order history */}
+          <div className="scroll-mt-40 xl:hidden" id="seasonal-rewards">
+            <SeasonalRewardsSidebar />
           </div>
+          <OrderHistory />
+          <Faq compact />
         </div>
 
-        {/* Right sidebar */}
-        <div className="w-full xl:w-[490px] xl:shrink-0">
+        {/* Right sidebar — desktop only */}
+        <div className="hidden w-full xl:block xl:w-[490px] xl:shrink-0">
           <SeasonalRewardsSidebar />
         </div>
-      </div>
-
-      {/* FAQ — mobile only, at the very bottom */}
-      <div className="xl:hidden">
-        <Faq />
       </div>
     </div>
   );
