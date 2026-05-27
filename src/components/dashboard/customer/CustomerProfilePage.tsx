@@ -41,15 +41,15 @@ function SectionHeader({
         <button
           type="button"
           onClick={onEdit}
-          className="group flex cursor-pointer items-center gap-2 transition-colors hover:text-brand-main"
+          className="group flex cursor-pointer items-center gap-2 transition-colors"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/dashboard/icons/edit-icon.svg"
             alt=""
-            className="h-4 w-4 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]"
+            className="h-4 w-4 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(72%)_sepia(33%)_saturate(1476%)_hue-rotate(334deg)_brightness(101%)_contrast(101%)]"
           />
-          <span className="font-body text-sm font-bold uppercase tracking-[0.56px] lg:text-lg lg:tracking-[0.72px]">
+          <span className="font-body text-sm font-bold uppercase tracking-[0.56px] text-white transition-colors group-hover:text-[#ff975d] lg:text-lg lg:tracking-[0.72px]">
             Edit
           </span>
         </button>
@@ -145,7 +145,7 @@ function ProfileCard({ card = true, onAvatarEdit }: { card?: boolean; onAvatarEd
         <button
           type="button"
           onClick={onAvatarEdit}
-          className="absolute bottom-4 left-[20px] flex items-center rounded-full border-2 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-brand-main lg:hidden"
+          className="absolute bottom-4 left-[20px] flex cursor-pointer items-center rounded-full border-2 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-[#FF975D] lg:hidden"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -158,7 +158,7 @@ function ProfileCard({ card = true, onAvatarEdit }: { card?: boolean; onAvatarEd
         <button
           type="button"
           onClick={onAvatarEdit}
-          className="absolute top-10 right-[-15px] hidden items-center rounded-full border-4 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-brand-main lg:flex"
+          className="absolute top-10 right-[-15px] hidden cursor-pointer items-center rounded-full border-4 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-[#FF975D] lg:flex"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
