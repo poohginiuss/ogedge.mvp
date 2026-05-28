@@ -83,7 +83,7 @@ export function AvatarSettingsModal({ open, onClose, currentAvatar }: AvatarSett
             <button
               type="button"
               onClick={onClose}
-              className="text-white/60 transition-colors hover:text-white"
+              className="cursor-pointer text-white/60 transition-colors hover:text-[#ff975d] active:scale-95"
             >
               <CloseIcon size={20} />
             </button>
@@ -105,7 +105,7 @@ export function AvatarSettingsModal({ open, onClose, currentAvatar }: AvatarSett
             <button
               type="button"
               onClick={handleRemove}
-              className="absolute top-4 right-[-15px] flex items-center rounded-full border-4 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-brand-main"
+              className="absolute top-4 right-[-15px] flex cursor-pointer items-center rounded-full border-4 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-[#FF975D]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -151,14 +151,14 @@ export function AvatarSettingsModal({ open, onClose, currentAvatar }: AvatarSett
           <button
             type="button"
             onClick={onClose}
-            className="flex flex-1 items-center justify-center rounded-2xl border border-brand-light px-6 py-4 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-colors hover:bg-brand-light/10 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-base"
+            className="flex flex-1 cursor-pointer items-center justify-center rounded-2xl border border-brand-light px-6 py-4 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-all hover:bg-brand-light/10 hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97] lg:rounded-3xl lg:px-8 lg:py-6 lg:text-base"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={handleSave}
-            className="flex flex-1 items-center justify-center rounded-2xl border border-brand-light px-6 py-4 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 lg:rounded-3xl lg:px-8 lg:py-6 lg:text-base"
+            className="flex flex-1 cursor-pointer items-center justify-center rounded-2xl border border-brand-light px-6 py-4 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-all hover:brightness-110 hover:shadow-[0_4px_20px_rgba(255,92,0,0.5)] active:scale-[0.97] lg:rounded-3xl lg:px-8 lg:py-6 lg:text-base"
             style={{
               backgroundImage: "linear-gradient(to right, #ff5c00, #a32d05)",
               boxShadow: "0 4px 12px rgba(255,92,0,0.4)",

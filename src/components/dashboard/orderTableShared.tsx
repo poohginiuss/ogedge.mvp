@@ -417,8 +417,8 @@ export function TablePageHeader({
           <button
             type="button"
             onClick={onSupport}
-            className="group flex cursor-pointer items-center justify-center gap-3 rounded-3xl border border-[#ff975d] px-24 py-4 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
-            style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)" }}
+            className="group flex cursor-pointer items-center justify-center gap-3 rounded-3xl border border-transparent px-24 py-4 font-body text-base font-bold uppercase tracking-wider text-white transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+            style={{ background: "rgba(56,56,82,0.4)", backdropFilter: "blur(3px)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/dashboard/icons/support-icon-white.svg" alt="" className="h-5 w-5 transition-opacity group-hover:hidden" />

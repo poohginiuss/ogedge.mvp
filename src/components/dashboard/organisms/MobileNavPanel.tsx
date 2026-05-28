@@ -59,26 +59,23 @@ export function MobileNavPanel({
               key={item.id}
               type="button"
               onClick={() => handlePick(item.id)}
-              className="flex cursor-pointer items-center gap-2 rounded-2xl p-4 transition-all hover:bg-white/5 active:opacity-80"
+              className="flex cursor-pointer items-center gap-2 rounded-2xl p-4 transition-all hover:bg-white/5 active:scale-[0.98]"
               style={isActive ? { background: "#232330" } : undefined}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={item.icon}
                 alt=""
-                className="h-4 w-4"
-                style={
-                  isActive
-                    ? {
-                        filter:
-                          "brightness(0) saturate(100%) invert(72%) sepia(48%) saturate(1196%) hue-rotate(326deg) brightness(101%) contrast(101%)",
-                      }
-                    : { opacity: 0.7 }
-                }
+                className="h-5 w-5"
+                style={{
+                  filter: isActive
+                    ? "brightness(0) saturate(100%) invert(72%) sepia(48%) saturate(1196%) hue-rotate(326deg) brightness(101%) contrast(101%)"
+                    : "brightness(0) invert(1)",
+                }}
               />
               <span
                 className="font-body text-base font-medium"
-                style={{ color: isActive ? "var(--brand-light)" : "var(--dark-muted)" }}
+                style={{ color: isActive ? "var(--brand-light)" : "#ffffff" }}
               >
                 {item.label}
               </span>
@@ -86,11 +83,17 @@ export function MobileNavPanel({
           );
         })}
 
+        {/* Divider */}
+        <div className="mx-4 my-1 border-t border-dark-border" />
+
         {/* Log Out */}
-        <button type="button" className="flex cursor-pointer items-center gap-2 rounded-2xl p-4 transition-all hover:bg-white/5 active:opacity-80">
+        <button
+          type="button"
+          className="flex cursor-pointer items-center gap-2 rounded-2xl p-4 transition-all hover:bg-white/5 hover:text-[#ff975d] active:scale-[0.98]"
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/nav-logout.svg" alt="" className="h-4 w-4 opacity-70" />
-          <span className="font-body text-base font-medium text-dark-muted">Log Out</span>
+          <img src="/images/dashboard/icons/nav-logout.svg" alt="" className="h-5 w-5" style={{ filter: "brightness(0) saturate(100%) invert(28%) sepia(67%) saturate(5713%) hue-rotate(355deg) brightness(91%) contrast(97%)" }} />
+          <span className="font-body text-base font-medium text-[#c2272d]">Logout</span>
         </button>
       </div>
     </div>

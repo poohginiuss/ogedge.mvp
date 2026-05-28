@@ -129,7 +129,7 @@ export function ActiveOrdersTable({ orders, onPurchaseBoost, onSupport }: Props)
 
       {/* Desktop table — scrolls horizontally when narrower than column total */}
       <div className="hidden overflow-x-auto lg:block">
-        <div className="flex min-w-[900px] w-full flex-col gap-0">
+        <div className="flex min-w-[1280px] w-full flex-col gap-0">
           {/* Header */}
           <div className="flex w-full items-center">
             {COLS.map((col) => (

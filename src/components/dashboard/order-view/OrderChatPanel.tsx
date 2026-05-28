@@ -259,14 +259,14 @@ export function OrderChatPanel({ view, inDrawer = false, role = "customer", hide
           <button
             type="button"
             onClick={onProfile}
-            className="group flex h-10 cursor-pointer items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white/70 transition-colors hover:text-white lg:px-3"
+            className="group flex h-10 cursor-pointer items-center gap-2 rounded-xl px-2 font-body text-sm font-semibold uppercase text-white transition-all hover:text-[#ff975d] active:scale-[0.97] lg:px-3"
           >
             <Image
               src="/images/dashboard/orderview/icons/profile-circle.svg"
               alt=""
               width={18}
               height={18}
-              className="h-[18px] w-[18px] opacity-70 transition-opacity group-hover:opacity-100"
+              className="h-[18px] w-[18px] transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
             />
             <span className="hidden lg:inline">Profile</span>
           </button>

@@ -263,10 +263,10 @@ function NotificationsDropdown({
         <span className="font-body text-base font-medium text-white">Notifications</span>
         <button
           type="button"
-          className="flex cursor-pointer items-center gap-2 font-body text-sm font-medium text-white transition-opacity hover:opacity-70"
+          className="group flex cursor-pointer items-center gap-2 font-body text-sm font-medium text-white transition-colors hover:text-[#ff975d]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/notif-check-all.svg" alt="" className="h-3.5 w-3.5" />
+          <img src="/images/dashboard/icons/notif-check-all.svg" alt="" className="h-3.5 w-3.5 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
           Mark all as read
         </button>
       </div>
@@ -276,27 +276,27 @@ function NotificationsDropdown({
         <button
           type="button"
           onClick={() => setFilter("all")}
-          className={`flex h-[50px] flex-1 items-center justify-center gap-2 rounded-2xl border p-4 font-body text-base font-medium transition-all ${
+          className={`flex h-[50px] flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl border p-4 font-body text-base font-medium transition-all active:scale-[0.97] ${
             filter === "all"
               ? "border-brand-light bg-[rgba(0,0,0,0.2)] text-brand-main shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
-              : "border-dark-border bg-[rgba(0,0,0,0.2)] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)]"
+              : "border-dark-border bg-[rgba(0,0,0,0.2)] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:border-brand-light"
           }`}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/notif-filter-all.svg" alt="" className="h-5 w-5" />
+          <img src="/images/dashboard/icons/notif-filter-all.svg" alt="" className="h-5 w-5" style={filter === "all" ? { filter: "brightness(0) saturate(100%) invert(55%) sepia(92%) saturate(600%) hue-rotate(340deg) brightness(100%) contrast(100%)" } : undefined} />
           All
         </button>
         <button
           type="button"
           onClick={() => setFilter("unread")}
-          className={`flex h-[50px] flex-1 items-center justify-center gap-2 rounded-2xl border p-4 font-body text-base font-medium transition-all ${
+          className={`flex h-[50px] flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl border p-4 font-body text-base font-medium transition-all active:scale-[0.97] ${
             filter === "unread"
               ? "border-brand-light bg-[rgba(0,0,0,0.2)] text-brand-main shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
-              : "border-dark-border bg-[rgba(0,0,0,0.2)] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)]"
+              : "border-dark-border bg-[rgba(0,0,0,0.2)] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:border-brand-light"
           }`}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/notif-filter-unread.svg" alt="" className="h-5 w-5" />
+          <img src="/images/dashboard/icons/notif-filter-unread.svg" alt="" className="h-5 w-5" style={filter === "unread" ? { filter: "brightness(0) saturate(100%) invert(55%) sepia(92%) saturate(600%) hue-rotate(340deg) brightness(100%) contrast(100%)" } : undefined} />
           Unread
         </button>
       </div>
@@ -344,7 +344,7 @@ function NotificationsDropdown({
       <Link
         href="/app/customer/notification"
         onClick={onClose}
-        className="block w-full text-center font-body text-base text-white transition-opacity hover:opacity-70"
+        className="block w-full cursor-pointer text-center font-body text-base text-white transition-colors hover:text-[#ff975d]"
       >
         See all
       </Link>

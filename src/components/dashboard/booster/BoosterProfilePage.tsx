@@ -157,7 +157,7 @@ function ProfileCard({ card = true, onAvatarEdit }: { card?: boolean; onAvatarEd
         <button
           type="button"
           onClick={onAvatarEdit}
-          className="absolute bottom-4 left-[20px] flex items-center rounded-full border-2 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-brand-main lg:hidden"
+          className="absolute bottom-4 left-[20px] flex cursor-pointer items-center rounded-full border-2 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-[#FF975D] lg:hidden"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/edit-icon.svg" alt="Edit" className="h-3 w-3" />
@@ -166,7 +166,7 @@ function ProfileCard({ card = true, onAvatarEdit }: { card?: boolean; onAvatarEd
         <button
           type="button"
           onClick={onAvatarEdit}
-          className="absolute top-10 right-[-15px] hidden items-center rounded-full border-4 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-brand-main lg:flex"
+          className="absolute top-10 right-[-15px] hidden cursor-pointer items-center rounded-full border-4 border-dark-surface bg-dark-border p-1 transition-colors hover:bg-[#FF975D] lg:flex"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/edit-icon.svg" alt="Edit" className="h-4 w-4" />

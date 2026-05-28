@@ -40,23 +40,20 @@ function mapBoosterStatusToHero(status: BoosterOrderStatus): OrderHeroStatus {
 }
 
 function SupportButton({ onClick }: { onClick: () => void }) {
-  const [hovered, setHovered] = useState(false);
   return (
     <button
       type="button"
       onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="flex h-[72px] items-center gap-4 rounded-2xl px-8 transition-colors"
-      style={{ background: hovered ? "#2d2d40" : "rgba(56,56,82,0.3)" }}
+      className="group flex h-[72px] cursor-pointer items-center gap-4 rounded-2xl border border-transparent px-8 transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+      style={{ background: "rgba(56,56,82,0.4)", backdropFilter: "blur(3px)" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/dashboard/orderview/icons/toolbar-support.svg"
         alt=""
-        className="h-7 w-7"
+        className="h-7 w-7 shrink-0 transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
       />
-      <span className="whitespace-nowrap font-body text-xl font-semibold text-white">Support</span>
+      <span className="whitespace-nowrap font-body text-xl font-semibold text-white transition-colors group-hover:text-[#ff975d]">Support</span>
     </button>
   );
 }

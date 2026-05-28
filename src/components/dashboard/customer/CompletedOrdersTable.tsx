@@ -122,7 +122,7 @@ export function CompletedOrdersTable({ orders, onPurchaseBoost, onSupport }: Pro
       {/* Desktop table — full width, scrolls horizontally only when very narrow */}
       <div className="hidden overflow-x-auto lg:block">
         {/* min-w keeps columns from crushing on edge-case narrow viewports */}
-        <div className="flex min-w-[1020px] w-full flex-col gap-0">
+        <div className="flex min-w-[1280px] w-full flex-col gap-0">
           {/* Header */}
           <div className="flex w-full items-center">
             {FIXED_COLS.map((col) => (

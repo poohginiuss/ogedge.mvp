@@ -114,9 +114,9 @@ function ClaimButton({ onClaim }: { onClaim: () => void }) {
 function PayoutCell({ earning, bonus }: { earning: string; bonus?: string }) {
   return (
     <div className="flex flex-col items-center">
-      <span className="font-body text-sm font-semibold text-[#ff975d]">{earning}</span>
+      <span className="font-body text-base font-semibold text-[#ff975d]">{earning}</span>
       {bonus && (
-        <span className="font-body text-xs font-semibold text-[#34a853]">{bonus}</span>
+        <span className="font-body text-sm font-semibold text-[#34a853]">{bonus}</span>
       )}
     </div>
   );
@@ -190,7 +190,7 @@ function DesktopRow({
     <RowShell>
       <div className="flex w-[7%] items-center pl-6">
         <span className="flex items-center gap-1.5">
-          <span className="font-body text-sm font-semibold text-[#ff975d]">
+          <span className="font-body text-base font-semibold text-[#ff975d]">
             {order.orderId}
           </span>
           <CopyButton
@@ -201,16 +201,16 @@ function DesktopRow({
       </div>
 
       <div className="flex w-[8%] items-center pl-2">
-        <span className="font-body text-sm font-semibold text-white">{order.game}</span>
+        <span className="font-body text-base font-semibold text-white">{order.game}</span>
       </div>
 
       <div className="flex w-[12%] flex-col justify-center pl-2">
-        <p className="font-body text-sm font-semibold text-white">{order.service}</p>
-        <p className="font-body text-xs font-bold text-white/70">{order.rangeLabel}</p>
+        <p className="font-body text-base font-semibold text-white">{order.service}</p>
+        <p className="font-body text-sm font-bold text-white/70">{order.rangeLabel}</p>
       </div>
 
       <div className="flex flex-1 items-center pl-2">
-        <DetailTags tags={order.details} compact />
+        <DetailTags tags={order.details} />
       </div>
 
       {cfg.showEmployee && (
@@ -228,7 +228,7 @@ function DesktopRow({
 
       {cfg.showCompletionTime && (
         <div className="flex w-[11%] items-center justify-center">
-          <span className="font-body text-sm font-semibold text-white">
+          <span className="font-body text-base font-semibold text-white">
             {order.completionTime ?? "—"}
           </span>
         </div>
@@ -272,7 +272,7 @@ function DesktopRow({
           {cfg.showView && (
             <Link
               href={`/app/booster/orders/${order.orderId}`}
-              className="font-body text-sm font-bold uppercase tracking-wide text-white transition-all hover:text-[#ff975d] active:scale-95"
+              className="font-body text-base font-bold uppercase tracking-wide text-white transition-all hover:text-[#ff975d] active:scale-95"
             >
               VIEW ORDER
             </Link>
