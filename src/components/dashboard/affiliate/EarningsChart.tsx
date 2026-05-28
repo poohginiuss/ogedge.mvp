@@ -231,7 +231,7 @@ export function EarningsChart() {
         <div className="flex flex-1 flex-col gap-2">
           <div
             ref={chartRef}
-            className="relative h-[160px] w-full cursor-crosshair lg:h-[250px]"
+            className="relative h-[220px] w-full cursor-crosshair lg:h-[380px]"
             onMouseMove={handleMouseMove}
             onMouseLeave={() => setHoverIdx(null)}
           >

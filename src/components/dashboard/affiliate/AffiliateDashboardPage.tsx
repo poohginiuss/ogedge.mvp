@@ -44,7 +44,7 @@ function StatCard({
 }) {
   return (
     <div
-      className="flex flex-col items-center gap-2 rounded-3xl p-4 lg:flex-row lg:flex-1 lg:justify-center lg:gap-8 lg:p-8"
+      className="flex cursor-pointer flex-col items-center gap-2 rounded-3xl border border-transparent p-4 transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] lg:flex-row lg:flex-1 lg:justify-center lg:gap-8 lg:p-8"
       style={{ background: "rgba(56,56,82,0.3)" }}
     >
       <div className="flex h-[54px] w-[54px] shrink-0 items-center justify-center">
@@ -69,7 +69,7 @@ function AffiliateReferralCard() {
   };
 
   return (
-    <div className="flex flex-col gap-4 rounded-3xl bg-dark-surface p-6 lg:p-8">
+    <div className="flex flex-col gap-4 rounded-3xl border border-transparent bg-dark-surface p-6 transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] lg:p-8">
       <div className="flex items-center gap-6">
         <div className="flex flex-1 flex-col gap-1">
           <div className="flex items-center gap-2.5">
@@ -131,7 +131,7 @@ function AffiliateReferralCard() {
         <button
           type="button"
           onClick={handleCopy}
-          className="flex shrink-0 items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 lg:text-base"
+          className="flex shrink-0 cursor-pointer items-center gap-2.5 rounded-lg bg-brand-main px-4 py-3 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-all hover:shadow-[0_4px_16px_rgba(255,92,0,0.4)] hover:brightness-110 active:scale-[0.97] lg:text-base"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/copy-icon.svg" alt="" className="h-6 w-6" />
@@ -156,14 +156,14 @@ function PayoutHistory() {
         </h2>
         <Link
           href="/app/affiliate/payouts"
-          className="group inline-flex cursor-pointer items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-brand-main"
+          className="group inline-flex cursor-pointer items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-[#ff975d] transition-colors hover:text-[#ff975d] active:scale-[0.97]"
         >
           See all
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/dashboard/icons/arrow-right-duotone.svg"
             alt=""
-            className="h-5 w-5 rotate-90 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]"
+            className="h-5 w-5 rotate-90 [filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
           />
         </Link>
       </div>
@@ -174,7 +174,7 @@ function PayoutHistory() {
           return (
             <div
               key={payout.id}
-              className="flex flex-col gap-0.5 rounded-3xl bg-dark-surface px-6 py-4 lg:px-8"
+              className="flex cursor-pointer flex-col gap-0.5 rounded-3xl border border-transparent bg-dark-surface px-6 py-4 transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] lg:px-8"
             >
               <div className="flex items-center justify-between">
                 <span className="font-body text-xl font-semibold text-white">
@@ -235,7 +235,7 @@ function InlineFaq() {
           return (
             <div
               key={q.id}
-              className="rounded-2xl"
+              className="rounded-2xl transition-all duration-200 hover:shadow-[0_4px_34px_rgba(255,92,0,0.15)]"
               style={{
                 border: "1px solid #6d6d96",
                 background:
@@ -295,11 +295,11 @@ export default function AffiliateDashboardPage() {
         </div>
         <button
           type="button"
-          className="group hidden cursor-pointer items-center gap-4 rounded-3xl px-8 py-6 font-body text-xl font-bold text-white transition-colors hover:text-brand-main lg:flex"
-          style={{ background: "rgba(56,56,82,0.3)" }}
+          className="group hidden cursor-pointer items-center gap-4 rounded-3xl border border-transparent px-8 py-6 font-body text-xl font-bold text-white transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97] lg:flex"
+          style={{ background: "rgba(56,56,82,0.4)", backdropFilter: "blur(3px)" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-6 w-6 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" />
+          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-6 w-6 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
           Request Payout
         </button>
       </div>

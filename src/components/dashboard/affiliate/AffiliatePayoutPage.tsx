@@ -74,24 +74,24 @@ function DesktopRow({ row }: { row: Conversion }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex h-[80px] shrink-0 cursor-default items-center rounded-3xl transition-all duration-150"
+      className="flex min-h-[100px] shrink-0 cursor-default items-center rounded-3xl py-4 transition-all duration-150"
       style={{ backgroundImage: hovered ? ROW_BG_HOVER : ROW_BG_DEFAULT }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <div className="w-[18%] shrink-0 pl-6">
-        <span className="font-body text-sm font-semibold" style={{ color: "#ff975d" }}>
+        <span className="font-body text-base font-semibold" style={{ color: "#ff975d" }}>
           {row.customer}
         </span>
       </div>
       <div className="w-[28%] shrink-0 pl-4">
-        <span className="font-body text-sm font-semibold text-white">{row.date}</span>
+        <span className="font-body text-base font-semibold text-white">{row.date}</span>
       </div>
       <div className="w-[16%] shrink-0 pl-4">
-        <span className="font-body text-sm font-semibold text-white">{row.orderValue}</span>
+        <span className="font-body text-base font-semibold text-white">{row.orderValue}</span>
       </div>
       <div className="w-[22%] shrink-0 pl-4">
-        <span className="font-body text-sm font-semibold text-white">
+        <span className="font-body text-base font-semibold text-white">
           {row.commissionEarned}
         </span>
       </div>
@@ -314,7 +314,7 @@ function AffiliateReferralCard() {
         <button
           type="button"
           onClick={handleCopy}
-          className="flex shrink-0 items-center gap-2 rounded-lg bg-brand-main px-3 py-2.5 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-opacity hover:opacity-85 lg:text-base"
+          className="flex shrink-0 cursor-pointer items-center gap-2 rounded-lg bg-brand-main px-3 py-2.5 font-body text-sm font-bold uppercase tracking-[0.32px] text-white transition-all hover:shadow-[0_4px_16px_rgba(255,92,0,0.4)] hover:brightness-110 active:scale-[0.97] lg:text-base"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/dashboard/icons/copy-icon.svg" alt="" className="h-6 w-6" />
@@ -347,11 +347,11 @@ function PayoutSidebar() {
         </div>
         <button
           type="button"
-          className="group flex cursor-pointer items-center gap-3 rounded-3xl px-5 py-4 font-body text-base font-bold text-white transition-colors hover:text-brand-main"
-          style={{ background: "rgba(56,56,82,0.3)" }}
+          className="group flex cursor-pointer items-center gap-3 rounded-3xl border border-transparent px-5 py-4 font-body text-base font-bold text-white transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+          style={{ background: "rgba(56,56,82,0.4)", backdropFilter: "blur(3px)" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-5 w-5 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]" />
+          <img src="/images/dashboard/icons/add-icon.svg" alt="" className="h-5 w-5 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
           Request Payout
         </button>
       </div>
@@ -404,14 +404,14 @@ function PayoutSidebar() {
           </div>
           <Link
             href="/app/affiliate/payouts"
-            className="group inline-flex cursor-pointer items-center gap-2 font-body text-sm text-white transition-colors hover:text-brand-main"
+            className="group inline-flex cursor-pointer items-center gap-2 font-body text-sm text-[#ff975d] transition-colors active:scale-[0.97]"
           >
             See all
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/dashboard/icons/arrow-right-duotone.svg"
               alt=""
-              className="h-4 w-4 rotate-90 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]"
+              className="h-4 w-4 rotate-90 [filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
             />
           </Link>
         </div>

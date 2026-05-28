@@ -76,6 +76,6 @@ export const sampleConversions: Conversion[] = [
 
 export const payoutPageStats = [
   { icon: "/images/dashboard/icons/stat-earnings.svg", label: "Total Earnings", value: "$1,234.00" },
-  { icon: "/images/dashboard/icons/stat-wallet.svg", label: "Pending Balance", value: "$671.00" },
+  { icon: "/images/dashboard/icons/stat-pending-balance.svg", label: "Pending Balance", value: "$671.00" },
   { icon: "/images/dashboard/icons/stat-clicks.svg", label: "Total Conversions", value: "1,522" },
 ];

@@ -18,7 +18,7 @@ type TrustBadgesProps = {
 
 export function TrustBadges({ badges = defaultTrustBadges }: TrustBadgesProps) {
   return (
-    <div className="flex gap-4 overflow-x-auto md:flex-wrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-4 overflow-x-auto xl:flex-wrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {badges.map(({ icon, label }) => (
         <div
           key={label}
