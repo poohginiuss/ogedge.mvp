@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { ButtonHTMLAttributes, CSSProperties, FocusEvent, MouseEvent, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "link";
@@ -140,6 +140,7 @@ export function Button(props: ButtonProps) {
     variant: _v,
     size: _s,
     icon: _i,
+    onClick,
     onMouseEnter,
     onMouseLeave,
     onFocus,
@@ -147,6 +148,13 @@ export function Button(props: ButtonProps) {
     style: buttonStyle,
     ...buttonProps
   } = props as AsButtonProps;
+
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    onClick?.(event);
+    requestAnimationFrame(() => btnRef.current?.blur());
+  };
 
   const handleMouseEnter = (event: MouseEvent<HTMLButtonElement>) => {
     setIsHovered(true);
@@ -171,9 +179,11 @@ export function Button(props: ButtonProps) {
   return (
     <button
       {...buttonProps}
+      ref={btnRef}
       type="button"
       className={combinedClassName}
       style={{ ...style, ...buttonStyle }}
+      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}

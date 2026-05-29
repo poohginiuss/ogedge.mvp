@@ -367,7 +367,7 @@ export function Header() {
     >
       <div className="relative mx-auto flex w-full max-w-[1920px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 xl:px-10 xl:py-5 min-[1600px]:px-18 2xl:px-22">
         {/* Left side */}
-        <div className="flex items-center gap-3 min-[1440px]:gap-6 min-[1600px]:gap-18">
+        <div className="flex items-center gap-3 xl:gap-6 min-[1600px]:gap-18">
           <Button
             variant="secondary"
             size="sm"
@@ -376,10 +376,10 @@ export function Header() {
               setMobileMenuOpen(false);
             }}
           >
-            <span className="hidden min-[1440px]:inline">Select your game</span>
-            <span className="min-[1440px]:hidden">Games</span>
+            <span className="hidden xl:inline">Select your game</span>
+            <span className="xl:hidden">Games</span>
           </Button>
-          <nav className="hidden items-center gap-5 min-[1440px]:flex min-[1600px]:gap-10">
+          <nav className="hidden items-center gap-5 xl:flex min-[1600px]:gap-10">
             <AboutUsDropdown />
             <Link
               href="/reviews"
@@ -399,13 +399,13 @@ export function Header() {
             height={58}
             unoptimized
             priority
-            className="h-8 w-auto sm:h-9 md:h-10 min-[1440px]:h-[50px]"
+            className="h-8 w-auto sm:h-9 md:h-10 xl:h-[50px]"
           />
         </Link>
 
         {/* Right side */}
-        <div className="flex items-center gap-3 min-[1440px]:gap-4 min-[1600px]:gap-8">
-          <nav className="hidden items-center gap-5 min-[1440px]:flex min-[1600px]:gap-10">
+        <div className="flex items-center gap-3 xl:gap-4 min-[1600px]:gap-8">
+          <nav className="hidden items-center gap-5 xl:flex min-[1600px]:gap-10">
             {rightNav.map((item) => (
               <Link
                 key={item.label}
@@ -418,7 +418,7 @@ export function Header() {
           </nav>
 
           {/* Currency selector (desktop) */}
-          <div className="hidden min-[1440px]:block">
+          <div className="hidden xl:block">
             <CurrencyDropdown
               selected={selectedCurrency}
               onSelect={setSelectedCurrency}
@@ -430,11 +430,11 @@ export function Header() {
           <Link
             href="/checkout"
             data-cart-icon
-            className="relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-dark-border transition-colors hover:border-brand-light min-[1440px]:h-[53px] min-[1440px]:w-[53px] min-[1440px]:rounded-2xl"
+            className="relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-dark-border transition-colors hover:border-brand-light xl:h-[53px] xl:w-[53px] xl:rounded-2xl"
             aria-label="Cart"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/icons/cart.svg" alt="" className="h-5 w-5 min-[1440px]:h-6 min-[1440px]:w-6" />
+            <img src="/images/icons/cart.svg" alt="" className="h-5 w-5 xl:h-6 xl:w-6" />
             <span
               className="absolute flex items-center justify-center rounded-full border-2 border-dark-surface bg-brand-main font-bold leading-none text-white"
               style={{ width: 18, height: 18, fontSize: 11, top: 2, right: 2 }}
@@ -444,7 +444,7 @@ export function Header() {
           </Link>
 
           {/* Notification bell — desktop only */}
-          <div className="relative hidden min-[1440px]:block">
+          <div className="relative hidden xl:block">
             <button
               type="button"
               onClick={() => setNotifOpen((v) => !v)}
@@ -467,7 +467,7 @@ export function Header() {
           </div>
 
           {/* Login button */}
-          <div className="hidden min-[1440px]:block">
+          <div className="hidden xl:block">
             <Button onClick={() => setLoginOpen(true)} variant="primary" size="sm">
               Login
             </Button>
@@ -476,7 +476,7 @@ export function Header() {
           {/* Hamburger for < 1440px */}
           <button
             type="button"
-            className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-dark-border p-2 text-white min-[1440px]:hidden"
+            className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-dark-border p-2 text-white xl:hidden"
             aria-label="Menu"
             onClick={() => setMobileMenuOpen((v) => !v)}
           >
@@ -487,10 +487,10 @@ export function Header() {
 
       <GameSelector isOpen={gameMenuOpen} onClose={() => setGameMenuOpen(false)} />
 
-      {/* Mobile menu drawer */}
+      {/* Mobile menu overlay */}
       {mobileMenuOpen && (
         <div
-          className="border-t border-dark-border min-[1440px]:hidden"
+          className="absolute left-0 top-full z-40 w-full border-t border-dark-border xl:hidden"
           style={{
             background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(23,25,31,0.98) 100%)",
             backdropFilter: "blur(16px)",
@@ -524,8 +524,6 @@ export function Header() {
               Login
             </Button>
           </nav>
-          {/* Currency selector (mobile) — sits inside the drawer so users
-              can actually switch currency from a phone (msg #32). */}
           <div className="border-t border-dark-border">
             <CurrencyDropdown
               selected={selectedCurrency}
