@@ -284,9 +284,8 @@ export function AffiliateHowItWorks() {
                       alt=""
                       width={16}
                       height={16}
-                      className={`-rotate-90 -scale-y-100 ${
-                        isActive ? "" : "opacity-40"
-                      }`}
+                      className="-rotate-90 -scale-y-100"
+                      style={isActive ? undefined : { filter: "brightness(0) invert(1)" }}
                     />
                     <span
                       className={`font-body text-lg ${

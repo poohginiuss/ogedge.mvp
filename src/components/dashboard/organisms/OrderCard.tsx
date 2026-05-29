@@ -4,8 +4,8 @@
 // to navigate to `/app/customer/orders/{id}` when the user taps `View`.
 // Both dashboard hosts (Customer + Booster) are already client components,
 // so this doesn't introduce a new client boundary in practice.
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ActionButton, IconButton } from "../atoms";
 import type { BoosterOrder } from "../booster/boosterData";
 import type { Order } from "../dashboardData";
 import { OrderActionGroup, OrderIdRow, StatusBadgeGroup } from "../molecules";
@@ -94,31 +94,29 @@ export function OrderCard(props: OrderCardProps) {
           <EarningRow order={order} size="sm" />
         </div>
         <p className="font-body text-base font-medium text-white">{order.title}</p>
-        <div className="flex items-center justify-between">
-          <OrderIdRow orderId={order.orderId} idClassName="font-body text-sm text-white" />
-          {showViewChat && (
-            <div className="flex items-center gap-1">
-              <IconButton
-                icon="/images/dashboard/icons/notification.svg"
-                aria-label="Notifications"
-              />
-              <IconButton icon="/images/dashboard/icons/open-view.svg" aria-label="View Order" />
-              <IconButton
-                icon="/images/dashboard/icons/chat-icon.svg"
-                aria-label="Chat"
-                className={order.hasNotification ? "animate-chat-pulse" : ""}
-              />
-            </div>
-          )}
-        </div>
+        <OrderIdRow orderId={order.orderId} idClassName="font-body text-sm text-white" />
         {order.canClaim && (
-          <ActionButton
-            icon="/images/dashboard/icons/claim-icon.svg"
-            variant="outline"
-            className="w-full rounded-2xl"
+          <button
+            type="button"
+            className="mt-1 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#ff975d] py-3 font-body text-base font-bold uppercase text-white transition-all hover:opacity-90 active:scale-[0.97]"
+            style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)", boxShadow: "0 4px 44px rgba(255,92,0,0.2)" }}
           >
-            Claim
-          </ActionButton>
+            <Image src="/images/dashboard/icons/check-all.svg" alt="" width={20} height={20} />
+            CLAIM
+          </button>
+        )}
+        {showViewChat && (
+          <button
+            type="button"
+            onClick={() => router.push(`/app/booster/orders/${order.orderId}`)}
+            className="mt-1 flex w-full cursor-pointer items-center justify-center rounded-2xl py-3 font-body text-base font-bold uppercase tracking-wide text-white transition-all hover:text-[#ff975d] hover:border-[#ff975d] hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+            style={{
+              background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+              border: "1px solid #6d6d96",
+            }}
+          >
+            VIEW ORDER
+          </button>
         )}
       </div>
     </div>

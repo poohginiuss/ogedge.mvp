@@ -141,19 +141,63 @@ function VolumeDiscountBanners({
   const hasVolumeTiers = tiers && tiers.length > 0 && subtotal != null;
   const vol = hasVolumeTiers ? getVolumeDiscountState(tiers, subtotal) : null;
 
-  const prevPercent = useRef(0);
-  const displayPercent = vol?.progressPercent ?? 0;
+  const prevTierRef = useRef<number | null | undefined>(undefined);
+  const fillColorRef = useRef({ fill: "#ff5c00", glow: "rgba(255,92,0,0.4)" });
+  const [animPercent, setAnimPercent] = useState(vol?.progressPercent ?? 0);
+  const [animPhase, setAnimPhase] = useState<"normal" | "fill" | "reset">("normal");
+  const targetPercent = vol?.progressPercent ?? 0;
+  const currentTierMin = vol?.activeTier?.minAmount ?? null;
+
+  const currentColor = vol
+    ? tierColor(vol.activeTier, vol.isMax, tiers!)
+    : { fill: "#ff5c00", glow: "rgba(255,92,0,0.4)" };
 
   useEffect(() => {
-    if (displayPercent > prevPercent.current) {
-      prevPercent.current = displayPercent;
-    }
-    if (displayPercent < prevPercent.current - 30) {
-      prevPercent.current = displayPercent;
-    }
-  }, [displayPercent]);
+    const prevTier = prevTierRef.current;
+    const isFirstRun = prevTier === undefined;
 
-  const smoothPercent = Math.max(displayPercent, prevPercent.current);
+    if (isFirstRun) {
+      prevTierRef.current = currentTierMin;
+      setAnimPercent(targetPercent);
+      return;
+    }
+
+    const tierWentUp =
+      currentTierMin !== null && (prevTier === null || (prevTier !== null && currentTierMin > prevTier));
+
+    if (tierWentUp && hasVolumeTiers && tiers) {
+      const sorted = [...tiers].sort((a, b) => a.minAmount - b.minAmount);
+      const prevActiveTier = prevTier !== null
+        ? sorted.find((t) => t.minAmount === prevTier) ?? null
+        : null;
+      const prevIsMax = prevActiveTier !== null
+        ? !sorted.some((t) => t.minAmount > prevActiveTier.minAmount)
+        : false;
+      fillColorRef.current = tierColor(prevActiveTier, prevIsMax, tiers);
+
+      prevTierRef.current = currentTierMin;
+      setAnimPhase("fill");
+      setAnimPercent(100);
+
+      const fillTimer = setTimeout(() => {
+        setAnimPhase("reset");
+        setAnimPercent(0);
+
+        const resetTimer = setTimeout(() => {
+          setAnimPhase("normal");
+          setAnimPercent(targetPercent);
+        }, 50);
+        return () => clearTimeout(resetTimer);
+      }, 600);
+      return () => clearTimeout(fillTimer);
+    }
+
+    prevTierRef.current = currentTierMin;
+    setAnimPercent(targetPercent);
+  }, [targetPercent, currentTierMin, hasVolumeTiers, tiers]);
+
+  const smoothPercent = animPhase === "reset" ? 0 : animPercent;
+  const displayColor = animPhase === "fill" ? fillColorRef.current : currentColor;
 
   const showProgress = vol && vol.nextTier && vol.amountToNext > 0;
   const showApplied = vol ? vol.activeTier !== null : !!discountMessage;
@@ -165,10 +209,6 @@ function VolumeDiscountBanners({
 
   if (!showProgress && !showApplied && !showMax) return null;
 
-  const color = vol
-    ? tierColor(vol.activeTier, vol.isMax, tiers!)
-    : { fill: "#ff5c00", glow: "rgba(255,92,0,0.4)" };
-
   return (
     <div className="flex flex-col gap-2">
       {showProgress && vol && (
@@ -176,16 +216,16 @@ function VolumeDiscountBanners({
           className="relative overflow-hidden rounded-2xl font-body text-sm"
           style={{
             background: "rgba(0,0,0,0.25)",
-            border: vol.activeTier ? `1px solid ${color.glow}` : "1px solid rgba(255,255,255,0.06)",
+            border: vol.activeTier ? `1px solid ${currentColor.glow}` : "1px solid rgba(255,255,255,0.06)",
           }}
         >
           <div
-            className="absolute inset-y-0 left-0 rounded"
+            className="absolute inset-y-0 left-0"
             style={{
               width: `${smoothPercent}%`,
-              background: `linear-gradient(90deg, ${color.fill} 0%, ${color.fill}99 100%)`,
-              boxShadow: `0 0 16px ${color.glow}`,
-              transition: "width 1s cubic-bezier(0.4, 0, 0.2, 1)",
+              background: `linear-gradient(90deg, ${displayColor.fill} 0%, ${displayColor.fill}99 100%)`,
+              boxShadow: `0 0 16px ${displayColor.glow}`,
+              transition: animPhase === "reset" ? "none" : "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
           <span
@@ -202,22 +242,22 @@ function VolumeDiscountBanners({
           className="relative overflow-hidden rounded-2xl font-body text-sm"
           style={{
             background: "rgba(0,0,0,0.25)",
-            border: `1px solid ${color.glow}`,
+            border: `1px solid ${currentColor.glow}`,
           }}
         >
           <div
             className="absolute inset-y-0 left-0 rounded-2xl"
             style={{
               width: "100%",
-              background: `linear-gradient(90deg, ${color.fill}40 0%, ${color.fill}20 100%)`,
+              background: `linear-gradient(90deg, ${currentColor.fill}40 0%, ${currentColor.fill}20 100%)`,
               transition: "width 1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
           <span
             className="relative z-10 block px-4 py-3 text-center font-semibold"
             style={{
-              color: color.fill,
-              textShadow: `0 0 10px ${color.glow}`,
+              color: currentColor.fill,
+              textShadow: `0 0 10px ${currentColor.glow}`,
             }}
           >
             {appliedText}

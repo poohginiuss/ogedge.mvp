@@ -94,7 +94,7 @@ export function Button(props: ButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
-  const state = isFocused ? "focus" : isHovered ? "hover" : "default";
+  const state = isHovered ? "hover" : isFocused ? "focus" : "default";
 
   const base =
     "inline-flex cursor-pointer items-center justify-center rounded-3xl font-body font-bold uppercase transition-all duration-200 focus:outline-none active:scale-[0.97]";

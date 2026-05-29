@@ -8,6 +8,8 @@ export type RecommendedItem = {
   serviceType: string;
   serviceName: string;
   estimatedTime: string;
+  originalPrice: string;
+  discountedPrice: string;
   href?: string;
 };
 
@@ -20,6 +22,8 @@ const MOCK_ITEMS: RecommendedItem[] = [
     serviceType: "Rank Boost",
     serviceName: "Rank up to Radiant",
     estimatedTime: "36 hours",
+    originalPrice: "$25",
+    discountedPrice: "$20",
     href: "/valorant",
   },
   {
@@ -30,6 +34,8 @@ const MOCK_ITEMS: RecommendedItem[] = [
     serviceType: "Win Boost",
     serviceName: "Win 5 games",
     estimatedTime: "36 hours",
+    originalPrice: "$25",
+    discountedPrice: "$20",
     href: "/valorant",
   },
   {
@@ -37,9 +43,11 @@ const MOCK_ITEMS: RecommendedItem[] = [
     gameImage: "/images/home/games/valorant-backing.png",
     gameLogo: "/images/home/games/valorant-logo.png",
     discount: "-20%",
-    serviceType: "Rank Boost",
-    serviceName: "Rank up to Radiant",
+    serviceType: "Win Boost",
+    serviceName: "Win 5 games",
     estimatedTime: "36 hours",
+    originalPrice: "$25",
+    discountedPrice: "$20",
     href: "/valorant",
   },
   {
@@ -50,6 +58,8 @@ const MOCK_ITEMS: RecommendedItem[] = [
     serviceType: "Rank Boost",
     serviceName: "Rank up to Radiant",
     estimatedTime: "36 hours",
+    originalPrice: "$25",
+    discountedPrice: "$20",
     href: "/valorant",
   },
   {
@@ -60,26 +70,22 @@ const MOCK_ITEMS: RecommendedItem[] = [
     serviceType: "Rank Boost",
     serviceName: "Rank up to Radiant",
     estimatedTime: "36 hours",
+    originalPrice: "$25",
+    discountedPrice: "$20",
     href: "/valorant",
   },
 ];
 
 function RecommendedCard({ item }: { item: RecommendedItem }) {
-  const Wrapper = item.href ? "a" : "div";
   return (
-    <Wrapper
-      href={item.href}
-      className="flex min-w-[180px] flex-1 flex-col overflow-hidden rounded-2xl bg-[rgba(56,56,82,0.3)] transition-transform hover:scale-[1.02]"
-    >
+    <div className="flex min-w-[180px] flex-1 flex-col overflow-hidden rounded-2xl bg-[rgba(56,56,82,0.3)] transition-transform hover:scale-[1.02]">
       {/* Image area */}
       <div className="relative h-[140px] w-full">
         <Image src={item.gameImage} alt={item.serviceName} fill className="object-cover" />
         <div className="absolute inset-0 bg-black/60" />
-        {/* Discount badge */}
         <div className="absolute right-2 top-2 rounded-lg bg-[#fa4609] px-2 py-1">
           <span className="font-body text-xs font-medium text-white">{item.discount}</span>
         </div>
-        {/* Game logo */}
         <div className="absolute inset-0 flex items-center justify-center">
           <Image
             src={item.gameLogo}
@@ -90,18 +96,43 @@ function RecommendedCard({ item }: { item: RecommendedItem }) {
           />
         </div>
       </div>
+
       {/* Info */}
-      <div className="flex flex-col gap-2 p-4">
-        <div className="flex flex-col gap-1">
-          <span className="font-body text-sm font-normal text-white">{item.serviceType}</span>
-          <span className="font-body text-xl font-medium text-white">{item.serviceName}</span>
+      <div className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
+            <div className="flex items-center justify-between">
+              <span className="font-body text-sm font-normal text-white">{item.serviceType}</span>
+              <div className="flex items-center gap-1">
+                <span className="font-body text-[10px] font-normal text-white/60 line-through">
+                  {item.originalPrice}
+                </span>
+                <span className="font-body text-lg font-bold leading-7 text-[#ff5c00]">
+                  {item.discountedPrice}
+                </span>
+              </div>
+            </div>
+            <span className="font-body text-lg font-medium leading-7 text-white">
+              {item.serviceName}
+            </span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Image src="/images/icons/checkout/clock.svg" alt="" width={16} height={16} />
+            <span className="font-body text-sm font-normal text-white/60">
+              {item.estimatedTime}
+            </span>
+          </div>
         </div>
-        <div className="flex items-center gap-1">
-          <Image src="/images/icons/checkout/clock.svg" alt="" width={16} height={16} />
-          <span className="font-body text-sm font-normal text-white/60">{item.estimatedTime}</span>
-        </div>
+
+        <button
+          type="button"
+          className="mt-auto flex h-[50px] cursor-pointer items-center justify-center rounded-2xl border border-[#383852] font-body text-lg font-medium text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.25)] active:scale-[0.97]"
+          style={{ background: "rgba(0,0,0,0.2)", boxShadow: "0 4px 16px rgba(0,0,0,0.15)" }}
+        >
+          Add to Cart
+        </button>
       </div>
-    </Wrapper>
+    </div>
   );
 }
 
@@ -117,10 +148,10 @@ export function RecommendedItems({
   return (
     <div className="mt-12">
       <div className="mb-6">
-        <h2 className="font-heading text-2xl font-medium text-white">{title}</h2>
-        <p className="mt-1 font-body text-base font-normal text-white/60">{subtitle}</p>
+        <h2 className="font-heading text-2xl font-semibold text-white">{title}</h2>
+        <p className="mt-1 font-body text-base font-normal text-white/50">{subtitle}</p>
       </div>
-      <div className="flex gap-4 overflow-x-auto pb-2 lg:gap-6">
+      <div className="flex gap-4 overflow-x-auto pb-2 lg:gap-4">
         {items.map((item) => (
           <RecommendedCard key={item.id} item={item} />
         ))}

@@ -70,11 +70,11 @@ export function CheckoutConfirmationContent() {
         </div>
 
         {/* What happens next */}
-        <div className="flex w-full flex-col gap-8">
-          <h2 className="font-heading text-2xl font-semibold text-white">What happens next</h2>
+        <div className="flex w-full flex-col items-center gap-8">
+          <h2 className="w-full font-heading text-2xl font-semibold text-white">What happens next</h2>
 
           {/* Desktop: horizontal cards with hover effect */}
-          <div className="hidden lg:flex lg:items-stretch lg:gap-0">
+          <div className="hidden lg:flex lg:items-stretch lg:justify-center lg:gap-0">
             {NEXT_STEPS.map((step, i) => (
               <div key={step.title} className="flex items-center">
                 <div className="group/card relative flex h-full w-[269px] flex-col items-center justify-center gap-6 overflow-hidden rounded-2xl border border-transparent bg-[rgba(56,56,82,0.3)] p-8 transition-all duration-300 hover:border-[#ff975d] hover:shadow-[0_0_32px_rgba(255,151,93,0.35)]">

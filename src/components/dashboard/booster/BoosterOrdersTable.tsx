@@ -378,8 +378,8 @@ function MobileCard({
             <button
               type="button"
               onClick={() => onClaim(order)}
-              className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl py-3 font-body text-base font-bold uppercase text-white transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ background: "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)" }}
+              className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#ff975d] py-3 font-body text-base font-bold uppercase text-white transition-all hover:opacity-90 active:scale-[0.97]"
+              style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)", boxShadow: "0 4px 44px rgba(255,92,0,0.2)" }}
             >
               <Image src="/images/dashboard/icons/check-all.svg" alt="" width={20} height={20} />
               CLAIM
