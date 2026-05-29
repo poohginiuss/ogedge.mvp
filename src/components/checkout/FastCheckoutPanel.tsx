@@ -197,7 +197,7 @@ export function FastCheckoutPanel({
                 </span>
                 <InfoTooltip
                   label="Estimated start time details"
-                  panelClassName="top-full right-0 mt-3 w-[220px] -translate-y-2 rounded-2xl border border-[#6d6d96] bg-[#1a1c2e] px-4 py-3 text-left shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
+                  panelClassName="bottom-full right-0 mb-3 w-[220px] translate-y-2 rounded-2xl border border-[#6d6d96] bg-[#1a1c2e] px-4 py-3 text-left shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
                 >
                   <span className="block font-body text-xs font-bold text-[#ff975d]">
                     {estimatedTime}

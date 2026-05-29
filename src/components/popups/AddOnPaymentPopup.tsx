@@ -34,10 +34,10 @@ export function AddOnPaymentPopup({ isOpen, onClose }: AddOnPaymentPopupProps) {
   const displayAmount = isCustom ? Number(customAmount) || 0 : selectedAmount;
 
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose}>
+    <PopupOverlay isOpen={isOpen} onClose={onClose} maxHeightClassName="max-h-[70vh] lg:max-h-[94vh]">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1 lg:gap-5">
-          <h2 className="font-heading text-xl font-medium leading-7 text-white lg:text-[28px]">
+          <h2 className="font-heading text-2xl font-medium leading-7 text-white lg:text-[28px]">
             Add-on Payment
           </h2>
           <p className="font-body text-sm font-normal leading-5 text-white lg:text-base">

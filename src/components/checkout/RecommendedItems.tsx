@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export type RecommendedItem = {
   id: string;
@@ -77,6 +80,13 @@ const MOCK_ITEMS: RecommendedItem[] = [
 ];
 
 function RecommendedCard({ item }: { item: RecommendedItem }) {
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = () => {
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
   return (
     <div className="flex min-w-[180px] flex-1 flex-col overflow-hidden rounded-2xl bg-[rgba(56,56,82,0.3)] transition-transform hover:scale-[1.02]">
       {/* Image area */}
@@ -126,10 +136,25 @@ function RecommendedCard({ item }: { item: RecommendedItem }) {
 
         <button
           type="button"
-          className="mt-auto flex h-[50px] cursor-pointer items-center justify-center rounded-2xl border border-[#383852] font-body text-lg font-medium text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.25)] active:scale-[0.97]"
-          style={{ background: "rgba(0,0,0,0.2)", boxShadow: "0 4px 16px rgba(0,0,0,0.15)" }}
+          onClick={handleAdd}
+          disabled={added}
+          className={`mt-auto flex h-[50px] cursor-pointer items-center justify-center gap-2 rounded-2xl border font-body text-lg font-medium transition-all active:scale-[0.97] ${
+            added
+              ? "border-[#ff975d] text-[#ff975d]"
+              : "border-[#383852] text-white hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.25)]"
+          }`}
+          style={{ background: "rgba(0,0,0,0.2)", boxShadow: added ? "0 0 12px rgba(255,92,0,0.3)" : "0 4px 16px rgba(0,0,0,0.15)" }}
         >
-          Add to Cart
+          {added ? (
+            <>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#ff975d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Added!
+            </>
+          ) : (
+            "Add to Cart"
+          )}
         </button>
       </div>
     </div>

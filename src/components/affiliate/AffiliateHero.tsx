@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 
 const badges = [
@@ -8,6 +9,33 @@ const badges = [
   { icon: "/images/affiliate/icon-trust.svg", label: "Trusted by 1234+ affiliates", tooltip: "Join a network of over 1,200 active affiliates earning with OGEdge." },
   { icon: "/images/affiliate/icon-approval.svg", label: "Instant approval", tooltip: "Get approved instantly and start promoting right away." },
 ];
+
+function AffiliateBadge({ badge }: { badge: (typeof badges)[number] }) {
+  const [showTip, setShowTip] = useState(false);
+
+  return (
+    <div className="group/badge relative">
+      <button
+        type="button"
+        className="inline-flex cursor-pointer items-center gap-2 rounded-3xl border border-transparent px-3 py-2 font-body text-xs font-medium text-white transition-all duration-200 hover:border-brand-light/40 hover:shadow-[0_0_16px_rgba(255,92,0,0.25)] xl:px-4 xl:py-3 xl:text-sm"
+        style={{
+          backgroundImage: "linear-gradient(-30deg, rgb(23,25,31) 0%, rgb(56,56,82) 100%)",
+        }}
+        onClick={() => setShowTip((v) => !v)}
+        onBlur={() => setShowTip(false)}
+      >
+        <Image src={badge.icon} alt="" width={20} height={20} className="shrink-0" />
+        <span className="whitespace-nowrap">{badge.label}</span>
+      </button>
+      <div
+        className={`pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 transition-opacity duration-200 xl:opacity-0 xl:group-hover/badge:pointer-events-auto xl:group-hover/badge:opacity-100 ${showTip ? "pointer-events-auto !opacity-100" : "opacity-0"}`}
+        style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}
+      >
+        <p className="font-body text-sm leading-5 text-white/90">{badge.tooltip}</p>
+      </div>
+    </div>
+  );
+}
 
 export function AffiliateHero() {
   return (
@@ -92,30 +120,7 @@ export function AffiliateHero() {
 
           <div className="flex flex-wrap gap-3 xl:gap-4">
             {badges.map((badge) => (
-              <div key={badge.label} className="group/badge relative">
-                <span
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-3xl border border-transparent px-3 py-2 font-body text-xs font-medium text-white transition-all duration-200 hover:border-brand-light/40 hover:shadow-[0_0_16px_rgba(255,92,0,0.25)] xl:px-4 xl:py-3 xl:text-sm"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(-30deg, rgb(23,25,31) 0%, rgb(56,56,82) 100%)",
-                  }}
-                >
-                  <Image
-                    src={badge.icon}
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="shrink-0"
-                  />
-                  <span className="whitespace-nowrap">{badge.label}</span>
-                </span>
-                <div
-                  className="pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/badge:pointer-events-auto group-hover/badge:opacity-100"
-                  style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}
-                >
-                  <p className="font-body text-sm leading-5 text-white/90">{badge.tooltip}</p>
-                </div>
-              </div>
+              <AffiliateBadge key={badge.label} badge={badge} />
             ))}
           </div>
         </div>

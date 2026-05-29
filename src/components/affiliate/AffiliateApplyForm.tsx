@@ -191,18 +191,19 @@ export function AffiliateApplyForm() {
                 <button
                   type="button"
                   disabled
-                  className="flex w-full max-w-[400px] cursor-default items-center justify-center gap-[11px] rounded-[16px] px-8 py-5 font-body text-[16px] font-bold uppercase tracking-[0.32px] text-white"
+                  className="flex w-full max-w-[400px] cursor-default items-center justify-center gap-[11px] rounded-3xl px-8 py-6 font-body text-xl font-bold uppercase tracking-[0.4px] text-white"
                   style={{
                     background: "#34a853",
-                    boxShadow: "0 4px 12px rgba(255,92,0,0.3)",
+                    border: "2px solid #34a853",
+                    boxShadow: "0 4px 12px rgba(52,168,83,0.3)",
                     backdropFilter: "blur(3px)",
                   }}
                 >
                   <Image
                     src="/images/jobs/icons/check-all.svg"
                     alt=""
-                    width={16}
-                    height={16}
+                    width={20}
+                    height={20}
                   />
                   Application Submitted
                 </button>

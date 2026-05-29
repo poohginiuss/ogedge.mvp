@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
 
 import { PopupOverlay } from "./PopupOverlay";
+import { ActionButtonsRow, CancelButton, PrimaryButton } from "./PopupShared";
 
 interface ReviewPopupProps {
   isOpen: boolean;
@@ -32,14 +32,14 @@ export function ReviewPopup({ isOpen, onClose }: ReviewPopupProps) {
             alt="Review Characters"
             width={382}
             height={255}
-            className="relative h-auto w-[200px] object-contain lg:w-[380px]"
+            className="relative h-auto w-[260px] object-contain lg:w-[380px]"
             priority
           />
         </div>
 
         {/* Text Content */}
         <div className="flex flex-col items-center gap-1.5 lg:gap-5">
-          <h2 className="max-w-[282px] text-center font-body text-xl font-bold text-white lg:max-w-[489px] lg:font-heading lg:text-[28px] lg:font-semibold">
+          <h2 className="max-w-[282px] text-center font-heading text-2xl font-semibold text-white lg:max-w-[489px] lg:text-[28px]">
             How was your experience with Booster?
           </h2>
           <p className="text-center font-body text-base text-white lg:text-base">
@@ -87,12 +87,11 @@ export function ReviewPopup({ isOpen, onClose }: ReviewPopupProps) {
           </p>
         </div>
 
-        {/* Submit Button */}
-        <div className="flex w-full items-center lg:justify-center">
-          <Button variant="secondary" size="xs" disabled={rating === 0} className="w-full lg:w-auto">
-            Submit Review
-          </Button>
-        </div>
+        {/* Action Buttons */}
+        <ActionButtonsRow>
+          <CancelButton onClick={onClose}>Cancel</CancelButton>
+          <PrimaryButton disabled={rating === 0}>Submit Review</PrimaryButton>
+        </ActionButtonsRow>
       </div>
     </PopupOverlay>
   );

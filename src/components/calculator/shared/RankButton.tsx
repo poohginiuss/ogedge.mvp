@@ -54,7 +54,7 @@ export function RankButton({
     >
       {isHoveredOnly && (
         <span
-          className="pointer-events-none absolute left-1/2 top-full z-10 mt-1 -translate-x-1/2 whitespace-nowrap rounded-lg px-4 py-2 font-body text-xs font-normal tracking-[0.24px] text-white"
+          className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 whitespace-nowrap rounded-lg px-4 py-2 font-body text-xs font-normal tracking-[0.24px] text-white"
           style={{
             background: "#232330",
             border: "1px solid rgba(255,255,255,0.1)",

@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 const STEPS = [
   { num: 1, label: "Your Cart" },
@@ -13,6 +16,31 @@ const BADGES = [
   { label: "Guaranteed", icon: "/images/icons/checkout/check-one.svg", tooltip: "Every order is backed by our satisfaction guarantee or your money back." },
 ] as const;
 
+function HeroBadge({ badge }: { badge: (typeof BADGES)[number] }) {
+  const [showTip, setShowTip] = useState(false);
+
+  return (
+    <div className="group/badge relative">
+      <button
+        type="button"
+        className="inline-flex cursor-pointer items-center gap-2 rounded-3xl border border-transparent px-4 py-3 font-body text-sm font-medium text-white transition-all duration-200 hover:border-brand-light/40 hover:shadow-[0_0_16px_rgba(255,92,0,0.25)]"
+        style={{ backgroundImage: "linear-gradient(-43deg, #17191f, #383852)" }}
+        onClick={() => setShowTip((v) => !v)}
+        onBlur={() => setShowTip(false)}
+      >
+        <Image src={badge.icon} alt="" width={20} height={20} className="h-5 w-5" />
+        {badge.label}
+      </button>
+      <div
+        className={`pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 transition-opacity duration-200 lg:opacity-0 lg:group-hover/badge:pointer-events-auto lg:group-hover/badge:opacity-100 ${showTip ? "pointer-events-auto !opacity-100" : "opacity-0"}`}
+        style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}
+      >
+        <p className="font-body text-sm leading-5 text-white/90">{badge.tooltip}</p>
+      </div>
+    </div>
+  );
+}
+
 type CheckoutHeroProps = {
   activeStep: number;
 };
@@ -26,20 +54,7 @@ export function CheckoutHero({ activeStep }: CheckoutHeroProps) {
           <h1 className="font-heading text-[28px] font-bold text-white lg:text-[32px]">Checkout</h1>
           <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-4">
             {BADGES.map((badge) => (
-              <div key={badge.label} className="group/badge relative">
-                <span
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-3xl border border-transparent px-4 py-3 font-body text-sm font-medium text-white transition-all duration-200 hover:border-brand-light/40 hover:shadow-[0_0_16px_rgba(255,92,0,0.25)]"
-                  style={{
-                    backgroundImage: "linear-gradient(-43deg, #17191f, #383852)",
-                  }}
-                >
-                  <Image src={badge.icon} alt="" width={20} height={20} className="h-5 w-5" />
-                  {badge.label}
-                </span>
-                <div className="pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/badge:pointer-events-auto group-hover/badge:opacity-100" style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}>
-                  <p className="font-body text-sm leading-5 text-white/90">{badge.tooltip}</p>
-                </div>
-              </div>
+              <HeroBadge key={badge.label} badge={badge} />
             ))}
           </div>
         </div>

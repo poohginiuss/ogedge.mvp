@@ -30,7 +30,7 @@ export function PauseOrderPopup({ isOpen, onClose }: PauseOrderPopupProps) {
     <PopupOverlay isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1 lg:gap-5">
-          <h2 className="font-heading text-xl font-semibold text-white lg:text-[28px]">
+          <h2 className="font-heading text-2xl font-semibold text-white lg:text-[28px]">
             Pause Order
           </h2>
           <p className="font-body text-sm text-white lg:text-base">

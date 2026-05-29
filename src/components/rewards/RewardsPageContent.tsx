@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ArrowRightIcon } from "@/components/icons";
 import { Footer } from "@/components/layout/Footer";
@@ -102,28 +102,55 @@ const seasonTiers = [
 
 function FeaturePill({ icon, label, tooltip }: { icon: string; label: string; tooltip: string }) {
   const [showTip, setShowTip] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+
+  const updatePos = () => {
+    if (!btnRef.current) return;
+    const r = btnRef.current.getBoundingClientRect();
+    setPos({ top: r.top - 8, left: r.left + r.width / 2 });
+  };
+
+  useEffect(() => {
+    if (!showTip) return;
+    const onScroll = () => updatePos();
+    window.addEventListener("scroll", onScroll, true);
+    return () => window.removeEventListener("scroll", onScroll, true);
+  });
 
   return (
-    <div className="group/pill relative shrink-0">
+    <div
+      className="shrink-0"
+      onMouseEnter={() => { updatePos(); setShowTip(true); }}
+      onMouseLeave={() => setShowTip(false)}
+    >
       <button
+        ref={btnRef}
         type="button"
         className="flex h-10 cursor-pointer items-center gap-2 rounded-3xl border border-transparent px-4 py-3 font-body text-sm font-medium text-white transition-all duration-200 hover:border-brand-light/40 hover:shadow-[0_0_16px_rgba(255,92,0,0.25)]"
         style={{
           backgroundImage: "linear-gradient(-30deg, rgb(23,25,31) 0%, rgb(56,56,82) 100%)",
         }}
-        onClick={() => setShowTip((p) => !p)}
+        onClick={() => { updatePos(); setShowTip((p) => !p); }}
         onBlur={() => setShowTip(false)}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={icon} alt="" className="h-5 w-5 opacity-70" />
         {label}
       </button>
-      <div
-        className={`pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 transition-opacity duration-200 xl:opacity-0 xl:group-hover/pill:pointer-events-auto xl:group-hover/pill:opacity-100 ${showTip ? "pointer-events-auto opacity-100" : "opacity-0"}`}
-        style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}
-      >
-        <p className="font-body text-sm leading-5 text-white/90">{tooltip}</p>
-      </div>
+
+      {showTip && (
+        <div
+          className="fixed z-50 w-[220px] -translate-x-1/2 -translate-y-full rounded-2xl border border-dark-border p-4"
+          style={{
+            top: pos.top,
+            left: pos.left,
+            background: "linear-gradient(-43deg, #17191f, #383852)",
+          }}
+        >
+          <p className="font-body text-sm leading-5 text-white/90">{tooltip}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -148,16 +175,16 @@ function Hero() {
       {/* Orange blur orb — desktop right side, mobile top center */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-2/3 top-[8%] -z-10 h-[260px] w-[190px] -translate-x-1/2 rounded-full opacity-70 xl:left-auto xl:right-[14%] xl:top-[30%] xl:h-[400px] xl:w-[250px] xl:translate-x-0 xl:opacity-100"
-        style={{ background: "#ff5c00", filter: "blur(107px)" }}
+        className="pointer-events-none absolute left-2/3 top-[8%] -z-10 h-[180px] w-[140px] -translate-x-1/2 rounded-full opacity-35 xl:left-auto xl:right-[14%] xl:top-[30%] xl:h-[300px] xl:w-[200px] xl:translate-x-0 xl:opacity-80"
+        style={{ background: "#ff5c00", filter: "blur(120px)" }}
       />
 
       {/* Character — mobile */}
       <div className="relative mx-auto h-[280px] overflow-hidden xl:hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-[40%] h-[180px] w-[200px] -translate-x-1/2 rounded-full opacity-60"
-          style={{ background: "#ff5c00", filter: "blur(80px)" }}
+          className="pointer-events-none absolute left-1/2 top-[40%] h-[130px] w-[50px] -translate-x-1/2 rounded-full opacity-40"
+          style={{ background: "#ff5c00", filter: "blur(90px)" }}
         />
         <Image
           src="/images/rewards/hero-character.png"
@@ -187,7 +214,7 @@ function Hero() {
       {/* Bottom gradient fade for desktop character */}
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 right-0 -z-10 hidden h-[280px] w-[700px] xl:block"
+        className="pointer-events-none absolute bottom-0 -left-[100px] right-0 -z-10 hidden h-[280px] xl:block"
         style={{
           background:
             "linear-gradient(to top, #121419 0%, #121419 25%, rgba(18,20,25,0.84) 60%, transparent 100%)",

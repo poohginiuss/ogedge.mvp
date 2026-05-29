@@ -325,6 +325,31 @@ function AffiliateReferralCard() {
   );
 }
 
+function PayoutInfoTip() {
+  const [showTip, setShowTip] = useState(false);
+
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        className="cursor-pointer"
+        onClick={() => setShowTip((v) => !v)}
+        onBlur={() => setShowTip(false)}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/dashboard/icons/info-icon.svg" alt="" className="h-6 w-6" />
+      </button>
+      <div
+        className={`pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 w-[220px] -translate-x-1/2 rounded-xl border border-[#383852] bg-[#1a1c2e] px-4 py-3 shadow-lg transition-opacity lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 ${showTip ? "pointer-events-auto !opacity-100" : "opacity-0"}`}
+      >
+        <p className="font-body text-xs leading-5 text-white/90">
+          Request a payout once your confirmed balance meets the minimum threshold. Payouts are processed within 1–3 business days.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function PayoutSidebar() {
   const latestPayout = samplePayouts[0];
   const latestCfg = PAYOUT_STATUS[latestPayout.status];
@@ -335,15 +360,7 @@ function PayoutSidebar() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <h2 className="font-body text-xl font-bold text-white">Payout</h2>
-          <div className="group relative">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/dashboard/icons/info-icon.svg" alt="" className="h-6 w-6 cursor-pointer" />
-            <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 w-[220px] -translate-x-1/2 rounded-xl border border-[#383852] bg-[#1a1c2e] px-4 py-3 opacity-0 shadow-lg transition-opacity group-hover:pointer-events-auto group-hover:opacity-100">
-              <p className="font-body text-xs leading-5 text-white/90">
-                Request a payout once your confirmed balance meets the minimum threshold. Payouts are processed within 1–3 business days.
-              </p>
-            </div>
-          </div>
+          <PayoutInfoTip />
         </div>
         <button
           type="button"

@@ -139,7 +139,7 @@ function DetailsForm({
               </label>
               <div className="group/info relative cursor-pointer">
                 <Image src="/images/icons/checkout/info.svg" alt="" width={16} height={16} className="transition-transform duration-200 group-hover/info:scale-110" />
-                <div className="pointer-events-none absolute right-0 top-full z-50 mt-1 w-[220px] rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/info:pointer-events-auto group-hover/info:opacity-100" style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}>
+                <div className="pointer-events-none absolute bottom-full right-0 z-50 mb-1 w-[220px] rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/info:pointer-events-auto group-hover/info:opacity-100" style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}>
                   <p className="font-body text-sm leading-5 text-white/90">You can optionally choose a specific booster, or one will be automatically assigned.</p>
                 </div>
               </div>
@@ -275,13 +275,14 @@ export function CheckoutDetailsContent() {
                 <h3 className="font-heading text-2xl font-semibold text-white">Your Cart</h3>
                 <Link
                   href="/checkout"
-                  className="flex cursor-pointer items-center gap-2 font-body text-base font-normal uppercase tracking-wider text-white/80 transition-colors hover:text-[#ff975d]"
+                  className="group flex cursor-pointer items-center gap-2 font-body text-base font-normal uppercase tracking-wider text-white/80 transition-colors hover:text-[#ff975d]"
                 >
                   <Image
                     src="/images/icons/checkout/arrow-back.svg"
                     alt=""
                     width={16}
                     height={16}
+                    className="transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
                   />
                   Edit
                 </Link>
@@ -317,13 +318,15 @@ export function CheckoutDetailsContent() {
                   </div>
                 </div>
               ) : (
-                <div className="group/info relative flex cursor-pointer items-center justify-center gap-2">
+                <div className="flex items-center justify-center gap-2">
                   <span className="font-body text-base font-normal text-white">
                     No specific booster selected
                   </span>
-                  <Image src="/images/icons/checkout/info.svg" alt="" width={16} height={16} className="transition-transform duration-200 group-hover/info:scale-110" />
-                  <div className="pointer-events-none absolute right-0 top-full z-50 mt-1 w-[240px] rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/info:pointer-events-auto group-hover/info:opacity-100" style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}>
-                    <p className="font-body text-sm leading-5 text-white/90">You can optionally choose a specific booster, or one will be automatically assigned.</p>
+                  <div className="group/info relative cursor-pointer">
+                    <Image src="/images/icons/checkout/info.svg" alt="" width={16} height={16} className="transition-transform duration-200 group-hover/info:scale-110" />
+                    <div className="pointer-events-none absolute bottom-full right-0 z-50 mb-1 w-[240px] rounded-2xl border border-dark-border p-4 opacity-0 transition-opacity duration-200 group-hover/info:pointer-events-auto group-hover/info:opacity-100" style={{ background: "linear-gradient(-43deg, #17191f, #383852)" }}>
+                      <p className="font-body text-sm leading-5 text-white/90">You can optionally choose a specific booster, or one will be automatically assigned.</p>
+                    </div>
                   </div>
                 </div>
               )}

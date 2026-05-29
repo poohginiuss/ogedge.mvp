@@ -372,13 +372,14 @@ export function CheckoutPaymentContent() {
                 <h3 className="font-heading text-2xl font-semibold text-white">Your Cart</h3>
                 <Link
                   href="/checkout"
-                  className="flex items-center gap-2 font-body text-base font-normal uppercase tracking-wider text-white/80 transition-colors hover:text-white"
+                  className="group flex cursor-pointer items-center gap-2 font-body text-base font-normal uppercase tracking-wider text-white/80 transition-colors hover:text-[#ff975d]"
                 >
                   <Image
                     src="/images/icons/checkout/arrow-back.svg"
                     alt=""
                     width={16}
                     height={16}
+                    className="transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
                   />
                   Edit
                 </Link>

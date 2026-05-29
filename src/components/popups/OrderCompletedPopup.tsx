@@ -37,7 +37,7 @@ export function OrderCompletedPopup({
             alt="Order Completed Characters"
             width={573}
             height={302}
-            className="relative h-auto w-[200px] object-contain lg:w-[380px]"
+            className="relative h-auto w-[260px] object-contain lg:w-[380px]"
             priority
           />
         </div>

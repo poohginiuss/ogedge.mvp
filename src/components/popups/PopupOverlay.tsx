@@ -8,6 +8,7 @@ interface PopupOverlayProps {
   onClose: () => void;
   children: React.ReactNode;
   maxWidth?: string;
+  maxHeightClassName?: string;
   paddingClassName?: string;
 }
 
@@ -16,6 +17,7 @@ export function PopupOverlay({
   onClose,
   children,
   maxWidth = "max-w-[460px] lg:max-w-[650px]",
+  maxHeightClassName = "max-h-[94vh]",
   paddingClassName = "p-5 lg:p-10",
 }: PopupOverlayProps) {
   useEffect(() => {
@@ -38,7 +40,7 @@ export function PopupOverlay({
     <div className="fixed inset-0 z-50 flex items-center justify-center overscroll-none" onTouchMove={(e) => e.stopPropagation()}>
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
       <div
-        className={`relative w-[90%] ${maxWidth} max-h-[94vh] overflow-y-auto overscroll-contain rounded-[20px] backdrop-blur-[8px] ${paddingClassName}`}
+        className={`relative w-[90%] ${maxWidth} ${maxHeightClassName} overflow-y-auto overscroll-contain rounded-[20px] backdrop-blur-[8px] ${paddingClassName}`}
         style={{
           backgroundImage:
             "linear-gradient(110deg, rgba(56, 56, 82, 0.8) 0%, rgba(35, 35, 48, 0.8) 50%, rgba(23, 25, 31, 0.8) 100%)",

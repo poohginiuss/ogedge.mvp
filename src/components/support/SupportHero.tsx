@@ -46,7 +46,7 @@ function TrustBadge({ badge }: { badge: (typeof badges)[number] }) {
         {badge.label}
       </button>
       <div
-        className={`pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 transition-opacity duration-200 xl:opacity-0 xl:group-hover/badge:pointer-events-auto xl:group-hover/badge:opacity-100 ${showTip ? "pointer-events-auto opacity-100" : "opacity-0"}`}
+        className={`pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-[220px] -translate-x-1/2 rounded-2xl border border-dark-border p-4 transition-opacity duration-200 xl:opacity-0 xl:group-hover/badge:pointer-events-auto xl:group-hover/badge:opacity-100 ${showTip ? "pointer-events-auto opacity-100" : "opacity-0"}`}
         style={{
           background: "linear-gradient(-43deg, #17191f, #383852)",
         }}

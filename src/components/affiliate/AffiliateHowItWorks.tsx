@@ -174,6 +174,7 @@ export function AffiliateHowItWorks() {
               src={current.image}
               alt="How it works"
               fill
+              unoptimized
               className="object-contain object-bottom"
             />
           </div>
@@ -248,6 +249,7 @@ export function AffiliateHowItWorks() {
               src={current.image}
               alt="How it works"
               fill
+              unoptimized
               className="object-contain object-bottom"
             />
           </div>
