@@ -198,7 +198,7 @@ export function SupportTicketsTable({
           </h2>
           <Link
             href={faqHref}
-            className="flex items-center rounded-3xl border border-transparent px-8 py-6 font-body text-xl font-bold text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
+            className="flex cursor-pointer items-center rounded-3xl border border-transparent px-8 py-6 font-body text-xl font-bold text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
             style={{ background: "rgba(56,56,82,0.3)" }}
           >
             Need a faster answer? <span className="ml-1 text-[#ff975d]">Read our FAQ</span>
@@ -237,7 +237,7 @@ export function SupportTicketsTable({
           <div className="flex flex-col gap-2">
             <button
               type="button"
-              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-transparent px-4 py-3 font-body text-base font-medium text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-transparent px-4 py-3 font-body text-base font-medium text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97] active:border-[#ff975d] active:text-[#ff975d]"
               style={{ background: "rgba(56,56,82,0.3)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -246,7 +246,7 @@ export function SupportTicketsTable({
             </button>
             <button
               type="button"
-              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-transparent px-4 py-3 font-body text-base font-medium text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-transparent px-4 py-3 font-body text-base font-medium text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97] active:border-[#ff975d] active:text-[#ff975d]"
               style={{ background: "rgba(56,56,82,0.3)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -30,7 +30,7 @@ function MobileMoreMenu() {
         type="button"
         aria-label="More actions"
         onClick={() => setOpen((p) => !p)}
-        className="flex h-9 w-9 items-center justify-center rounded-xl transition-colors"
+        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl transition-colors"
         style={{ background: open ? "rgba(56,56,82,0.6)" : "rgba(56,56,82,0.3)" }}
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -45,7 +45,7 @@ function MobileMoreMenu() {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:text-[#ff975d] active:scale-[0.97]"
+            className="flex w-full cursor-pointer items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:text-[#ff975d] active:scale-[0.97] active:text-[#ff975d]"
           >
             <Image src={`${ICON}/add.svg`} alt="" width={18} height={18} aria-hidden="true" />
             New Ticket
@@ -54,7 +54,7 @@ function MobileMoreMenu() {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="flex w-full items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:text-[#ff975d] active:scale-[0.97]"
+            className="flex w-full cursor-pointer items-center gap-3 px-4 py-3 font-body text-sm font-medium text-white transition-colors hover:text-[#ff975d] active:scale-[0.97] active:text-[#ff975d]"
           >
             <Image src={`${ICON}/check.svg`} alt="" width={18} height={18} aria-hidden="true" />
             Close Ticket
@@ -75,14 +75,14 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
           <Link
             href="/app/customer/support"
             aria-label="Back to tickets"
-            className="rounded-lg p-1 transition-all duration-200 hover:bg-[rgba(56,56,82,0.5)]"
+            className="group cursor-pointer rounded-lg p-1 transition-all duration-200 hover:bg-[rgba(56,56,82,0.5)]"
           >
             <Image
               src={`${ICON}/back.svg`}
               alt=""
               width={12}
               height={24}
-              className="hidden lg:block"
+              className="hidden transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)] lg:block"
               aria-hidden="true"
             />
             <Image
@@ -90,7 +90,7 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
               alt=""
               width={8}
               height={16}
-              className="lg:hidden"
+              className="transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)] lg:hidden"
               aria-hidden="true"
             />
           </Link>
@@ -249,14 +249,14 @@ function MessageInput({ onSend }: { onSend: (text: string) => void }) {
         <div className="flex shrink-0 gap-1 pb-0.5">
           <button
             type="button"
-            className="flex items-center rounded-lg bg-[#383852] p-2 transition-colors hover:bg-[#4a4a6a]"
+            className="flex cursor-pointer items-center rounded-lg bg-[#383852] p-2 transition-colors hover:bg-[#4a4a6a]"
             aria-label="Emoji"
           >
             <Image src={`${ICON}/emoji.svg`} alt="" width={16} height={16} aria-hidden="true" />
           </button>
           <button
             type="button"
-            className="flex items-center rounded-lg bg-[#383852] p-2 transition-colors hover:bg-[#4a4a6a]"
+            className="flex cursor-pointer items-center rounded-lg bg-[#383852] p-2 transition-colors hover:bg-[#4a4a6a]"
             aria-label="Attach image"
           >
             <Image
@@ -282,7 +282,7 @@ function MessageInput({ onSend }: { onSend: (text: string) => void }) {
         />
         <button
           type="button"
-          className="flex shrink-0 items-center rounded-lg p-2 transition-all duration-200"
+          className="flex shrink-0 cursor-pointer items-center rounded-lg p-2 transition-all duration-200"
           style={{
             background: sendHovered ? "#e05000" : "#ff5c00",
             boxShadow: sendHovered ? "0 2px 12px rgba(255,92,0,0.4)" : "none",
@@ -311,7 +311,7 @@ function NeedAnswersFastCard() {
         </div>
         <Link
           href="/faq"
-          className="flex items-center gap-2 font-body text-base font-bold uppercase tracking-wide text-white transition-colors duration-200 hover:text-[#ff975d]"
+          className="flex cursor-pointer items-center gap-2 font-body text-base font-bold uppercase tracking-wide text-white transition-colors duration-200 hover:text-[#ff975d]"
         >
           View FAQ
           <Image
