@@ -199,19 +199,15 @@ export function ViewLink({ orderId }: { orderId: string }) {
 
 export function ChatIcon({ active }: { active?: boolean }) {
   return (
-    <span className={`relative inline-flex ${active ? "animate-chat-pulse" : ""}`}>
+    <span className="relative inline-flex">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={
-          active
-            ? "/images/dashboard/orderview/icons/chat-refresh.svg"
-            : "/images/dashboard/orderview/icons/chat-bubble.svg"
-        }
+        src="/images/dashboard/orderview/icons/chat-bubble.svg"
         alt="Chat"
-        className={`h-6 w-6 ${active ? "[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" : ""}`}
+        className="h-6 w-6"
       />
       {active && (
-        <span className="absolute -right-0.5 -top-0.5 size-2.5 animate-ping rounded-full bg-[#ff975d]" />
+        <span className="absolute -top-0.5 -right-0.5 size-3 animate-pulse rounded-full bg-[#ff975d]" />
       )}
     </span>
   );

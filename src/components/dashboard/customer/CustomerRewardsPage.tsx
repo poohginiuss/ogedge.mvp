@@ -550,29 +550,29 @@ function TierDetailGrid() {
             </span>
 
             <div
-              className="flex flex-col gap-4 overflow-hidden rounded-3xl px-6 pb-6 pt-8"
+              className="flex flex-col gap-4 overflow-hidden rounded-3xl px-4 pb-5 pt-8 sm:px-6 sm:pb-6"
               style={{
                 background: "#232330",
                 border: t.current ? "1px solid #ff975d" : "1px solid transparent",
               }}
             >
             {/* Top row: badge + info left, discount right */}
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-start gap-4">
-                <HexBadge icon={t.icon} color={t.color} isCurrent={t.current} tier={t.tier + 10} />
-                <div className="flex flex-col gap-0.5 pt-1">
+            <div className="flex items-start justify-between gap-2 sm:gap-4">
+              <div className="flex min-w-0 items-start gap-3 sm:gap-4">
+                <HexBadge icon={t.icon} color={t.color} isCurrent={t.current} tier={t.tier + 10} compact />
+                <div className="flex min-w-0 flex-col gap-0.5 pt-1">
                   <span className="font-body text-xs uppercase tracking-wider text-white">Tier {t.tier}</span>
-                  <span className="font-heading text-2xl font-bold text-white">{t.name}</span>
-                  <span className="font-body text-sm italic text-white/70">{t.tagline}</span>
+                  <span className="font-heading text-xl font-bold text-white sm:text-2xl">{t.name}</span>
+                  <span className="font-body text-xs italic text-white/70 sm:text-sm">{t.tagline}</span>
                 </div>
               </div>
               <div className="flex shrink-0 flex-col items-end pt-1">
                 <div className="flex items-baseline">
-                  <span className="font-heading text-[36px] font-bold leading-[44px]" style={{ color: t.color }}>{t.discount}</span>
-                  <span className="font-heading text-[22px] font-bold leading-[28px]" style={{ color: t.color }}>%</span>
+                  <span className="font-heading text-[28px] font-bold leading-[36px] sm:text-[36px] sm:leading-[44px]" style={{ color: t.color }}>{t.discount}</span>
+                  <span className="font-heading text-[18px] font-bold leading-[24px] sm:text-[22px] sm:leading-[28px]" style={{ color: t.color }}>%</span>
                 </div>
-                <span className="font-body text-xs font-bold uppercase text-white/60">Lifetime</span>
-                <span className="font-body text-xs font-bold uppercase text-white/60">Auto-Applied</span>
+                <span className="font-body text-[10px] font-bold uppercase text-white/60 sm:text-xs">Lifetime</span>
+                <span className="font-body text-[10px] font-bold uppercase text-white/60 sm:text-xs">Auto-Applied</span>
               </div>
             </div>
 
@@ -605,36 +605,71 @@ function OrderHistory() {
       <h2 className="font-heading text-[32px] font-bold leading-[45px] text-white">Order History</h2>
       <div className="flex flex-col gap-4">
         {orderHistory.map((order, i) => (
-          <div key={i} className="flex flex-col gap-4 rounded-3xl bg-[#232330] p-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="font-body text-lg font-bold text-white">{order.title}</span>
-                <span className="rounded-lg px-2 py-1 font-body text-sm font-bold uppercase" style={{ background: "rgba(52,168,83,0.2)", color: "#34a853" }}>
-                  {order.status}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => router.push(`/app/customer/orders/${i + 1}`)}
-                className="flex items-center gap-2 rounded-xl px-4 py-2 font-body text-sm font-bold text-white transition-colors hover:bg-white/5"
-                style={{ background: "rgba(56,56,82,0.3)" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/dashboard/icons/external-link.svg" alt="" className="h-3.5 w-3.5 opacity-70" />
-                view
-              </button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="font-body text-base text-white/60">{order.id}</span>
-                <button type="button" className="cursor-pointer opacity-50 transition-opacity hover:opacity-100">
+          <div key={i} className="flex flex-col gap-4 rounded-3xl bg-[#232330] p-6 lg:p-8">
+            {/* Desktop layout */}
+            <div className="hidden lg:block">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="font-body text-lg font-bold text-white">{order.title}</span>
+                  <span className="rounded-lg px-3 py-1 font-body text-sm font-bold uppercase" style={{ background: "#34a853", color: "#fff" }}>
+                    {order.status}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => router.push(`/app/customer/orders/${i + 1}`)}
+                  className="group flex items-center gap-2 rounded-xl px-4 py-2 font-body text-sm font-bold uppercase text-white transition-colors hover:text-[#ff975d]"
+                  style={{ background: "rgba(56,56,82,0.3)" }}
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/dashboard/icons/copy-icon.svg" alt="Copy" className="h-4 w-4" />
+                  <img src="/images/dashboard/icons/external-link.svg" alt="" className="h-3.5 w-3.5 opacity-70 transition-[filter] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
+                  view
                 </button>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="font-body text-lg text-brand-light">Saved {order.saved}</span>
-                <span className="font-body text-lg font-bold text-white">{order.total}</span>
+              <div className="mt-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="font-body text-base text-white/60">{order.id}</span>
+                  <button type="button" className="cursor-pointer opacity-50 transition-opacity hover:opacity-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/images/dashboard/icons/copy-icon.svg" alt="Copy" className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="font-body text-lg text-[#34a853]">Saved {order.saved}</span>
+                  <span className="font-body text-lg font-bold text-[#ff975d]">{order.total}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile layout */}
+            <div className="flex flex-col gap-3 lg:hidden">
+              <div className="flex items-center justify-between">
+                <span className="rounded-lg px-3 py-1 font-body text-sm font-bold uppercase" style={{ background: "#34a853", color: "#fff" }}>
+                  {order.status}
+                </span>
+                <div className="flex items-center gap-3">
+                  <span className="font-body text-base text-[#34a853]">Saved {order.saved}</span>
+                  <span className="font-body text-base font-bold text-[#ff975d]">{order.total}</span>
+                </div>
+              </div>
+              <span className="font-body text-lg font-bold text-white">{order.title}</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="font-body text-base text-white/60">{order.id}</span>
+                  <button type="button" className="cursor-pointer opacity-50 transition-opacity hover:opacity-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/images/dashboard/icons/copy-icon.svg" alt="Copy" className="h-4 w-4" />
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => router.push(`/app/customer/orders/${i + 1}`)}
+                  className="flex items-center justify-center rounded-xl p-2 transition-colors hover:bg-white/5"
+                  style={{ background: "rgba(56,56,82,0.3)" }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/dashboard/icons/external-link.svg" alt="View" className="h-5 w-5 opacity-70" />
+                </button>
               </div>
             </div>
           </div>
@@ -711,7 +746,7 @@ function SeasonalRewardsSidebar() {
           return (
             <div
               key={t.tier}
-              className="flex flex-col gap-4 rounded-2xl p-4 transition-all duration-200 hover:shadow-[0_0_16px_rgba(255,92,0,0.12)]"
+              className="flex flex-col gap-4 rounded-2xl p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(255,92,0,0.15)]"
               style={{
                 background: isLocked ? "#383852" : "#232330",
                 border: isLocked ? "1px solid #383852" : "1px solid #ff975d",

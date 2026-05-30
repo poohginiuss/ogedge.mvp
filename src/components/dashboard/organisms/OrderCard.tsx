@@ -60,7 +60,6 @@ export function OrderCard(props: OrderCardProps) {
           <OrderActionGroup
             hasNotification={order.hasNotification}
             onView={navigateToOrder}
-            onChat={navigateToOrder}
           />
         </div>
         <OrderIdRow orderId={order.orderId} />

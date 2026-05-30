@@ -459,7 +459,7 @@ export function Header() {
                 className="h-6 w-6"
               />
               <span
-                className="absolute rounded-full border-2 border-dark-surface bg-brand-main"
+                className="absolute animate-pulse rounded-full border-2 border-dark-surface bg-brand-main"
                 style={{ width: 12, height: 12, top: 6, right: 8 }}
               />
             </button>

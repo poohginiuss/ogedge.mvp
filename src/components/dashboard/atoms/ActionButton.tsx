@@ -45,7 +45,7 @@ export function ActionButton({
   return (
     <button
       type="button"
-      className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-3 active:scale-[0.97] ${VARIANT_CLASSES[variant]} ${className}`}
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg px-4 py-3 active:scale-[0.97] ${VARIANT_CLASSES[variant]} ${className}`}
       style={variantStyle}
       {...rest}
     >

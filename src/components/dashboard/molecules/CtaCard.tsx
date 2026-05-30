@@ -31,7 +31,7 @@ export function CtaCard({
       style={{ background: "rgba(0,0,0,0.2)" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={icon} alt="" className={`${iconCls} [filter:brightness(0)_saturate(100%)_invert(42%)_sepia(97%)_saturate(2668%)_hue-rotate(3deg)_brightness(104%)_contrast(106%)]`} />
+      <img src={icon} alt="" className={iconCls} />
       {isLarge ? (
         <div className="flex flex-col items-center gap-1">
           <span className="font-body text-2xl font-bold uppercase text-white">{title}</span>

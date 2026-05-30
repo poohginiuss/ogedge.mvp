@@ -30,7 +30,7 @@ export function IconButton({
   return (
     <button
       type="button"
-      className={`group relative flex shrink-0 cursor-pointer items-center justify-center rounded-lg transition-all hover:shadow-[0_0_8px_rgba(255,92,0,0.15)] active:scale-95 ${variantClasses} ${className}`}
+      className={`group relative flex shrink-0 cursor-pointer items-center justify-center rounded-lg transition-all active:scale-95 ${variantClasses} ${className}`}
       style={variantStyle}
       {...rest}
     >

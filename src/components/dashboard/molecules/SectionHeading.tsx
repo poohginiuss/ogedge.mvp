@@ -18,7 +18,7 @@ export function SectionHeading({
     <div className={className}>
       <h2 className={titleClassName}>{title}</h2>
       {onSeeAll && (
-        <button type="button" onClick={onSeeAll} className="group flex cursor-pointer items-center gap-2 text-[#ff975d] transition-colors hover:text-[#ff975d] active:scale-[0.97]">
+        <button type="button" onClick={onSeeAll} className="group flex cursor-pointer items-center gap-2 text-white transition-colors hover:text-[#ff975d] active:scale-[0.97]">
           <span className="font-body text-base font-bold uppercase tracking-wide">
             {seeAllLabel}
           </span>
@@ -26,7 +26,7 @@ export function SectionHeading({
           <img
             src="/images/dashboard/icons/arrow-right-duotone.svg"
             alt=""
-            className="h-6 w-6 rotate-90 [filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
+            className="h-6 w-6 rotate-90 transition-[filter] [filter:brightness(0)_saturate(100%)_invert(100%)] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
           />
         </button>
       )}
