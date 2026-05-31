@@ -156,14 +156,14 @@ function PayoutHistory() {
         </h2>
         <Link
           href="/app/affiliate/payouts"
-          className="group inline-flex cursor-pointer items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-[#ff975d] transition-colors hover:text-[#ff975d] active:scale-[0.97]"
+          className="group inline-flex cursor-pointer items-center gap-2 font-body text-base font-bold uppercase tracking-[0.32px] text-white transition-colors hover:text-[#ff975d] active:scale-[0.97]"
         >
           See all
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/dashboard/icons/arrow-right-duotone.svg"
             alt=""
-            className="h-5 w-5 rotate-90 [filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
+            className="h-5 w-5 rotate-90 transition-[filter] [filter:brightness(0)_saturate(100%)_invert(100%)] group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]"
           />
         </Link>
       </div>

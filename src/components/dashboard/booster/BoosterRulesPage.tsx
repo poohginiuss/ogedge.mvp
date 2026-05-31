@@ -1,6 +1,7 @@
 "use client";
 
 import { Dropdown } from "@/components/ui/Dropdown";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { StarRating } from "../atoms";
 import { ProfileIdentity } from "../molecules";
@@ -43,6 +44,7 @@ const gameDropdownOptions = gameRules.map((g) => g.name);
 
 export default function BoosterRulesPage() {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
+  const router = useRouter();
 
   return (
     <>
@@ -64,6 +66,7 @@ export default function BoosterRulesPage() {
             </div>
           }
           groupWelcomeName
+          onAvatarClick={() => router.push("/app/booster/profile")}
         />
 
         <div className="flex flex-col items-start gap-1">
@@ -129,6 +132,7 @@ export default function BoosterRulesPage() {
                 </div>
               }
               groupWelcomeName
+              onAvatarClick={() => router.push("/app/booster/profile")}
             />
           </div>
 
@@ -142,14 +146,14 @@ export default function BoosterRulesPage() {
                   key={game.name}
                   type="button"
                   onClick={() => setSelectedGame(game.name)}
-                  className={`flex items-center gap-2 rounded-lg px-2 py-2 text-left transition-colors hover:bg-[#383852] ${
+                  className={`group flex items-center gap-2 rounded-lg px-2 py-2 text-left transition-colors hover:bg-[#383852] ${
                     selectedGame === game.name ? "bg-[#383852]" : ""
                   }`}
                 >
-                  <span className="flex-1 font-body text-base font-medium leading-6 text-white">
+                  <span className="flex-1 font-body text-base font-medium leading-6 text-white transition-colors group-hover:text-[#ff975d]">
                     {game.name}
                   </span>
-                  <span className="rounded-md bg-[#383852] px-1 py-0.5 font-body text-xs font-medium leading-[18px] text-white">
+                  <span className="rounded-md bg-[#383852] px-1 py-0.5 font-body text-xs font-medium leading-[18px] text-white transition-colors group-hover:text-[#ff975d]">
                     {game.count}
                   </span>
                 </button>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CopyButton } from "../atoms";
 import {
+  ChatIcon,
   DetailTags,
   MOBILE_CARD_BG,
   Pagination,
@@ -42,8 +43,8 @@ const VARIANT_CONFIG: Record<BoosterTableVariant, VariantConfig> = {
     showClaim: false,
     showView: true,
     showChat: true,
-    showCompletionTime: false,
-    showEmployee: true,
+    showCompletionTime: true,
+    showEmployee: false,
     earningLabel: "Payout",
   },
   completed: {
@@ -246,21 +247,7 @@ function DesktopRow({
 
       {cfg.showChat && (
         <div className="flex w-[5%] items-center justify-center">
-          <div className={`relative cursor-pointer ${order.chatActive ? "animate-chat-pulse" : ""}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={
-                order.chatActive
-                  ? "/images/dashboard/orderview/icons/chat-refresh.svg"
-                  : "/images/dashboard/orderview/icons/chat-bubble.svg"
-              }
-              alt="Chat"
-              className={`h-6 w-6 ${order.chatActive ? "[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" : ""}`}
-            />
-            {order.chatActive && (
-              <span className="absolute -right-1 -top-1 h-2.5 w-2.5 animate-ping rounded-full bg-[#ff5c00]" />
-            )}
-          </div>
+          <ChatIcon active={order.chatActive} />
         </div>
       )}
 
@@ -313,21 +300,7 @@ function MobileCard({
         </div>
 
         {cfg.showChat && (
-          <div className={`relative ${order.chatActive ? "animate-chat-pulse" : ""}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={
-                order.chatActive
-                  ? "/images/dashboard/orderview/icons/chat-refresh.svg"
-                  : "/images/dashboard/orderview/icons/chat-bubble.svg"
-              }
-              alt="Chat"
-              className={`h-6 w-6 ${order.chatActive ? "[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" : ""}`}
-            />
-            {order.chatActive && (
-              <span className="absolute -right-1 -top-1 h-2.5 w-2.5 animate-ping rounded-full bg-[#ff5c00]" />
-            )}
-          </div>
+          <ChatIcon active={order.chatActive} />
         )}
       </div>
 

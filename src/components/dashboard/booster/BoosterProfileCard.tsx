@@ -1,8 +1,12 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { StarRating } from "../atoms";
 import { ProfileIdentity } from "../molecules";
 import { boosterProfile } from "./boosterData";
 
 export function BoosterProfileCard() {
+  const router = useRouter();
   return (
     <div
       className="flex flex-col items-start gap-4 overflow-hidden rounded-3xl px-4 py-6 lg:flex-row lg:items-center lg:px-8"
@@ -13,6 +17,7 @@ export function BoosterProfileCard() {
         avatarAlt="Booster avatar"
         avatarClassName="h-16 w-16 lg:h-[90px] lg:w-[90px]"
         name={boosterProfile.username}
+        onAvatarClick={() => router.push("/app/booster/profile")}
         meta={
           <StarRating
             rating={boosterProfile.starRating}
