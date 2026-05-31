@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
+import { useRef, useState } from "react";
+import type { MouseEvent, FocusEvent } from "react";
 
 export function InfoBox({ children }: { children: React.ReactNode }) {
   return (
@@ -51,7 +52,7 @@ export function AmountOption({ label, selected, onClick }: AmountOptionProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex h-[44px] cursor-pointer items-center justify-center rounded-xl border font-body text-base font-bold transition-all hover:border-[#ff975d] active:scale-[0.97] ${
+      className={`relative flex h-[50px] cursor-pointer items-center justify-center rounded-xl border font-body text-base font-bold transition-all hover:border-[#ff975d] active:scale-[0.97] ${
         selected
           ? "border-[#ff975d] text-[#ff975d] drop-shadow-[0px_4px_7px_rgba(255,92,0,0.3)]"
           : "border-[#383852] bg-[rgba(0,0,0,0.2)] text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)]"
@@ -101,7 +102,7 @@ export function CustomAmountInput({
       }}
       onFocus={onFocus}
       placeholder={placeholder}
-      className="col-span-2 h-[44px] rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 text-center font-body text-base font-bold text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)] outline-none placeholder:text-white/50 focus:border-[#ff975d]"
+      className="col-span-2 h-[50px] rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 text-center font-body text-base font-bold text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)] outline-none placeholder:text-white/50 focus:border-[#ff975d]"
     />
   );
 }
@@ -288,6 +289,57 @@ export function TotalAmountRow({ amount }: { amount: string }) {
   );
 }
 
+function PopupButton({
+  variant = "secondary",
+  children,
+  onClick,
+  disabled,
+  className = "",
+}: {
+  variant?: "primary" | "secondary";
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    onClick?.();
+    requestAnimationFrame(() => btnRef.current?.blur());
+  };
+
+  const isPrimary = variant === "primary";
+  const bg = isPrimary
+    ? "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)"
+    : "rgba(23,25,31,0.5)";
+
+  return (
+    <button
+      ref={btnRef}
+      type="button"
+      disabled={disabled}
+      onClick={handleClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`inline-flex cursor-pointer items-center justify-center rounded-3xl px-5 py-3 font-body text-sm font-bold uppercase tracking-[0.28px] leading-5 transition-all duration-200 focus:outline-none active:scale-[0.97] disabled:opacity-40 ${className}`}
+      style={{
+        background: isPrimary ? undefined : bg,
+        backgroundImage: isPrimary ? bg : undefined,
+        backdropFilter: isPrimary ? undefined : "blur(3px)",
+        border: hovered ? "1px solid #ff975d" : "1px solid #ff975d",
+        color: hovered && !isPrimary ? "#ff975d" : "#ffffff",
+        boxShadow: hovered
+          ? "0 4px 16px rgba(255,92,0,0.2)"
+          : "none",
+      }}
+    >
+      <span className="leading-6">{children}</span>
+    </button>
+  );
+}
+
 export function CancelButton({
   children,
   onClick,
@@ -296,9 +348,9 @@ export function CancelButton({
   onClick?: () => void;
 }) {
   return (
-    <Button variant="secondary" size="xs" onClick={onClick} className="flex-1">
+    <PopupButton variant="secondary" onClick={onClick} className="flex-1">
       {children}
-    </Button>
+    </PopupButton>
   );
 }
 
@@ -312,9 +364,9 @@ export function PrimaryButton({
   disabled?: boolean;
 }) {
   return (
-    <Button variant="primary" size="xs" onClick={onClick} disabled={disabled} className="flex-1">
+    <PopupButton variant="primary" onClick={onClick} disabled={disabled} className="flex-1">
       {children}
-    </Button>
+    </PopupButton>
   );
 }
 
@@ -328,9 +380,9 @@ export function OutlineButton({
   className?: string;
 }) {
   return (
-    <Button variant="secondary" size="xs" onClick={onClick} className={`flex-1 ${className ?? ""}`}>
+    <PopupButton variant="secondary" onClick={onClick} className={`flex-1 ${className ?? ""}`}>
       {children}
-    </Button>
+    </PopupButton>
   );
 }
 

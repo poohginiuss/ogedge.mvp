@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
 
 import { PopupOverlay } from "./PopupOverlay";
+import { ActionButtonsRow, CancelButton, PrimaryButton } from "./PopupShared";
 
 interface OrderCompletedPopupProps {
   isOpen: boolean;
@@ -95,16 +95,16 @@ export function OrderCompletedPopup({
         />
 
         {/* Action Buttons */}
-        <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4">
-          <Button variant="secondary" size="xs" onClick={onClose} className="w-full lg:flex-1">
+        <ActionButtonsRow>
+          <CancelButton onClick={onClose}>
             <span className="lg:hidden">Skip</span>
             <span className="hidden lg:inline">Skip & Confirm</span>
-          </Button>
-          <Button variant="primary" size="xs" className="w-full lg:flex-1">
+          </CancelButton>
+          <PrimaryButton>
             <span className="lg:hidden">Confirm</span>
             <span className="hidden lg:inline">Review & Confirm</span>
-          </Button>
-        </div>
+          </PrimaryButton>
+        </ActionButtonsRow>
       </div>
     </PopupOverlay>
   );

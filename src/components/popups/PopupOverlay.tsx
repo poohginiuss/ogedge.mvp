@@ -16,9 +16,9 @@ export function PopupOverlay({
   isOpen,
   onClose,
   children,
-  maxWidth = "max-w-[460px] lg:max-w-[650px]",
+  maxWidth = "max-w-[480px] lg:max-w-[680px]",
   maxHeightClassName = "max-h-[94vh]",
-  paddingClassName = "p-5 lg:p-10",
+  paddingClassName = "p-6 lg:p-10",
 }: PopupOverlayProps) {
   useEffect(() => {
     if (isOpen) {
@@ -40,10 +40,10 @@ export function PopupOverlay({
     <div className="fixed inset-0 z-50 flex items-center justify-center overscroll-none" onTouchMove={(e) => e.stopPropagation()}>
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
       <div
-        className={`relative w-[90%] ${maxWidth} ${maxHeightClassName} overflow-y-auto overscroll-contain rounded-[20px] backdrop-blur-[8px] ${paddingClassName}`}
+        className={`relative w-[90%] ${maxWidth} ${maxHeightClassName} overflow-y-auto overscroll-contain rounded-[20px] backdrop-blur-[12px] ${paddingClassName}`}
         style={{
           backgroundImage:
-            "linear-gradient(110deg, rgba(56, 56, 82, 0.8) 0%, rgba(35, 35, 48, 0.8) 50%, rgba(23, 25, 31, 0.8) 100%)",
+            "linear-gradient(110deg, rgba(56, 56, 82, 0.35) 0%, rgba(35, 35, 48, 0.35) 50%, rgba(23, 25, 31, 0.4) 100%)",
         }}
       >
         <button
