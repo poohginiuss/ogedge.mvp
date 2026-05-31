@@ -163,8 +163,8 @@ export function AffiliateHowItWorks() {
           {/* Left: Character illustration */}
           <div className="relative h-[660px] w-[500px] shrink-0">
             <div
-              className="absolute left-[32%] top-[38%] h-[256px] w-[290px] rounded-full transition-colors duration-500"
-              style={{ backgroundColor: current.glowColor, filter: "blur(107px)", opacity: 0.6 }}
+              className="absolute left-[36%] top-[40%] h-[180px] w-[200px] rounded-full transition-colors duration-500"
+              style={{ backgroundColor: current.glowColor, filter: "blur(90px)", opacity: 0.5 }}
             />
             <div
               className="absolute bottom-[25px] left-[32%] h-[100px] w-[320px]"
