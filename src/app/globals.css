@@ -214,6 +214,17 @@ body {
   animation: chat-pulse 2.5s ease-in-out infinite;
 }
 
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 @keyframes orb-breathe {
   0%,
   100% {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Lexend, Urbanist } from "next/font/google";
+import { ToastProvider } from "@/components/ui/Toast";
 import "./globals.css";
 
 const lexend = Lexend({
@@ -29,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${lexend.variable} ${urbanist.variable} h-full antialiased`}>
-      <body className="min-h-full font-body bg-dark-main text-white">{children}</body>
+      <body className="min-h-full font-body bg-dark-main text-white">
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }
