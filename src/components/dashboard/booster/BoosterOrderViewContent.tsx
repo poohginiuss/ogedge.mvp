@@ -165,21 +165,70 @@ function BoosterStatusActionBar({
       return null;
   }
 
+  const completeBtn = buttons.find((b) => b.label.includes("Complete"));
+  const actionBtn = buttons.find((b) => !b.label.includes("Complete"));
+
   return (
     <>
-      {/* Desktop */}
-      <div className="hidden items-stretch gap-4 lg:flex">
+      {/* Desktop (1620px+) */}
+      <div className="hidden items-stretch gap-4 min-[1620px]:flex">
         {buttons.map((btn) => (
           <StatusButton key={btn.label} btn={btn} size="desktop" />
         ))}
         <SupportButton onClick={onSupport} />
       </div>
 
-      {/* Mobile */}
-      <div className="flex items-center gap-2 lg:hidden">
-        {buttons.map((btn) => (
-          <StatusButton key={btn.label} btn={btn} size="mobile" />
-        ))}
+      {/* Mobile + small laptop: COMPLETE pill + action icon + support icon */}
+      <div className="flex items-center gap-2 min-[1620px]:hidden">
+        {completeBtn && (
+          <button
+            type="button"
+            disabled={completeBtn.disabled}
+            onClick={completeBtn.onClick}
+            className="flex h-11 cursor-pointer items-center justify-center whitespace-nowrap rounded-2xl px-5 font-body text-sm font-bold uppercase tracking-wide transition-all"
+            style={{
+              background: completeBtn.bg,
+              color: completeBtn.textColor,
+              boxShadow: completeBtn.shadow,
+              opacity: completeBtn.disabled ? 0.4 : 1,
+              cursor: completeBtn.disabled ? "not-allowed" : "pointer",
+            }}
+          >
+            Complete
+          </button>
+        )}
+        {actionBtn && (
+          <button
+            type="button"
+            disabled={actionBtn.disabled}
+            onClick={actionBtn.onClick}
+            className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all active:scale-95"
+            style={{
+              background: actionBtn.bg,
+              boxShadow: actionBtn.shadow,
+              opacity: actionBtn.disabled ? 0.4 : 1,
+              cursor: actionBtn.disabled ? "not-allowed" : "pointer",
+            }}
+            aria-label={actionBtn.label}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={status === "started" ? "/images/dashboard/orderview/icons/btn-pause.svg" : "/images/dashboard/orderview/icons/btn-play.svg"}
+              alt=""
+              className="h-6 w-6"
+            />
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={onSupport}
+          className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all hover:opacity-80 active:scale-95"
+          style={{ background: "rgba(56,56,82,0.5)" }}
+          aria-label="Support"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/dashboard/orderview/icons/toolbar-support.svg" alt="" className="h-5 w-5" />
+        </button>
       </div>
     </>
   );
@@ -200,33 +249,15 @@ export default function BoosterOrderViewContent({ orderId: _orderId }: Props) {
 
   const leftColumn = (
     <div className="flex min-w-0 flex-1 flex-col gap-4 lg:gap-6">
-      {/* Completion Time + Status Action Buttons — same row on desktop */}
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
-        <div className="flex items-center justify-between gap-4 lg:shrink-0">
-          <div className="flex flex-col text-white">
-            <span className="font-body text-sm font-normal leading-5 lg:text-2xl lg:font-semibold lg:leading-none">
-              Completion Time
-            </span>
-            <span className="font-heading text-lg font-bold leading-7 lg:text-[32px] lg:font-semibold lg:leading-none lg:mt-1">
-              {view.completionTime}
-            </span>
-          </div>
-          <div className="lg:hidden">
-            <button
-              type="button"
-              onClick={handleSupport}
-              className="flex h-10 items-center gap-2 rounded-2xl px-4 transition-colors hover:bg-[#2d2d40]"
-              style={{ background: "rgba(56,56,82,0.3)" }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/dashboard/orderview/icons/toolbar-support.svg"
-                alt=""
-                className="h-5 w-5"
-              />
-              <span className="font-body text-sm font-semibold text-white">Support</span>
-            </button>
-          </div>
+      {/* Completion Time + Status Action Buttons — same row */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex shrink-0 flex-col text-white">
+          <span className="whitespace-nowrap font-body text-sm font-normal leading-5 min-[1620px]:text-2xl min-[1620px]:font-semibold min-[1620px]:leading-none">
+            Completion Time
+          </span>
+          <span className="whitespace-nowrap font-heading text-lg font-bold leading-7 min-[1620px]:text-[32px] min-[1620px]:font-semibold min-[1620px]:leading-none min-[1620px]:mt-1">
+            {view.completionTime}
+          </span>
         </div>
         <BoosterStatusActionBar
           status={boosterStatus}
@@ -240,24 +271,24 @@ export default function BoosterOrderViewContent({ orderId: _orderId }: Props) {
 
       <GameServiceHeroCard hero={view.hero} />
 
-      <div className="h-[600px] lg:hidden">
+      <div className="h-[510px] lg:h-[600px] min-[1440px]:hidden">
         <OrderChatPanel view={view} role="booster" />
       </div>
 
-      <div className="lg:hidden">
+      <div className="min-[1620px]:hidden">
         <DescriptionPanel title={view.description.title} body={view.description.body} />
       </div>
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
-        <div className="order-2 lg:order-1 lg:flex-1">
+      <div className="flex flex-col gap-4 min-[1620px]:flex-row min-[1620px]:gap-6">
+        <div className="order-2 min-[1620px]:order-1 min-[1620px]:flex-1">
           <OrderDetailsPanel rows={view.orderDetails} />
         </div>
-        <div className="order-1 lg:order-2 lg:flex-1">
+        <div className="order-1 min-[1620px]:order-2 min-[1620px]:flex-1">
           <AccountDetailsPanel rows={view.accountDetails} chips={view.accountDetailChips} />
         </div>
       </div>
 
-      <div className="hidden lg:block">
+      <div className="hidden min-[1620px]:block">
         <DescriptionPanel title={view.description.title} body={view.description.body} />
       </div>
     </div>
@@ -265,9 +296,9 @@ export default function BoosterOrderViewContent({ orderId: _orderId }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
+      <div className="flex flex-col gap-6 min-[1440px]:flex-row min-[1440px]:items-start min-[1440px]:gap-8">
         {leftColumn}
-        <aside className="hidden lg:block lg:w-[490px] lg:shrink-0">
+        <aside className="hidden min-[1440px]:block min-[1440px]:w-[490px] min-[1440px]:shrink-0">
           <div className="sticky top-6 h-[calc(100vh-6rem)] max-h-[960px] min-h-[720px]">
             <OrderChatPanel view={view} role="booster" />
           </div>

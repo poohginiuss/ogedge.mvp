@@ -70,8 +70,8 @@ export function OrderActionToolbar({
 
   return (
     <>
-      {/* Desktop / tablet: full 4-button row */}
-      <div className="hidden items-stretch gap-4 lg:flex">
+      {/* Desktop: full 4-button row (1620px+) */}
+      <div className="hidden items-stretch gap-4 min-[1620px]:flex">
         <ToolbarButton
           icon="/images/dashboard/orderview/icons/toolbar-payment.svg"
           label="Additional Payment"
@@ -105,8 +105,8 @@ export function OrderActionToolbar({
         </Button>
       </div>
 
-      {/* Mobile: Purchase Boost + 3-dot dropdown (per Figma 1619:6728) */}
-      <div className="flex items-center justify-between gap-2 lg:hidden">
+      {/* Mobile + small laptop: Purchase Boost + 3-dot dropdown */}
+      <div className="flex items-center justify-between gap-2 min-[1620px]:hidden">
         <span className="shrink-0 font-body text-sm font-medium text-white">Order Details</span>
         <div className="flex items-center gap-2">
           <button

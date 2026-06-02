@@ -102,7 +102,7 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
           {/* Decorative background money-off icon — desktop only */}
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 opacity-15 lg:block"
+            className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 opacity-15 min-[1620px]:block"
           >
             <div className="flex h-[118px] w-[118px] items-center justify-center">
               <span className="absolute inset-0 rounded-full border-2 border-white/20" />
@@ -121,12 +121,12 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
             </div>
           </div>
 
-          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="relative flex flex-col gap-6 min-[1620px]:flex-row min-[1620px]:items-center min-[1620px]:justify-between">
             <div className="flex flex-col gap-1">
-              <h2 className="font-heading text-2xl font-semibold text-white lg:text-[32px]">
+              <h2 className="font-heading text-2xl font-semibold text-white min-[1620px]:text-[32px]">
                 Awaiting Payment
               </h2>
-              <p className="font-body text-base text-white lg:text-lg">
+              <p className="font-body text-base text-white min-[1620px]:text-lg">
                 Complete your payment to start your boosting order
               </p>
               <div className="mt-1 flex items-center gap-2">
@@ -136,7 +136,7 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
                 </span>
               </div>
             </div>
-            <div className="flex flex-col gap-4 lg:w-[300px] lg:shrink-0">
+            <div className="flex flex-col gap-4 min-[1620px]:w-[300px] min-[1620px]:shrink-0">
               <button
                 type="button"
                 className="flex items-center justify-center gap-4 rounded-3xl bg-[rgba(56,56,82,0.3)] px-8 py-6 font-body text-xl font-bold text-white transition-all hover:bg-[rgba(56,56,82,0.6)] hover:shadow-[0_0_12px_rgba(255,255,255,0.05)]"
@@ -166,14 +166,14 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
         <GameServiceHeroCard hero={view.hero} />
       </div>
 
-      <div className="h-[510px] lg:hidden">
+      <div className="h-[510px] lg:h-[600px] min-[1440px]:hidden">
         <OrderChatPanel view={view} hideWarningBanner />
       </div>
 
       {/* Mobile: report warning below chat to save vertical space */}
       {view.showBoosterPoachingWarning && (
         <div
-          className="flex items-center justify-between gap-4 rounded-2xl px-5 py-3 lg:hidden"
+          className="flex items-center justify-between gap-4 rounded-2xl px-5 py-3 min-[1620px]:hidden"
           style={{
             background:
               "linear-gradient(97deg, rgba(255,151,93,0.2) 0%, rgba(255,92,0,0.2) 50%, rgba(163,45,5,0.2) 100%)",
@@ -193,21 +193,21 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
         </div>
       )}
 
-      {/* Mobile: description right after chat, desktop: after detail panels */}
-      <div className={`lg:hidden ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
+      {/* Mobile + small laptop: description right after chat */}
+      <div className={`min-[1620px]:hidden ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
         <DescriptionPanel title={view.description.title} body={view.description.body} />
       </div>
 
-      <div className={`flex flex-col gap-4 lg:flex-row lg:gap-6 ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
-        <div className="order-2 lg:order-1 lg:flex-1">
+      <div className={`flex flex-col gap-4 min-[1620px]:flex-row min-[1620px]:gap-6 ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
+        <div className="order-2 min-[1620px]:order-1 min-[1620px]:flex-1">
           <OrderDetailsPanel rows={view.orderDetails} />
         </div>
-        <div className="order-1 lg:order-2 lg:flex-1">
+        <div className="order-1 min-[1620px]:order-2 min-[1620px]:flex-1">
           <AccountDetailsPanel rows={view.accountDetails} chips={view.accountDetailChips} />
         </div>
       </div>
 
-      <div className={`hidden lg:block ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
+      <div className={`hidden min-[1620px]:block ${view.isUnpaid ? "pointer-events-none opacity-40" : ""}`}>
         <DescriptionPanel title={view.description.title} body={view.description.body} />
       </div>
     </div>
@@ -215,9 +215,9 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
+      <div className="flex flex-col gap-6 min-[1440px]:flex-row min-[1440px]:items-start min-[1440px]:gap-8">
         {leftColumn}
-        <aside className="hidden lg:block lg:w-[490px] lg:shrink-0">
+        <aside className="hidden min-[1440px]:block min-[1440px]:w-[490px] min-[1440px]:shrink-0">
           <div className="sticky top-6 h-[calc(100vh-6rem)] max-h-[960px] min-h-[720px]">
             <OrderChatPanel view={view} />
           </div>

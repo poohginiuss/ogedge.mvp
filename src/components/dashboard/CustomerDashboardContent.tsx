@@ -50,12 +50,12 @@ export default function CustomerDashboardContent() {
         <DashboardReferralCard />
       </div>
 
-      {/* Mobile: Loyalty & Seasonal cards right after referral */}
-      <div className="flex flex-col gap-6 xl:hidden">
+      {/* Mobile: Loyalty & Seasonal cards (tap opens drawer on mobile, visible at lg) */}
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch xl:hidden">
         <button
           type="button"
           onClick={openOnMobile("loyalty")}
-          className="block w-full text-left lg:cursor-default"
+          className="block w-full text-left lg:flex-1 lg:cursor-default [&>*]:lg:h-full"
         >
           <DashboardPanel header={<LoyaltyHeader />} hideBodyOnMobile>
             <LoyaltyTierList />
@@ -65,7 +65,7 @@ export default function CustomerDashboardContent() {
         <button
           type="button"
           onClick={openOnMobile("seasonal")}
-          className="block w-full text-left lg:cursor-default"
+          className="block w-full text-left lg:flex-1 lg:cursor-default [&>*]:lg:h-full"
         >
           <DashboardPanel
             header={<SeasonalHeader />}

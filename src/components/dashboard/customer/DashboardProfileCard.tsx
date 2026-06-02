@@ -46,7 +46,7 @@ export function DashboardProfileCard({ onNewOrder, onSupport, onProfileClick }: 
       className="flex flex-col gap-6 overflow-hidden rounded-3xl px-4 py-6 lg:px-8"
       style={{ background: "rgba(56,56,82,0.3)" }}
     >
-      {/* Desktop: single row with user info left, action buttons right */}
+      {/* Large desktop (xl+): full row with big CTAs */}
       <div className="hidden xl:flex xl:items-center xl:justify-between">
         <ProfileIdentity
           avatarSrc={userProfile.avatarUrl}
@@ -76,8 +76,38 @@ export function DashboardProfileCard({ onNewOrder, onSupport, onProfileClick }: 
         </div>
       </div>
 
-      {/* Mobile + tablet: stacked layout */}
-      <div className="flex flex-col gap-6 xl:hidden">
+      {/* Tablet / small laptop (lg to xl): single row with compact CTAs */}
+      <div className="hidden lg:flex lg:items-center lg:justify-between xl:hidden">
+        <ProfileIdentity
+          avatarSrc={userProfile.avatarUrl}
+          avatarSize={64}
+          welcomeText="Welcome,"
+          welcomeClassName="font-body text-sm leading-5 text-white"
+          name={userProfile.username}
+          nameClassName="font-body text-lg font-bold leading-6 text-white"
+          meta={<ProfileBadges />}
+          groupWelcomeName
+          onAvatarClick={onProfileClick}
+        />
+
+        <div className="flex items-center gap-3">
+          <CtaCard
+            size="sm"
+            icon="/images/dashboard/icons/pen-new-order.svg"
+            title="New Order"
+            onClick={onNewOrder}
+          />
+          <CtaCard
+            size="sm"
+            icon="/images/dashboard/icons/support-icon.svg"
+            title="Support"
+            onClick={onSupport}
+          />
+        </div>
+      </div>
+
+      {/* Mobile (below lg): stacked layout */}
+      <div className="flex flex-col gap-6 lg:hidden">
         <ProfileIdentity
           avatarSrc={userProfile.avatarUrl}
           avatarSize={64}

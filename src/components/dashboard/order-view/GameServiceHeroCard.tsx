@@ -19,7 +19,7 @@ export function GameServiceHeroCard({ hero, statusSubLabel, className }: GameSer
       {hero.artworkSrc && (
         <div
           aria-hidden
-          className="pointer-events-none absolute left-[41px] top-[-36px] hidden lg:block"
+          className="pointer-events-none absolute left-0 top-[-20px] lg:left-[41px] lg:top-[-36px]"
           style={{ width: "413px", height: "478px" }}
         >
           {/* Dark red glow orbs behind character */}
@@ -41,8 +41,8 @@ export function GameServiceHeroCard({ hero, statusSubLabel, className }: GameSer
         </div>
       )}
 
-      <div className="relative flex flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div className="flex min-w-0 flex-col leading-tight lg:w-[250px] lg:shrink-0">
+      <div className="relative flex flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 min-[1440px]:flex-col min-[1440px]:items-stretch min-[1440px]:px-6 min-[1620px]:flex-row min-[1620px]:items-center min-[1620px]:justify-between min-[1620px]:px-8">
+        <div className="flex min-w-0 flex-col leading-tight lg:w-[250px] lg:shrink-0 min-[1440px]:w-full min-[1620px]:w-[250px]">
           <div className="font-heading text-[32px] font-semibold leading-none text-white">
             <p>{hero.gameTitle}</p>
             <p>{hero.serviceTitle}</p>
@@ -75,7 +75,7 @@ export function GameServiceHeroCard({ hero, statusSubLabel, className }: GameSer
           </div>
         </div>
 
-        <div className="w-full lg:w-[315px] lg:shrink-0">
+        <div className="w-full lg:w-[315px] lg:shrink-0 min-[1440px]:w-full min-[1620px]:w-[315px]">
           <StatusPill
             status={hero.status}
             countdown={hero.countdown}

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { BoosterOrder } from "../booster/boosterData";
 import type { Order } from "../dashboardData";
+import { ActionButton, IconButton } from "../atoms";
 import { OrderActionGroup, OrderIdRow, StatusBadgeGroup } from "../molecules";
 
 type CustomerVariantProps = {
@@ -50,7 +51,7 @@ export function OrderCard(props: OrderCardProps) {
     const navigateToOrder = () => router.push(`/app/customer/orders/${order.id}`);
     return (
       <div className="flex flex-col gap-4 rounded-3xl bg-dark-surface p-6 lg:p-8">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-3">
             <h3 className="font-body text-base font-semibold text-white lg:text-xl">
               {order.title}
@@ -68,7 +69,10 @@ export function OrderCard(props: OrderCardProps) {
   }
 
   const { order, boosterSection } = props;
-  const showViewChat = boosterSection === "my-orders" || (!boosterSection && !order.canClaim);
+  const isAvailable = boosterSection === "available";
+  const isMyOrders = boosterSection === "my-orders";
+  const isCompleted = boosterSection === "completed";
+
   return (
     <div className="flex flex-col gap-4 rounded-3xl bg-dark-surface p-4 lg:p-8">
       {/* Desktop */}
@@ -78,7 +82,38 @@ export function OrderCard(props: OrderCardProps) {
             <h3 className="font-body text-xl font-semibold text-white">{order.title}</h3>
             <StatusBadgeGroup statuses={order.statuses} />
           </div>
-          <OrderActionGroup hasNotification={order.hasNotification} canClaim={order.canClaim} />
+          {!isCompleted && (
+            <div className="flex shrink-0 items-center gap-2">
+              <div className="relative">
+                <IconButton
+                  icon="/images/dashboard/icons/notification.svg"
+                  iconClassName="h-6 w-6"
+                  variant="ghost"
+                  aria-label="Notifications"
+                />
+                {order.hasNotification && (
+                  <span className="absolute right-2.5 top-2.5 size-2.5 animate-pulse rounded-full bg-[#ff975d]" />
+                )}
+              </div>
+              {isAvailable && (
+                <ActionButton
+                  icon="/images/dashboard/icons/claim-icon.svg"
+                  variant="outline"
+                  onClick={() => {}}
+                >
+                  Claim
+                </ActionButton>
+              )}
+              {isMyOrders && (
+                <ActionButton
+                  icon="/images/dashboard/icons/open-view.svg"
+                  onClick={() => router.push(`/app/booster/orders/${order.orderId}`)}
+                >
+                  View Order
+                </ActionButton>
+              )}
+            </div>
+          )}
         </div>
         <div className="mt-4 flex items-center justify-between">
           <OrderIdRow orderId={order.orderId} />
@@ -94,7 +129,7 @@ export function OrderCard(props: OrderCardProps) {
         </div>
         <p className="font-body text-base font-medium text-white">{order.title}</p>
         <OrderIdRow orderId={order.orderId} idClassName="font-body text-sm text-white" />
-        {order.canClaim && (
+        {isAvailable && (
           <button
             type="button"
             className="mt-1 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#ff975d] py-3 font-body text-base font-bold uppercase text-white transition-all hover:opacity-90 active:scale-[0.97]"
@@ -104,7 +139,7 @@ export function OrderCard(props: OrderCardProps) {
             CLAIM
           </button>
         )}
-        {showViewChat && (
+        {isMyOrders && (
           <button
             type="button"
             onClick={() => router.push(`/app/booster/orders/${order.orderId}`)}

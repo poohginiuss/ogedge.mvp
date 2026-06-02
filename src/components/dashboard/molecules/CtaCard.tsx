@@ -38,7 +38,7 @@ export function CtaCard({
           {subtitle && <span className="font-body text-sm text-white">{subtitle}</span>}
         </div>
       ) : (
-        <span className="font-body text-base font-bold uppercase text-white">{title}</span>
+        <span className="whitespace-nowrap font-body text-base font-bold uppercase text-white">{title}</span>
       )}
     </button>
   );
