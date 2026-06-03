@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import type { TableOrder } from "../activeOrdersData";
 import { CopyButton } from "../atoms";
 import {
   ChatIcon,
   DetailTags,
+  MOBILE_CARD_BG,
   MobileCardShell,
   MobileDetailRow,
   Pagination,
@@ -113,6 +115,57 @@ function MobileCard({ order }: { order: TableOrder }) {
   );
 }
 
+// ─── Small laptop compact card (lg → 1500px) ─────────────────────────────────
+
+function CompactCard({ order }: { order: TableOrder }) {
+  return (
+    <div
+      className="flex flex-col gap-2 rounded-3xl px-6 py-5"
+      style={{ backgroundImage: MOBILE_CARD_BG }}
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="font-body text-base font-semibold text-[#ff975d]">{order.orderId}</span>
+          <CopyButton
+            ariaLabel="Copy order ID"
+            onCopy={() => navigator.clipboard.writeText(order.orderId)}
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <ChatIcon active={order.chatActive} />
+          <StatusPill status={order.tableStatus} />
+        </div>
+      </div>
+
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col">
+          <span className="font-heading text-xl font-bold text-white">{order.game}</span>
+          <span className="font-body text-base text-white">{order.service}</span>
+          <span className="font-body text-sm text-white/70">{order.rangeLabel}</span>
+          <span className="mt-1 font-body text-sm text-white/80">
+            {order.employeeName}{" "}
+            <StarRating rating={order.employeeRating} />
+          </span>
+        </div>
+      </div>
+
+      <div className="flex items-end justify-between gap-4">
+        <DetailTags tags={order.details} />
+        <Link
+          href={`/app/customer/orders/${order.orderId}`}
+          className="flex shrink-0 items-center justify-center rounded-2xl px-6 py-2.5 font-body text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+          style={{
+            background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+            border: "1px solid #6d6d96",
+          }}
+        >
+          View Order
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 type Props = { orders: TableOrder[]; onPurchaseBoost: () => void; onSupport?: () => void };
@@ -127,9 +180,9 @@ export function ActiveOrdersTable({ orders, onPurchaseBoost, onSupport }: Props)
     <div className="flex flex-1 flex-col gap-8">
       <TablePageHeader title="My Orders" onPurchaseBoost={onPurchaseBoost} onSupport={onSupport} />
 
-      {/* Desktop table — scrolls horizontally when narrower than column total */}
-      <div className="hidden overflow-x-auto lg:block">
-        <div className="flex min-w-[1280px] w-full flex-col gap-0">
+      {/* Desktop table (1500px+) */}
+      <div className="hidden min-[1500px]:block">
+        <div className="flex w-full flex-col gap-0">
           {/* Header */}
           <div className="flex w-full items-center">
             {COLS.map((col) => (
@@ -145,6 +198,13 @@ export function ActiveOrdersTable({ orders, onPurchaseBoost, onSupport }: Props)
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Small laptop compact cards (lg to 1500px) */}
+      <div className="hidden lg:flex lg:flex-col lg:gap-4 min-[1500px]:hidden">
+        {visible.map((order) => (
+          <CompactCard key={order.id} order={order} />
+        ))}
       </div>
 
       {/* Mobile cards */}

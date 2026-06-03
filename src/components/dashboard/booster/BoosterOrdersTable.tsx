@@ -376,6 +376,83 @@ function MobileCard({
   );
 }
 
+function CompactCard({
+  order,
+  variant,
+  onClaim,
+}: {
+  order: BoosterTableOrder;
+  variant: BoosterTableVariant;
+  onClaim: (order: BoosterTableOrder) => void;
+}) {
+  const cfg = VARIANT_CONFIG[variant];
+  return (
+    <div className="flex flex-col gap-2 rounded-3xl px-6 py-5" style={{ backgroundImage: MOBILE_CARD_BG }}>
+      {/* Row 1: ID + chat + status */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="font-body text-base font-semibold text-[#ff975d]">{order.orderId}</span>
+          <CopyButton
+            ariaLabel="Copy order ID"
+            onCopy={() => navigator.clipboard.writeText(order.orderId)}
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          {cfg.showChat && <ChatIcon active={order.chatActive} />}
+          {variant !== "available" && <StatusPill status={order.tableStatus} />}
+        </div>
+      </div>
+
+      {/* Game info */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col">
+          <span className="font-heading text-xl font-bold text-white">{order.game}</span>
+          <span className="font-body text-base text-white">{order.service}</span>
+          <span className="font-body text-sm text-white/70">{order.rangeLabel}</span>
+          {cfg.showCompletionTime && order.completionTime && (
+            <span className="mt-1 font-body text-sm uppercase text-white/80">
+              Completion Time <span className="font-bold text-white">{order.completionTime}</span>
+            </span>
+          )}
+        </div>
+        <span className="shrink-0 font-body text-xl font-bold text-[#ff975d]">{order.earning}</span>
+      </div>
+
+      {/* Bottom: tags + buttons */}
+      <div className="flex items-end justify-between gap-4">
+        <DetailTags tags={order.details} />
+        {(cfg.showClaim || cfg.showView) && (
+          <div className="flex shrink-0 items-center gap-3">
+            {cfg.showView && (
+              <Link
+                href={`/app/booster/orders/${order.orderId}`}
+                className="flex items-center justify-center rounded-2xl px-6 py-2.5 font-body text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+                style={{
+                  background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+                  border: "1px solid #6d6d96",
+                }}
+              >
+                View Order
+              </Link>
+            )}
+            {cfg.showClaim && order.canClaim && (
+              <button
+                type="button"
+                onClick={() => onClaim(order)}
+                className="flex cursor-pointer items-center gap-2 rounded-2xl border border-[#ff975d] px-6 py-2.5 font-body text-sm font-bold uppercase text-white transition-all hover:opacity-90 active:scale-[0.97]"
+                style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)", boxShadow: "0 4px 44px rgba(255,92,0,0.2)" }}
+              >
+                <Image src="/images/dashboard/icons/check-all.svg" alt="" width={18} height={18} />
+                Claim
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function DetailRow({
   label,
   striped,
@@ -423,9 +500,9 @@ export function BoosterOrdersTable({ variant, orders, onSupport }: Props) {
     <div className="flex flex-1 flex-col gap-8">
       <TablePageHeader title={cfg.title} onSupport={onSupport} />
 
-      {/* Desktop table */}
-      <div className="hidden overflow-x-auto lg:block">
-        <div className="flex min-w-[1280px] w-full flex-col gap-0">
+      {/* Desktop table (1500px+) */}
+      <div className="hidden min-[1500px]:block">
+        <div className="flex w-full flex-col gap-0">
           <div className="flex w-full items-center">
             {cols.map((col) => (
               <div key={col.label} className={`${col.cls} py-1`}>
@@ -439,6 +516,13 @@ export function BoosterOrdersTable({ variant, orders, onSupport }: Props) {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Small laptop compact cards (lg to 1500px) */}
+      <div className="hidden lg:flex lg:flex-col lg:gap-4 min-[1500px]:hidden">
+        {visible.map((order) => (
+          <CompactCard key={order.id} order={order} variant={variant} onClaim={handleClaim} />
+        ))}
       </div>
 
       {/* Mobile cards */}
