@@ -166,14 +166,14 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
         <GameServiceHeroCard hero={view.hero} />
       </div>
 
-      <div className="h-[510px] lg:h-[600px] min-[1440px]:hidden">
+      <div className="h-[510px] lg:h-[600px] min-[1280px]:hidden">
         <OrderChatPanel view={view} hideWarningBanner />
       </div>
 
       {/* Mobile: report warning below chat to save vertical space */}
       {view.showBoosterPoachingWarning && (
         <div
-          className="flex items-center justify-between gap-4 rounded-2xl px-5 py-3 min-[1620px]:hidden"
+          className="flex items-center justify-between gap-4 rounded-2xl px-5 py-3 min-[1280px]:hidden"
           style={{
             background:
               "linear-gradient(97deg, rgba(255,151,93,0.2) 0%, rgba(255,92,0,0.2) 50%, rgba(163,45,5,0.2) 100%)",
@@ -215,9 +215,9 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 min-[1440px]:flex-row min-[1440px]:items-start min-[1440px]:gap-8">
+      <div className="flex flex-col gap-6 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:gap-8">
         {leftColumn}
-        <aside className="hidden min-[1440px]:block min-[1440px]:w-[490px] min-[1440px]:shrink-0">
+        <aside className="hidden min-[1280px]:block min-[1280px]:w-[400px] min-[1280px]:shrink-0 min-[1620px]:w-[490px]">
           <div className="sticky top-6 h-[calc(100vh-6rem)] max-h-[960px] min-h-[720px]">
             <OrderChatPanel view={view} />
           </div>

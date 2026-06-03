@@ -271,9 +271,31 @@ export default function BoosterOrderViewContent({ orderId: _orderId }: Props) {
 
       <GameServiceHeroCard hero={view.hero} />
 
-      <div className="h-[510px] lg:h-[600px] min-[1440px]:hidden">
-        <OrderChatPanel view={view} role="booster" />
+      <div className="h-[510px] lg:h-[600px] min-[1280px]:hidden">
+        <OrderChatPanel view={view} role="booster" hideWarningBanner />
       </div>
+
+      {view.showBoosterPoachingWarning && (
+        <div
+          className="flex items-center justify-between gap-4 rounded-2xl px-5 py-3 min-[1280px]:hidden"
+          style={{
+            background:
+              "linear-gradient(97deg, rgba(255,151,93,0.2) 0%, rgba(255,92,0,0.2) 50%, rgba(163,45,5,0.2) 100%)",
+          }}
+        >
+          <p className="font-body text-xs leading-snug text-white/80">
+            Respect the customer and try to finish the order on time. Do not contact the customer
+            outside the order chat, you will be heavily fined.
+          </p>
+          <button
+            type="button"
+            onClick={() => router.push("/app/booster/rules")}
+            className="flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-2xl bg-[#17191f]/50 px-6 font-body text-sm font-medium uppercase text-white transition-all hover:text-[#ff975d] active:scale-[0.97]"
+          >
+            Rules
+          </button>
+        </div>
+      )}
 
       <div className="min-[1620px]:hidden">
         <DescriptionPanel title={view.description.title} body={view.description.body} />
@@ -296,9 +318,9 @@ export default function BoosterOrderViewContent({ orderId: _orderId }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 min-[1440px]:flex-row min-[1440px]:items-start min-[1440px]:gap-8">
+      <div className="flex flex-col gap-6 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:gap-8">
         {leftColumn}
-        <aside className="hidden min-[1440px]:block min-[1440px]:w-[490px] min-[1440px]:shrink-0">
+        <aside className="hidden min-[1280px]:block min-[1280px]:w-[400px] min-[1280px]:shrink-0 min-[1620px]:w-[490px]">
           <div className="sticky top-6 h-[calc(100vh-6rem)] max-h-[960px] min-h-[720px]">
             <OrderChatPanel view={view} role="booster" />
           </div>

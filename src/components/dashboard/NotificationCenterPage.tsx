@@ -226,7 +226,7 @@ function RightSidebar() {
         <div className="flex flex-col gap-2">
           <Link
             href="/custom-order"
-            className="flex items-center justify-center gap-4 rounded-2xl p-8 transition-colors hover:bg-[rgba(0,0,0,0.35)]"
+            className="flex items-center justify-center gap-4 rounded-2xl border border-transparent p-8 transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
             style={{ background: "rgba(0,0,0,0.2)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -238,7 +238,7 @@ function RightSidebar() {
           </Link>
           <Link
             href="/app/customer/support"
-            className="flex items-center justify-center gap-4 rounded-2xl p-8 transition-colors hover:bg-[rgba(0,0,0,0.35)]"
+            className="flex items-center justify-center gap-4 rounded-2xl border border-transparent p-8 transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
             style={{ background: "rgba(0,0,0,0.2)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
