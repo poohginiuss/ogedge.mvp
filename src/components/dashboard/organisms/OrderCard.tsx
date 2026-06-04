@@ -58,12 +58,23 @@ export function OrderCard(props: OrderCardProps) {
             </h3>
             <StatusBadgeGroup statuses={order.statuses} />
           </div>
-          <OrderActionGroup
-            hasNotification={order.hasNotification}
-            onView={navigateToOrder}
-          />
+          <div className="hidden md:block">
+            <OrderActionGroup
+              hasNotification={order.hasNotification}
+              onView={navigateToOrder}
+            />
+          </div>
         </div>
-        <OrderIdRow orderId={order.orderId} />
+        <div className="flex items-center justify-between">
+          <OrderIdRow orderId={order.orderId} />
+          <div className="md:hidden">
+            <OrderActionGroup
+              hasNotification={order.hasNotification}
+              onView={navigateToOrder}
+              className="flex shrink-0 items-center gap-0.5"
+            />
+          </div>
+        </div>
       </div>
     );
   }

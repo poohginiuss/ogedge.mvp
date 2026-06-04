@@ -518,15 +518,15 @@ export function BoosterOrdersTable({ variant, orders, onSupport }: Props) {
         </div>
       </div>
 
-      {/* Small laptop compact cards (lg to 1500px) */}
-      <div className="hidden lg:flex lg:flex-col lg:gap-4 min-[1500px]:hidden">
+      {/* Small laptop compact cards (1024px to 1500px) */}
+      <div className="hidden min-[1024px]:flex min-[1024px]:flex-col min-[1024px]:gap-4 min-[1500px]:hidden">
         {visible.map((order) => (
           <CompactCard key={order.id} order={order} variant={variant} onClaim={handleClaim} />
         ))}
       </div>
 
       {/* Mobile cards */}
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-4 min-[1024px]:hidden">
         {visible.map((order) => (
           <MobileCard key={order.id} order={order} variant={variant} onClaim={handleClaim} />
         ))}
