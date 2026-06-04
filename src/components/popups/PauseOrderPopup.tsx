@@ -27,9 +27,9 @@ export function PauseOrderPopup({ isOpen, onClose }: PauseOrderPopupProps) {
   const [reason, setReason] = useState("");
 
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1 lg:gap-5">
+    <PopupOverlay isOpen={isOpen} onClose={onClose} maxWidth="max-w-[450px] lg:max-w-[585px]">
+      <div className="flex flex-col gap-4 lg:gap-6">
+        <div className="flex flex-col gap-1 lg:gap-2">
           <h2 className="font-heading text-2xl font-semibold text-white lg:text-[28px]">
             Pause Order
           </h2>

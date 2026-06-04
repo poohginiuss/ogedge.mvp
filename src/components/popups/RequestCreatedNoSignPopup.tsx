@@ -22,8 +22,8 @@ export function RequestCreatedNoSignPopup({
   onSignIn,
 }: RequestCreatedNoSignPopupProps) {
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-5 py-5 lg:px-8 lg:py-[60px]">
-      <div className="flex flex-col items-center gap-5 lg:gap-8">
+    <PopupOverlay isOpen={isOpen} onClose={onClose} maxWidth="max-w-[420px] lg:max-w-[632px]" paddingClassName="px-5 py-10 lg:px-12 lg:py-[60px]">
+      <div className="flex flex-col items-center gap-6 lg:gap-8">
         <SuccessBadge />
 
         <div className="flex flex-col items-center gap-1">

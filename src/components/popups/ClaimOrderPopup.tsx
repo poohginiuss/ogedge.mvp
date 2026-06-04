@@ -14,14 +14,15 @@ export function ClaimOrderPopup({ isOpen, onClose, onClaim }: ClaimOrderPopupPro
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-5 lg:px-8 lg:py-[60px]"
+      maxWidth="max-w-[420px] lg:max-w-[670px]"
+      paddingClassName="px-5 py-10 lg:px-12 lg:py-[60px]"
     >
-      <div className="flex flex-col items-center gap-1 lg:gap-8">
-        <h2 className="max-w-[489px] text-center font-heading text-2xl font-medium text-white lg:text-[28px]">
+      <div className="flex flex-col items-center gap-6 lg:gap-8">
+        <h2 className="max-w-[489px] text-center font-heading text-2xl font-medium text-white lg:text-[32px] lg:leading-[40px]">
           Are you sure you want to claim this order?
         </h2>
 
-        <p className="text-center font-body text-sm text-white lg:text-base">
+        <p className="text-center font-body text-sm text-white lg:text-lg">
           <span className="text-[#ff975d]">Before claiming:</span> Please ensure
           you can start immediately, have reviewed all extra options, and are able
           to finish within the completion time.

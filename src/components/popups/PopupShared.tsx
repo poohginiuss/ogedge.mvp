@@ -6,7 +6,7 @@ import type { MouseEvent, FocusEvent } from "react";
 
 export function InfoBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl bg-[#232330] p-4">
+    <div className="flex items-start gap-3 rounded-xl bg-[#232330] p-4 lg:rounded-2xl lg:bg-[#1a1a2e] lg:px-5 lg:py-3 lg:ring-1 lg:ring-[#383852]/50">
       <Image
         src="/images/popups/info-icon.svg"
         alt=""
@@ -14,7 +14,7 @@ export function InfoBox({ children }: { children: React.ReactNode }) {
         height={20}
         className="mt-0.5 size-5 shrink-0"
       />
-      <p className="font-body text-sm text-white/90">{children}</p>
+      <p className="font-body text-sm leading-5 text-white/90">{children}</p>
     </div>
   );
 }
@@ -188,7 +188,7 @@ export function PaymentMethodSection({
           Payment Method
         </span>
       </div>
-      <div className="flex flex-col gap-2.5 lg:flex-row">
+      <div className="flex flex-col gap-2.5 lg:flex-row lg:gap-3">
         {PAYMENT_METHODS.map((method) => {
           const isActive = selected === method.id;
           return (
@@ -196,7 +196,7 @@ export function PaymentMethodSection({
               key={method.id}
               type="button"
               onClick={() => onSelect(method.id)}
-              className={`flex cursor-pointer flex-row items-center gap-3 rounded-xl border bg-[rgba(0,0,0,0.2)] px-3 py-3 transition-all hover:border-[#ff975d] active:scale-[0.98] lg:h-[90px] lg:flex-1 lg:flex-col lg:gap-3 lg:py-4 ${
+              className={`flex cursor-pointer flex-row items-center gap-3 rounded-xl border bg-[rgba(0,0,0,0.2)] px-3 py-3 transition-all hover:border-[#ff975d] active:scale-[0.98] lg:h-[100px] lg:flex-1 lg:flex-col lg:gap-3 lg:rounded-2xl lg:px-4 lg:py-5 ${
                 isActive ? "border-[#ff975d]" : "border-[#383852]"
               }`}
             >
@@ -272,7 +272,7 @@ export function PopupTextarea({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`h-[56px] w-full resize-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d] ${className ?? ""}`}
+        className={`h-[56px] w-full resize-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d] lg:h-[80px] lg:rounded-2xl lg:p-4 ${className ?? ""}`}
       />
     </div>
   );
@@ -323,12 +323,12 @@ function PopupButton({
       onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`inline-flex cursor-pointer items-center justify-center rounded-3xl px-5 py-3 font-body text-sm font-bold uppercase tracking-[0.28px] leading-5 transition-all duration-200 focus:outline-none active:scale-[0.97] disabled:opacity-40 ${className}`}
+      className={`inline-flex cursor-pointer items-center justify-center rounded-2xl px-5 py-3 font-body text-base font-bold uppercase tracking-[0.32px] transition-all duration-200 focus:outline-none active:scale-[0.97] disabled:opacity-40 lg:px-8 lg:py-4.5 ${className}`}
       style={{
         background: isPrimary ? undefined : bg,
         backgroundImage: isPrimary ? bg : undefined,
         backdropFilter: isPrimary ? undefined : "blur(3px)",
-        border: hovered ? "1px solid #ff975d" : "1px solid #ff975d",
+        border: hovered ? "1.5px solid #ff975d" : "1.5px solid #ff975d",
         color: hovered && !isPrimary ? "#ff975d" : "#ffffff",
         boxShadow: hovered
           ? "0 4px 16px rgba(255,92,0,0.2)"

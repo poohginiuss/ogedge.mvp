@@ -26,16 +26,17 @@ export function TicketCreatedPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-5 lg:px-8 lg:py-[60px]"
+      maxWidth="max-w-[420px] lg:max-w-[632px]"
+      paddingClassName="px-5 py-10 lg:px-12 lg:py-[60px]"
     >
-      <div className="flex flex-col items-center gap-4 lg:gap-8">
+      <div className="flex flex-col items-center gap-6 lg:gap-8">
         <SuccessBadge />
 
-        <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">
+        <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[32px] lg:leading-[40px]">
           Ticket #{ticketId} created
         </h2>
 
-        <p className="text-center font-body text-sm text-white lg:text-base">
+        <p className="text-center font-body text-sm text-white lg:text-lg">
           Your request has been received. A support agent will be with you
           shortly. Check your email or dashboard for updates.
         </p>
