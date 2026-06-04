@@ -10,6 +10,7 @@ import type { BoosterOrder } from "../booster/boosterData";
 import type { Order } from "../dashboardData";
 import { ChatIcon } from "../orderTableShared";
 import { OrderActionGroup, OrderIdRow, StatusBadgeGroup } from "../molecules";
+import { ActionButton } from "../atoms";
 
 type CustomerVariantProps = {
   variant: "customer";
@@ -115,18 +116,12 @@ export function OrderCard(props: OrderCardProps) {
                 </button>
               )}
               {isMyOrders && (
-                <button
-                  type="button"
+                <ActionButton
+                  icon="/images/dashboard/icons/open-view.svg"
                   onClick={() => router.push(`/app/booster/orders/${order.orderId}`)}
-                  className="flex cursor-pointer items-center justify-center gap-2 rounded-2xl px-6 py-2.5 font-body text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-[0.97]"
-                  style={{
-                    background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
-                    border: "1px solid #6d6d96",
-                  }}
                 >
-                  <Image src="/images/dashboard/icons/open-view.svg" alt="" width={20} height={20} />
                   View Order
-                </button>
+                </ActionButton>
               )}
             </div>
           )}
