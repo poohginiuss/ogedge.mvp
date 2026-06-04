@@ -142,10 +142,10 @@ function CompactCard({ order }: { order: TableOrder }) {
           <span className="font-heading text-xl font-bold text-white">{order.game}</span>
           <span className="font-body text-base text-white">{order.service}</span>
           <span className="font-body text-sm text-white/70">{order.rangeLabel}</span>
-          <span className="mt-1 font-body text-sm text-white/80">
-            {order.employeeName}{" "}
+          <div className="mt-1 flex items-center gap-1">
+            <span className="font-body text-sm font-semibold text-white">{order.employeeName}</span>
             <StarRating rating={order.employeeRating} />
-          </span>
+          </div>
         </div>
       </div>
 

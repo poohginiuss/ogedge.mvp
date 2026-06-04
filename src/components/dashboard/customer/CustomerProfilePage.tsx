@@ -298,19 +298,19 @@ export default function CustomerProfilePage() {
 
   return (
     <>
-      {/* Mobile: single column */}
-      <div className="flex flex-col gap-6 xl:hidden">
+      {/* Mobile + tablet: single column */}
+      <div className="flex flex-col gap-6 min-[1350px]:hidden">
         <ProfileCard card={false} onAvatarEdit={() => setAvatarOpen(true)} />
         <DashboardReferralCard />
         <SummaryCard />
         <ChangePasswordButton />
       </div>
 
-      {/* Two-column layout on desktop */}
-      <div className="flex flex-col gap-8 xl:flex-row xl:items-start xl:justify-between">
+      {/* Two-column layout on desktop (1440px+) */}
+      <div className="flex flex-col gap-8 min-[1350px]:flex-row min-[1350px]:items-start min-[1350px]:justify-between">
         {/* Left: profile card + sections */}
         <div className="flex flex-1 flex-col gap-8">
-          <div className="hidden xl:block">
+          <div className="hidden min-[1350px]:block">
             <ProfileCard onAvatarEdit={() => setAvatarOpen(true)} />
           </div>
           <PreferencesSection onEdit={() => setPrefsOpen(true)} />
@@ -318,7 +318,7 @@ export default function CustomerProfilePage() {
         </div>
 
         {/* Right: desktop sidebar */}
-        <div className="hidden xl:block xl:w-[490px] xl:shrink-0">
+        <div className="hidden min-[1350px]:block min-[1350px]:w-[490px] min-[1350px]:shrink-0">
           <DesktopSidebar />
         </div>
       </div>

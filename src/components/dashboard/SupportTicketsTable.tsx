@@ -138,12 +138,11 @@ function MobileCard({ ticket }: { ticket: SupportTicket }) {
 
       {/* Detail rows */}
       <div className="mt-4 flex flex-col gap-2">
-        <div className="flex items-center justify-between rounded-lg px-2 py-1">
-          <span className="font-body text-sm text-white/80">Title</span>
-          <div className="flex items-center gap-2 overflow-hidden font-body text-sm font-medium text-white">
-            <span>{ticket.title}</span>
-            <span className="truncate">{ticket.subtitle}</span>
-          </div>
+        <div className="flex items-start justify-between gap-4 rounded-lg px-2 py-1">
+          <span className="shrink-0 font-body text-sm text-white/80">Title</span>
+          <span className="text-right font-body text-sm font-medium text-white">
+            {ticket.title} {ticket.subtitle}
+          </span>
         </div>
 
         <div
@@ -191,8 +190,8 @@ export function SupportTicketsTable({
     <div className="flex flex-col gap-8">
       {/* Header */}
       <div className="flex flex-col gap-4">
-        {/* Desktop header */}
-        <div className="hidden items-center gap-4 lg:flex">
+        {/* Desktop header (1350px+) */}
+        <div className="hidden items-center gap-4 min-[1350px]:flex">
           <h2 className="flex-1 font-heading text-[32px] font-semibold text-white">
             My Support Tickets
           </h2>
@@ -223,8 +222,8 @@ export function SupportTicketsTable({
           </button>
         </div>
 
-        {/* Mobile header */}
-        <div className="flex flex-col gap-4 lg:hidden">
+        {/* Mobile + tablet header */}
+        <div className="flex flex-col gap-4 min-[1350px]:hidden">
           <div>
             <p className="font-body text-sm font-normal text-white">My Support Tickets</p>
             <p className="font-body text-lg font-bold text-white">
@@ -234,7 +233,7 @@ export function SupportTicketsTable({
               </Link>
             </p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <button
               type="button"
               className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-transparent px-4 py-3 font-body text-base font-medium text-white transition-all hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97] active:border-[#ff975d] active:text-[#ff975d]"
@@ -258,7 +257,7 @@ export function SupportTicketsTable({
       </div>
 
       {/* Desktop table */}
-      <div className="hidden overflow-x-auto lg:block">
+      <div className="hidden overflow-x-auto min-[1350px]:block">
         <div className="flex min-w-[900px] w-full flex-col gap-0">
           {/* Column headers */}
           <div className="flex w-full items-center">
@@ -278,7 +277,7 @@ export function SupportTicketsTable({
       </div>
 
       {/* Mobile cards */}
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-4 min-[1350px]:hidden">
         {visible.map((ticket) => (
           <MobileCard key={ticket.id} ticket={ticket} />
         ))}
