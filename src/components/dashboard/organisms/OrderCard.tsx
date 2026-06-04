@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { BoosterOrder } from "../booster/boosterData";
 import type { Order } from "../dashboardData";
-import { ActionButton, IconButton } from "../atoms";
+import { ChatIcon } from "../orderTableShared";
 import { OrderActionGroup, OrderIdRow, StatusBadgeGroup } from "../molecules";
 
 type CustomerVariantProps = {
@@ -60,7 +60,7 @@ export function OrderCard(props: OrderCardProps) {
           </div>
           <div className="hidden md:block">
             <OrderActionGroup
-              hasNotification={order.hasNotification}
+              chatActive={order.hasNotification}
               onView={navigateToOrder}
             />
           </div>
@@ -69,7 +69,7 @@ export function OrderCard(props: OrderCardProps) {
           <OrderIdRow orderId={order.orderId} />
           <div className="md:hidden">
             <OrderActionGroup
-              hasNotification={order.hasNotification}
+              chatActive={order.hasNotification}
               onView={navigateToOrder}
               className="flex shrink-0 items-center gap-0.5"
             />
@@ -94,34 +94,39 @@ export function OrderCard(props: OrderCardProps) {
             <StatusBadgeGroup statuses={order.statuses} />
           </div>
           {!isCompleted && (
-            <div className="flex shrink-0 items-center gap-2">
-              <div className="relative">
-                <IconButton
-                  icon="/images/dashboard/icons/notification.svg"
-                  iconClassName="h-6 w-6"
-                  variant="ghost"
-                  aria-label="Notifications"
-                />
-                {order.hasNotification && (
-                  <span className="absolute right-2.5 top-2.5 size-2.5 animate-pulse rounded-full bg-[#ff975d]" />
-                )}
-              </div>
+            <div className="flex shrink-0 items-center gap-3">
+              <ChatIcon active={order.hasNotification} />
               {isAvailable && (
-                <ActionButton
-                  icon="/images/dashboard/icons/claim-icon.svg"
-                  variant="outline"
+                <button
+                  type="button"
                   onClick={() => {}}
+                  className="group flex cursor-pointer items-center gap-2 rounded-2xl px-6 py-2 font-body text-sm font-bold uppercase tracking-wide text-white transition-all duration-200 hover:bg-[linear-gradient(90deg,#ff5c00_0%,#a32d05_100%)] hover:shadow-[0_4px_22px_rgba(255,92,0,0.3)] active:scale-95"
+                  style={{
+                    background: "rgba(23,25,31,0.5)",
+                    border: "1px solid #ff975d",
+                    backdropFilter: "blur(3px)",
+                    boxShadow: "0 4px 44px rgba(255,92,0,0.2)",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(23,25,31,0.5)"; }}
                 >
+                  <Image src="/images/dashboard/icons/check-all.svg" alt="" width={18} height={18} />
                   Claim
-                </ActionButton>
+                </button>
               )}
               {isMyOrders && (
-                <ActionButton
-                  icon="/images/dashboard/icons/open-view.svg"
+                <button
+                  type="button"
                   onClick={() => router.push(`/app/booster/orders/${order.orderId}`)}
+                  className="flex cursor-pointer items-center justify-center gap-2 rounded-2xl px-6 py-2.5 font-body text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_0_12px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+                  style={{
+                    background: "linear-gradient(-19deg, #17191f 0%, #383852 100%)",
+                    border: "1px solid #6d6d96",
+                  }}
                 >
+                  <Image src="/images/dashboard/icons/open-view.svg" alt="" width={20} height={20} />
                   View Order
-                </ActionButton>
+                </button>
               )}
             </div>
           )}
@@ -143,8 +148,10 @@ export function OrderCard(props: OrderCardProps) {
         {isAvailable && (
           <button
             type="button"
-            className="mt-1 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#ff975d] py-3 font-body text-base font-bold uppercase text-white transition-all hover:opacity-90 active:scale-[0.97]"
+            className="mt-1 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-[#ff975d] py-2.5 font-body text-base font-bold uppercase text-white transition-all active:scale-[0.97]"
             style={{ background: "rgba(23,25,31,0.5)", backdropFilter: "blur(3px)", boxShadow: "0 4px 44px rgba(255,92,0,0.2)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "linear-gradient(90deg, #ff5c00 0%, #a32d05 100%)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(23,25,31,0.5)"; }}
           >
             <Image src="/images/dashboard/icons/check-all.svg" alt="" width={20} height={20} />
             CLAIM

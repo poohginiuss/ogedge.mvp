@@ -16,9 +16,9 @@ export function PopupOverlay({
   isOpen,
   onClose,
   children,
-  maxWidth = "max-w-[480px] lg:max-w-[680px]",
+  maxWidth = "max-w-[450px] lg:max-w-[650px]",
   maxHeightClassName = "max-h-[94vh]",
-  paddingClassName = "p-6 lg:p-10",
+  paddingClassName = "p-5 lg:p-8",
 }: PopupOverlayProps) {
   useEffect(() => {
     if (isOpen) {
@@ -43,7 +43,7 @@ export function PopupOverlay({
         className={`relative w-[90%] ${maxWidth} ${maxHeightClassName} overflow-y-auto overscroll-contain rounded-[20px] backdrop-blur-[12px] ${paddingClassName}`}
         style={{
           backgroundImage:
-            "linear-gradient(110deg, rgba(56, 56, 82, 0.35) 0%, rgba(35, 35, 48, 0.35) 50%, rgba(23, 25, 31, 0.4) 100%)",
+            "linear-gradient(110deg, rgba(56, 56, 82, 0.65) 0%, rgba(35, 35, 48, 0.6) 50%, rgba(23, 25, 31, 0.65) 100%)",
         }}
       >
         <button

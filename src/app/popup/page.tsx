@@ -19,6 +19,7 @@ import {
   AccountLoginPopup,
   CustomOrderRequestPopup,
   RequestCreatedPopup,
+  RequestCreatedNoSignPopup,
   TicketCreatedPopup,
 } from "@/components/popups";
 
@@ -37,6 +38,7 @@ type PopupType =
   | "accountLogin"
   | "customOrderRequest"
   | "requestCreated"
+  | "requestCreatedNoSign"
   | "ticketCreated"
   | null;
 
@@ -138,6 +140,12 @@ const POPUP_BUTTONS: PopupButtonProps[] = [
     category: "Customer",
   },
   {
+    label: "Request Created No Sign",
+    description: "Request received — prompt to sign in or dismiss",
+    onClick: () => {},
+    category: "Customer",
+  },
+  {
     label: "Claim Order",
     description: "Confirm claiming an order (booster)",
     onClick: () => {},
@@ -173,6 +181,7 @@ export default function PopupPage() {
     "Account Login": "accountLogin",
     "Custom Order Request": "customOrderRequest",
     "Request Created": "requestCreated",
+    "Request Created No Sign": "requestCreatedNoSign",
     "Claim Order": "claimOrder",
     "Complete Order": "completeOrder",
     "Contact Admin": "contactAdmin",
@@ -282,6 +291,10 @@ export default function PopupPage() {
       />
       <RequestCreatedPopup
         isOpen={activePopup === "requestCreated"}
+        onClose={() => setActivePopup(null)}
+      />
+      <RequestCreatedNoSignPopup
+        isOpen={activePopup === "requestCreatedNoSign"}
         onClose={() => setActivePopup(null)}
       />
       <TicketCreatedPopup

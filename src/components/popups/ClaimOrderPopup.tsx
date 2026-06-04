@@ -14,7 +14,7 @@ export function ClaimOrderPopup({ isOpen, onClose, onClaim }: ClaimOrderPopupPro
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-6 lg:p-10"
+      paddingClassName="p-5 lg:p-8"
     >
       <div className="flex flex-col items-center gap-1 lg:gap-5">
         <h2 className="max-w-[489px] text-center font-heading text-2xl font-medium text-white lg:text-[28px]">

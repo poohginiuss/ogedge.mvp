@@ -16,7 +16,7 @@ export function ReviewPopup({ isOpen, onClose }: ReviewPopupProps) {
   const [review, setReview] = useState("");
 
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-5 py-6 lg:p-10">
+    <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-4 py-5 lg:p-8">
       <div className="flex flex-col items-center gap-5">
         {/* Character Illustration */}
         <div className="relative flex items-center justify-center">

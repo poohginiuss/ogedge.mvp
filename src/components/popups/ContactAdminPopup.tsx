@@ -18,7 +18,7 @@ export function ContactAdminPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-6 lg:p-10"
+      paddingClassName="p-5 lg:p-8"
     >
       <div className="flex flex-col items-center gap-1 lg:gap-5">
         <h2 className="text-center font-heading text-2xl font-semibold text-white lg:text-[28px]">

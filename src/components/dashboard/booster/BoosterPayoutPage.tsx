@@ -150,16 +150,16 @@ function StatusBadge({ status }: { status: EarningStatus }) {
 function StatCard({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
     <div
-      className="flex flex-1 items-center gap-4 rounded-3xl p-4 lg:gap-8 lg:justify-center lg:p-8"
+      className="flex flex-1 items-center gap-4 rounded-3xl p-4 min-[1280px]:gap-8 min-[1280px]:justify-center min-[1280px]:p-8"
       style={{ background: "rgba(56,56,82,0.3)" }}
     >
       <div className="flex h-[54px] w-[54px] shrink-0 items-center justify-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={icon} alt="" className="h-8 w-8 lg:h-[54px] lg:w-[54px]" />
+        <img src={icon} alt="" className="h-8 w-8 min-[1280px]:h-[54px] min-[1280px]:w-[54px]" />
       </div>
       <div className="flex flex-col">
         <span className="font-body text-sm font-medium uppercase text-white">{label}</span>
-        <span className="font-heading text-xl font-bold text-white lg:text-[30px] lg:leading-[38px]">
+        <span className="font-heading text-xl font-bold text-white min-[1280px]:text-[30px] min-[1280px]:leading-[38px]">
           {value}
         </span>
       </div>
@@ -175,11 +175,11 @@ function PaymentMethodSelector({
   onSelect: (v: "paypal" | "crypto") => void;
 }) {
   return (
-    <div className="flex gap-2.5 lg:gap-4">
+    <div className="flex gap-2 min-[1280px]:gap-4">
       <button
         type="button"
         onClick={() => onSelect("paypal")}
-        className={`flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-6 transition-all hover:border-brand-light active:scale-[0.98] ${
+        className={`flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-2xl border px-3 py-4 transition-all hover:border-brand-light active:scale-[0.98] sm:gap-3 sm:px-4 sm:py-6 ${
           selected === "paypal"
             ? "border-brand-light bg-[rgba(0,0,0,0.2)]"
             : "border-dark-border bg-[rgba(0,0,0,0.2)]"
@@ -194,14 +194,14 @@ function PaymentMethodSelector({
             <span className="h-2.5 w-2.5 rounded-full bg-brand-main" />
           )}
         </span>
-        <span className="font-body text-base font-medium text-white">PayPal</span>
+        <span className="font-body text-sm font-medium text-white sm:text-base">PayPal</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/dashboard/icons/paypal-logo.png" alt="PayPal" className="h-4 w-auto" />
+        <img src="/images/dashboard/icons/paypal-logo.png" alt="PayPal" className="h-4 w-auto shrink-0" />
       </button>
       <button
         type="button"
         onClick={() => onSelect("crypto")}
-        className={`flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-6 transition-all hover:border-brand-light active:scale-[0.98] ${
+        className={`flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-2xl border px-3 py-4 transition-all hover:border-brand-light active:scale-[0.98] sm:gap-3 sm:px-4 sm:py-6 ${
           selected === "crypto"
             ? "border-brand-light bg-[rgba(0,0,0,0.2)]"
             : "border-dark-border bg-[rgba(0,0,0,0.2)]"
@@ -216,9 +216,9 @@ function PaymentMethodSelector({
             <span className="h-2.5 w-2.5 rounded-full bg-brand-main" />
           )}
         </span>
-        <span className="font-body text-base font-medium text-white">Crypto</span>
+        <span className="font-body text-sm font-medium text-white sm:text-base">Crypto</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/dashboard/icons/coinbase-logo.png" alt="Coinbase" className="h-2.5 w-auto" />
+        <img src="/images/dashboard/icons/coinbase-logo.png" alt="Coinbase" className="h-2.5 w-auto shrink-0" />
       </button>
     </div>
   );
@@ -245,7 +245,7 @@ function TabSelector({
             key={tab.key}
             type="button"
             onClick={() => onTabChange(tab.key)}
-            className={`flex h-[50px] cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 font-body text-base font-medium transition-all hover:border-brand-light active:scale-[0.97] lg:px-6 ${
+            className={`flex h-[50px] cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 font-body text-base font-medium transition-all hover:border-brand-light active:scale-[0.97] min-[1280px]:px-6 ${
               active
                 ? "border-brand-light bg-[rgba(0,0,0,0.2)] text-brand-main shadow-[0_4px_14px_rgba(255,92,0,0.3)]"
                 : "border-dark-border bg-[rgba(0,0,0,0.2)] text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)]"
@@ -372,7 +372,7 @@ function EarningsTable({ filter }: { filter: string }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="hidden flex-col gap-4 lg:flex">
+      <div className="hidden flex-col gap-4 min-[1280px]:flex">
         <div className="overflow-x-auto">
           <div className="w-full min-w-[900px]">
             <div className="flex items-center pb-2">
@@ -407,7 +407,7 @@ function EarningsTable({ filter }: { filter: string }) {
         </div>
         {totalPages > 1 && <Pagination page={page} total={totalPages} onPage={setPage} />}
       </div>
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-4 min-[1280px]:hidden">
         {visible.map((row) => (
           <MobileEarningCard key={row.id} row={row} />
         ))}
@@ -504,7 +504,7 @@ function PayoutsTable() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="hidden flex-col gap-4 lg:flex">
+      <div className="hidden flex-col gap-4 min-[1280px]:flex">
         <div className="overflow-x-auto">
           <div className="w-full min-w-[900px]">
             <div className="flex items-center pb-2">
@@ -539,7 +539,7 @@ function PayoutsTable() {
         </div>
         {totalPages > 1 && <Pagination page={page} total={totalPages} onPage={setPage} />}
       </div>
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-4 min-[1280px]:hidden">
         {visible.map((row) => (
           <MobilePayoutCard key={row.id} row={row} />
         ))}
@@ -560,9 +560,9 @@ export default function BoosterPayoutPage() {
   return (
     <>
       {/* Header */}
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+      <div className="flex flex-col gap-6 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:justify-between">
         <div className="flex flex-col gap-0.5">
-          <h1 className="font-body text-xl font-bold text-white lg:font-heading lg:text-[30px] lg:font-bold lg:leading-[38px]">
+          <h1 className="font-body text-xl font-bold text-white min-[1280px]:font-heading min-[1280px]:text-[30px] min-[1280px]:font-bold min-[1280px]:leading-[38px]">
             My Earnings
           </h1>
           <p className="font-body text-base text-white">
@@ -573,21 +573,21 @@ export default function BoosterPayoutPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="flex flex-col gap-2 lg:flex-row lg:gap-8">
+      <div className="flex flex-col gap-2 min-[1280px]:flex-row min-[1280px]:gap-8">
         {STAT_CARDS.map((card) => (
           <StatCard key={card.label} {...card} />
         ))}
         <div
-          className="flex flex-1 items-center gap-4 rounded-3xl p-4 lg:gap-4 lg:px-8"
+          className="flex flex-1 items-center gap-4 rounded-3xl p-4 min-[1280px]:gap-4 min-[1280px]:px-8"
           style={{ background: "rgba(56,56,82,0.3)" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/dashboard/icons/info-icon.svg"
             alt=""
-            className="h-5 w-5 shrink-0 lg:h-[54px] lg:w-[54px]"
+            className="h-5 w-5 shrink-0 min-[1280px]:h-[54px] min-[1280px]:w-[54px]"
           />
-          <span className="font-body text-sm text-white lg:text-base lg:font-medium">
+          <span className="font-body text-sm text-white min-[1280px]:text-base min-[1280px]:font-medium">
             Payouts are sent every two weeks, every Friday.
           </span>
         </div>
@@ -604,7 +604,7 @@ export default function BoosterPayoutPage() {
           alt=""
           className="mt-1 h-5 w-5 shrink-0"
         />
-        <span className="font-body text-sm text-white lg:text-base lg:font-medium">
+        <span className="font-body text-sm text-white min-[1280px]:text-base min-[1280px]:font-medium">
           If you experience any issue with your payout, please contact an admin as soon as
           possible and include your Order ID along with a description of the problem.
         </span>
@@ -613,7 +613,7 @@ export default function BoosterPayoutPage() {
       {/* Tabs + Filter + Table */}
       <div className="flex flex-col gap-6">
         {/* Desktop: Tabs + filter in one row */}
-        <div className="hidden items-center justify-between lg:flex">
+        <div className="hidden items-center justify-between min-[1280px]:flex">
           <TabSelector activeTab={activeTab} onTabChange={setActiveTab} />
           {activeTab === "earnings" && (
             <div className="flex items-center gap-6">
@@ -634,7 +634,7 @@ export default function BoosterPayoutPage() {
         </div>
 
         {/* Mobile: Tabs then filter row */}
-        <div className="flex flex-col gap-4 lg:hidden">
+        <div className="flex flex-col gap-4 min-[1280px]:hidden">
           <TabSelector activeTab={activeTab} onTabChange={setActiveTab} />
           {activeTab === "earnings" ? (
             <div className="flex gap-4">

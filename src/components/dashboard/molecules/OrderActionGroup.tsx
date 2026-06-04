@@ -1,19 +1,17 @@
-import { ActionButton, IconButton } from "../atoms";
+import { ChatIcon } from "../orderTableShared";
+import { ActionButton } from "../atoms";
 
 type OrderActionGroupProps = {
-  hasNotification?: boolean;
-  onNotification?: () => void;
+  chatActive?: boolean;
   onView?: () => void;
   onChat?: () => void;
-  /** Render the Claim button at the end of the group. */
   canClaim?: boolean;
   onClaim?: () => void;
   className?: string;
 };
 
 export function OrderActionGroup({
-  hasNotification = false,
-  onNotification,
+  chatActive = false,
   onView,
   canClaim = false,
   onClaim,
@@ -21,18 +19,7 @@ export function OrderActionGroup({
 }: OrderActionGroupProps) {
   return (
     <div className={className}>
-      <div className="relative">
-        <IconButton
-          icon="/images/dashboard/icons/notification.svg"
-          iconClassName="h-6 w-6"
-          variant="ghost"
-          aria-label="Notifications"
-          onClick={onNotification}
-        />
-        {hasNotification && (
-          <span className="absolute right-2.5 top-2.5 size-2.5 animate-pulse rounded-full bg-[#ff975d]" />
-        )}
-      </div>
+      <ChatIcon active={chatActive} />
       <ActionButton icon="/images/dashboard/icons/open-view.svg" onClick={onView}>
         View Order
       </ActionButton>

@@ -26,7 +26,7 @@ export function TicketCreatedPopup({
     <PopupOverlay
       isOpen={isOpen}
       onClose={onClose}
-      paddingClassName="p-6 lg:p-10"
+      paddingClassName="p-5 lg:p-8"
     >
       <div className="flex flex-col items-center gap-4 lg:gap-5">
         <SuccessBadge />
