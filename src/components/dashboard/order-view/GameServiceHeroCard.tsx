@@ -41,22 +41,22 @@ export function GameServiceHeroCard({ hero, statusSubLabel, className }: GameSer
         </div>
       )}
 
-      <div className="relative flex flex-col gap-6 px-6 py-6 min-[1024px]:flex-row min-[1024px]:items-center min-[1024px]:justify-between min-[1024px]:px-8 min-[1280px]:flex-col min-[1280px]:items-stretch min-[1280px]:px-6 min-[1620px]:flex-row min-[1620px]:items-center min-[1620px]:justify-between min-[1620px]:px-8">
+      <div className="relative flex flex-col gap-4 px-6 py-5 min-[1024px]:flex-row min-[1024px]:items-center min-[1024px]:justify-between min-[1024px]:px-7 min-[1024px]:py-7 min-[1280px]:flex-col min-[1280px]:items-stretch min-[1280px]:px-6 min-[1280px]:py-5 min-[1620px]:flex-row min-[1620px]:items-center min-[1620px]:justify-between min-[1620px]:px-7 min-[1620px]:py-7">
         <div className="flex min-w-0 flex-col leading-tight min-[1024px]:w-[250px] min-[1024px]:shrink-0 min-[1280px]:w-full min-[1620px]:w-[250px]">
-          <div className="font-heading text-[32px] font-semibold leading-none text-white">
+          <div className="font-heading text-[28px] font-semibold leading-none text-white">
             <p>{hero.gameTitle}</p>
             <p>{hero.serviceTitle}</p>
           </div>
-          <p className="mt-1 font-body text-xl text-white">{hero.rangeLabel}</p>
+          <p className="mt-1 font-body text-lg text-white">{hero.rangeLabel}</p>
         </div>
 
-        <div className="flex flex-1 items-center justify-center gap-6">
-          <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-1 items-center justify-center gap-4">
+          <div className="flex flex-col items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={hero.fromRank.src}
               alt={hero.fromRank.label}
-              className="h-[100px] w-[93px] object-contain drop-shadow-[0_4px_24px_rgba(164,168,167,0.4)]"
+              className="h-[85px] w-[79px] object-contain drop-shadow-[0_4px_24px_rgba(164,168,167,0.4)]"
             />
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -65,12 +65,12 @@ export function GameServiceHeroCard({ hero, statusSubLabel, className }: GameSer
             alt=""
             className="h-5 w-5 shrink-0 -rotate-90 -scale-y-100"
           />
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={hero.toRank.src}
               alt={hero.toRank.label}
-              className="h-[99px] w-[100px] object-contain drop-shadow-[0_4px_24px_rgba(196,135,245,0.4)]"
+              className="h-[85px] w-[85px] object-contain drop-shadow-[0_4px_24px_rgba(196,135,245,0.4)]"
             />
           </div>
         </div>

@@ -65,7 +65,7 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
   const view = isUnpaidOrder ? sampleUnpaidOrderView : sampleOrderView;
 
   const leftColumn = (
-    <div className="flex min-w-0 flex-1 flex-col gap-4 lg:gap-6">
+    <div className="flex min-w-0 flex-1 flex-col gap-4 lg:gap-4">
       <div
         className="flex items-center justify-between gap-4 overflow-hidden rounded-3xl px-4 py-4 lg:px-8 lg:py-6"
         style={{ background: "rgba(56,56,82,0.3)" }}
@@ -215,10 +215,10 @@ export default function CustomerOrderViewContent({ orderId: _orderId }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:gap-8">
+      <div className="flex flex-col gap-4 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:gap-6">
         {leftColumn}
         <aside className="hidden min-[1280px]:block min-[1280px]:w-[400px] min-[1280px]:shrink-0 min-[1620px]:w-[490px]">
-          <div className="sticky top-6 h-[calc(100vh-6rem)] max-h-[960px] min-h-[720px]">
+          <div className="sticky top-4 h-[calc(100vh-4rem)] max-h-[912px] min-h-[680px]">
             <OrderChatPanel view={view} />
           </div>
         </aside>

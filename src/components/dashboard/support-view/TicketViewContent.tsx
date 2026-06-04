@@ -25,7 +25,7 @@ function MobileMoreMenu() {
   }, [open]);
 
   return (
-    <div ref={menuRef} className="relative lg:hidden">
+    <div ref={menuRef} className="relative min-[1350px]:hidden">
       <button
         type="button"
         aria-label="More actions"
@@ -117,7 +117,7 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
         <MobileMoreMenu />
 
         {/* Desktop: full buttons */}
-        <div className="hidden gap-4 lg:flex">
+        <div className="hidden gap-4 min-[1350px]:flex">
           <button
             type="button"
             className="flex cursor-pointer items-center gap-4 rounded-3xl border border-transparent px-8 py-6 font-body text-xl font-bold text-white transition-all duration-200 hover:border-[#ff975d] hover:shadow-[0_0_16px_rgba(255,92,0,0.15)] active:scale-[0.97]"
@@ -142,8 +142,8 @@ function TicketHeader({ view }: { view: TicketViewModel }) {
 
 function MessageCard({ message }: { message: TicketMessage }) {
   return (
-    <div className="rounded-2xl bg-[#232330] p-3 lg:rounded-3xl lg:p-8">
-      <div className="flex flex-col gap-4">
+    <div className="rounded-2xl bg-[#232330] p-3 lg:rounded-3xl lg:p-5">
+      <div className="flex flex-col gap-3">
         <div className="flex items-center gap-4">
           <Image
             src={message.avatar}
@@ -244,7 +244,7 @@ function MessageInput({ onSend }: { onSend: (text: string) => void }) {
   };
 
   return (
-    <div className="rounded-3xl bg-[#232330] p-4 lg:p-6">
+    <div className="rounded-3xl bg-[#232330] p-3 lg:p-4">
       <div className="flex items-end gap-3 rounded-2xl bg-[#17191f] px-4 py-3">
         <div className="flex shrink-0 gap-1 pb-0.5">
           <button
@@ -376,7 +376,7 @@ export default function TicketViewContent({ ticketId: _ticketId }: Props) {
           ref={scrollRef}
           className="mt-6 min-h-0 flex-1 overflow-y-auto lg:mt-8"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {view.messages.map((msg) => (
               <MessageCard key={msg.id} message={msg} />
             ))}

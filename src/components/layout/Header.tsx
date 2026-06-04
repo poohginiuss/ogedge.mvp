@@ -490,7 +490,7 @@ export function Header() {
       {/* Mobile menu overlay */}
       {mobileMenuOpen && (
         <div
-          className="absolute left-0 top-full z-40 w-full border-t border-dark-border xl:hidden"
+          className="absolute right-0 top-full z-40 w-full border-t border-dark-border sm:w-[320px] sm:rounded-b-2xl sm:border-l xl:hidden"
           style={{
             background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(23,25,31,0.98) 100%)",
             backdropFilter: "blur(16px)",

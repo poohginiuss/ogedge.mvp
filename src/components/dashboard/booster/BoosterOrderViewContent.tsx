@@ -44,7 +44,7 @@ function SupportButton({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="group flex h-[72px] cursor-pointer items-center gap-4 rounded-2xl border border-transparent px-8 transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+      className="group flex h-[56px] cursor-pointer items-center gap-3 rounded-2xl border border-transparent px-6 transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
       style={{ background: "rgba(56,56,82,0.4)", backdropFilter: "blur(3px)" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -71,7 +71,7 @@ function StatusButton({ btn, size }: { btn: StatusButtonDef; size: "desktop" | "
       onMouseLeave={() => setHovered(false)}
       className={
         isDesktop
-          ? "flex h-[72px] items-center justify-center rounded-2xl px-6 font-body text-xl font-bold uppercase tracking-wide transition-all"
+          ? "flex h-[56px] items-center justify-center rounded-2xl px-5 font-body text-lg font-bold uppercase tracking-wide transition-all"
           : "flex h-12 flex-1 items-center justify-center rounded-2xl font-body text-base font-bold uppercase tracking-wide transition-all"
       }
       style={{
@@ -248,7 +248,7 @@ export default function BoosterOrderViewContent({ orderId: _orderId }: Props) {
   };
 
   const leftColumn = (
-    <div className="flex min-w-0 flex-1 flex-col gap-4 lg:gap-6">
+    <div className="flex min-w-0 flex-1 flex-col gap-4 lg:gap-4">
       {/* Completion Time + Status Action Buttons — same row */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex shrink-0 flex-col text-white">
@@ -318,10 +318,10 @@ export default function BoosterOrderViewContent({ orderId: _orderId }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:gap-8">
+      <div className="flex flex-col gap-4 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:gap-6">
         {leftColumn}
         <aside className="hidden min-[1280px]:block min-[1280px]:w-[400px] min-[1280px]:shrink-0 min-[1620px]:w-[490px]">
-          <div className="sticky top-6 h-[calc(100vh-6rem)] max-h-[960px] min-h-[720px]">
+          <div className="sticky top-4 h-[calc(100vh-4rem)] max-h-[912px] min-h-[680px]">
             <OrderChatPanel view={view} role="booster" />
           </div>
         </aside>

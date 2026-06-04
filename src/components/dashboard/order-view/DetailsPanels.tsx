@@ -14,7 +14,7 @@ function PanelShell({
 }) {
   return (
     <div
-      className="flex h-full flex-1 flex-col gap-4 rounded-3xl p-6 lg:p-8"
+      className="flex h-full flex-1 flex-col gap-3 rounded-3xl p-5 lg:p-6"
       style={{
         background:
           "linear-gradient(167.87deg, rgba(56,56,82,0.2) 0%, rgba(43,45,77,0.2) 50%, rgba(13,15,21,0.2) 100%)",
@@ -23,11 +23,11 @@ function PanelShell({
       <div className="flex items-center gap-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={icon} alt="" className="h-6 w-6" />
-        <h3 className="font-body text-base font-semibold leading-none" style={{ color: "#ff975d" }}>
+        <h3 className="font-body text-sm font-semibold leading-none" style={{ color: "#ff975d" }}>
           {title}
         </h3>
       </div>
-      <div className="flex flex-col gap-2">{children}</div>
+      <div className="flex flex-col gap-1.5">{children}</div>
     </div>
   );
 }
@@ -49,7 +49,7 @@ function DetailRow({
         align === "center" ? "min-h-[30px] items-center" : "items-start py-1.5"
       } ${striped ? "bg-black/20" : ""}`}
     >
-      <span className="shrink-0 font-body text-base font-normal text-white/80">{label}</span>
+      <span className="shrink-0 font-body text-sm font-normal text-white/80">{label}</span>
       <div className="flex min-w-0 items-center gap-2 text-right">{children}</div>
     </div>
   );
@@ -133,7 +133,7 @@ export function OrderDetailsPanel({ rows }: { rows: OrderDetailRow[] }) {
       {rows.map((row, idx) => (
         <DetailRow key={row.label} label={row.label} striped={idx % 2 === 1}>
           <span
-            className="font-body text-base font-semibold"
+            className="font-body text-sm font-semibold"
             style={{ color: row.valueColor ?? "#ffffff" }}
           >
             {row.value}
@@ -184,7 +184,7 @@ export function AccountDetailsPanel({
                   setEditing(null);
                 }
               }}
-              className="min-w-0 max-w-[180px] rounded-md bg-black/30 px-2 py-1 text-right font-body text-base font-semibold text-white outline-none ring-1 ring-[#383852] focus:ring-brand-light"
+              className="min-w-0 max-w-[180px] rounded-md bg-black/30 px-2 py-1 text-right font-body text-sm font-semibold text-white outline-none ring-1 ring-[#383852] focus:ring-brand-light"
             />
           ) : row.masked ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -194,7 +194,7 @@ export function AccountDetailsPanel({
               className="h-4 w-[80px]"
             />
           ) : (
-            <span className="font-body text-base font-semibold text-white">
+            <span className="font-body text-sm font-semibold text-white">
               {values[row.label] ?? row.value}
             </span>
           )}
@@ -233,17 +233,17 @@ export function AccountDetailsPanel({
  */
 export function DescriptionPanel({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-3xl bg-dark-surface p-6 lg:p-8">
+    <div className="rounded-3xl bg-dark-surface px-5 py-3 lg:px-6 lg:py-4">
       <div className="flex items-start gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/dashboard/orderview/icons/info-orange.svg"
           alt=""
-          className="mt-1 h-5 w-5 shrink-0"
+          className="mt-0.5 h-5 w-5 shrink-0"
         />
-        <div className="flex flex-col gap-2">
-          <h3 className="font-body text-base font-semibold text-white lg:text-lg">{title}</h3>
-          <p className="font-body text-sm leading-6 text-white/70 lg:text-base">{body}</p>
+        <div className="flex flex-col gap-1">
+          <h3 className="font-body text-sm font-semibold text-white lg:text-base">{title}</h3>
+          <p className="font-body text-xs leading-5 text-white/70 lg:text-sm">{body}</p>
         </div>
       </div>
     </div>

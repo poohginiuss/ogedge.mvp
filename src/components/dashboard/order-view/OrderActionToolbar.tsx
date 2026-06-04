@@ -23,11 +23,11 @@ function ToolbarButton({
     <button
       type="button"
       onClick={onClick}
-      className="group flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-3 rounded-3xl border border-transparent px-6 transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
+      className="group flex h-[56px] flex-1 cursor-pointer items-center justify-center gap-3 rounded-2xl border border-transparent px-5 transition-all hover:border-[#ff975d] hover:text-[#ff975d] hover:shadow-[0_4px_34px_rgba(255,92,0,0.3)] active:scale-[0.97]"
       style={{ background: "rgba(56,56,82,0.4)", backdropFilter: "blur(3px)" }}
     >
-      <Image src={icon} alt="" width={28} height={28} className="h-7 w-7 shrink-0 transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
-      <span className="whitespace-nowrap font-body text-xl font-semibold text-white transition-colors group-hover:text-[#ff975d]">{label}</span>
+      <Image src={icon} alt="" width={24} height={24} className="h-6 w-6 shrink-0 transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
+      <span className="whitespace-nowrap font-body text-lg font-semibold text-white transition-colors group-hover:text-[#ff975d]">{label}</span>
     </button>
   );
 }
@@ -94,11 +94,11 @@ export function OrderActionToolbar({
           className="flex-1"
           style={{
             display: "flex",
-            height: 72,
-            padding: "0 24px",
-            borderRadius: 16,
+            height: 56,
+            padding: "0 20px",
+            borderRadius: 12,
             whiteSpace: "nowrap",
-            fontSize: 20,
+            fontSize: 18,
           }}
         >
           Purchase Boost

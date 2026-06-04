@@ -360,29 +360,29 @@ export function ActionMenuButton({ items }: { items: ActionMenuItem[] }) {
 
       {open && (
         <div
-          className="absolute right-0 top-[calc(100%+6px)] z-50 min-w-[240px] overflow-hidden rounded-2xl"
+          className="absolute right-0 top-[calc(100%+6px)] z-50 min-w-[240px] overflow-hidden rounded-2xl border border-dark-border shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
           style={{
-            background: "linear-gradient(-54deg, #17191f 0%, #383852 100%)",
-            border: "1px solid #383852",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+            background: "linear-gradient(-43deg, #17191f, #2a2a40)",
           }}
         >
-          {items.map((item) => (
-            <button
-              key={item.label}
-              type="button"
-              onClick={() => {
-                item.onClick?.();
-                setOpen(false);
-              }}
-              className="group flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-all hover:text-[#ff975d] active:scale-[0.97]"
-            >
-              {item.icon && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={item.icon} alt="" className="h-6 w-6 shrink-0 transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
-              )}
-              <span className="font-body text-base font-medium text-white transition-colors group-hover:text-[#ff975d]">{item.label}</span>
-            </button>
+          {items.map((item, idx) => (
+            <div key={item.label}>
+              {idx > 0 && <div className="mx-3 h-px bg-dark-border" />}
+              <button
+                type="button"
+                onClick={() => {
+                  item.onClick?.();
+                  setOpen(false);
+                }}
+                className="group flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-all hover:text-[#ff975d] active:scale-[0.97]"
+              >
+                {item.icon && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={item.icon} alt="" className="h-6 w-6 shrink-0 transition-all group-hover:[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(92%)_saturate(600%)_hue-rotate(340deg)_brightness(100%)_contrast(100%)]" />
+                )}
+                <span className="font-body text-base font-medium text-white transition-colors group-hover:text-[#ff975d]">{item.label}</span>
+              </button>
+            </div>
           ))}
         </div>
       )}
