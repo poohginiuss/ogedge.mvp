@@ -16,7 +16,7 @@ export function ClaimOrderPopup({ isOpen, onClose, onClaim }: ClaimOrderPopupPro
       onClose={onClose}
       paddingClassName="p-5 lg:px-8 lg:py-[60px]"
     >
-      <div className="flex flex-col items-center gap-1 lg:gap-5">
+      <div className="flex flex-col items-center gap-1 lg:gap-8">
         <h2 className="max-w-[489px] text-center font-heading text-2xl font-medium text-white lg:text-[28px]">
           Are you sure you want to claim this order?
         </h2>

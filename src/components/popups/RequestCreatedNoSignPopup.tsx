@@ -23,7 +23,7 @@ export function RequestCreatedNoSignPopup({
 }: RequestCreatedNoSignPopupProps) {
   return (
     <PopupOverlay isOpen={isOpen} onClose={onClose} paddingClassName="px-5 py-5 lg:px-8 lg:py-[60px]">
-      <div className="flex flex-col items-center gap-5 lg:gap-6">
+      <div className="flex flex-col items-center gap-5 lg:gap-8">
         <SuccessBadge />
 
         <div className="flex flex-col items-center gap-1">
