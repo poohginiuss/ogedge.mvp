@@ -18,7 +18,7 @@ export function PopupOverlay({
   children,
   maxWidth = "max-w-[450px] lg:max-w-[650px]",
   maxHeightClassName = "max-h-[94vh]",
-  paddingClassName = "p-5 lg:p-8",
+  paddingClassName = "p-5 lg:px-8 lg:py-10",
 }: PopupOverlayProps) {
   useEffect(() => {
     if (isOpen) {
