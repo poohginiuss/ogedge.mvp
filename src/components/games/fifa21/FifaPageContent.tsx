@@ -3,6 +3,7 @@
 import { BoostPerWinImage } from "@/components/calculator/forms/BoostPerWinImage";
 import { CalculatorPageShell } from "@/components/calculator/CalculatorPageShell";
 import { CurrencySliderCalculator } from "@/components/calculator/forms/CurrencySliderCalculator";
+import { PlayerCardCalculator } from "@/components/calculator/forms/PlayerCardCalculator";
 import { RankBoostingImage } from "@/components/calculator/forms/RankBoostingImage";
 import { TabbedCardSelectorCalculator } from "@/components/calculator/forms/TabbedCardSelectorCalculator";
 import { OrderSummary } from "@/components/calculator/shared/OrderSummary";
@@ -30,6 +31,9 @@ import {
   fifaRankCategories,
   fifaVolumeDiscountTiers,
   platformOptions,
+  playerCardBenefits,
+  playerCardRequirements,
+  playerCardTabs,
   queueOptions,
   requirements,
   serverOptions,
@@ -61,6 +65,10 @@ export function FifaPageContent() {
   const [winDivision, setWinDivision] = useState("1");
   const [wins, setWins] = useState(3);
 
+  /* ── Player Card state ── */
+  const [playerCardTab, setPlayerCardTab] = useState(playerCardTabs[0]?.id ?? "objectives");
+  const [selectedPlayerCards, setSelectedPlayerCards] = useState<string[]>([]);
+
   /* ── Shared state ── */
   const [platform, setPlatform] = useState("PlayStation");
   const [server, setServer] = useState("Europe");
@@ -70,6 +78,7 @@ export function FifaPageContent() {
   const isCoins = category === "coins";
   const isCamo = category === "camo";
   const isWin = category === "win";
+  const isPlayerCard = category === "playercard";
 
   /* ── Summary rows ── */
   let summaryTitle = "Rank Boost";
@@ -113,6 +122,16 @@ export function FifaPageContent() {
       { label: "Items Selected", value: String(selectedItems.length) },
       { label: "Platform", value: platformLabel },
     ];
+  } else if (isPlayerCard) {
+    summaryTitle = "Player Card";
+    const allPlayerCards = playerCardTabs.flatMap((t) => t.cards);
+    const selectedItems = allPlayerCards.filter((c) => selectedPlayerCards.includes(c.id));
+    numericSubtotal = selectedItems.reduce((sum, c) => sum + c.price, 0);
+    totalAmount = `$${numericSubtotal.toFixed(2)}`;
+    summaryRows = [
+      { label: "Items Selected", value: String(selectedItems.length) },
+      { label: "Platform", value: platformLabel },
+    ];
   } else if (isWin) {
     summaryTitle = "Boost per Win";
     numericSubtotal = wins * 25;
@@ -146,7 +165,30 @@ export function FifaPageContent() {
   ];
 
   let form: React.ReactNode;
-  if (isCoins) {
+  if (isPlayerCard) {
+    form = (
+      <PlayerCardCalculator
+        title="Configure Order"
+        subtitle="Select option"
+        tabs={playerCardTabs}
+        activeTab={playerCardTab}
+        onTabChange={setPlayerCardTab}
+        selectedCardIds={selectedPlayerCards}
+        onToggleCard={(id) =>
+          setSelectedPlayerCards((prev) =>
+            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+          )
+        }
+        onRemoveCard={(id) => setSelectedPlayerCards((prev) => prev.filter((x) => x !== id))}
+        onRemoveAll={() => setSelectedPlayerCards([])}
+        platformOptions={platformOptions}
+        platform={platform}
+        setPlatform={setPlatform}
+        requirements={playerCardRequirements}
+        benefits={playerCardBenefits}
+      />
+    );
+  } else if (isCoins) {
     form = (
       <CurrencySliderCalculator
         title="Currency"

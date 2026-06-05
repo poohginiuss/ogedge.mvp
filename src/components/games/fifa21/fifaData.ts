@@ -28,6 +28,7 @@ export const fifaCategories: CategoryOption[] = [
   { id: "win", icon: "/images/icons/services/crown.svg", label: "Boost per Win with Image" },
   { id: "camo", icon: "/images/icons/services/safety-outlined.svg", label: "Camo Boost" },
   { id: "coins", icon: "/images/icons/services/cash.svg", label: "Coins Boost" },
+  { id: "playercard", icon: "/images/icons/services/crown.svg", label: "Player Card" },
 ];
 
 export const platformOptions = [
@@ -257,6 +258,129 @@ export const camoRequirements = [
 ];
 
 export const camoBenefits = [
+  "3 Placement Wins on your account.",
+  "Progression towards your final placement division.",
+  "A detailed match history with performance overview.",
+  "Optional match replays upon request.",
+];
+
+/* ── Player Card Calculator data ──────────────────────────── */
+
+import type { PlayerCardTab } from "@/components/calculator/forms/PlayerCardCalculator";
+
+export const playerCardTabs: PlayerCardTab[] = [
+  {
+    id: "objectives",
+    label: "Objectives 1",
+    cards: [
+      {
+        id: "obj-leviathan",
+        name: "Leviathan",
+        description: "Base camo — all standard categories",
+        price: 12.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "obj-leviathan-gold",
+        name: "Leviathan Gold",
+        description: "Gold tier — 100 headshots required",
+        price: 24.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "obj-leviathan-platinum",
+        name: "Leviathan Platinum",
+        description: "Platinum — Gold on all in category",
+        price: 39.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "obj-leviathan-diamond",
+        name: "Leviathan Diamond",
+        description: "Diamond — Platinum all categories",
+        price: 24.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+    ],
+  },
+  {
+    id: "items",
+    label: "Items",
+    cards: [
+      {
+        id: "pc-ronaldo",
+        name: "Cristiano Ronaldo",
+        description: "ST — 97 OVR — TOTY Edition",
+        price: 49.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "pc-messi",
+        name: "Lionel Messi",
+        description: "RW — 98 OVR — TOTY Edition",
+        price: 54.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "pc-mbappe",
+        name: "Kylian Mbappé",
+        description: "ST — 96 OVR — Future Stars",
+        price: 39.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "pc-haaland",
+        name: "Erling Haaland",
+        description: "ST — 95 OVR — Headliners",
+        price: 34.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "pc-vinicius",
+        name: "Vinícius Jr.",
+        description: "LW — 94 OVR — POTM",
+        price: 29.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "pc-bellingham",
+        name: "Jude Bellingham",
+        description: "CM — 93 OVR — Showdown",
+        price: 27.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+    ],
+  },
+  {
+    id: "bundles",
+    label: "Bundles",
+    cards: [
+      {
+        id: "bundle-ultimate-squad",
+        name: "Ultimate Squad Bundle",
+        description: "5 TOTY players + 500K coins",
+        price: 199.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+      {
+        id: "bundle-starter-pack",
+        name: "Starter Pack Bundle",
+        description: "3 meta players + formation setup",
+        price: 89.99,
+        image: "/images/player-cards/player-placeholder.png",
+      },
+    ],
+  },
+];
+
+export const playerCardRequirements = [
+  "An eligible account (e.g., Level 30 with placement matches available).",
+  "Accurate regional server (EUW, NA, etc.).",
+  "Correct account credentials (provided at checkout).",
+  "Account free of active penalties or restrictions.",
+];
+
+export const playerCardBenefits = [
   "3 Placement Wins on your account.",
   "Progression towards your final placement division.",
   "A detailed match history with performance overview.",
