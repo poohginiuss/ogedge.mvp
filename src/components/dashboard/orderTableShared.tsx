@@ -199,15 +199,15 @@ export function ViewLink({ orderId }: { orderId: string }) {
 
 export function ChatIcon({ active }: { active?: boolean }) {
   return (
-    <span className="relative inline-flex">
+    <span className="relative inline-flex size-6 shrink-0">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/dashboard/orderview/icons/chat-bubble.svg"
         alt="Chat"
-        className="h-6 w-6"
+        className="size-6"
       />
       {active && (
-        <span className="absolute -top-0.5 -right-0.5 size-3 animate-pulse rounded-full bg-[#ff975d]" />
+        <span className="absolute -right-0.5 -top-0.5 size-3 animate-pulse rounded-full bg-[#ff975d]" />
       )}
     </span>
   );

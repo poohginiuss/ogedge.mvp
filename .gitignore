@@ -14,7 +14,7 @@
 /pnpm-lock.yaml
 /bun.lockb
 /.feedback
-
+/.playwright-mcp
 #old projects
 /old-project
 

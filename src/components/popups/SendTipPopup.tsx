@@ -40,8 +40,8 @@ export function SendTipPopup({
   const displayAmount = isCustom ? Number(customAmount) || 0 : selectedAmount;
 
   return (
-    <PopupOverlay isOpen={isOpen} onClose={onClose} maxWidth="max-w-[450px] lg:max-w-[585px]" maxHeightClassName="max-h-[80vh] lg:max-h-[94vh]">
-      <div className="flex flex-col gap-5 lg:gap-5">
+    <PopupOverlay isOpen={isOpen} onClose={onClose} maxWidth="max-w-[450px] lg:max-w-[585px]" maxHeightClassName="max-h-[80vh] lg:max-h-[94vh]" paddingClassName="p-5 lg:px-8 lg:py-5 [@media_(min-width:1500px)]:py-10">
+      <div className="flex flex-col gap-5 lg:gap-3 [@media_(min-width:1500px)]:gap-5">
         <div className="flex items-center gap-3">
           <Image
             src="/images/popups/booster-avatar.png"

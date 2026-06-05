@@ -6,7 +6,7 @@ import type { MouseEvent, FocusEvent } from "react";
 
 export function InfoBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl bg-[#232330] p-4 lg:rounded-2xl lg:bg-[#1a1a2e] lg:px-5 lg:py-3 lg:ring-1 lg:ring-[#383852]/50">
+    <div className="flex items-start gap-3 rounded-xl bg-[#232330] p-4 lg:rounded-2xl lg:bg-[#1a1a2e] lg:px-4 lg:py-2 lg:ring-1 lg:ring-[#383852]/50 [@media_(min-width:1500px)]:px-5 [@media_(min-width:1500px)]:py-3">
       <Image
         src="/images/popups/info-icon.svg"
         alt=""
@@ -52,7 +52,7 @@ export function AmountOption({ label, selected, onClick }: AmountOptionProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex h-[50px] cursor-pointer items-center justify-center rounded-xl border font-body text-base font-bold transition-all hover:border-[#ff975d] active:scale-[0.97] ${
+      className={`relative flex h-[50px] cursor-pointer items-center justify-center rounded-xl border font-body text-base font-bold transition-all hover:border-[#ff975d] active:scale-[0.97] lg:h-[38px] [@media_(min-width:1500px)]:h-[50px] ${
         selected
           ? "border-[#ff975d] text-[#ff975d] drop-shadow-[0px_4px_7px_rgba(255,92,0,0.3)]"
           : "border-[#383852] bg-[rgba(0,0,0,0.2)] text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)]"
@@ -102,7 +102,7 @@ export function CustomAmountInput({
       }}
       onFocus={onFocus}
       placeholder={placeholder}
-      className="col-span-2 h-[50px] rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 text-center font-body text-base font-bold text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)] outline-none placeholder:text-white/50 focus:border-[#ff975d]"
+      className="col-span-2 h-[50px] rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.2)] px-4 text-center font-body text-base font-bold text-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.15)] outline-none placeholder:text-white/50 focus:border-[#ff975d] lg:h-[38px] [@media_(min-width:1500px)]:h-[50px]"
     />
   );
 }
@@ -175,7 +175,7 @@ export function PaymentMethodSection({
   onSelect: (method: PaymentMethod) => void;
 }) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2.5 [@media_(min-width:1500px)]:gap-3">
       <div className="flex items-center gap-2">
         <Image
           src="/images/popups/payment-icon.svg"
@@ -196,7 +196,7 @@ export function PaymentMethodSection({
               key={method.id}
               type="button"
               onClick={() => onSelect(method.id)}
-              className={`flex cursor-pointer flex-row items-center gap-3 rounded-xl border bg-[rgba(0,0,0,0.2)] px-3 py-3 transition-all hover:border-[#ff975d] active:scale-[0.98] lg:h-[100px] lg:flex-1 lg:flex-col lg:gap-3 lg:rounded-2xl lg:px-4 lg:py-5 ${
+              className={`flex cursor-pointer flex-row items-center gap-3 rounded-xl border bg-[rgba(0,0,0,0.2)] px-3 py-3 transition-all hover:border-[#ff975d] active:scale-[0.98] lg:h-[88px] lg:flex-1 lg:flex-col lg:gap-2 lg:rounded-2xl lg:px-4 lg:py-3 [@media_(min-width:1500px)]:h-[100px] [@media_(min-width:1500px)]:gap-3 [@media_(min-width:1500px)]:py-5 ${
                 isActive ? "border-[#ff975d]" : "border-[#383852]"
               }`}
             >
@@ -272,7 +272,7 @@ export function PopupTextarea({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`h-[56px] w-full resize-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d] lg:h-[80px] lg:rounded-2xl lg:p-4 ${className ?? ""}`}
+        className={`h-[56px] w-full resize-none rounded-xl border border-[#383852] bg-[rgba(0,0,0,0.7)] p-3 font-body text-sm text-white/80 outline-none placeholder:text-white/80 focus:border-[#ff975d] lg:h-[48px] lg:rounded-2xl lg:p-3 [@media_(min-width:1500px)]:h-[80px] [@media_(min-width:1500px)]:p-4 ${className ?? ""}`}
       />
     </div>
   );
@@ -280,7 +280,7 @@ export function PopupTextarea({
 
 export function TotalAmountRow({ amount }: { amount: string }) {
   return (
-    <div className="flex items-center justify-between rounded-xl bg-[rgba(0,0,0,0.2)] p-4">
+    <div className="flex items-center justify-between rounded-xl bg-[rgba(0,0,0,0.2)] p-4 lg:p-3 [@media_(min-width:1500px)]:p-4">
       <span className="font-body text-sm text-white/80">Total Amount</span>
       <span className="font-body text-lg font-semibold text-[#ff975d]">
         {amount}
@@ -323,7 +323,7 @@ function PopupButton({
       onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`inline-flex cursor-pointer items-center justify-center rounded-2xl px-5 py-3 font-body text-base font-bold uppercase tracking-[0.32px] transition-all duration-200 focus:outline-none active:scale-[0.97] disabled:opacity-40 lg:px-8 lg:py-4.5 ${className}`}
+      className={`inline-flex cursor-pointer items-center justify-center rounded-2xl px-5 py-3 font-body text-base font-bold uppercase tracking-[0.32px] transition-all duration-200 focus:outline-none active:scale-[0.97] disabled:opacity-40 lg:px-6 lg:py-3 [@media_(min-width:1500px)]:px-8 [@media_(min-width:1500px)]:py-4.5 ${className}`}
       style={{
         background: isPrimary ? undefined : bg,
         backgroundImage: isPrimary ? bg : undefined,
@@ -387,7 +387,7 @@ export function OutlineButton({
 }
 
 export function ActionButtonsRow({ children }: { children: React.ReactNode }) {
-  return <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4">{children}</div>;
+  return <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-3 [@media_(min-width:1500px)]:gap-4">{children}</div>;
 }
 
 export function FormField({

@@ -34,6 +34,8 @@
 }
 
 @theme inline {
+  --breakpoint-desktop: 1500px;
+
   --color-background: var(--dark-main);
   --color-foreground: #ffffff;
 
@@ -193,6 +195,29 @@ body {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1499px) {
+  .popup-laptop-compact {
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+  .popup-laptop-compact-content {
+    gap: 0.5rem !important;
+  }
+  .popup-laptop-compact-content .grid > button,
+  .popup-laptop-compact-content .grid > input {
+    height: 42px !important;
+  }
+  .popup-laptop-compact-content textarea {
+    height: 56px !important;
+  }
+  .popup-laptop-compact-content .flex-col.gap-2\.5 > button,
+  .popup-laptop-compact-content .lg\:flex-row > button {
+    height: 80px !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
   }
 }
 
